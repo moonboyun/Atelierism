@@ -27,7 +27,7 @@
   border: none;
   border-bottom: 1px solid #9a9a9a;
   width: 75%;
-  font-size: 15px;
+  font-size: 20px;
 }
 .login-button {
   margin-top: 80px;
@@ -72,34 +72,35 @@
   margin: 0 auto;
   margin-bottom: 30px;
   display: flex;
+  justify-content: center;
 }
 .join-wrap .input-wrap > .input-title {
   width: 20%;
   text-align: center;
-  border: 1px solid #f5f3f0;
   background-color: #f5f3f0;
   margin-right: 30px;
+  height: 50px;
 }
 .join-wrap .input-wrap > .input-item {
-  width: 70%;
-  padding-top: 15px;
+  width: 60%;
+  padding-top: 10px;
 }
-.join-wrap .input-wrap > .checkId {
+.join-wrap .input-wrap > .input-item > .checkId {
   border: 1px solid #8aa996;
   border-radius: 15px;
-  width: 110px;
   background-color: #8aa996;
   color: #fff;
   font-size: 20px;
 }
-.join-wrap .input-wrap > button {
+.join-wrap .input-wrap > .input-item > button {
   margin: 0 auto;
   border: 1px solid #8aa996;
   border-radius: 15px;
-  width: 140px;
   background-color: #8aa996;
   color: #fff;
   font-size: 20px;
+  margin-left: 30px;
+  padding: 15px;
 }
 .join-button {
   text-align: center;
