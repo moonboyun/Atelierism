@@ -27,7 +27,7 @@
   border: none;
   border-bottom: 1px solid #9a9a9a;
   width: 75%;
-  font-size: 15px;
+  font-size: 20px;
 }
 .login-button {
   margin-top: 80px;
@@ -72,34 +72,35 @@
   margin: 0 auto;
   margin-bottom: 30px;
   display: flex;
+  justify-content: center;
 }
 .join-wrap .input-wrap > .input-title {
   width: 20%;
   text-align: center;
-  border: 1px solid #f5f3f0;
   background-color: #f5f3f0;
   margin-right: 30px;
+  height: 50px;
 }
 .join-wrap .input-wrap > .input-item {
-  width: 70%;
-  padding-top: 15px;
+  width: 60%;
+  padding-top: 10px;
 }
-.join-wrap .input-wrap > .checkId {
+.join-wrap .input-wrap > .input-item > .checkId {
   border: 1px solid #8aa996;
   border-radius: 15px;
-  width: 110px;
   background-color: #8aa996;
   color: #fff;
   font-size: 20px;
 }
-.join-wrap .input-wrap > button {
+.join-wrap .input-wrap > .input-item > button {
   margin: 0 auto;
   border: 1px solid #8aa996;
   border-radius: 15px;
-  width: 140px;
   background-color: #8aa996;
   color: #fff;
   font-size: 20px;
+  margin-left: 30px;
+  padding: 15px;
 }
 .join-button {
   text-align: center;
@@ -115,4 +116,65 @@
   width: 20%;
   margin-top: 40px;
   margin-bottom: 50px;
+}
+
+.agree-wrap {
+  width: 1440px;
+  margin: 0 auto;
+}
+.agree-wrap .box-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.agree-content-wrap {
+  margin: 0 auto;
+  width: 800px;
+}
+.agree-content-wrap > .box-title > div:first-child {
+  float: left;
+  margin-right: 5px;
+}
+.necessary {
+  color: red;
+}
+.agree-content-wrap > .content {
+  border: 1px solid black;
+  margin-bottom: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  height: 300px;
+}
+.check-box {
+  margin-bottom: 50px;
+  text-align: right;
+  display: flex;
+  justify-content: right;
+}
+.check-box > div {
+  text-align: right;
+  float: left;
+}
+.button-zone {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.button-zone > button {
+  width: 30%;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 20px;
+  height: 50px;
+  border-radius: 15px;
+  border: none;
+}
+.button-zone > button:last-child {
+  background-color: #8aa996;
+}
+.button-zone > button > a {
+  text-decoration: none;
+  color: #000;
+}
+.button-zone > button > a:hover {
+  color: blue;
+  text-decoration: underline;
 }

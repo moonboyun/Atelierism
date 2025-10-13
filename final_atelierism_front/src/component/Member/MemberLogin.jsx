@@ -38,7 +38,7 @@ const MemberLogin = () => {
           </button>
         </div>
         <div className="member-link-box">
-          <Link to="/member/join">회원가입</Link>
+          <Link to="/member/agree">회원가입</Link>
           <Link to="#">아이디/비밀번호 찾기</Link>
         </div>
       </form>
