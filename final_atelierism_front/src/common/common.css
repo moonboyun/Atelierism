@@ -1,0 +1,22 @@
+.header {
+  width: 1920px;
+  margin: 0 auto;
+  text-align: center;
+  height: 140px;
+  background-color: #9a9a9a;
+}
+.header > h1 {
+  padding: 0px;
+  margin: 0px;
+}
+.footer {
+  width: 1920px;
+  margin: 0 auto;
+  text-align: center;
+  height: 140px;
+  background-color: #9a9a9a;
+}
+.footer > h1 {
+  margin: 0px;
+  padding: 0px;
+}
