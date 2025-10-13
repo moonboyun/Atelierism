@@ -1,3 +1,30 @@
+:root {
+  /*main color*/
+  --main1: #8aa996;
+  --main2: #c2a68c;
+  --main3: #e6d8c3;
+  --main4: #f5f3f0;
+  /*gray*/
+  --gray1: #404040;
+  --gray2: #565656;
+  --gray3: #737373;
+  --gray4: #9a9a9a;
+  --gray5: #c0c0c0;
+  --gray6: #d7d7d7;
+  /*성공 실패*/
+  --success: #78e0bf;
+  --fail: #f67272;
+  /*btn:hover*/
+  --btnHover: #5b8f6e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  list-style-type: none;
+  color: var(--gray1);
+}
 .header {
   width: 1920px;
   margin: 0 auto;
