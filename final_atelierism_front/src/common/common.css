@@ -48,7 +48,7 @@ body {
   width: 100%;
   margin: 0 auto;
   background-color: #fff;
-  border-bottom: 1px solid var(--main1);
+  border-bottom: 2px solid var(--main1);
   position: sticky;
   top: 0;
   z-index: 1;
@@ -66,8 +66,39 @@ body {
 }
 .logo > a {
   font-family: logo;
-  font-size: 45px;
+  font-size: 50px;
   color: var(--main1);
+}
+.nav {
+  flex: 1;
+}
+.nav > ul {
+  display: flex;
+  align-items: center;
+}
+.nav > ul > li {
+  margin: 0px 18px;
+  position: relative;
+}
+.nav a,
+.user-menu a {
+  transition-duration: 0.3s;
+  font-size: 18px;
+}
+.nav a:hover,
+.user-menu a:hover {
+  color: var(--main2);
+}
+.nav .sub-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid var(--main1);
+  left: 10px;
+  z-index: 1;
+}
+.nav > ul > li:hover > .sub-menu {
+  display: block;
 }
 .footer {
   width: 1920px;
