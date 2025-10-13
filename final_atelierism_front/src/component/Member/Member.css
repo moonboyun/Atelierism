@@ -1,0 +1,118 @@
+.login-wrap {
+  width: 600px;
+  margin: 0 auto;
+  min-height: 500px;
+}
+.page-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+.login-wrap .input-wrap {
+  margin-top: 30px;
+  margin-bottom: 70px;
+}
+
+.input-title {
+  float: left;
+  margin-right: 20px;
+  width: 20%;
+  font-size: 30px;
+  font-weight: bold;
+}
+.input-item > input {
+  padding-top: 15px;
+  border: none;
+  border-bottom: 1px solid #9a9a9a;
+  width: 75%;
+  font-size: 15px;
+}
+.login-button {
+  margin-top: 80px;
+  text-align: center;
+}
+.login-button > button {
+  width: 50%;
+  background-color: #8aa996;
+  color: #fff;
+  border: 1px solid #8aa996;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.member-link-box {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10px;
+  padding-bottom: 100px;
+}
+.member-link-box > a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+.member-link-box > a:first-child {
+  padding-right: 90px;
+}
+.member-link-box > a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.join-wrap {
+  width: 1440px;
+  margin: 0 auto;
+}
+.join-wrap .input-wrap {
+  padding: 10px 30px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  display: flex;
+}
+.join-wrap .input-wrap > .input-title {
+  width: 20%;
+  text-align: center;
+  border: 1px solid #f5f3f0;
+  background-color: #f5f3f0;
+  margin-right: 30px;
+}
+.join-wrap .input-wrap > .input-item {
+  width: 70%;
+  padding-top: 15px;
+}
+.join-wrap .input-wrap > .checkId {
+  border: 1px solid #8aa996;
+  border-radius: 15px;
+  width: 110px;
+  background-color: #8aa996;
+  color: #fff;
+  font-size: 20px;
+}
+.join-wrap .input-wrap > button {
+  margin: 0 auto;
+  border: 1px solid #8aa996;
+  border-radius: 15px;
+  width: 140px;
+  background-color: #8aa996;
+  color: #fff;
+  font-size: 20px;
+}
+.join-button {
+  text-align: center;
+  margin: 0 auto;
+}
+.join-button > button {
+  background-color: #8aa996;
+  color: #fff;
+  border: 1px solid #8aa996;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 24px;
+  width: 20%;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
