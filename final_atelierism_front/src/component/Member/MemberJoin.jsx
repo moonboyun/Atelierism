@@ -8,10 +8,10 @@ const MemberJoin = () => {
         </div>
         <div className="input-item">
           <input type="text" id="memberId" name="memberId"></input>
+          <button type="button" className="checkId">
+            중복체크
+          </button>
         </div>
-        <button type="button" className="checkId">
-          중복체크
-        </button>
       </div>
       <div className="input-wrap">
         <div className="input-title">
@@ -59,8 +59,8 @@ const MemberJoin = () => {
         </div>
         <div className="input-item">
           <input type="text" id="memberEmail" name="memberEmail"></input>
+          <button type="button">인증코드 전송</button>
         </div>
-        <button type="button">인증코드 전송</button>
       </div>
       <div className="input-wrap">
         <div className="input-title">
@@ -68,8 +68,8 @@ const MemberJoin = () => {
         </div>
         <div className="input-item">
           <input type="text" id="memberAddr" name="memberAddr"></input>
+          <button className="button">우편번호 조회</button>
         </div>
-        <button className="button">우편번호 조회</button>
       </div>
       <div className="join-button">
         <button type="submit" className="btn-primary lg">
