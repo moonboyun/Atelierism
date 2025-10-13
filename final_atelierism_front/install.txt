@@ -7,3 +7,15 @@ npm install react-router-dom
 npm install axios
 -확인: (다운 받고 본인 이름 적기)
 -----------------------------------------------------------------
+2025-10-13  10:02 문보윤
+
+npm install react-router-dom
+npm install axios
+npm install sweetalert2
+npm install recoil
+npm install recoil-persist
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material @mui/material @emotion/styled
+npm install react-quill
+npm install quill-image-resize-module-react
+확인: 
