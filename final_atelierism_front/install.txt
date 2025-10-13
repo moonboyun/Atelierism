@@ -18,4 +18,4 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material @mui/material @emotion/styled
 npm install react-quill
 npm install quill-image-resize-module-react
-확인: 
+확인: 조성빈
