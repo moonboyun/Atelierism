@@ -1,9 +1,14 @@
+import { Link } from "react-router-dom";
 import "./common.css";
 const Header = () => {
   return (
-    <div className="header">
-      <h1>임시 헤더</h1>
-    </div>
+    <header className="header">
+      <div>
+        <div className="logo">
+          <Link to="/">Atelierism</Link>
+        </div>
+      </div>
+    </header>
   );
 };
 

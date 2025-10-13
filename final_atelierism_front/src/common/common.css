@@ -17,24 +17,57 @@
   /*btn:hover*/
   --btnHover: #5b8f6e;
 }
-
+@font-face {
+  font-family: pr;
+  src: url(/font/PretendardVariable.ttf);
+}
+@font-face {
+  font-family: logo;
+  src: url(/font/Butler_Bold.otf);
+}
 * {
   margin: 0;
   padding: 0;
   outline: 0;
+  font-family: pr;
   list-style-type: none;
   color: var(--gray1);
 }
-.header {
-  width: 1920px;
-  margin: 0 auto;
-  text-align: center;
-  height: 140px;
-  background-color: #9a9a9a;
+a {
+  text-decoration: none;
 }
-.header > h1 {
-  padding: 0px;
-  margin: 0px;
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 800px;
+  position: relative;
+  background-color: #fff;
+}
+.header {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-bottom: 1px solid var(--main1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.header > div {
+  padding: 10px;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  margin-left: 300px;
+  margin-right: 40px;
+}
+.logo > a {
+  font-family: logo;
+  font-size: 45px;
+  color: var(--main1);
 }
 .footer {
   width: 1920px;
