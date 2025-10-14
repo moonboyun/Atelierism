@@ -6,6 +6,7 @@ import "./component/Member/member.css";
 import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/Member/Agreement";
+import Applicantdetail from "./component/admin/Applicantdetail";
 import MemberInfo from "./component/Member/memberInfo";
 import MemberUpdate from "./component/Member/MemberUpdate";
 import Payment from "./component/Member/Payment";
@@ -21,6 +22,7 @@ function App() {
         <Route path="member/join" element={<MemberJoin />} />
         <Route path="member/update" element={<MemberUpdate />} />
         <Route path="member/payment" element={<Payment />} />
+        <Route path="admin/detail" element={<Applicantdetail />} />
         <Route path="member/mypage" element={<MemberInfo />} />
       </Routes>
       <Footer />
