@@ -5,7 +5,9 @@ const MemberInfo = () => {
   return (
     <div className="mypage-wrap">
       <div className="page-title">마이페이지</div>
-      <SideMenu />
+      <section className="side-menu">
+        <SideMenu />
+      </section>
       <form>
         <table className="mypage-tbl">
           <tbody>
