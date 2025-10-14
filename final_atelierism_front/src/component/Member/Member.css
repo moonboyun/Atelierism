@@ -185,6 +185,10 @@
 .mypage-wrap {
   width: 1440px;
   margin: 0 auto;
+  overflow: hidden;
+}
+.side-menu {
+  float: left;
 }
 .mypage-tbl {
   width: 60%;
@@ -280,10 +284,34 @@
 .payment-wrap {
   width: 1440px;
   margin: 0 auto;
+  overflow: hidden;
+  margin-bottom: 50px;
 }
 .payment-content-wrap {
-  width: 70%;
-}
-.payment-content-wrap > tr > th > img {
   width: 100%;
+  margin: 0 auto;
+  float: left;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 30%;
+  margin: 0 auto;
+  flex-direction: column;
+  margin-left: 60px;
+}
+.content > .img > img {
+  width: 80%;
+}
+.payment-info > p {
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 17px;
+}
+.payment-info > p:first-child {
+  width: 80%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
 }
