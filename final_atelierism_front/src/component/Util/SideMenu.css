@@ -1,0 +1,49 @@
+/*------------------side-menu > image-box----------------------------*/
+.side-menu > .image-box {
+  border: 1px solid var(--gray3);
+  width: 210px;
+  height: 190px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.text-box {
+  margin-top: 5px;
+}
+.text-box > span {
+  font-size: 22px;
+  margin-right: 10px;
+}
+/*-------------------------menu-list-----------------------------*/
+.side-menu > .menu-list {
+  margin-top: 20px;
+  width: 210px;
+  border: 1px solid var(--gray3);
+  border-radius: 10px;
+}
+.side-menu > .menu-list > li {
+  font-size: 20px;
+  padding: 20px;
+  border-top: 1px solid var(--gray3);
+  display: flex;
+  justify-content: space-between;
+}
+.side-menu > .menu-list > li:first-child {
+  border: none;
+}
+.side-menu > .menu-list > li:hover {
+  cursor: pointer;
+}
+/* 여기도 완성 후 풀어주시면 됩니다
+.menu-list .click > span {
+  color: var(--main1);
+}
+.menu-list .click > svg {
+  fill: var(--main1);
+}
+*/
+/*----------------------side-menu-------------------------------*/

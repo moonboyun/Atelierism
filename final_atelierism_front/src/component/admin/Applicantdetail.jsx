@@ -1,4 +1,5 @@
-import "../public/image";
+import SideMenu from "../Util/SideMenu";
+
 const userData = {
   userName: "홍길동",
   userCareer: 6,
@@ -40,6 +41,13 @@ const awardDetails = [
   { awardDate: "2018.02", awardName: "레전드한 대회 은상" },
   { awardDate: "2020.10", awardName: "일단 그냥 대회 입상" },
 ];
-const Applicantdetail = () => {};
+const Applicantdetail = () => {
+  return (
+    <div className="detailAllWrap">
+      <SideMenu />
+      <div></div>
+    </div>
+  );
+};
 
 export default Applicantdetail;
