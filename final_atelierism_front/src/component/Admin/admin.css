@@ -1,0 +1,11 @@
+/*--------------------detail-content-wrap-----------------------*/
+.detail-content-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+/*---------------------side-menu-section-----------------------*/
+.detail-content-wrap > section:first-child {
+  margin-right: 30px;
+}
