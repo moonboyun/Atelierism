@@ -7,6 +7,8 @@ import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/Member/Agreement";
 import MemberInfo from "./component/Member/memberInfo";
+import MemberUpdate from "./component/Member/MemberUpdate";
+import Payment from "./component/Member/Payment";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="member/login" element={<MemberLogin />} />
         <Route path="member/agree" element={<Agreement />} />
         <Route path="member/join" element={<MemberJoin />} />
+        <Route path="member/update" element={<MemberUpdate />} />
+        <Route path="member/payment" element={<Payment />} />
         <Route path="member/mypage" element={<MemberInfo />} />
       </Routes>
       <Footer />
