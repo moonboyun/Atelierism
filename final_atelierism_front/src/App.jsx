@@ -11,18 +11,15 @@ import MemberInfo from "./component/Member/memberInfo";
 import MemberUpdate from "./component/Member/MemberUpdate";
 import Payment from "./component/Member/Payment";
 import RecoverId from "./component/Member/RecoverId";
-import ReviewWriter from "../../../test_finail_project/atelierism_front/src/component/board/ReviewWriter";
-import BoardReview from "../../../test_finail_project/atelierism_front/src/component/board/BoardReview";
-import BoardInquiry from "../../../test_finail_project/atelierism_front/src/component/board/BoardInquiry";
-import BoardDesigner from "../../../test_finail_project/atelierism_front/src/component/board/BoardDesigner";
-import {
-  loginIdState,
-  memberTypeState,
-} from "../../../test_finail_project/atelierism_front/src/component/utils/RecoilData";
+import ReviewWriter from "./component/board/ReviewWriter";
+import BoardReview from "./component/board/BoardReview";
+import BoardInquiry from "./component/board/BoardInquiry";
+import BoardDesigner from "./component/board/BoardDesigner";
+import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
-  const [memberId, setMemberId] = useRecoilState(loginIdState);
-  const [memberType, setMembertype] = useRecoilState(memberTypeState);
+  //const [memberId, setMemberId] = useRecoilState(loginIdState);
+  //const [memberType, setMembertype] = useRecoilState(memberTypeState);
   return (
     <div className="wrap">
       <Header />

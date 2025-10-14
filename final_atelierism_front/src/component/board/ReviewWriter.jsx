@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReviewFrm from "./ReviewFrm";
-import TextEditor from "../utils/TextEditor";
+//import TextEditor from "../utils/TextEditor";
 import "./board.css";
 
 const ReviewWriter = () => {

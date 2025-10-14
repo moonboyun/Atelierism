@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { loginIdState } from "../utils/RecoilData";
+//import { loginIdState } from "../utils/RecoilData";
 
 const ReviewFrm = (props) => {
   // 상위(ReviewWriter)에서 내려준 상태/세터 꺼내기
