@@ -10,6 +10,7 @@ import Applicantdetail from "./component/admin/Applicantdetail";
 import MemberInfo from "./component/Member/memberInfo";
 import MemberUpdate from "./component/Member/MemberUpdate";
 import Payment from "./component/Member/Payment";
+import RecoverId from "./component/Member/RecoverId";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="member/login" element={<MemberLogin />} />
         <Route path="member/agree" element={<Agreement />} />
         <Route path="member/join" element={<MemberJoin />} />
+        <Route path="member/recoverId" element={<RecoverId />} />
         <Route path="member/update" element={<MemberUpdate />} />
         <Route path="member/payment" element={<Payment />} />
         <Route path="admin/detail" element={<Applicantdetail />} />
