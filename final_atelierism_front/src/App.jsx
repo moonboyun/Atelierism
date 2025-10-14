@@ -11,22 +11,38 @@ import MemberInfo from "./component/Member/memberInfo";
 import MemberUpdate from "./component/Member/MemberUpdate";
 import Payment from "./component/Member/Payment";
 import RecoverId from "./component/Member/RecoverId";
+import ReviewWriter from "../../../test_finail_project/atelierism_front/src/component/board/ReviewWriter";
+import BoardReview from "../../../test_finail_project/atelierism_front/src/component/board/BoardReview";
+import BoardInquiry from "../../../test_finail_project/atelierism_front/src/component/board/BoardInquiry";
+import BoardDesigner from "../../../test_finail_project/atelierism_front/src/component/board/BoardDesigner";
+import {
+  loginIdState,
+  memberTypeState,
+} from "../../../test_finail_project/atelierism_front/src/component/utils/RecoilData";
 
 function App() {
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [memberType, setMembertype] = useRecoilState(memberTypeState);
   return (
     <div className="wrap">
       <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="member/login" element={<MemberLogin />} />
-        <Route path="member/agree" element={<Agreement />} />
-        <Route path="member/join" element={<MemberJoin />} />
-        <Route path="member/recoverId" element={<RecoverId />} />
-        <Route path="member/update" element={<MemberUpdate />} />
-        <Route path="member/payment" element={<Payment />} />
-        <Route path="admin/detail" element={<Applicantdetail />} />
-        <Route path="member/mypage" element={<MemberInfo />} />
-      </Routes>
+      <main className="content">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="member/login" element={<MemberLogin />} />
+          <Route path="member/agree" element={<Agreement />} />
+          <Route path="member/join" element={<MemberJoin />} />
+          <Route path="member/recoverId" element={<RecoverId />} />
+          <Route path="member/update" element={<MemberUpdate />} />
+          <Route path="member/payment" element={<Payment />} />
+          <Route path="admin/detail" element={<Applicantdetail />} />
+          <Route path="member/mypage" element={<MemberInfo />} />
+          <Route path="/board/review/writer" element={<ReviewWriter />} />
+          <Route path="/board/review" element={<BoardReview />} />
+          <Route path="/board/inquiry" element={<BoardInquiry />} />
+          <Route path="/board/designer" element={<BoardDesigner />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );
