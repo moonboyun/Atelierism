@@ -299,15 +299,16 @@
   width: 30%;
   margin: 0 auto;
   flex-direction: column;
-  margin-left: 60px;
 }
 .content > .img > img {
   width: 80%;
+  margin-left: 50px;
 }
 .payment-info > p {
   font-weight: 600;
   margin-bottom: 20px;
   font-size: 17px;
+  margin-left: 50px;
 }
 .payment-info > p:first-child {
   width: 80%;
