@@ -179,3 +179,48 @@
   color: blue;
   text-decoration: underline;
 }
+
+.mypage-wrap {
+  width: 1440px;
+  margin: 0 auto;
+}
+.mypage-tbl {
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.mypage-tbl > tbody > tr > th {
+  padding-bottom: 30px;
+  border: 10px solid #fff;
+  background-color: #f5f3f0;
+  width: 20%;
+  padding: 20px;
+  margin-right: 30px;
+}
+.mypage-tbl > tbody > tr > td {
+  border: 10px solid #fff;
+}
+.mypage-tbl input {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 55px;
+  font-size: 22px;
+  border-bottom: 1px solid #8aa996;
+}
+.secession-btn {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.secession-btn > button {
+  background-color: #c0c0c0;
+  border: 1px solid #c0c0c0;
+  width: 150px;
+  height: 40px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.secession-btn > button > a {
+  color: #fff;
+}
