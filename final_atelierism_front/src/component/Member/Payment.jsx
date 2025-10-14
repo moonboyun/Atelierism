@@ -1,42 +1,53 @@
+import SideMenu from "../Util/SideMenu";
+
 const Payment = () => {
   return (
     <section className="payment-wrap">
       <div className="page-title">결제 내역</div>
-      <table className="page-content-wrap">
-        <tr>
-          <th>
+      <div className="payment-content-wrap">
+        <section className="side-menu">
+          <SideMenu />
+        </section>
+        <div className="content">
+          <div className="img">
             <img src="/image/default_img2.png" />
-          </th>
-          <th>거실 인테리어</th>
-          <td>가격 : </td>
-          <td>디자이너 이름 : </td>
-          <td>인테리어 이유 : </td>
-          <td>프로필 링크 : </td>
-          <td>결제일 : </td>
-        </tr>
-        <tr>
-          <th>
+          </div>
+          <div className="payment-info">
+            <p>거실 인테리어</p>
+            <p>가격 : </p>
+            <p>디자이너 이름 : </p>
+            <p>인테리어 이유 : </p>
+            <p>프로필 링크 : </p>
+            <p>결제일 : </p>
+          </div>
+        </div>
+        <div className="content">
+          <div className="img">
             <img src="/image/default_img2.png" />
-          </th>
-          <th>거실 인테리어</th>
-          <td>가격 : </td>
-          <td>디자이너 이름 : </td>
-          <td>인테리어 이유 : </td>
-          <td>프로필 링크 : </td>
-          <td>결제일 : </td>
-        </tr>
-        <tr>
-          <th>
+          </div>
+          <div className="payment-info">
+            <p>거실 인테리어</p>
+            <p>가격 : </p>
+            <p>디자이너 이름 : </p>
+            <p>인테리어 이유 : </p>
+            <p>프로필 링크 : </p>
+            <p>결제일 : </p>
+          </div>
+        </div>
+        <div className="content">
+          <div className="img">
             <img src="/image/default_img2.png" />
-          </th>
-          <th>거실 인테리어</th>
-          <td>가격 : </td>
-          <td>디자이너 이름 : </td>
-          <td>인테리어 이유 : </td>
-          <td>프로필 링크 : </td>
-          <td>결제일 : </td>
-        </tr>
-      </table>
+          </div>
+          <div className="payment-info">
+            <p>거실 인테리어</p>
+            <p>가격 : </p>
+            <p>디자이너 이름 : </p>
+            <p>인테리어 이유 : </p>
+            <p>프로필 링크 : </p>
+            <p>결제일 : </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
