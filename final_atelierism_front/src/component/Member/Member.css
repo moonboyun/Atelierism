@@ -7,17 +7,15 @@
   text-align: center;
   font-weight: bold;
   font-size: 30px;
-  margin-top: 50px;
-  margin-bottom: 80px;
 }
 .login-wrap .input-wrap {
   margin-top: 30px;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
 }
 
 .input-title {
   float: left;
-  margin-right: 20px;
+  margin-right: 10px;
   width: 20%;
   font-size: 30px;
   font-weight: bold;
@@ -56,7 +54,10 @@
   cursor: pointer;
 }
 .member-link-box > a:first-child {
-  padding-right: 90px;
+  padding-right: 70px;
+}
+.member-link-box > a:last-child {
+  padding-left: 10px;
 }
 .member-link-box > a:hover {
   color: blue;
@@ -64,23 +65,27 @@
 }
 
 .join-wrap {
-  width: 1440px;
+  width: 1240px;
   margin: 0 auto;
 }
 .join-wrap .input-wrap {
   padding: 10px 30px;
   margin: 0 auto;
-  margin-bottom: 30px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .join-wrap .input-wrap > .input-title {
   width: 20%;
+  font-size: 20px;
   text-align: center;
   background-color: #f5f3f0;
   margin-right: 30px;
-  height: 50px;
   padding-top: 10px;
+  line-height: 55px;
+}
+.input-title > label {
+  font-weight: 600;
 }
 .join-wrap .input-wrap > .input-item {
   width: 60%;
@@ -315,4 +320,17 @@
   text-align: center;
   font-weight: bold;
   font-size: 20px;
+}
+
+.recover-wrap {
+  width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.recover-wrap .input-wrap {
+  width: 70%;
+  margin: 0 auto;
+}
+.recover-wrap .input-wrap > .input-title {
+  margin-bottom: 30px;
 }
