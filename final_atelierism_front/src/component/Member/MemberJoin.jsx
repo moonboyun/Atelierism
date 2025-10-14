@@ -7,7 +7,7 @@ const MemberJoin = () => {
           <label htmlFor="memberId">아이디</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberId" name="memberId"></input>
+          <input type="text" id="memberId" name="memberId" required></input>
           <button type="button" className="checkId">
             중복체크
           </button>
@@ -18,7 +18,7 @@ const MemberJoin = () => {
           <label htmlFor="memberPw">비밀번호</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberPw" name="memberPw"></input>
+          <input type="text" id="memberPw" name="memberPw" required></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -26,7 +26,7 @@ const MemberJoin = () => {
           <label htmlFor="memberPwRe">비밀번호 확인</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberPwRe" name="memberPwRe"></input>
+          <input type="text" id="memberPwRe" name="memberPwRe" required></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -34,7 +34,7 @@ const MemberJoin = () => {
           <label htmlFor="memberName">이름</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberName" name="memberName"></input>
+          <input type="text" id="memberName" name="memberName" required></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -42,7 +42,7 @@ const MemberJoin = () => {
           <label htmlFor="memberAge">나이</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberAge" name="memberAge"></input>
+          <input type="text" id="memberAge" name="memberAge" required></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -50,7 +50,12 @@ const MemberJoin = () => {
           <label htmlFor="memberPhone">전화번호</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberPhone" name="memberPhone"></input>
+          <input
+            type="text"
+            id="memberPhone"
+            name="memberPhone"
+            required
+          ></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -58,7 +63,12 @@ const MemberJoin = () => {
           <label htmlFor="memberEmail">이메일</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberEmail" name="memberEmail"></input>
+          <input
+            type="text"
+            id="memberEmail"
+            name="memberEmail"
+            required
+          ></input>
           <button type="button">인증코드 전송</button>
         </div>
       </div>
@@ -67,7 +77,7 @@ const MemberJoin = () => {
           <label htmlFor="memberAddr">주소</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberAddr" name="memberAddr"></input>
+          <input type="text" id="memberAddr" name="memberAddr" required></input>
           <button className="button">우편번호 조회</button>
         </div>
       </div>

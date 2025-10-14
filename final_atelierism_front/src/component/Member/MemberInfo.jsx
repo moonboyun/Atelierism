@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import SideMenu from "../Util/SideMenu";
 
 const MemberInfo = () => {
   return (
     <div className="mypage-wrap">
       <div className="page-title">마이페이지</div>
-
+      <section className="side-menu">
+        <SideMenu />
+      </section>
       <form>
         <table className="mypage-tbl">
           <tbody>
