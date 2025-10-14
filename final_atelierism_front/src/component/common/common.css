@@ -1,13 +1,104 @@
-.header {
-  width: 1920px;
-  margin: 0 auto;
-  text-align: center;
-  height: 140px;
-  background-color: #9a9a9a;
+:root {
+  /*main color*/
+  --main1: #8aa996;
+  --main2: #c2a68c;
+  --main3: #e6d8c3;
+  --main4: #f5f3f0;
+  /*gray*/
+  --gray1: #404040;
+  --gray2: #565656;
+  --gray3: #737373;
+  --gray4: #9a9a9a;
+  --gray5: #c0c0c0;
+  --gray6: #d7d7d7;
+  /*성공 실패*/
+  --success: #78e0bf;
+  --fail: #f67272;
+  /*btn:hover*/
+  --btnHover: #5b8f6e;
 }
-.header > h1 {
-  padding: 0px;
-  margin: 0px;
+@font-face {
+  font-family: pr;
+  src: url(/font/PretendardVariable.ttf);
+}
+@font-face {
+  font-family: logo;
+  src: url(/font/Butler_Bold.otf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-family: pr;
+  list-style-type: none;
+  color: var(--gray1);
+}
+a {
+  text-decoration: none;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 800px;
+  position: relative;
+  background-color: #fff;
+}
+.header {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-bottom: 2px solid var(--main1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.header > div {
+  padding: 10px;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  margin-left: 300px;
+  margin-right: 40px;
+}
+.logo > a {
+  font-family: logo;
+  font-size: 50px;
+  color: var(--main1);
+}
+.nav {
+  flex: 1;
+}
+.nav > ul {
+  display: flex;
+  align-items: center;
+}
+.nav > ul > li {
+  margin: 0px 18px;
+  position: relative;
+}
+.nav a,
+.user-menu a {
+  transition-duration: 0.3s;
+  font-size: 18px;
+}
+.nav a:hover,
+.user-menu a:hover {
+  color: var(--main2);
+}
+.nav .sub-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid var(--main1);
+  left: 10px;
+  z-index: 1;
+}
+.nav > ul > li:hover > .sub-menu {
+  display: block;
 }
 .footer {
   width: 1920px;
