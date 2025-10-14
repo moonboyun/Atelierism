@@ -104,10 +104,11 @@ body {
   border-top: 2px solid var(--main1);
   border-bottom: 1px solid var(--main1);
   z-index: 99;
-  padding-left: 570px;
 }
 
 .sub-menu ul {
+  width: 770px;
+  margin: 0 auto;
   display: flex;
   gap: 20px;
   padding: 10px 0;
@@ -211,5 +212,7 @@ section.section.bg-section {
   flex-shrink: 0;
 }
 .main-content {
+  width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
