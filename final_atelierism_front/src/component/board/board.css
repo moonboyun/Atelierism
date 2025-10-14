@@ -1,0 +1,466 @@
+/* boardReview.css */
+
+/* 배경이미지 css */
+.review-hero {
+  position: relative; /* 안의 absolute 요소들의 기준점 */
+  overflow: hidden; /* 넘치는 요소 가림(선택) */
+  margin-top: 0px;
+  display: flow-root; /* 마진 겹침 방지 */
+}
+
+.review-hero .hero-inner {
+  position: relative; /* absolute 자식의 기준이 될 컨테이너 */
+  width: 100%; /* 반응형 넓이 */
+  max-width: 1920px; /* 최대 폭 제한(선택) */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.review-hero .title-img {
+  display: block; /* 이미지 하단 여백 제거 */
+  width: 100%; /* 컨테이너 너비 채우기 */
+  height: auto; /* 비율 유지 */
+  object-fit: cover; /* 필요 시 잘라내며 채우기(이미지 비율 다를 때 유용) */
+}
+
+.review-hero .hero-title,
+.review-hero .hero-desc {
+  position: absolute; /* 이미지 위로 겹치기 위해 절대 배치 */
+  left: 50%; /* 가로 가운데 기준 */
+  transform: translateX(-50%); /* 정확히 가운데 정렬 */
+  color: #fff; /* 밝은 텍스트 색상(이미지 위에서 잘 보이게) */
+  text-align: center; /* 가운데 정렬 */
+  z-index: 2; /* 이미지보다 위에 오도록 */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* 가독성 향상 */
+  padding: 0 16px; /* 모바일에서 좌우 여백 */
+  max-width: 1000px; /* 텍스트 줄 길이 제한(가독성) */
+}
+
+.review-hero .hero-title {
+  top: 20%; /* 세로 위치(원하는 지점으로 조절) */
+  font-size: clamp(24px, 4vw, 48px); /* 반응형 폰트 크기 */
+  font-weight: 700;
+}
+
+.review-hero .hero-desc {
+  top: 40%;
+  font-size: clamp(14px, 1.6vw, 20px);
+  line-height: 1.6;
+}
+
+.review-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0; /* top/right/bottom/left: 0 */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.35)
+  ); /* 전체를 살짝 어둡게 */
+  z-index: 1; /* 텍스트(2)보다 아래, 이미지보다 위 */
+}
+
+.review-hero .hero-inner {
+  position: relative;
+  width: 100%; /* 화면 너비 기준 */
+  max-width: 1920px; /* 최대 1920으로 제한 */
+  height: 480px; /* 세로는 고정 480 */
+  margin: 0 auto;
+}
+
+.review-hero .title-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율 유지하며 박스 채우기 */
+}
+
+/*---------------------------------------------------------------------------- */
+/* 배너css */
+
+.review-banner .banner-inner {
+  width: 100%; /* 부모/화면 너비 기준 */
+  max-width: 1920px; /* 최대 1920 */
+  height: 150px; /* 세로 고정 */
+  margin: 0 auto; /* 가운데 배치 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 */
+  justify-content: center; /* 세로 중앙 */
+  text-align: center;
+  background: #8aa996;
+}
+
+.review-banner .banner-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ede0d4;
+}
+.review-banner .banner-sub {
+  margin-top: 8px;
+  font-size: 26px;
+  line-height: 1.6;
+  opacity: 0.9;
+  color: #fff;
+}
+
+.review-banner {
+  margin-bottom: 100px;
+}
+
+/*---------------------------------------------------------------------------- */
+/* Content.css */
+
+.board-review-page {
+  max-width: 1200px; /* 캡처처럼 좌우에 넉넉한 여백 */
+  margin: 0 auto;
+  padding: 0 16px 80px;
+}
+
+/* ===== 헤더(우측 정렬: 정렬 드롭다운 + 글 작성 버튼) ===== */
+.review-header {
+  margin: 8px 0 24px;
+}
+.review-header .right-tools {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end; /* 우측 정렬 */
+  align-items: center;
+}
+.sort-select {
+  appearance: none;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  position: relative;
+}
+/* 선택: 드롭다운 화살표 느낌(간단) */
+.sort-select {
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%),
+    linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position: right 12px top 55%, right 6px top 55%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* ===== 카드 그리드: 3열, 넉넉한 간격 ===== */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr)); /* 3열 */
+  gap: 56px 48px; /* 세로, 가로 간격 */
+  align-items: start;
+}
+
+/* ===== 카드 ===== */
+.review-card {
+  border: 1px solid #cfcfcf; /* 캡처 느낌의 얇은 테두리 */
+  background: #fff;
+  border-radius: 4px; /* 모서리 아주 살짝 */
+  overflow: hidden; /* 내부 둥근 모서리 유지 */
+}
+
+/* 썸네일(정사각, 이미지 꽉 차게) */
+.review-card .thumb {
+  aspect-ratio: 1 / 1; /* 정사각형 */
+  background: #f6f6f6; /* 이미지 없을 때 연회색 배경 */
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.review-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 꽉 채우되 비율 유지 */
+  display: block;
+}
+
+/* 메타 영역(하단 박스) */
+.review-card .card-meta {
+  padding: 14px 16px 18px;
+  background: #fff;
+}
+
+/* 제목(필요 시 숨기거나 작은 캡션처럼) — 캡처에선 ‘작성자’ 영역이 강조라 크지 않게 */
+.review-card .card-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #2b2b2b;
+  margin-bottom: 10px;
+}
+
+/* 하단 바: 작성자 가운데, 날짜 오른쪽(캡처 느낌) */
+.review-card .card-sub {
+  position: relative;
+  display: flex;
+  justify-content: center; /* 작성자를 가운데 */
+  align-items: center;
+  border-top: 1px solid #cfcfcf;
+  padding: 10px 0 12px;
+  margin-top: 8px;
+}
+
+.review-card .card-sub .author {
+  font-weight: 700; /* 작성자 강조 */
+}
+
+/* 가운데 점은 숨김(캡처엔 점 없음) */
+.review-card .card-sub .dot {
+  display: none;
+}
+
+/* 날짜를 오른쪽 끝에 고정 */
+.review-card .card-sub .date {
+  position: absolute;
+  right: 12px;
+  color: #444;
+  font-size: 12px;
+}
+
+/* ===== 페이징 ===== */
+.review-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* 버튼 사이 간격 */
+  padding: 36px 0 40px; /* 위아래 여백 */
+}
+
+/* 기본 버튼(숫자/화살표 공통) */
+.review-pagination .page-btn {
+  min-width: 36px; /* 정사각 느낌 */
+  height: 36px;
+  padding: 0 14px; /* 숫자 2자리 대비 */
+  border: 1px solid #dfe3e8;
+  background: #fff;
+  border-radius: 10px; /* 캡처처럼 둥근 사각 */
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* 호버 효과(활성 아닌 버튼) */
+.review-pagination .page-btn:not(.active):not(:disabled):hover {
+  background: #f7f9fb;
+  border-color: #c9d4dd;
+  transform: translateY(-1px);
+}
+
+/* 활성 페이지(초록 배경, 흰 글씨) */
+.review-pagination .page-btn.active {
+  background: #8aa996;
+  border-color: #8aa996;
+  color: #fff;
+}
+
+/* 비활성(이전/다음 못 갈 때) */
+.review-pagination .page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+/* 화살표 버튼은 테두리 연해 보이게(선택) */
+.review-pagination .page-btn:first-child,
+.review-pagination .page-btn:last-child {
+  border-color: #e7ebef;
+  font-size: 22px; /* « » 가독성 */
+  font-weight: 500;
+}
+
+/* 숫자 버튼만 살짝 더 굵게(선택) */
+.review-pagination .page-btn:not(:first-child):not(:last-child) {
+  font-weight: 700;
+}
+
+.review-header .btn-primary.sm {
+  font-size: 16px; /* 글자 키움 */
+  font-weight: 600;
+  padding: 10px 18px; /* 내부 여백 확장 */
+  height: 42px; /* 높이 통일 */
+  border-radius: 8px; /* 둥근 모서리 약간 키움 */
+  display: inline-flex; /* 세로 중앙정렬 위해 */
+  align-items: center;
+  justify-content: center;
+  line-height: 1; /* 라인 높이로 인한 들쭉날쭉 방지 */
+}
+
+/* 드롭다운과 높이 맞추고 싶으면 선택 (선택사항) */
+.sort-select {
+  height: 42px;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+}
+
+/*============================================================================================================= /*
+/* BoardWriter.css */
+
+.section.board-content-wrap {
+  width: 980px;
+  max-width: 100%;
+  margin: 0 auto; /* 가운데 정렬 */
+  padding: 0; /* 전역 section.padding 무효화 */
+  background: transparent; /* 전역 section 배경색 무효화 */
+  border-radius: 0; /* 필요 시 전역 라운드도 무효화 */
+}
+
+/* 페이지 타이틀 */
+.page-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin-bottom: 18px;
+}
+
+/* 카드 컨테이너(흰 박스) */
+.board-frm {
+  width: 980px;
+  margin: 0 auto; /* 가운데 */
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  padding: 28px 24px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+/* 상단 블록: 썸네일 + 우측 정보 */
+.review-top {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* 왼쪽 고정, 오른쪽 가변 */
+  column-gap: 24px;
+  align-items: start;
+}
+
+/* 업로더 박스 */
+.thumb-box {
+  width: 220px;
+  height: 220px;
+  border: 1px solid #d9dfe5;
+  border-radius: 6px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+/* 미리보기 이미지 */
+.thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 플레이스홀더 텍스트 */
+.thumb-placeholder {
+  font-size: 14px;
+  color: #7a8794;
+}
+
+/* ===정보 테이블(제목/작성자/한줄평)=== */
+.board-info-wrap .tbl {
+  width: 100%;
+  border-top: 1px solid #cfd6dd;
+  border-spacing: 0;
+}
+
+.board-info-wrap .tbl th,
+.board-info-wrap .tbl td {
+  border-bottom: 1px solid #e6e8eb;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.board-info-wrap .tbl th {
+  width: 30%;
+  background: #fafbfc; /* 아주 옅은 회색 배경 */
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* 입력 라인만 보이게 */
+.board-info-wrap .input-item input[type="text"] {
+  width: 100%;
+  font-size: 14px;
+  border: 0;
+  border-bottom: 1px solid #d9dfe5;
+  padding: 8px 2px;
+  outline: none;
+}
+.board-info-wrap .input-item input[type="text"]:focus {
+  border-bottom-color: #8aa996; /* 포커스 색상 */
+}
+
+/* 작성자 셀 */
+.board-info-wrap .writer {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* ===에디터 영역=== */
+.board-frm > .board-content-wrap {
+  margin-top: 24px;
+}
+
+.board-frm .ql-toolbar.ql-snow {
+  border: 1px solid #d9dfe5 !important;
+  border-radius: 6px 6px 0 0;
+  background: #fff;
+}
+.board-frm .ql-container.ql-snow {
+  border: 1px solid #d9dfe5 !important;
+  border-top: 0 !important;
+  border-radius: 0 0 6px 6px;
+  background: #fff;
+  min-height: 240px; /* 캡처 높이감 */
+}
+.board-frm .ql-editor {
+  min-height: 240px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ===버튼 영역=== */
+.button-zone {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.button-zone .btn-primary.lg {
+  background: #8aa996;
+  border: 1px solid #8aa996;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.button-zone .btn-primary.lg:hover {
+  background: #7f9b8a;
+  border-color: #7f9b8a;
+}
+
+.thumb-box {
+  height: 220px;
+}
+.board-info-wrap .tbl {
+  width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.board-info-wrap .tbl tr {
+  height: 73px;
+} /* ← 행 높이 고정 */
+.board-info-wrap .tbl th,
+.board-info-wrap .tbl td {
+  vertical-align: middle;
+} /* 가운데 정렬 */
