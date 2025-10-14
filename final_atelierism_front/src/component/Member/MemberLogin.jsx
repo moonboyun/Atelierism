@@ -39,7 +39,8 @@ const MemberLogin = () => {
         </div>
         <div className="member-link-box">
           <Link to="/member/agree">회원가입</Link>
-          <Link to="#">아이디/비밀번호 찾기</Link>
+          <Link to="/member/recoverId">아이디 찾기</Link>
+          <Link to="/member/recoverPw">비밀번호 찾기</Link>
         </div>
       </form>
     </section>
