@@ -18,11 +18,13 @@ const AdminMypage = () => {
               <h2>매출 현황</h2>
               <div className="chart-content">
                 <BarChart
-                  xAxis={[{ data: ["group A", "group B", "group C"] }]}
+                  xAxis={[{ data: ["1월", "2월", "3월", "4월", "5월", "6월"] }]}
                   series={[
-                    { data: [4, 3, 5] },
-                    { data: [1, 6, 3] },
-                    { data: [2, 5, 6] },
+                    {
+                      data: [
+                        4568147, 3217476, 1234769, 456234, 7856541, 2137411,
+                      ],
+                    },
                   ]}
                   height={300}
                 />
