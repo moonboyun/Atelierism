@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import "./member.css";
 const MemberJoin = () => {
   return (
     <section className="join-wrap">
@@ -132,7 +134,7 @@ const MemberJoin = () => {
       </div>
       <div className="join-button">
         <button type="submit" className="btn-primary lg">
-          회원가입
+          <Link to="/">회원가입</Link>
         </button>
       </div>
     </section>

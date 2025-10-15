@@ -21,8 +21,10 @@ npm install quill-image-resize-module-react
 
 확인 : 박준석, 조성빈
 ------------------------------------------
+2025-10-15 10:42 박준석
+npm install quill
+
 2025-10-15 16:07 문보윤
-
 npm install @mui/x-charts
+확인 : 조성빈
 
-확인 : 

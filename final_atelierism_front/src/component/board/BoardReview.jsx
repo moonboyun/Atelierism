@@ -83,15 +83,15 @@ const BoardReview = () => {
       <section className="section board-review-page">
         <div className="review-header">
           <div className="right-tools">
+            <Link to="/board/review/writer" className="btn-primary sm">
+              글 작성
+            </Link>
             <select className="sort-select" defaultValue="latest">
               {/* 기본값(최신순)으로 설정 */}
               <option value="latest">최신순</option>
               <option value="oldest">오래된순</option>
               <option value="popular">인기순</option>
             </select>
-            <Link to="/board/review/writer" className="btn-primary sm">
-              글 작성
-            </Link>
           </div>
         </div>
 

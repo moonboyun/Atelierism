@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import "./member.css";
 const MemberUpdate = () => {
   return (
     <div className="update-wrap">

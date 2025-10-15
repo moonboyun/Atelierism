@@ -297,6 +297,42 @@
   font-size: 14px;
 }
 
+/* 글 작성버튼 간격 수정 */
+.review-header .right-tools {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.review-header .right-tools .sort-select {
+  margin-left: auto; /* ⬅ 버튼은 왼쪽, 셀렉트는 맨 오른쪽 */
+}
+.review-header .right-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 첫 번째 자식은 왼쪽, 두 번째는 오른쪽 */
+  width: 100%;
+}
+
+/* 글 작성 버튼 디자인 */
+.board-review-page .review-header .right-tools .btn-primary.sm {
+  display: inline-flex; /* 텍스트 세로 중앙정렬 */
+  align-items: center;
+  justify-content: center;
+  width: 95px;
+  height: 42px;
+  padding: 0;
+  line-height: 1; /* 줄간격으로 높이 커지는 것 방지 */
+  font-size: 14px; /* 필요시 조절 */
+  border-radius: 6px; /* 필요시 조절 */
+  background-color: #7f9b8a;
+  color: #fff;
+}
+
+/* 글 작성, 최신순 위 아래 간격조절 */
+.board-review-page {
+  padding-top: 18px;
+}
+
 /*============================================================================================================= /*
 /* BoardWriter.css */
 
@@ -464,3 +500,41 @@
 .board-info-wrap .tbl td {
   vertical-align: middle;
 } /* 가운데 정렬 */
+
+/* 바깥 section(전역 스킨) 지우기 */
+.section.board-content-wrap {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* 이 페이지에서만 쓰는 타이틀 스타일 (전역 .page-title 보다 강하게) */
+.section.board-content-wrap .page-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+/* 취소하기 버튼 / 등록하기 버튼 디자인 */
+.button-zone {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+.button-zone .btn-primary.lg {
+  width: 100px;
+  box-sizing: border-box; /* 패딩/보더 포함해서 100px 유지 */
+  padding: 10px 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.button-zone .cancel {
+  margin-right: auto;
+}
+.button-zone a.btn-primary.lg {
+  text-decoration: none; /* 링크 밑줄 제거 */
+}

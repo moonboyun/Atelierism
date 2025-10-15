@@ -1,7 +1,8 @@
 import { useState } from "react";
 import ReviewFrm from "./ReviewFrm";
-//import TextEditor from "../utils/TextEditor";
+import TextEditor from "../utils/TextEditor";
 import "./board.css";
+import { Link } from "react-router-dom";
 
 const ReviewWriter = () => {
   const [boardTitle, setBoardTitle] = useState(""); // 제목
@@ -34,6 +35,9 @@ const ReviewWriter = () => {
         </div>
         {/* 하단: 버튼 영역 */}
         <div className="button-zone">
+          <Link to="/board/review" className="btn-primary lg cancel">
+            취소
+          </Link>
           <button
             type="button" // form submit 방지
             className="btn-primary lg" // 기본 스타일 클래스(프로젝트 CSS 사용)
