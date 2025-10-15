@@ -1,10 +1,10 @@
-import { ArrowForwardIos } from "@mui/icons-material";
+import { ArrowForwardIos, FavoriteBorder } from "@mui/icons-material";
 
 const Main = () => {
   return (
     <section className="section">
       <div className="slider">
-        <img src="/image/slider/main-photo.jpg" />
+        <img src="/image/slider/main-photo1.jpg" />
       </div>
       <div className="content">
         <div className="main-content">
@@ -67,18 +67,183 @@ const Main = () => {
               별도의 추가 비용 없이, 처음 안내해드린 금액 그대로 인테리어를
               완성해드립니다.
             </p>
-            <a>회사 소개 페이지로 →</a>
+            <a>
+              회사 소개 페이지로 <ArrowForwardIos className="arrow-icon" />
+            </a>
           </div>
-          <div className="desinger">
+
+          <div className="com-board">
             <div className="main-title">공간을 만드는 디자이너</div>
             <p>
               맞춤형 공간을 완성할 전문가들의 경력, 포트폴리오를 확인해보세요.
             </p>
-            <div className="designer-list">
-              <a>
-                전체보기
-                <ArrowForwardIos className="arrow-icon" />
-              </a>
+            <div className="com-board-list">
+              <div className="com-board-list-btn">
+                <a>
+                  전체보기
+                  <ArrowForwardIos className="arrow-icon" />
+                </a>
+              </div>
+              <div className="com-board-items">
+                <div className="com-board-item">
+                  <img src="/image/designer-default.jpg" />
+                  <div className="com-board-info">
+                    <div className="com-board-info-top">
+                      <p>이OO</p>
+                      <FavoriteBorder />
+                    </div>
+                    <p>
+                      편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
+                      디자이너 이OO입니다.
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/designer-default.jpg" />
+                  <div className="com-board-info">
+                    <div className="com-board-info-top">
+                      <p>이OO</p>
+                      <FavoriteBorder />
+                    </div>
+                    <p>
+                      편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
+                      디자이너 이OO입니다.
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/designer-default.jpg" />
+                  <div className="com-board-info">
+                    <div className="com-board-info-top">
+                      <p>이OO</p>
+                      <FavoriteBorder />
+                    </div>
+                    <p>
+                      편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
+                      디자이너 이OO입니다.
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/designer-default.jpg" />
+                  <div className="com-board-info">
+                    <div className="com-board-info-top">
+                      <p>이OO</p>
+                      <FavoriteBorder />
+                    </div>
+                    <p>
+                      편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
+                      디자이너 이OO입니다.
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/designer-default.jpg" />
+                  <div className="com-board-info">
+                    <div className="com-board-info-top">
+                      <p>이OO</p>
+                      <FavoriteBorder />
+                    </div>
+                    <p>
+                      편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
+                      디자이너 이OO입니다.
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/designer-default.jpg" />
+                  <div className="com-board-info">
+                    <div className="com-board-info-top">
+                      <p>이OO</p>
+                      <FavoriteBorder />
+                    </div>
+                    <p>
+                      편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
+                      디자이너 이OO입니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="com-img-banner-box">
+          <img src="/image/interior-banner.jpg" />
+        </div>
+        <div className="main-content">
+          <div className="com-board">
+            <div className="main-title">사용자 경험 스토리</div>
+            <p>실제 고객 경험을 기반으로 한 리뷰를 확인해보세요.</p>
+            <div className="com-board-list">
+              <div className="com-board-list-btn">
+                <a>
+                  전체보기
+                  <ArrowForwardIos className="arrow-icon" />
+                </a>
+              </div>
+              <div className="com-board-items">
+                <div className="com-board-item">
+                  <img src="/image/customer-default.jpg" />
+                  <div className="com-board-info">
+                    <p>이OO</p>
+                    <p>
+                      이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
+                      같아요!
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/customer-default.jpg" />
+                  <div className="com-board-info">
+                    <p>이OO</p>
+                    <p>
+                      이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
+                      같아요!
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/customer-default.jpg" />
+                  <div className="com-board-info">
+                    <p>이OO</p>
+                    <p>
+                      이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
+                      같아요!
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/customer-default.jpg" />
+                  <div className="com-board-info">
+                    <p>이OO</p>
+                    <p>
+                      이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
+                      같아요!
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/customer-default.jpg" />
+                  <div className="com-board-info">
+                    <p>이OO</p>
+                    <p>
+                      이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
+                      같아요!
+                    </p>
+                  </div>
+                </div>
+                <div className="com-board-item">
+                  <img src="/image/customer-default.jpg" />
+                  <div className="com-board-info">
+                    <p>이OO</p>
+                    <p>
+                      이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
+                      같아요!
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
