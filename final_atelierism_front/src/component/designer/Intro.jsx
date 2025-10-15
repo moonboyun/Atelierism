@@ -1,3 +1,5 @@
+import "./designer.css";
+
 const Intro = () => {
   return (
     <section className="content-wrap">

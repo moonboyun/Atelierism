@@ -20,7 +20,6 @@ import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
 //import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 import Intro from "./component/designer/intro";
-import "./component/designer/designer.css";
 // import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
