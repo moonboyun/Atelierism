@@ -1,0 +1,222 @@
+/*--------------------detail-content-wrap-----------------------*/
+.detail-content-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+}
+/*---------------------side-menu-section-----------------------*/
+.detail-content-wrap > section:first-child {
+  margin-right: 30px;
+}
+/*-----------------------profile-section-----------------------*/
+.detail-content-wrap > section:last-child {
+  width: 950px;
+}
+/*---------------------profile-title----------------------*/
+.title-header {
+  border-bottom: 2px solid var(--gray3);
+}
+.title-header > h1 {
+  margin-bottom: 10px;
+}
+/*----------------------detail-default----------------------*/
+/*.detail-default {
+  margin-top: 15px;
+}*/
+/*---------------------default-profile-wrap------------------------*/
+.default-profile-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+/*-------------------------default-profile-table-------------------------------*/
+.default-profile > table,
+.default-profile table th,
+.default-profile table td {
+  border: 1px solid #fff;
+  padding: 5px;
+}
+.default-profile > table th {
+  text-align: left;
+  font-size: 20px;
+}
+.default-profile > table td {
+  font-size: 18px;
+}
+.default-profile > table th > h3 {
+  text-align: left;
+}
+/*------------------------detail-edu------------------------*/
+.detail-edu {
+  border-top: 1px solid var(--gray3);
+}
+.detail-edu > table {
+  margin-top: 5px;
+  margin-left: 30px;
+  text-align: center;
+}
+.detail-edu > table th {
+  width: 120px;
+  font-size: 20px;
+}
+.detail-edu > table td {
+  font-size: 18px;
+}
+.detail-edu > table td:nth-child(2) {
+  width: 80px;
+}
+.detail-edu > table td:nth-child(3) {
+  width: 150px;
+}
+.detail-edu > table td:nth-child(4) {
+  width: 150px;
+}
+/*--------------------detail-career-----------------------*/
+.detail-career {
+  border-top: 1px solid var(--gray3);
+}
+.detail-career > table {
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.detail-career > table th {
+  width: 120px;
+  font-size: 20px;
+  padding: 5px;
+}
+.detail-career > table td {
+  font-size: 18px;
+  padding: 5px;
+}
+.detail-career > table > tr > td:nth-child(2) {
+  width: 170px;
+}
+.detail-career > table > tr > td:nth-child(3) {
+  width: 170px;
+}
+/*-----------------------detail-award--------------------------*/
+.detail-award {
+  border-top: 1px solid var(--gray3);
+}
+.detail-award > table {
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.detail-award > table th {
+  width: 120px;
+  font-size: 20px;
+  padding: 5px;
+}
+.detail-award > table td {
+  font-size: 18px;
+  padding: 5px;
+}
+.detail-award > table td:nth-child(2) {
+  width: 80px;
+}
+.detail-award > table td:nth-child(3) {
+  width: 250px;
+}
+/*------------------------detail-payment--------------------------*/
+.detail-payment {
+  border-top: 1px solid var(--gray3);
+}
+.detail-payment > table {
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.detail-payment > table th {
+  width: 120px;
+  font-size: 20px;
+  padding: 5px;
+}
+.detail-payment > table td {
+  font-size: 18px;
+  padding: 5px;
+}
+.detail-payment > table td:nth-child(2) {
+  width: 80px;
+}
+.detail-payment > table td:nth-child(3) {
+  width: 200px;
+}
+/*---------------------detail-portfolio-------------------*/
+.detail-portfolio {
+  border-top: 1px solid var(--gray3);
+}
+.detail-portfolio > table {
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.detail-portfolio > table th {
+  width: 120px;
+  font-size: 20px;
+  padding: 5px;
+}
+.detail-portfolio > table td {
+  width: 250px;
+  font-size: 18px;
+  padding: 5px;
+}
+/*-----------------------detail-kakao----------------------*/
+.detail-kakao {
+  border-top: 1px solid var(--gray3);
+  border-bottom: 2px solid var(--gray3);
+}
+.detail-kakao > table {
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.detail-kakao > table th {
+  font-size: 20px;
+  padding: 5px;
+}
+.detail-kakao > table td {
+  width: 210px;
+  font-size: 18px;
+  padding: 5px;
+}
+/*--------------------------button-place---------------------------*/
+.button-place {
+  margin-top: 40px;
+  width: 950;
+  text-align: center;
+}
+.button-place > button {
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+}
+.button-place > #cancel {
+  margin-right: 10px;
+  background-color: var(--gray5);
+  color: #fff;
+}
+.button-place > #enter {
+  margin-left: 10px;
+  background-color: var(--main1);
+  color: #fff;
+}
+.button-place > #cancel:hover {
+  cursor: pointer;
+  color: var(--gray2);
+}
+.button-place > #enter:hover {
+  cursor: pointer;
+  background-color: #a5bbad;
+}

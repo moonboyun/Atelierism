@@ -32,11 +32,7 @@ const Header = () => {
       </div>
 
       {showSubMenu && (
-        <div
-          className="sub-menu"
-          onMouseEnter={() => setShowSubMenu(true)}
-          onMouseLeave={() => setShowSubMenu(false)}
-        >
+        <div className="sub-menu">
           <ul>
             <li>
               <Link to="#">소개글</Link>
