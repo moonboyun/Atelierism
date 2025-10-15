@@ -8,7 +8,7 @@
   justify-content: center;
 }
 /*---------------------side-menu-section-----------------------*/
-.detail-content-wrap > section:first-child {
+section:first-child {
   margin-right: 30px;
 }
 /*-----------------------profile-section-----------------------*/
@@ -235,3 +235,14 @@
   cursor: pointer;
   background-color: var(--btnHover);
 }
+/*---------------------------------------------------------------------------*/
+/*------------------------------------AdminMypage---------------------------------------*/
+.admin-mypage-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+}
+/*----------------------------------------------------------------------*/
