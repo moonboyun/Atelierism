@@ -38,7 +38,7 @@ const Header = () => {
               <Link to="#">소개글</Link>
             </li>
             <li>
-              <Link to="#">디자이너 소개</Link>
+              <Link to="/designer/intro">디자이너 소개</Link>
             </li>
           </ul>
         </div>

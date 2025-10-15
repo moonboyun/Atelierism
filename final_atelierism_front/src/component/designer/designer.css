@@ -1,0 +1,27 @@
+.content-wrap {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+.intro-wrap {
+  width: 1400px;
+  height: 1200px;
+  background-color: beige;
+}
+.intro-box {
+  width: 400px;
+  height: 500px;
+  background-color: bisque;
+}
+.intro-box1 {
+  height: 400px;
+  background-color: blanchedalmond;
+}
+.intro-box2 {
+  height: 50px;
+  background-color: azure;
+}
+.intro-box3 {
+  height: 50px;
+  background-color: antiquewhite;
+}

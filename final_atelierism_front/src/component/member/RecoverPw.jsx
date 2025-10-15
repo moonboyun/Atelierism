@@ -1,34 +1,21 @@
 import { Link } from "react-router-dom";
 
-const RecoverId = () => {
+const RecoverPw = () => {
   return (
     <section className="recover-wrap">
-      <div className="page-title">아이디 찾기</div>
+      <div className="page-title">비밀번호 찾기</div>
       <form>
         <div className="input-wrap">
           <div className="input-title">
-            <label htmlFor="memberName">이름</label>
+            <label htmlFor="memberId">아이디</label>
           </div>
           <div className="input-item">
             <input
               type="text"
-              name="memberName"
-              id="memberName"
-              placeholder="이름을 입력하세요"
-            />
-          </div>
-        </div>
-        <div className="input-wrap">
-          <div className="input-title">
-            <label htmlFor="memberPhone">전화번호</label>
-          </div>
-          <div className="input-item">
-            <input
-              type="text"
-              name="memberPhone"
-              id="memberPhone"
-              placeholder="전화번호를 입력하세요"
-            />
+              id="memberId"
+              name="memberId"
+              placeholder="아이디를 입력해주세요"
+            ></input>
           </div>
         </div>
         <div className="input-wrap">
@@ -49,6 +36,32 @@ const RecoverId = () => {
             </div>
           </div>
         </div>
+        <div className="input-wrap">
+          <div className="input-title">
+            <label htmlFor="memberPw">새 비밀번호</label>
+          </div>
+          <div className="input-item">
+            <input
+              type="password"
+              id="memberPw"
+              name="memberPw"
+              placeholder="새 비밀번호를 입력해주세요"
+            ></input>
+          </div>
+        </div>
+        <div className="input-wrap">
+          <div className="input-title">
+            <label htmlFor="memberPwRe">새 비밀번호 확인</label>
+          </div>
+          <div className="input-item">
+            <input
+              type="password"
+              id="memberPwRe"
+              name="memberPwRe"
+              placeholder="새 비밀번호를 확인해주세요"
+            ></input>
+          </div>
+        </div>
         <div className="recovery-btn">
           <button type="submit">
             <Link to="/member/login">로그인 페이지로 이동</Link>
@@ -59,4 +72,4 @@ const RecoverId = () => {
   );
 };
 
-export default RecoverId;
+export default RecoverPw;
