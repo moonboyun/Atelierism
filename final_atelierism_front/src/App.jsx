@@ -15,11 +15,12 @@ import ReviewWriter from "./component/board/ReviewWriter";
 import BoardReview from "./component/board/BoardReview";
 import BoardInquiry from "./component/board/BoardInquiry";
 import BoardDesigner from "./component/board/BoardDesigner";
-import { loginIdState, memberTypeState } from "./component/util/RecoilData";
+import { loginIdState, memberTypeState } from "./component/utils/RecoilData";
+import { useRecoilState } from "recoil";
 
 function App() {
-  //const [memberId, setMemberId] = useRecoilState(loginIdState);
-  //const [memberType, setMembertype] = useRecoilState(memberTypeState);
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [memberType, setMembertype] = useRecoilState(memberTypeState);
   return (
     <div className="wrap">
       <Header />

@@ -21,7 +21,7 @@ const Header = () => {
               <Link to="#">작품보기</Link>
             </li>
             <li>
-              <Link to="#">고객후기</Link>
+              <Link to="/board/review">고객후기</Link>
             </li>
             <li>
               <Link to="#">서비스 안내</Link>
