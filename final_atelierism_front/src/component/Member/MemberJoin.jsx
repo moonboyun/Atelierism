@@ -7,7 +7,13 @@ const MemberJoin = () => {
           <label htmlFor="memberId">아이디</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberId" name="memberId" required></input>
+          <input
+            type="text"
+            id="memberId"
+            name="memberId"
+            placeholder="아이디를 입력해주세요"
+            required
+          ></input>
           <button type="button" className="checkId">
             중복체크
           </button>
@@ -18,7 +24,13 @@ const MemberJoin = () => {
           <label htmlFor="memberPw">비밀번호</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberPw" name="memberPw" required></input>
+          <input
+            type="text"
+            id="memberPw"
+            name="memberPw"
+            placeholder="비밀번호를 입력해주세요"
+            required
+          ></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -26,7 +38,13 @@ const MemberJoin = () => {
           <label htmlFor="memberPwRe">비밀번호 확인</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberPwRe" name="memberPwRe" required></input>
+          <input
+            type="text"
+            id="memberPwRe"
+            name="memberPwRe"
+            placeholder="비밀번호를 확인해주세요"
+            required
+          ></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -34,7 +52,13 @@ const MemberJoin = () => {
           <label htmlFor="memberName">이름</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberName" name="memberName" required></input>
+          <input
+            type="text"
+            id="memberName"
+            name="memberName"
+            placeholder="이름을 입력해주세요"
+            required
+          ></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -42,7 +66,13 @@ const MemberJoin = () => {
           <label htmlFor="memberAge">나이</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberAge" name="memberAge" required></input>
+          <input
+            type="text"
+            id="memberAge"
+            name="memberAge"
+            placeholder="나이를 입력해주세요"
+            required
+          ></input>
         </div>
       </div>
       <div className="input-wrap">
@@ -54,6 +84,7 @@ const MemberJoin = () => {
             type="text"
             id="memberPhone"
             name="memberPhone"
+            placeholder="전화번호를 입력해주세요"
             required
           ></input>
         </div>
@@ -67,9 +98,14 @@ const MemberJoin = () => {
             type="text"
             id="memberEmail"
             name="memberEmail"
+            placeholder="이메일을 입력해주세요"
             required
           ></input>
           <button type="button">인증코드 전송</button>
+          <div className="check-email">
+            <input type="text" placeholder="인증번호를 입력해주세요" />
+            <button type="button">인증하기</button>
+          </div>
         </div>
       </div>
       <div className="input-wrap">
@@ -77,8 +113,21 @@ const MemberJoin = () => {
           <label htmlFor="memberAddr">주소</label>
         </div>
         <div className="input-item">
-          <input type="text" id="memberAddr" name="memberAddr" required></input>
+          <input
+            type="text"
+            id="memberAddr"
+            name="memberAddr"
+            placeholder="주소를 입력해주세요"
+            required
+          ></input>
           <button className="button">우편번호 조회</button>
+          <input
+            type="text"
+            id="memberAddr"
+            name="memberAddrDetail"
+            placeholder="상세주소를 입력해주세요"
+            required
+          ></input>
         </div>
       </div>
       <div className="join-button">
