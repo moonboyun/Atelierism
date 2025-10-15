@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SideMenu from "../utils/SideMenu";
-
+import "./member.css";
 const MemberInfo = () => {
   return (
     <div className="mypage-wrap">

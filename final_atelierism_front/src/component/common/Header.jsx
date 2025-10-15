@@ -21,7 +21,7 @@ const Header = () => {
               <Link to="#">작품보기</Link>
             </li>
             <li>
-              <Link to="#">고객후기</Link>
+              <Link to="/board/review">고객후기</Link>
             </li>
             <li>
               <Link to="#">서비스 안내</Link>
@@ -38,7 +38,7 @@ const Header = () => {
               <Link to="#">소개글</Link>
             </li>
             <li>
-              <Link to="#">디자이너 소개</Link>
+              <Link to="/designer/intro">디자이너 소개</Link>
             </li>
           </ul>
         </div>
@@ -53,7 +53,7 @@ const HeaderLink = () => {
         <Link to="/member/login">로그인</Link>
       </li>
       <li>
-        <Link to="/member/join">회원가입</Link>
+        <Link to="/member/agree">회원가입</Link>
       </li>
       <li className="interior-btn">
         <Link to="#">인테리어 컨설팅</Link>

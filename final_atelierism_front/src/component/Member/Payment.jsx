@@ -1,5 +1,5 @@
 //import SideMenu from "./utils/SideMenu.jsx";
-
+import "./member.css";
 const Payment = () => {
   return (
     <section className="payment-wrap">
