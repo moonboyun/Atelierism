@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import "./member.css";
 const Agreement = () => {
   return (
     <section className="agree-wrap">

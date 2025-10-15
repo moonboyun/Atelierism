@@ -1,3 +1,4 @@
+import "./member.css";
 const MemberJoin = () => {
   return (
     <section className="join-wrap">
