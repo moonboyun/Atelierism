@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const RecoverId = () => {
   return (
     <section className="recover-wrap">
@@ -40,8 +42,17 @@ const RecoverId = () => {
               id="memberEmail"
               placeholder="이메일을 입력하세요"
             />
-            <button type="button">인증하기</button>
+            <button type="button">인증코드 전송</button>
+            <div className="check-email">
+              <input type="text" placeholder="인증번호를 입력해주세요" />
+              <button type="button">인증하기</button>
+            </div>
           </div>
+        </div>
+        <div className="recovery-btn">
+          <button type="submit">
+            <Link to="/member/login">로그인 페이지로 이동</Link>
+          </button>
         </div>
       </form>
     </section>
