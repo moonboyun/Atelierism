@@ -16,6 +16,7 @@ import BoardReview from "./component/board/BoardReview";
 import BoardInquiry from "./component/board/BoardInquiry";
 import BoardDesigner from "./component/board/BoardDesigner";
 import { loginIdState, memberTypeState } from "./component/utils/RecoilData";
+import RecoverPw from "./component/member/RecoverPw";
 
 function App() {
   //const [memberId, setMemberId] = useRecoilState(loginIdState);
@@ -30,6 +31,7 @@ function App() {
           <Route path="member/agree" element={<Agreement />} />
           <Route path="member/join" element={<MemberJoin />} />
           <Route path="member/recoverId" element={<RecoverId />} />
+          <Route path="member/recoverPw" element={<RecoverPw />} />
           <Route path="member/update" element={<MemberUpdate />} />
           <Route path="member/payment" element={<Payment />} />
           <Route path="admin/detail" element={<Applicantdetail />} />
