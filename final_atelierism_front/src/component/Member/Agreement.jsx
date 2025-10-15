@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import "./member.css";
 const Agreement = () => {
   return (
     <section className="agree-wrap">
@@ -10,7 +10,7 @@ const Agreement = () => {
             <div>1. 개인정보 취급동의</div>
             <div className="necessary">(필수)</div>
           </div>
-          <div className="content">
+          <div className="contents">
             <p>
               Atelierism(이하 “회사” 라고 한다)은 개인정보보호법 제30조에 따라
               정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고
@@ -105,7 +105,7 @@ const Agreement = () => {
             <div>2. 이용약관</div>
             <div className="necessary">(필수)</div>
           </div>
-          <div className="content">
+          <div className="contents">
             <p>
               **제 1조 ( 목적 )** Atelierism (이하 “아뜰리에리즘“이라 합니다)
               서비스 이용 약관은 Atelierism (이하 “회사“라 합니 다) 가 제공하는

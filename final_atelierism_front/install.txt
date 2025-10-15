@@ -26,9 +26,5 @@ npm install quill
 
 2025-10-15 16:07 문보윤
 npm install @mui/x-charts
-
-확인 : 
-
-
-
+확인 : 조성빈
 

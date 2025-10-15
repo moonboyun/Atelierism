@@ -2,11 +2,12 @@
   width: 600px;
   margin: 0 auto;
   min-height: 500px;
+  margin-top: 50px;
 }
-.page-title {
+.login-wrap > .page-title {
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 40px;
 }
 .login-wrap .input-wrap {
   margin-top: 30px;
@@ -17,15 +18,16 @@
   float: left;
   margin-right: 10px;
   width: 20%;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
+  line-height: 60px;
 }
 .input-item > input {
   padding-top: 15px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
   width: 75%;
-  font-size: 20px;
+  font-size: 18px;
 }
 .login-button {
   margin-top: 80px;
@@ -46,7 +48,6 @@
   margin: 0 auto;
   text-align: center;
   margin-top: 10px;
-  padding-bottom: 100px;
 }
 .member-link-box > a {
   text-decoration: none;
@@ -129,7 +130,7 @@
   border-radius: 8px;
   background-color: #8aa996;
   color: #fff;
-  font-size: 20px;
+  font-size: 15px;
 }
 .join-wrap .input-wrap > .input-item > button {
   margin: 0 auto;
@@ -137,8 +138,8 @@
   border-radius: 8px;
   background-color: #8aa996;
   color: #fff;
-  font-size: 20px;
-  margin-left: 30px;
+  font-size: 15px;
+  margin-left: 20px;
   padding: 5px 15px;
   cursor: pointer;
 }
@@ -157,10 +158,17 @@
   width: 20%;
   margin-bottom: 50px;
 }
-
+.join-button > button > a {
+  color: #fff;
+}
 .agree-wrap {
   width: 1440px;
   margin: 0 auto;
+}
+.agree-wrap > .page-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
 }
 .agree-wrap .box-title {
   font-size: 20px;
@@ -177,7 +185,7 @@
 .necessary {
   color: red;
 }
-.agree-content-wrap > .content {
+.agree-content-wrap > .contents {
   border: 1px solid black;
   margin-bottom: 10px;
   padding: 10px;
@@ -194,9 +202,9 @@
   text-align: right;
   float: left;
 }
-.button-zone {
+.agree-content-wrap > .button-zone {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 .button-zone > button {
   width: 30%;
@@ -358,10 +366,12 @@
   width: 1440px;
   margin: 0 auto;
   overflow: hidden;
+  margin-top: 50px;
 }
 
 .recover-wrap .input-wrap {
   width: 70%;
+  margin-top: 100px;
   margin: 40px auto;
 }
 .recover-wrap .input-wrap > .input-title {
