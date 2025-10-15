@@ -12,7 +12,7 @@
   --gray5: #c0c0c0;
   --gray6: #d7d7d7;
   /*성공 실패*/
-  --success: #78e0bf;
+  --success: #40c79c;
   --fail: #f67272;
   /*btn:hover*/
   --btnHover: #5b8f6e;
@@ -196,7 +196,7 @@ section.section.bg-section {
 }
 /*-----------------------------content-box---------------------------------------*/
 .slider {
-  padding-top: 63px;
+  padding-top: 62px;
   display: flex;
   width: 100%;
   height: 100%;
@@ -216,7 +216,7 @@ section.section.bg-section {
   text-align: center;
 }
 .main-content .main-title {
-  padding: 20px;
+  padding: 30px;
   font-size: 36px;
   font-weight: 700;
   margin-top: 20px;
@@ -243,7 +243,7 @@ section.section.bg-section {
   color: #fff;
 }
 .img-box {
-  margin: 30px;
+  margin: 50px;
   display: flex;
   justify-content: center;
   gap: 75px;
@@ -289,18 +289,19 @@ section.section.bg-section {
   fill: var(--main1);
 }
 /*-----------------------------question-items---------------------------------------*/
-.designer {
+.com-board {
   width: 1300px;
   margin: 0 auto;
+  padding-bottom: 50px;
 }
-.designer > p {
+.com-board > p {
   font-size: 18px;
 }
-.list-btn {
+.com-board-list-btn {
   display: flex;
   justify-content: flex-end;
 }
-.list-btn > a {
+.com-board-list-btn > a {
   font-size: 20px;
   cursor: pointer;
   margin-bottom: 20px;
@@ -311,25 +312,37 @@ section.section.bg-section {
   font-size: 18px;
   vertical-align: top;
 }
-.designer-items {
+.com-board-items {
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
 }
-.designer-item {
+.com-board-item {
   display: flex;
   width: 400px;
   justify-content: center;
   flex-direction: column;
+  cursor: pointer;
 }
-.designer-item > img {
+.com-board-item > img {
   width: 400px;
 }
-.designer-info {
+.com-board-info {
   text-align: left;
   margin: 10px 0px;
 }
-.designer-info > p {
-  padding: 10px 0px;
+.com-board-info p {
+  padding: 20px 0px;
   font-size: 18px;
+}
+.com-board-info-top {
+  display: flex;
+  justify-content: space-between;
+}
+.com-board-info-top > svg {
+  padding: 20px 0px;
+}
+
+.com-board-info > p:last-child {
+  border-bottom: 1px solid var(--gray1);
 }
