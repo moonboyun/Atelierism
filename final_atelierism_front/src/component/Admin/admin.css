@@ -8,7 +8,7 @@
   justify-content: center;
 }
 /*---------------------side-menu-section-----------------------*/
-.detail-content-wrap > section:first-child {
+section:first-child {
   margin-right: 30px;
 }
 /*-----------------------profile-section-----------------------*/
@@ -60,18 +60,23 @@
 .detail-edu > table th {
   width: 120px;
   font-size: 20px;
+  padding: 5px;
+  text-align: left;
 }
 .detail-edu > table td {
   font-size: 18px;
+
+  padding: 5px;
 }
 .detail-edu > table td:nth-child(2) {
-  width: 80px;
+  width: 100px;
+  text-align: left;
 }
 .detail-edu > table td:nth-child(3) {
-  width: 150px;
+  width: 180px;
 }
 .detail-edu > table td:nth-child(4) {
-  width: 150px;
+  width: 180px;
 }
 /*--------------------detail-career-----------------------*/
 .detail-career {
@@ -87,6 +92,7 @@
   width: 120px;
   font-size: 20px;
   padding: 5px;
+  text-align: left;
 }
 .detail-career > table td {
   font-size: 18px;
@@ -94,6 +100,7 @@
 }
 .detail-career > table > tr > td:nth-child(2) {
   width: 170px;
+  text-align: left;
 }
 .detail-career > table > tr > td:nth-child(3) {
   width: 170px;
@@ -112,13 +119,15 @@
   width: 120px;
   font-size: 20px;
   padding: 5px;
+  text-align: left;
 }
 .detail-award > table td {
   font-size: 18px;
   padding: 5px;
 }
 .detail-award > table td:nth-child(2) {
-  width: 80px;
+  width: 100px;
+  text-align: left;
 }
 .detail-award > table td:nth-child(3) {
   width: 250px;
@@ -137,13 +146,15 @@
   width: 120px;
   font-size: 20px;
   padding: 5px;
+  text-align: left;
 }
 .detail-payment > table td {
   font-size: 18px;
   padding: 5px;
 }
 .detail-payment > table td:nth-child(2) {
-  width: 80px;
+  width: 100px;
+  text-align: left;
 }
 .detail-payment > table td:nth-child(3) {
   width: 200px;
@@ -159,14 +170,16 @@
   text-align: center;
 }
 .detail-portfolio > table th {
-  width: 120px;
+  width: 130px;
   font-size: 20px;
   padding: 5px;
+  text-align: left;
 }
 .detail-portfolio > table td {
   width: 250px;
   font-size: 18px;
   padding: 5px;
+  text-align: left;
 }
 /*-----------------------detail-kakao----------------------*/
 .detail-kakao {
@@ -182,11 +195,13 @@
 .detail-kakao > table th {
   font-size: 20px;
   padding: 5px;
+  text-align: left;
 }
 .detail-kakao > table td {
   width: 210px;
   font-size: 18px;
   padding: 5px;
+  text-align: left;
 }
 /*--------------------------button-place---------------------------*/
 .button-place {
@@ -218,5 +233,16 @@
 }
 .button-place > #enter:hover {
   cursor: pointer;
-  background-color: #a5bbad;
+  background-color: var(--btnHover);
 }
+/*---------------------------------------------------------------------------*/
+/*------------------------------------AdminMypage---------------------------------------*/
+.admin-mypage-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+}
+/*----------------------------------------------------------------------*/
