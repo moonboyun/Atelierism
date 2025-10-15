@@ -8,7 +8,7 @@
   justify-content: center;
 }
 /*---------------------side-menu-section-----------------------*/
-section:first-child {
+.detail-content-wrap > section:first-child {
   margin-right: 30px;
 }
 /*-----------------------profile-section-----------------------*/
@@ -245,4 +245,7 @@ section:first-child {
   display: flex;
   justify-content: center;
 }
-/*----------------------------------------------------------------------*/
+/*-----------------------------------admin-mypage-wrap-----------------------------------*/
+.admin-mypage-wrap > section:first-child {
+  margin-right: 30px;
+}
