@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Main from "./component/common/Main";
-import MemberLogin from "./component/Member/MemberLogin";
-import MemberJoin from "./component/Member/MemberJoin";
-import "./component/Member/member.css";
+import MemberLogin from "./component/member/MemberLogin";
+import MemberJoin from "./component/member/MemberJoin";
+import "./component/member/member.css";
 import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
-import Agreement from "./component/Member/Agreement";
+import Agreement from "./component/member/Agreement";
 import Applicantdetail from "./component/admin/Applicantdetail";
 import MemberInfo from "./component/Member/memberInfo";
 import MemberUpdate from "./component/Member/MemberUpdate";
@@ -16,6 +16,8 @@ import BoardReview from "./component/board/BoardReview";
 import BoardInquiry from "./component/board/BoardInquiry";
 import BoardDesigner from "./component/board/BoardDesigner";
 import AdminMypage from "./component/Admin/AdminMypage";
+//import { loginIdState, memberTypeState } from "./component/utils/RecoilData";
+import RecoverPw from "./component/member/RecoverPw";
 //import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
           <Route path="member/agree" element={<Agreement />} />
           <Route path="member/join" element={<MemberJoin />} />
           <Route path="member/recoverId" element={<RecoverId />} />
+          <Route path="member/recoverPw" element={<RecoverPw />} />
           <Route path="member/update" element={<MemberUpdate />} />
           <Route path="member/payment" element={<Payment />} />
           <Route path="/admin/detail" element={<Applicantdetail />} />
