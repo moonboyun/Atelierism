@@ -236,6 +236,15 @@
   background-color: var(--btnHover);
 }
 /*---------------------------------------------------------------------------*/
+/*---------------------------------admin-mypage-all-wrap--------------------*/
+.admin-mypage-all-wrap {
+  margin-top: 50px;
+  padding-bottom: 60px;
+}
+/*---------------------------admin-mypage-title---------------------------*/
+.admin-mypage-title {
+  text-align: center;
+}
 /*------------------------------------AdminMypage---------------------------------------*/
 .admin-mypage-wrap {
   width: 1200px;
@@ -248,4 +257,82 @@
 /*-----------------------------------admin-mypage-wrap-----------------------------------*/
 .admin-mypage-wrap > section:first-child {
   margin-right: 30px;
+}
+/*-----------------------------admin-mypage-content1----------------------------*/
+.admin-mypage-content1 {
+  width: 950px;
+  display: flex;
+  gap: 25px;
+}
+/*------------------------------main-chart----------------------------------*/
+.main-chart > h2 {
+  margin-bottom: 10px;
+}
+/*-----------------------------------admin-chart-content---------------------------------*/
+.admin-chart-content {
+  border: 1px solid var(--gray3);
+  width: 450px;
+  height: 300px;
+}
+/*----------------------------------applicant-list > h2--------------------------------*/
+.applicant-list > h2 {
+  margin-bottom: 10px;
+}
+/*---------------------------applicant-list > table-----------------------------*/
+.applicant-list > table {
+  width: 400px;
+  text-align: center;
+  border-top: 1px solid var(--gray3);
+  border-spacing: 0;
+}
+.applicant-list > table th {
+  border: none;
+  padding: 10px;
+}
+.applicant-list > table td {
+  border: none;
+  padding: 10px;
+}
+.applicant-list > table > thead > tr > th {
+  border-bottom: 1px solid var(--gray3);
+  background-color: var(--main1);
+  color: #fff;
+  font-size: 22px;
+
+  font-weight: 600;
+}
+.applicant-list > table > tbody > tr > td {
+  border-bottom: 1px solid var(--gray3);
+  font-size: 18px;
+}
+/*-----------------------------admin-mypage-content2----------------------------*/
+.admin-mypage-content2 {
+  margin-top: 15px;
+}
+/*-----------------------admin-mypage-content2 > h2--------------------*/
+.admin-mypage-content2 > h2 {
+  margin-bottom: 10px;
+}
+/*------------------------------admin-designer-table---------------------------*/
+.admin-designer-table {
+  width: 880px;
+  text-align: center;
+  border: none;
+  border-top: 1px solid var(--gray3);
+  border-spacing: 0;
+}
+.admin-designer-table > tr > th {
+  border: none;
+  padding: 10px;
+  border-bottom: 1px solid var(--gray3);
+  background-color: var(--main1);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+}
+.admin-designer-table > tr > td {
+  border: none;
+  padding: 10px;
+  border-bottom: 1px solid var(--gray3);
+  font-size: 18px;
 }
