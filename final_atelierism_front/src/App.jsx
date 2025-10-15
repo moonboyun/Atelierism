@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import Main from "./component/common/Main";
 import MemberLogin from "./component/member/MemberLogin";
 import MemberJoin from "./component/member/MemberJoin";
-import "./component/member/member.css";
 import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/member/Agreement";
