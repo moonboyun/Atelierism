@@ -1,3 +1,4 @@
+import { colors } from "@mui/material";
 import SideMenu from "../utils/SideMenu";
 import "./Admin.css";
 import { BarChart } from "@mui/x-charts/BarChart";
@@ -5,69 +6,72 @@ import { BarChart } from "@mui/x-charts/BarChart";
 const AdminMypage = () => {
   return (
     <div className="admin-mypage-all-wrap">
+      <div className="admin-mypage-title">
+        <h1>마이페이지</h1>
+      </div>
       <div className="admin-mypage-wrap">
         <section className="side-menu-section">
           <SideMenu />
         </section>
         <section className="section-content">
-          <div className="admin-mypage-title">
-            <h1>마이페이지</h1>
-          </div>
           <div className="admin-mypage-content1">
             <div className="main-chart">
               <h2>매출 현황</h2>
-              <div className="chart-content">
+              <div className="admin-chart-content">
                 <BarChart
-                  xAxis={[{ data: ["1월", "2월", "3월", "4월", "5월", "6월"] }]}
-                  series={[
-                    {
-                      data: [
-                        4568147, 3217476, 1234769, 456234, 7856541, 2137411,
-                      ],
-                    },
-                  ]}
+                  xAxis={[{ data: ["group A", "group B", "group C"] }]}
+                  series={[{ data: [4, 3, 5] }]}
                   height={300}
+                  width={450}
+                  sx={{
+                    marginRight: "25px",
+                    marginTop: "10px",
+                  }}
                 />
               </div>
             </div>
             <div className="applicant-list">
-              <h2>신청자 리스트</h2>
-              <table border={1}>
-                <tr>
-                  <th>이름</th>
-                  <th>상태</th>
-                </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>대기중</td>
-                </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>대기중</td>
-                </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>수락됨</td>
-                </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>반려됨</td>
-                </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>수락됨</td>
-                </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>수락됨</td>
-                </tr>
+              <h2>디자이너 신청자 리스트</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>이름</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>홍길동</td>
+                    <td>대기중</td>
+                  </tr>
+                  <tr>
+                    <td>홍길동</td>
+                    <td>대기중</td>
+                  </tr>
+                  <tr>
+                    <td>홍길동</td>
+                    <td>수락됨</td>
+                  </tr>
+                  <tr>
+                    <td>홍길동</td>
+                    <td>반려됨</td>
+                  </tr>
+                  <tr>
+                    <td>홍길동</td>
+                    <td>수락됨</td>
+                  </tr>
+                  <tr>
+                    <td>홍길동</td>
+                    <td>수락됨</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
           {/*admin-mypage-content1*/}
           <div className="admin-mypage-content2">
-            <h2>디자이너 리스트</h2>
-            <table border={1}>
+            <h2>이 달의 디자이너 순위</h2>
+            <table className="admin-designer-table" border={1}>
               <tr>
                 <th>디자이너 이름</th>
                 <th> 입점일</th>
