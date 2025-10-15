@@ -25,4 +25,4 @@ npm install quill-image-resize-module-react
 
 npm install @mui/x-charts
 
-확인 : 
+확인 : 조성빈

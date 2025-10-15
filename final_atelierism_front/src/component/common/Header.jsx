@@ -53,7 +53,7 @@ const HeaderLink = () => {
         <Link to="/member/login">로그인</Link>
       </li>
       <li>
-        <Link to="/member/join">회원가입</Link>
+        <Link to="/member/agree">회원가입</Link>
       </li>
       <li className="interior-btn">
         <Link to="#">인테리어 컨설팅</Link>
