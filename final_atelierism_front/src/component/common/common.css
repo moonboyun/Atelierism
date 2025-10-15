@@ -216,3 +216,16 @@ section.section.bg-section {
   margin: 0 auto;
   text-align: center;
 }
+.main-content .main-title {
+  padding: 20px;
+  font-size: 40px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.main-title > p {
+  font-size: 24px;
+  margin-top: 10px;
+}
+.main-title > div {
+  display: inline-block;
+}

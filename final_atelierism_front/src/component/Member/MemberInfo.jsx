@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SideMenu from "../Util/SideMenu";
+import SideMenu from "../utils/SideMenu";
 
 const MemberInfo = () => {
   return (

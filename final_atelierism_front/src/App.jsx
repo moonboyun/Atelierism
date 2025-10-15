@@ -15,7 +15,7 @@ import ReviewWriter from "./component/board/ReviewWriter";
 import BoardReview from "./component/board/BoardReview";
 import BoardInquiry from "./component/board/BoardInquiry";
 import BoardDesigner from "./component/board/BoardDesigner";
-import { loginIdState, memberTypeState } from "./component/util/RecoilData";
+//import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
   //const [memberId, setMemberId] = useRecoilState(loginIdState);
