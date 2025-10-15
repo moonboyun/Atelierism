@@ -21,3 +21,8 @@ npm install quill-image-resize-module-react
 
 확인: 박준석, 조성빈
 
+-----------------------------------------------------------------
+2025-10-15 10:42 박준석
+npm install quill
+
+
