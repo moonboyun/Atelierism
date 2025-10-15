@@ -1,16 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 import Main from "./component/common/Main";
-import MemberLogin from "./component/Member/MemberLogin";
-import MemberJoin from "./component/Member/MemberJoin";
-import "./component/Member/member.css";
+import MemberLogin from "./component/member/MemberLogin";
+import MemberJoin from "./component/member/MemberJoin";
+import "./component/member/member.css";
 import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
-import Agreement from "./component/Member/Agreement";
+import Agreement from "./component/member/Agreement";
 import Applicantdetail from "./component/admin/Applicantdetail";
-import MemberInfo from "./component/Member/memberInfo";
-import MemberUpdate from "./component/Member/MemberUpdate";
-import Payment from "./component/Member/Payment";
-import RecoverId from "./component/Member/RecoverId";
+import MemberInfo from "./component/member/memberInfo";
+import MemberUpdate from "./component/member/MemberUpdate";
+import Payment from "./component/member/Payment";
+import RecoverId from "./component/member/RecoverId";
 
 function App() {
   return (
