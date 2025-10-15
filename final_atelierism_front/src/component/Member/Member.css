@@ -394,12 +394,14 @@
   background-color: #8aa996;
   color: #fff;
   margin-left: 20px;
+  cursor: pointer;
 }
 .recover-wrap .input-wrap > .input-item > .check-email > input {
   margin-left: 90px;
 }
 .recover-wrap .input-wrap > .input-item > .check-email > button {
   margin-left: 35px;
+  cursor: pointer;
 }
 .recovery-btn {
   text-align: center;
