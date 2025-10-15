@@ -7,10 +7,15 @@ import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/member/Agreement";
 import Applicantdetail from "./component/admin/Applicantdetail";
-import MemberInfo from "./component/member/memberInfo";
-import MemberUpdate from "./component/member/MemberUpdate";
-import Payment from "./component/member/Payment";
-import RecoverId from "./component/member/RecoverId";
+import MemberInfo from "./component/Member/memberInfo";
+import MemberUpdate from "./component/Member/MemberUpdate";
+import Payment from "./component/Member/Payment";
+import RecoverId from "./component/Member/RecoverId";
+import ReviewWriter from "./component/board/ReviewWriter";
+import BoardReview from "./component/board/BoardReview";
+import BoardInquiry from "./component/board/BoardInquiry";
+import BoardDesigner from "./component/board/BoardDesigner";
+import { loginIdState, memberTypeState } from "./component/utils/RecoilData";
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import SideMenu from "./utils/SideMenu";
+import SideMenu from "./utils/SideMenu.jsx";
 
 const Payment = () => {
   return (
