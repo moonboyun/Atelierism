@@ -232,6 +232,7 @@
   width: 1440px;
   margin: 0 auto;
   overflow: hidden;
+  margin-top: 50px;
 }
 .side-menu {
   float: left;
@@ -272,8 +273,6 @@
   height: 40px;
   border-radius: 15px;
   cursor: pointer;
-}
-.secession-btn > button > a {
   color: #fff;
 }
 
