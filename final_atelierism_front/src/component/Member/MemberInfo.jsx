@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 const MemberInfo = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
@@ -24,6 +25,36 @@ const MemberInfo = () => {
     .catch((err) => {
       console.log(err);
     });
+  const deleteMember = () => {
+    Swal.fire({
+      title: "회원 탈퇴",
+      text: "탈퇴하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "탈퇴하기",
+      cancelButtonText: "취소",
+    }).then((res1) => {
+      if (res1.isConfirmed) {
+        axios
+          .delete(`${backServer}/member/${member.memberId}`)
+          .then((res2) => {
+            if (res2.data === 1) {
+              Swal.fire({
+                title: "회원 탈퇴 완료",
+                text: "회원이 탈퇴되었습니다.",
+                icon: "info",
+              }).then(() => {
+                setMemberId("");
+                setMemberType(0);
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
   return (
     <div className="mypage-wrap">
       <div className="page-title">마이페이지</div>
@@ -105,7 +136,13 @@ const MemberInfo = () => {
                 <td>
                   <input
                     type="text"
-                    value={member.memberType}
+                    value={
+                      member.memberType === 1
+                        ? "관리자"
+                        : member.memberType === 2
+                        ? "디자이너"
+                        : "일반회원"
+                    }
                     onChange={inputMemberData}
                     readOnly
                   ></input>
@@ -125,8 +162,8 @@ const MemberInfo = () => {
             </tbody>
           </table>
           <div className="secession-btn">
-            <button type="button">
-              <Link to="/">회원 탈퇴</Link>
+            <button type="button" onClick={deleteMember}>
+              회원 탈퇴
             </button>
           </div>
         </form>
