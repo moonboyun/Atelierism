@@ -2,7 +2,7 @@
   width: 600px;
   margin: 0 auto;
   min-height: 500px;
-  margin-top: 50px;
+  padding-top: 100px;
 }
 .login-wrap > .page-title {
   text-align: center;
@@ -36,12 +36,14 @@
 .login-button > button {
   width: 50%;
   background-color: #8aa996;
-  color: #fff;
   border: 1px solid #8aa996;
   border-radius: 15px;
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
+}
+.login-button > button > a {
+  color: #fff;
 }
 .member-link-box {
   width: 100%;
