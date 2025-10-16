@@ -165,6 +165,7 @@
 .agree-wrap {
   width: 1440px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 .agree-wrap > .page-title {
   text-align: center;
@@ -191,7 +192,7 @@
   margin-bottom: 10px;
   padding: 10px;
   overflow-y: scroll;
-  height: 300px;
+  height: 250px;
 }
 .check-box {
   margin-bottom: 50px;
@@ -223,11 +224,18 @@
   text-decoration: none;
   color: #000;
 }
+.sb-button-zone > button:last-child > a {
+  color: #fff;
+  font-weight: 500;
+}
 .sb-button-zone > button > a:hover {
   color: blue;
   text-decoration: underline;
 }
-
+.sb-button-zone > button:last-child > a:hover {
+  color: blue;
+  text-decoration: underline;
+}
 .mypage-wrap {
   width: 1440px;
   margin: 0 auto;
