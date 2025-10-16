@@ -21,6 +21,7 @@ import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
 //import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 import Intro from "./component/designer/intro";
+import InteriorApplication from "./component/interior/InteriorApplication";
 // import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
@@ -47,6 +48,10 @@ function App() {
           <Route path="/board/inquiry" element={<BoardInquiry />} />
           <Route path="/board/designer" element={<BoardDesigner />} />
           <Route path="/designer/intro" element={<Intro />} />
+          <Route
+            path="/interior/application"
+            element={<InteriorApplication />}
+          />
         </Routes>
       </main>
       <Footer />

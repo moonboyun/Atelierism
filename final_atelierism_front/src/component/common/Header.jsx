@@ -56,7 +56,7 @@ const HeaderLink = () => {
         <Link to="/member/agree">회원가입</Link>
       </li>
       <li className="interior-btn">
-        <Link to="#">인테리어 컨설팅</Link>
+        <Link to="/interior/application">인테리어 컨설팅</Link>
       </li>
     </ul>
   );
