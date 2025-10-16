@@ -9,6 +9,4 @@ public interface MemberDao {
 
 	MemberDTO selectOneMember(String memberId);
 
-	MemberDTO selectOneMember(MemberDTO member);
-
 }

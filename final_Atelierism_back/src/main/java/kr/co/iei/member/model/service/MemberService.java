@@ -19,7 +19,7 @@ public class MemberService {
 	}
 
 	public MemberDTO login(MemberDTO member) {
-		MemberDTO m = memberDao.selectOneMember(member);
+		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
 		//LoginMemberDTO loginMember = new LoginMemberDTO(m.getMemberId(), m.getMemberType());
 		return m;
 	}
