@@ -31,7 +31,7 @@ const Main = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % 3); // 이미지 3개일 경우 0 → 1 → 2 → 0 ...
+      setCurrentSlide((prev) => (prev + 1) % totalSlides); // 이미지 3개일 경우 0 → 1 → 2 → 0 ...
     }, 5000); // 3초마다 슬라이드
 
     return () => clearInterval(interval); // cleanup

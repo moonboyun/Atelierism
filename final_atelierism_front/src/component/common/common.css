@@ -219,16 +219,20 @@ section.section.bg-section {
   background-color: rgba(255, 255, 255, 0.6);
   border: none;
   font-size: 30px;
-  padding: 10px 15px;
+  padding: 5px 15px;
   cursor: pointer;
   z-index: 10;
   transition: background-color 0.3s;
   margin-top: 30px;
 }
-
+.prev-btn > svg,
+.next-btn > svg {
+  font-size: 20px;
+}
 .prev-btn:hover > svg,
 .next-btn:hover > svg {
   fill: var(--main1);
+  font-size: 20px;
 }
 
 .prev-btn {
