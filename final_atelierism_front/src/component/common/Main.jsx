@@ -105,7 +105,7 @@ const Main = () => {
         </div>
         <div className="question column">
           <div className="main-title">Q. 금액은 어떻게 되나요?</div>
-          <div className="img-box">
+          <div className="img-box com-img-box">
             <img src="/image/question2.png" />
           </div>
           <p>
