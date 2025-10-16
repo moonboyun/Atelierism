@@ -66,7 +66,7 @@ const HeaderLink = () => {
             <Link to="/member/mypage">마이페이지</Link>
           </li>
           <li>
-            <Link to="#" onClick={logout}>
+            <Link to="/" onClick={logout}>
               로그아웃
             </Link>
           </li>
