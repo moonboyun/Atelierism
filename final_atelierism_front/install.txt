@@ -28,3 +28,12 @@ npm install quill
 npm install @mui/x-charts
 확인 : 조성빈
 
+-------------------------------------------
+2025-10-26 11:02 문보윤
+npm install highcharts @highcharts/react
+확인 : 
+
+2025-10-26 11:49 문보윤
+npm install --save chart.js react-chartjs-2
+npm install chartjs-plugin-datalabels
+확인 : 

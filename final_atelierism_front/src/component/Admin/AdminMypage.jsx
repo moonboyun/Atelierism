@@ -19,8 +19,15 @@ const AdminMypage = () => {
               <h2>매출 현황</h2>
               <div className="admin-chart-content">
                 <BarChart
-                  xAxis={[{ data: ["group A", "group B", "group C"] }]}
-                  series={[{ data: [4, 3, 5] }]}
+                  xAxis={[{ data: ["1월", "2월", "3월", "4월", "5월", "6월"] }]}
+                  series={[
+                    {
+                      data: [
+                        25166558, 5641628, 231215568, 56463215, 23148867,
+                        1568815,
+                      ],
+                    },
+                  ]}
                   height={300}
                   width={450}
                   sx={{
@@ -70,7 +77,7 @@ const AdminMypage = () => {
           </div>
           {/*admin-mypage-content1*/}
           <div className="admin-mypage-content2">
-            <h2>이 달의 디자이너 순위</h2>
+            <h2>이 달의 디자이너 순위 TOP 5</h2>
             <table className="admin-designer-table" border={1}>
               <tr>
                 <th>디자이너 이름</th>

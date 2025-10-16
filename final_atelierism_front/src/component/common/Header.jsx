@@ -82,7 +82,7 @@ const HeaderLink = () => {
         </>
       )}
       <li className="interior-btn">
-        <Link to="#">인테리어 컨설팅</Link>
+        <Link to="/interior/application">인테리어 컨설팅</Link>
       </li>
     </ul>
   );
