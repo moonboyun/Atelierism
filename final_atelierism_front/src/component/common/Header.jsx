@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./common.css";
+import { useRecoilState } from "recoil";
+import { loginIdState, memberTypeState } from "../utils/RecoilData";
+import InteriorApplication from "../interior/InteriorApplication";
 
-const Header = () => {
+const Header = (props) => {
+  const isLogin = props.isLogin;
   const [showSubMenu, setShowSubMenu] = useState(false);
 
   return (
@@ -47,17 +51,48 @@ const Header = () => {
   );
 };
 const HeaderLink = () => {
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [memberType, setMemberType] = useRecoilState(memberTypeState);
+  const navigate = useNavigate();
+  const logout = () => {
+    setMemberId("");
+    setMemberType(0);
+    navigate("/");
+  };
+  const [interiorModal, setInteriorModal] = useState(false);
   return (
     <ul className="user-menu">
-      <li>
-        <Link to="/member/login">로그인</Link>
-      </li>
-      <li>
-        <Link to="/member/agree">회원가입</Link>
-      </li>
-      <li className="interior-btn">
-        <Link to="#">인테리어 컨설팅</Link>
-      </li>
+      {memberId !== "" && memberType !== 0 ? (
+        <>
+          <li>
+            {memberType == 1 ? (
+              <Link to="/admin/mypage">마이페이지</Link>
+            ) : (
+              <Link to="/member/mypage">마이페이지</Link>
+            )}
+          </li>
+          <li>
+            <Link to="/" onClick={logout}>
+              로그아웃
+            </Link>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to="/member/login">로그인</Link>
+          </li>
+          <li>
+            <Link to="/member/agree">회원가입</Link>
+          </li>
+        </>
+      )}
+      <button className="interior-btn" onClick={() => setInteriorModal(true)}>
+        <span>인테리어 컨설팅</span>
+      </button>
+      {interiorModal && (
+        <InteriorApplication onClose={() => setInteriorModal(false)} />
+      )}
     </ul>
   );
 };

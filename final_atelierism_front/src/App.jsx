@@ -20,10 +20,9 @@ import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
 import Intro from "./component/designer/intro";
 import InquiryWriter from "./component/board/InquiryWriter";
+import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
 
 function App() {
-  const [memberId, setMemberId] = useRecoilState(loginIdState);
-  const [memberType, setMembertype] = useRecoilState(memberTypeState);
   return (
     <div className="wrap">
       <Header />
@@ -46,6 +45,7 @@ function App() {
           <Route path="/board/designer" element={<BoardDesigner />} />
           <Route path="/designer/intro" element={<Intro />} />
           <Route path="/board/inquiry/writer" element={<InquiryWriter />} />
+          <Route path="/admin/sales" element={<AdminSalesStatus />} />
         </Routes>
       </main>
       <Footer />

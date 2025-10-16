@@ -213,7 +213,7 @@ const Agreement = () => {
             <div>동의합니다</div>
             <input type="checkbox"></input>
           </div>
-          <div className="button-zone">
+          <div className="sb-button-zone">
             <button type="button">
               <Link to="/">이전</Link>
             </button>

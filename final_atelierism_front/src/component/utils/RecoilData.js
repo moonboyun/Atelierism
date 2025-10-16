@@ -16,5 +16,12 @@ const memberTypeState = atom({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
-
-export { loginIdState, memberTypeState };
+const isLoginState = selector({
+  key: "isLoginState",
+  get: (state) => {
+    const loginId = state.get(loginIdState);
+    const memberType = state.get(memberTypeState);
+    return loginId !== "" && memberType !== 0;
+  },
+});
+export { loginIdState, memberTypeState, isLoginState };

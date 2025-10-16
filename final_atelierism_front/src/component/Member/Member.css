@@ -2,7 +2,7 @@
   width: 600px;
   margin: 0 auto;
   min-height: 500px;
-  margin-top: 50px;
+  padding-top: 50px;
 }
 .login-wrap > .page-title {
   text-align: center;
@@ -36,13 +36,14 @@
 .login-button > button {
   width: 50%;
   background-color: #8aa996;
-  color: #fff;
   border: 1px solid #8aa996;
   border-radius: 15px;
   padding: 10px;
   font-size: 20px;
+  color: #fff;
   cursor: pointer;
 }
+
 .member-link-box {
   width: 100%;
   margin: 0 auto;
@@ -202,11 +203,11 @@
   text-align: right;
   float: left;
 }
-.agree-content-wrap > .button-zone {
+.agree-content-wrap > .sb-button-zone {
   text-align: center;
   margin-bottom: 50px;
 }
-.button-zone > button {
+.sb-button-zone > button {
   width: 30%;
   font-size: 20px;
   cursor: pointer;
@@ -215,14 +216,14 @@
   border-radius: 15px;
   border: none;
 }
-.button-zone > button:last-child {
+.sb-button-zone > button:last-child {
   background-color: #8aa996;
 }
-.button-zone > button > a {
+.sb-button-zone > button > a {
   text-decoration: none;
   color: #000;
 }
-.button-zone > button > a:hover {
+.sb-button-zone > button > a:hover {
   color: blue;
   text-decoration: underline;
 }
@@ -231,6 +232,7 @@
   width: 1440px;
   margin: 0 auto;
   overflow: hidden;
+  margin-top: 50px;
 }
 .side-menu {
   float: left;
@@ -271,8 +273,6 @@
   height: 40px;
   border-radius: 15px;
   cursor: pointer;
-}
-.secession-btn > button > a {
   color: #fff;
 }
 
