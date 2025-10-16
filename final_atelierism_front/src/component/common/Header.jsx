@@ -63,7 +63,11 @@ const HeaderLink = () => {
       {memberId !== "" && memberType !== 0 ? (
         <>
           <li>
-            <Link to="/member/mypage">마이페이지</Link>
+            {memberType == 1 ? (
+              <Link to="/admin/mypage">마이페이지</Link>
+            ) : (
+              <Link to="/member/mypage">마이페이지</Link>
+            )}
           </li>
           <li>
             <Link to="/" onClick={logout}>
