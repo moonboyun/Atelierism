@@ -24,7 +24,7 @@ const Header = () => {
               <Link to="/board/review">고객후기</Link>
             </li>
             <li>
-              <Link to="#">서비스 안내</Link>
+              <Link to="/board/inquiry">서비스 안내</Link>
             </li>
             <HeaderLink />
           </ul>
