@@ -54,12 +54,88 @@ const AdminSalesStatus = () => {
           <div className="admin-sales-status-content-bottom">
             <div className="space-sales">
               <h2>이달의 공간별 매출</h2>
-              <table></table>
+              <div className="space-sales-table">
+                <table border={1}>
+                  <thead>
+                    <tr>
+                      <th>공간명</th>
+                      <th>월매출</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>원룸</td>
+                      <td>0000000000원</td>
+                    </tr>
+                    <tr>
+                      <td>거실</td>
+                      <td>0000000000원</td>
+                    </tr>
+                    <tr>
+                      <td>부엌</td>
+                      <td>0000000000원</td>
+                    </tr>
+                    <tr>
+                      <td>아이방</td>
+                      <td>0000000000원</td>
+                    </tr>
+                    <tr>
+                      <td>안방</td>
+                      <td>0000000000원</td>
+                    </tr>
+                    <tr>
+                      <td>서재</td>
+                      <td>0000000000원</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div className="price-list">
               <h2>가격표</h2>
-              <table></table>
-              <button type="button">가격수정</button>
+              <table border={1}>
+                <thead>
+                  <tr>
+                    <th>상품명</th>
+                    <th>가격</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>원룸</td>
+                    <td>700000원</td>
+                  </tr>
+                  <tr>
+                    <td>거실</td>
+                    <td>800000원</td>
+                  </tr>
+                  <tr>
+                    <td>부엌</td>
+                    <td>500000원</td>
+                  </tr>
+                  <tr>
+                    <td>아이방</td>
+                    <td>500000원</td>
+                  </tr>
+                  <tr>
+                    <td>안방</td>
+                    <td>700000원</td>
+                  </tr>
+                  <tr>
+                    <td>서재</td>
+                    <td>600000원</td>
+                  </tr>
+                  <tr>
+                    <td>수수료</td>
+                    <td>5%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="sales-btn-zone">
+                <button type="button" id="price-update">
+                  가격수정
+                </button>
+              </div>
             </div>
           </div>
         </section>
