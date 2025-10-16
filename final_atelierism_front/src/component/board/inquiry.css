@@ -1,0 +1,410 @@
+/* ========== 공통 색/간격 ========== */
+:root {
+  --brand: #8aa996;
+  --ink: #2b2b2b;
+  --muted: #6b7280;
+  --line: #e6e8eb;
+  --panel: #ffffff;
+}
+
+/* ========== 상단 히어로 ========== */
+.review-hero {
+  position: relative;
+  display: flow-root;
+  overflow: hidden;
+}
+.review-hero .hero-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1920px; /* 요청: 최대 1920 */
+  height: 480px; /* 요청: 높이 480 */
+  margin: 0 auto;
+}
+.review-hero .title-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지 꽉 채움 */
+}
+.review-hero .hero-title {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 48px);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  z-index: 2;
+}
+.review-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.25)
+  ); /* 가독성 */
+  z-index: 1;
+}
+
+/* ========== 탭 영역(버튼 모양) ========== */
+.faq-section {
+  background: #fff;
+}
+.faq-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 64px; /* 상단 간격 + 콘텐츠 공간 */
+}
+.faq-tabs {
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+}
+.faq-tabs button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  border-radius: 6px;
+}
+.faq-tabs button:hover {
+  background: #f5f7f8;
+}
+
+/* ========== FAQ 리스트 ========== */
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0 4px;
+}
+.faq-q {
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 14px 40px 14px 8px; /* 오른쪽 아이콘 여백 */
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  position: relative;
+  border-radius: 6px;
+}
+.faq-q:hover {
+  background: #fafafa;
+}
+
+/* 간단한 ▼ 아이콘(유니코드) */
+.faq-q::after {
+  content: "▾";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 16px;
+}
+
+/* 펼쳐진 답변 박스(열림 상태는 JSX에서 그려줌) */
+.faq-a {
+  margin: 6px 0 14px;
+  padding: 12px 12px;
+  background: #fafafa;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ========== 1:1 문의 보드 프레임 ========== */
+.qna-box {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 18px;
+}
+.qna-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.qna-empty {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: #fcfcfc;
+}
+
+/* “글 작성” 버튼이 프로젝트 공용 .btn-primary가 있다면 덮어쓰기 최소화 */
+.btn-primary.sm {
+  height: 40px;
+  padding: 0 14px;
+  background: var(--brand);
+  color: #fff !important;
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-primary.sm:hover {
+  background: #7f9b8a;
+  border-color: #7f9b8a;
+}
+
+/* ========== 하단 히어로(배경 + 버튼) ========== */
+.bottom-img-box {
+  position: relative;
+  margin-top: 80px;
+}
+.bottom-img-box .hero-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  height: 280px; /* 하단은 좀 더 낮게 */
+  margin: 0 auto;
+}
+.bottom-img-box .bottom-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bottom-img-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28));
+}
+.bottom-img-box .hero-bottom {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(26px, 3.4vw, 40px);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+.bottom-img-box h3 {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: clamp(13px, 1.4vw, 16px);
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  z-index: 2;
+  padding: 0 16px;
+}
+
+/* 하단 버튼 */
+.btn-bottom-box {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.btn-bottom-box a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  height: 44px;
+  padding: 0 18px;
+  background: var(--brand);
+  color: #fff !important;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.btn-bottom-box a:hover {
+  background: #7f9b8a;
+  border-color: #7f9b8a;
+}
+
+/* ========== 반응형 살짝 손보기 ========== */
+@media (max-width: 768px) {
+  .faq-container {
+    padding: 20px 12px 56px;
+  }
+  .review-hero .hero-title {
+    top: 42%;
+  }
+  .bottom-img-box .hero-bottom {
+    top: 42%;
+  }
+  .bottom-img-box h3 {
+    top: 66%;
+  }
+}
+
+/*===============================================================================================*/
+:root {
+  --brand: #8aa996;
+  --line: #d8ded8;
+  --ink: #2b2b2b;
+  --muted: #6b7280;
+  --panel: #f7f6f3; /* 살짝 베이지 */
+}
+
+/* 바깥 래퍼(전역 section 스킨 무력화) */
+.section.inquiry-writer-wrap {
+  width: 980px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* 타이틀 */
+.inquiry-writer-wrap .page-title {
+  text-align: left;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--brand);
+  margin: 20px 0 10px;
+}
+
+/* 카드 프레임 */
+.inquiry-card {
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  padding: 26px 24px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+/* 테이블 */
+.inquiry-tbl {
+  width: 100%;
+  border-collapse: collapse;
+}
+.inquiry-tbl th {
+  width: 140px;
+  text-align: left;
+  color: var(--muted);
+  font-weight: 700;
+  padding: 14px 10px 8px 0;
+  vertical-align: top;
+}
+.inquiry-tbl td {
+  padding: 8px 0 16px;
+  vertical-align: middle;
+}
+
+/* 라인 스타일 input */
+.inquiry-tbl input[type="text"],
+.inquiry-tbl input[type="password"] {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid var(--line);
+  padding: 10px 6px 8px;
+  font-size: 14px;
+  outline: none;
+}
+.inquiry-tbl input[type="text"]:focus,
+.inquiry-tbl input[type="password"]:focus {
+  border-bottom-color: var(--brand);
+}
+
+/* 라디오 */
+.radio {
+  margin-right: 16px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.radio input {
+  margin-right: 6px;
+}
+
+/* 내용 */
+.inquiry-tbl textarea {
+  width: 100%;
+  height: 220px;
+  border: 1px solid #e1e5e1;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+}
+.inquiry-tbl .no-border td {
+  padding-top: 12px;
+}
+
+/* 읽기전용 표시 */
+.readonly {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* 버튼들(오른쪽 정렬) */
+.writer-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* 버튼 스타일 */
+.btn {
+  min-width: 100px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn.solid {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+.btn.solid:hover {
+  background: #7f9b8a;
+  border-color: #7f9b8a;
+}
+.btn.ghost {
+  background: #fff;
+  border-color: #d7ddd7;
+  color: var(--muted);
+}
+.btn.ghost:hover {
+  background: #f7f7f7;
+}
