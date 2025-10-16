@@ -3,18 +3,7 @@ import "./interior.css";
 const InteriorApplication = ({ onClose }) => {
   return (
     <section className="inter-section">
-      <div
-        className="inter-content"
-        style={{
-          backgroundColor: "#fff",
-          padding: 20,
-          borderRadius: 8,
-          width: "80%",
-          maxWidth: 600,
-          maxHeight: "80vh",
-          overflowY: "auto",
-        }}
-      >
+      <div className="inter-content">
         <button onClick={onClose} style={{ float: "right" }}>
           X
         </button>
