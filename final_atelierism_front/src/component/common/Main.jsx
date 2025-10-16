@@ -1,10 +1,60 @@
-import { ArrowForwardIos, FavoriteBorder } from "@mui/icons-material";
+import {
+  ArrowBackIosNew,
+  ArrowForwardIos,
+  Favorite,
+  FavoriteBorder,
+} from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 const Main = () => {
+  const [like, setLike] = useState(false);
+  const likePush = () => {
+    if (like) {
+      setLike(false);
+    } else {
+      setLike(true);
+    }
+  };
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 3; // 이미지 개수
+
+  // 다음 슬라이드
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  // 이전 슬라이드
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3); // 이미지 3개일 경우 0 → 1 → 2 → 0 ...
+    }, 5000); // 3초마다 슬라이드
+
+    return () => clearInterval(interval); // cleanup
+  }, []);
   return (
     <section className="section">
-      <div className="slider">
-        <img src="/image/slider/main-photo1.jpg" />
+      <div className="slider-container">
+        <div
+          className="slider"
+          style={{
+            transform: `translateX(-${currentSlide * 100}%)`,
+          }}
+        >
+          <img src="/image/slider/main-photo1.jpg" />
+          <img src="/image/slider/main-photo2.jpg" />
+          <img src="/image/slider/main-photo3.jpg" />
+        </div>
+        <button className="prev-btn" onClick={handlePrev}>
+          <ArrowBackIosNew />
+        </button>
+        <button className="next-btn" onClick={handleNext}>
+          <ArrowForwardIos />
+        </button>
       </div>
       <div className="content">
         <div className="main-content">
@@ -90,7 +140,11 @@ const Main = () => {
                   <div className="com-board-info">
                     <div className="com-board-info-top">
                       <p>이OO</p>
-                      <FavoriteBorder />
+                      {!like ? (
+                        <FavoriteBorder onClick={likePush} />
+                      ) : (
+                        <Favorite onClick={likePush} />
+                      )}
                     </div>
                     <p>
                       편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
@@ -103,7 +157,11 @@ const Main = () => {
                   <div className="com-board-info">
                     <div className="com-board-info-top">
                       <p>이OO</p>
-                      <FavoriteBorder />
+                      {!like ? (
+                        <FavoriteBorder onClick={likePush} />
+                      ) : (
+                        <Favorite onClick={likePush} />
+                      )}
                     </div>
                     <p>
                       편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
@@ -116,7 +174,11 @@ const Main = () => {
                   <div className="com-board-info">
                     <div className="com-board-info-top">
                       <p>이OO</p>
-                      <FavoriteBorder />
+                      {!like ? (
+                        <FavoriteBorder onClick={likePush} />
+                      ) : (
+                        <Favorite onClick={likePush} />
+                      )}
                     </div>
                     <p>
                       편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
@@ -129,7 +191,11 @@ const Main = () => {
                   <div className="com-board-info">
                     <div className="com-board-info-top">
                       <p>이OO</p>
-                      <FavoriteBorder />
+                      {!like ? (
+                        <FavoriteBorder onClick={likePush} />
+                      ) : (
+                        <Favorite onClick={likePush} />
+                      )}
                     </div>
                     <p>
                       편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
@@ -142,7 +208,11 @@ const Main = () => {
                   <div className="com-board-info">
                     <div className="com-board-info-top">
                       <p>이OO</p>
-                      <FavoriteBorder />
+                      {!like ? (
+                        <FavoriteBorder onClick={likePush} />
+                      ) : (
+                        <Favorite onClick={likePush} />
+                      )}
                     </div>
                     <p>
                       편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
@@ -155,7 +225,11 @@ const Main = () => {
                   <div className="com-board-info">
                     <div className="com-board-info-top">
                       <p>이OO</p>
-                      <FavoriteBorder />
+                      {!like ? (
+                        <FavoriteBorder onClick={likePush} />
+                      ) : (
+                        <Favorite onClick={likePush} />
+                      )}
                     </div>
                     <p>
                       편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
