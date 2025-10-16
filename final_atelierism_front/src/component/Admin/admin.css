@@ -399,7 +399,7 @@
 /*------------------------total-table-----------------------*/
 .total-table > table {
   width: 450px;
-  height: 240px;
+  height: 250px;
   border-spacing: 0;
   border: none;
   border-top: 1px solid var(--gray3);
@@ -419,4 +419,73 @@
   text-align: center;
   border: none;
   border-bottom: 1px solid var(--gray3);
+}
+/*-------------------admin-sales-status-content-bottom-------------------*/
+.admin-sales-status-content-bottom {
+  display: flex;
+  gap: 25px;
+}
+/*-------------------space-sales-------------------*/
+.space-sales > .space-sales-table > table {
+  width: 450px;
+  height: 300px;
+  text-align: center;
+  border-spacing: 0;
+  border: none;
+  border-top: 1px solid var(--gray3);
+}
+.space-sales > .space-sales-table > table th {
+  border: none;
+  border-bottom: 1px solid var(--gray3);
+  height: 35px;
+  background-color: var(--main1);
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+}
+.space-sales > .space-sales-table > table td {
+  border: none;
+  border-bottom: 1px solid var(--gray3);
+  font-size: 18px;
+}
+/*-----------------------price-list----------------------*/
+.price-list > table {
+  width: 450px;
+  height: 300px;
+  text-align: center;
+  border-spacing: 0;
+  border: none;
+  border-top: 1px solid var(--gray3);
+}
+.price-list > table th {
+  border: none;
+  border-bottom: 1px solid var(--gray3);
+  height: 35px;
+  background-color: var(--main1);
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+}
+.price-list > table td {
+  border: none;
+  border-bottom: 1px solid var(--gray3);
+  font-size: 18px;
+}
+/*--------------------------sales-btn-zone--------------------------*/
+.price-list > .sales-btn-zone {
+  margin-top: 20px;
+  text-align: center;
+}
+.sales-btn-zone > #price-update {
+  border: none;
+  border-radius: 5px;
+  width: 170px;
+  height: 35px;
+  font-size: 18px;
+  color: #fff;
+  background-color: var(--main1);
+}
+.sales-btn-zone > #price-update:hover {
+  cursor: pointer;
+  background-color: var(--btnHover);
 }
