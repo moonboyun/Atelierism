@@ -24,8 +24,6 @@ import InteriorApplication from "./component/interior/InteriorApplication";
 // import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
-  const [memberId, setMemberId] = useRecoilState(loginIdState);
-  const [memberType, setMembertype] = useRecoilState(memberTypeState);
   return (
     <div className="wrap">
       <Header />

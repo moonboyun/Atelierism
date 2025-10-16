@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./common.css";
+import { useRecoilState } from "recoil";
+import { loginIdState, memberTypeState } from "../utils/RecoilData";
 
-const Header = () => {
+const Header = (props) => {
+  const isLogin = props.isLogin;
   const [showSubMenu, setShowSubMenu] = useState(false);
 
   return (
@@ -47,17 +50,40 @@ const Header = () => {
   );
 };
 const HeaderLink = () => {
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [memberType, setMemberType] = useRecoilState(memberTypeState);
+  const navigate = useNavigate();
+  const logout = () => {
+    setMemberId("");
+    setMemberType(0);
+    navigate("/");
+  };
   return (
     <ul className="user-menu">
-      <li>
-        <Link to="/member/login">로그인</Link>
-      </li>
-      <li>
-        <Link to="/member/agree">회원가입</Link>
-      </li>
-      <li className="interior-btn">
-        <Link to="/interior/application">인테리어 컨설팅</Link>
-      </li>
+      {memberId !== "" && memberType !== 0 ? (
+        <>
+          <li>
+            <Link to="/member/mypage">마이페이지</Link>
+          </li>
+          <li>
+            <Link to="/" onClick={logout}>
+              로그아웃
+            </Link>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to="/member/login">로그인</Link>
+          </li>
+          <li>
+            <Link to="/member/agree">회원가입</Link>
+          </li>
+        </>
+      )}
+      <button className="interior-btn">
+        <span>인테리어 컨설팅</span>
+      </button>
     </ul>
   );
 };
