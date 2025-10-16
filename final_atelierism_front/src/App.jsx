@@ -46,10 +46,6 @@ function App() {
           <Route path="/board/inquiry" element={<BoardInquiry />} />
           <Route path="/board/designer" element={<BoardDesigner />} />
           <Route path="/designer/intro" element={<Intro />} />
-          <Route
-            path="/interior/application"
-            element={<InteriorApplication />}
-          />
         </Routes>
       </main>
       <Footer />

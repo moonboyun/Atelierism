@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./common.css";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
+import InteriorApplication from "../interior/InteriorApplication";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
@@ -58,6 +59,7 @@ const HeaderLink = () => {
     setMemberType(0);
     navigate("/");
   };
+  const [interiorModal, setInteriorModal] = useState(false);
   return (
     <ul className="user-menu">
       {memberId !== "" && memberType !== 0 ? (
@@ -81,9 +83,12 @@ const HeaderLink = () => {
           </li>
         </>
       )}
-      <button className="interior-btn">
+      <button className="interior-btn" onClick={() => setInteriorModal(true)}>
         <span>인테리어 컨설팅</span>
       </button>
+      {interiorModal && (
+        <InteriorApplication onClose={() => setInteriorModal(false)} />
+      )}
     </ul>
   );
 };
