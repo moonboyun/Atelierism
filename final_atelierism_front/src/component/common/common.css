@@ -44,6 +44,17 @@ body {
   position: relative;
   background-color: #fff;
 }
+.wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.content {
+  padding-top: 32px;
+  width: 100%;
+  margin: 30px auto;
+  flex: 1;
+}
 /*-----------------------------default---------------------------------------*/
 .header {
   position: fixed;
@@ -180,15 +191,10 @@ body {
   padding-right: 20px;
 }
 /*-----------------------------footer---------------------------------------*/
-.content {
-  width: 100%;
-  min-height: 850px;
-  margin: 0px auto;
-  flex: 1;
-}
 section.section {
-  width: 1905px;
-  padding-top: 62px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
   background-color: #fff;
 }
 section.section.bg-section {
