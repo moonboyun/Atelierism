@@ -20,7 +20,6 @@ import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
 import Intro from "./component/designer/intro";
 import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
-import InteriorApplication from "./component/interior/InteriorApplication";
 // import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
@@ -46,10 +45,6 @@ function App() {
           <Route path="/board/designer" element={<BoardDesigner />} />
           <Route path="/designer/intro" element={<Intro />} />
           <Route path="/admin/sales" element={<AdminSalesStatus />} />
-          <Route
-            path="/interior/application"
-            element={<InteriorApplication />}
-          />
         </Routes>
       </main>
       <Footer />
