@@ -5,11 +5,11 @@ import { loginIdState, memberTypeState } from "./RecoilData";
 import { useRecoilState } from "recoil";
 import { useState } from "react";
 
-const SideMenu = (/*props*/) => {
+const SideMenu = (props) => {
+  const menus = props.menus;
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
-  //const menus = props.menus;
   //추후 각자 마이페이지에서 메뉴라는 변수를 만들고
   //주석 풀어서 사용하세요 아래 맵 처리까지 끝나있습니다.
   //메뉴 변수 안에 url이랑 메뉴 이름이 있어야합니다.
@@ -23,33 +23,19 @@ const SideMenu = (/*props*/) => {
         </div>
       </div>
       <ul className="menu-list">
-        {/*{menus.map((menu, i) => {
-          <li key={"side-menu" + i}>
-            <NavLink
-              to={menu.url}
-              className={({ isClick }) => (isClick ? "click" : "")}
-            >
-              <span>{menu.text}</span>
-              <ChevronRight />
-            </NavLink>
-          </li>;
-        })}*/}
-        <li>
-          매출 관리
-          <ChevronRight />
-        </li>
-        <li>
-          <span>디자이너 리스트</span>
-          <ChevronRight />
-        </li>
-        <li>
-          신청 확인
-          <ChevronRight />
-        </li>
-        <li>
-          정보수정
-          <ChevronRight />
-        </li>
+        {menus.map((menu, i) => {
+          return (
+            <li key={"side-menu" + i}>
+              <NavLink
+                to={menu.url}
+                className={({ isClick }) => (isClick ? "click" : "")}
+              >
+                <span>{menu.text}</span>
+                <ChevronRight />
+              </NavLink>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
