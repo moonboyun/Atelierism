@@ -42,12 +42,13 @@ const MemberLogin = () => {
         })
         .catch((err) => {
           console.log(err);
-          Swal.fire({
-            title: "로그인 실패",
-            text: "아이디 또는 비밀번호를 입력하세요",
-            icon: "warning",
-          });
         });
+    } else {
+      Swal.fire({
+        title: "로그인 실패",
+        text: "아이디 또는 비밀번호를 입력하세요",
+        icon: "warning",
+      });
     }
   };
   return (
