@@ -2,6 +2,7 @@ package kr.co.iei.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.member.model.dao.MemberDao;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
@@ -22,5 +23,11 @@ public class MemberService {
 		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
 		//LoginMemberDTO loginMember = new LoginMemberDTO(m.getMemberId(), m.getMemberType());
 		return m;
+	}
+
+	@Transactional
+	public int deleteMember(String memberId) {
+		int result = memberDao.deleteMember(memberId);
+		return result;
 	}
 }
