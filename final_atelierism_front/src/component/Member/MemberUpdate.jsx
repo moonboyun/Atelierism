@@ -29,7 +29,7 @@ const MemberUpdate = () => {
           setMember(res.data);
         });
     }
-  });
+  }, [memberId]);
   const update = () => {
     axios
       .patch(`${import.meta.env.VITE_BACK_SERVER}/member/update`, member)
@@ -72,7 +72,6 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberPw"
-                    value={member.memberPw}
                     onChange={inputMemberData}
                   ></input>
                 </td>
@@ -83,7 +82,6 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberNewPw"
-                    value={member.memberPw}
                     onChange={inputMemberData}
                   ></input>
                 </td>
@@ -94,7 +92,6 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberNewPwRe"
-                    value={member.memberPw}
                     onChange={inputMemberData}
                   ></input>
                 </td>
@@ -105,8 +102,8 @@ const MemberUpdate = () => {
                   <input
                     type="text"
                     name="memberPhone"
-                    value={member.memberPhone}
                     onChange={inputMemberData}
+                    value={member.memberPhone}
                   ></input>
                 </td>
               </tr>
