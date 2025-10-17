@@ -2,9 +2,9 @@ import { ArrowForwardIos, Clear } from "@mui/icons-material";
 import "./interior.css";
 import { Route, Routes } from "react-router-dom";
 import InteriorDesigner from "./InteriorDesigner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const InteriorApplication = ({ onClose }) => {
+const InteriorApplication = ({ onClose, ani, setAni }) => {
   const [step, setStep] = useState(1); // 현재 단계
   const nextStep = () => {
     setStep((prev) => prev + 1);
@@ -21,9 +21,16 @@ const InteriorApplication = ({ onClose }) => {
         return <InteriorDesigner />;
     }
   };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setAni(true);
+    }, 10); // 아주 짧게 딜레이
+
+    return () => clearTimeout(timeout);
+  }, []);
   return (
     <section className="inter-section">
-      <div className="inter-content">
+      <div className={ani ? "inter-content active" : "inter-content"}>
         <button onClick={onClose} style={{ float: "right" }}>
           <Clear className="inter-del-btn" />
         </button>
