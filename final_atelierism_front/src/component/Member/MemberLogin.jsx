@@ -19,33 +19,35 @@ const MemberLogin = () => {
     const value = e.target.value; //입력된 값
     const newMember = { ...member, [name]: value }; //기존 멤버객체 복사 후
     setMember(newMember); //새로운 멤버 객체로 업데이트
-    console.log(newMember);
   };
   const navigate = useNavigate();
 
   const login = () => {
-    console.log(member);
     if (member.memberId !== "" && member.memberPw !== "") {
       const backServer = import.meta.env.VITE_BACK_SERVER;
       axios
         .post(`${backServer}/member/login`, member)
         .then((res) => {
-          setMemberId(res.data.memberId); //로그인한 회원 아이디 정보
-          setMemberType(res.data.memberType); //로그인한 회원 등급 정보
-          navigate("/");
+          if (res.data && res.data.memberId) {
+            setMemberId(res.data.memberId); //로그인한 회원 아이디 정보
+            setMemberType(res.data.memberType); //로그인한 회원 등급 정보
+            navigate("/");
+          } else {
+            Swal.fire({
+              title: "로그인 실패",
+              text: "아이디 또는 비밀번호를 확인하세요",
+              icon: "warning",
+            });
+          }
         })
         .catch((err) => {
           console.log(err);
-          Swal.fire({
-            title: "로그인 실패",
-            text: "아이디 또는 비밀번호를 입력하세요",
-            icon: "warning",
-          });
         });
     } else {
       Swal.fire({
-        text: "아이디 또는 비밀번호를 입력하세요.",
-        icon: "info",
+        title: "로그인 실패",
+        text: "아이디 또는 비밀번호를 입력하세요",
+        icon: "warning",
       });
     }
   };

@@ -6,8 +6,8 @@ import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/member/Agreement";
 import Applicantdetail from "./component/admin/Applicantdetail";
-import MemberInfo from "./component/Member/memberInfo";
-import MemberUpdate from "./component/Member/MemberUpdate";
+import MemberInfo from "./component/member/MemberInfo";
+import MemberUpdate from "./component/member/MemberUpdate";
 import Payment from "./component/Member/Payment";
 import RecoverId from "./component/Member/RecoverId";
 import ReviewWriter from "./component/board/ReviewWriter";
@@ -21,6 +21,7 @@ import RecoverPw from "./component/member/RecoverPw";
 import Intro from "./component/designer/intro";
 import InquiryWriter from "./component/board/InquiryWriter";
 import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
+import AdminMain from "./component/Admin/AdminMain";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/admin/mypage" element={<AdminMypage />} />
           <Route path="/admin/sales" element={<AdminSalesStatus />} />
           <Route path="/admin/sales" element={<AdminSalesStatus />} />
+          <Route path="/admin/*" element={<AdminMain />} />
           {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
           <Route path="/board/review" element={<BoardReview />} />

@@ -47,9 +47,6 @@ const Applicantdetail = () => {
     <div className="detailAllWrap">
       <div className="detail-content-wrap">
         <section>
-          <SideMenu />
-        </section>
-        <section>
           <div className="title-header">
             <h1>디자이너 신청자 상세보기</h1>
           </div>

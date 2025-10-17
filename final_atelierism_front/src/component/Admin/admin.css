@@ -1,20 +1,26 @@
-/*--------------------detail-content-wrap-----------------------*/
-.detail-content-wrap {
+/*--------------------admin-main-all-wrap------------------*/
+.admin-main-all-wrap {
   width: 1200px;
   margin: 0 auto;
+}
+.admin-main-all-wrap > h1 {
   margin-top: 50px;
+  text-align: center;
+}
+/*---------------admin-main-wrap----------------*/
+.admin-main-wrap {
+  margin-top: 70px;
   margin-bottom: 60px;
   display: flex;
   justify-content: center;
 }
-/*---------------------side-menu-section-----------------------*/
-.detail-content-wrap > section:first-child {
+.admin-main-wrap > section:first-child {
   margin-right: 30px;
 }
-/*-----------------------profile-section-----------------------*/
-.detail-content-wrap > section:last-child {
+.admin-main-wrap > section:last-child {
   width: 950px;
 }
+/*--------------------detail-content-wrap-----------------------*/
 /*---------------------profile-title----------------------*/
 .title-header {
   border-bottom: 2px solid var(--gray3);
@@ -237,27 +243,6 @@
 }
 /*---------------------------------------------------------------------------*/
 /*---------------------------------admin-mypage-all-wrap--------------------*/
-.admin-mypage-all-wrap {
-  margin-top: 50px;
-  padding-bottom: 60px;
-}
-/*---------------------------admin-mypage-title---------------------------*/
-.admin-mypage-title {
-  text-align: center;
-}
-/*------------------------------------AdminMypage---------------------------------------*/
-.admin-mypage-wrap {
-  width: 1200px;
-  margin: 0 auto;
-  margin-top: 70px;
-  margin-bottom: 60px;
-  display: flex;
-  justify-content: center;
-}
-/*-----------------------------------admin-mypage-wrap-----------------------------------*/
-.admin-mypage-wrap > section:first-child {
-  margin-right: 30px;
-}
 /*-----------------------------admin-mypage-content1----------------------------*/
 .admin-mypage-content1 {
   width: 950px;
@@ -338,27 +323,7 @@
 }
 /*---------------------------------------------------------------------------*/
 /*----------------------------AdminSalesStatus--------------------------*/
-.admin-sales-status-allwrap > h1 {
-  margin-top: 50px;
-  text-align: center;
-}
-/*-----------------------------admin-sales-status-wrap------------------------------*/
-.admin-sales-status-wrap {
-  width: 1200px;
-  margin: 0 auto;
-  margin-top: 70px;
-  margin-bottom: 60px;
-  display: flex;
-  justify-content: center;
-}
-/*-------------------------------admin-sales-side---------------------------*/
-.admin-sales-side:first-child {
-  margin-right: 30px;
-}
-/*--------------------------admin-sales-status-content-------------------------*/
-.admin-sales-status-content {
-  width: 950px;
-}
+
 /*-------------------------admin-sales-status-content-top----------------------*/
 .admin-sales-status-content-top {
   display: flex;
