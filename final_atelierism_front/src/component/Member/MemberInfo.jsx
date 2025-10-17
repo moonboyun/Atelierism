@@ -3,13 +3,14 @@ import SideMenu from "../utils/SideMenu";
 import "./member.css";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 const MemberInfo = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
+  //const [authReady, setAuthReady] = useRecoilState(authReadyState);
   const inputMemberData = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -17,14 +18,22 @@ const MemberInfo = () => {
     setMember(newMember);
   };
   const backServer = import.meta.env.VITE_BACK_SERVER;
-  axios
-    .get(`${backServer}/member/${memberId}`)
-    .then((res) => {
-      setMember(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  /*useEffect(() => {
+    if (!authReady) {
+      return;
+    }
+  }, [authReady]);*/
+  useEffect(() => {
+    axios
+      .get(`${backServer}/member/${memberId}`)
+      .then((res) => {
+        console.log(res);
+        setMember(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const navigate = useNavigate();
   const deleteMember = () => {
