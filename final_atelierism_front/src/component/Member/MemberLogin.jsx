@@ -23,7 +23,6 @@ const MemberLogin = () => {
   const navigate = useNavigate();
 
   const login = () => {
-    console.log(member);
     if (member.memberId !== "" && member.memberPw !== "") {
       const backServer = import.meta.env.VITE_BACK_SERVER;
       axios
