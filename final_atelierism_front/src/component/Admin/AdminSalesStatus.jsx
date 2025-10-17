@@ -1,13 +1,15 @@
+import { useState } from "react";
 import SideMenu from "../utils/SideMenu";
 
 const AdminSalesStatus = () => {
+  const [priceModal, setPriceModal] = useState(false);
+  const priceUpdate = () => {
+    setPriceModal(true);
+  };
+  const [priceList, setPriceList] = useState({});
   return (
     <div className="admin-sales-status-allwrap">
-      <h1>매출 현황</h1>
       <div className="admin-sales-status-wrap">
-        <section className="admin-sales-side">
-          <SideMenu />
-        </section>
         <section className="admin-sales-status-content">
           <div className="admin-sales-status-content-top">
             <div className="sales-chart">
@@ -93,7 +95,7 @@ const AdminSalesStatus = () => {
             </div>
             <div className="price-list">
               <h2>가격표</h2>
-              <table border={1}>
+              <table>
                 <thead>
                   <tr>
                     <th>상품명</th>
@@ -132,15 +134,84 @@ const AdminSalesStatus = () => {
                 </tbody>
               </table>
               <div className="sales-btn-zone">
-                <button type="button" id="price-update">
+                <button type="button" id="price-update" onClick={priceUpdate}>
                   가격수정
                 </button>
+                {priceModal && (
+                  <PriceUpdateModal
+                    onClose={() => {
+                      setPriceModal(false);
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>
         </section>
       </div>
     </div>
+  );
+};
+
+const PriceUpdateModal = ({ onClose }) => {
+  return (
+    <section className="price-modal-wrap">
+      <div className="price-modal-title">
+        <h2>가격표 수정</h2>
+      </div>
+      <div className="price-modal-content">
+        <table>
+          <thead>
+            <tr>
+              <th>상품명</th>
+              <th>가격</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>원룸</td>
+              <td>
+                <input type="text" id="oneroom" name="oneroom" />
+              </td>
+            </tr>
+            <tr>
+              <td>거실</td>
+              <td>
+                <input type="text" id="living-room" name="living-room" />
+              </td>
+            </tr>
+            <tr>
+              <td>부엌</td>
+              <td>
+                <input type="text" id="kitchen" name="kitchen" />
+              </td>
+            </tr>
+            <tr>
+              <td>아이방</td>
+              <td>
+                <input type="text" id="kids-room" name="kids-room" />
+              </td>
+            </tr>
+            <tr>
+              <td>안방</td>
+              <td>
+                <input type="text" id="bed-room" name="bed-room" />
+              </td>
+            </tr>
+            <tr>
+              <td>서재</td>
+              <td>
+                <input type="text" id="study-room" name="study-room" />
+              </td>
+            </tr>
+            <tr>
+              <td>수수료</td>
+              <td>5%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 };
 
