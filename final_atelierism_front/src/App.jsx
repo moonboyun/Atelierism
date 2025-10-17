@@ -42,14 +42,15 @@ function App() {
           <Route path="/admin/detail" element={<Applicantdetail />} />
           <Route path="/admin/mypage" element={<AdminMypage />} />
           <Route path="/admin/sales" element={<AdminSalesStatus />} />
+          <Route path="/admin/sales" element={<AdminSalesStatus />} />
           {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
           <Route path="/board/review" element={<BoardReview />} />
           <Route path="/board/inquiry" element={<BoardInquiry />} />
           <Route path="/board/designer" element={<BoardDesigner />} />
-          <Route path="/designer/intro" element={<Intro />} />
           <Route path="/board/inquiry/writer" element={<InquiryWriter />} />
-          <Route path="/admin/sales" element={<AdminSalesStatus />} />
+          {/*----------------------designer---------------------*/}
+          <Route path="/designer/intro" element={<Intro />} />
         </Routes>
       </main>
       <Footer />
