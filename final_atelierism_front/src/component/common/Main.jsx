@@ -135,7 +135,9 @@ const Main = () => {
             </div>
             <div className="com-board-items">
               <div className="com-board-item">
-                <img src="/image/designer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/designer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <div className="com-board-info-top">
                     <p>이OO</p>
@@ -152,7 +154,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/designer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/designer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <div className="com-board-info-top">
                     <p>이OO</p>
@@ -169,7 +173,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/designer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/designer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <div className="com-board-info-top">
                     <p>이OO</p>
@@ -186,7 +192,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/designer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/designer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <div className="com-board-info-top">
                     <p>이OO</p>
@@ -203,7 +211,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/designer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/designer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <div className="com-board-info-top">
                     <p>이OO</p>
@@ -220,7 +230,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/designer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/designer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <div className="com-board-info-top">
                     <p>이OO</p>
@@ -257,7 +269,9 @@ const Main = () => {
             </div>
             <div className="com-board-items">
               <div className="com-board-item">
-                <img src="/image/customer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/customer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <p>이OO</p>
                   <p>
@@ -267,7 +281,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/customer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/customer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <p>이OO</p>
                   <p>
@@ -277,7 +293,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/customer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/customer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <p>이OO</p>
                   <p>
@@ -287,7 +305,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/customer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/customer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <p>이OO</p>
                   <p>
@@ -297,7 +317,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/customer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/customer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <p>이OO</p>
                   <p>
@@ -307,7 +329,9 @@ const Main = () => {
                 </div>
               </div>
               <div className="com-board-item">
-                <img src="/image/customer-default.jpg" />
+                <div className="com-board-img-box">
+                  <img src="/image/customer-default.jpg" />
+                </div>
                 <div className="com-board-info">
                   <p>이OO</p>
                   <p>

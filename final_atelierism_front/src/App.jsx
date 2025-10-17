@@ -29,22 +29,25 @@ function App() {
       <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="member/login" element={<MemberLogin />} />
+          {/*---------------------member-------------------*/}
           <Route path="member/agree" element={<Agreement />} />
+          <Route path="member/login" element={<MemberLogin />} />
           <Route path="member/join" element={<MemberJoin />} />
+          <Route path="member/update" element={<MemberUpdate />} />
+          <Route path="member/mypage" element={<MemberInfo />} />
           <Route path="member/recoverId" element={<RecoverId />} />
           <Route path="member/recoverPw" element={<RecoverPw />} />
-          <Route path="member/update" element={<MemberUpdate />} />
           <Route path="member/payment" element={<Payment />} />
+          {/*----------------------admin---------------------*/}
           <Route path="/admin/detail" element={<Applicantdetail />} />
           <Route path="/admin/mypage" element={<AdminMypage />} />
-          <Route path="member/mypage" element={<MemberInfo />} />
+          <Route path="/admin/sales" element={<AdminSalesStatus />} />
+          {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
           <Route path="/board/review" element={<BoardReview />} />
           <Route path="/board/inquiry" element={<BoardInquiry />} />
           <Route path="/board/designer" element={<BoardDesigner />} />
           <Route path="/designer/intro" element={<Intro />} />
-          <Route path="/admin/sales" element={<AdminSalesStatus />} />
         </Routes>
       </main>
       <Footer />
