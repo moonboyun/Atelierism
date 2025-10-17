@@ -29,6 +29,7 @@
   border-radius: 8px;
   transition: all 0.75s ease-in-out, border-radius 0.75s 0.35s ease-in-out;
 }
+/*----------------------------screen------------------------------------*/
 .inter-content > button {
   margin: 40px;
   background-color: #fff;
@@ -60,13 +61,61 @@
   padding-left: 5px;
   font-size: 20px;
 }
-.inter-title-box > .main-title {
+/*----------------------------modal-btn------------------------------------*/
+.inter-title-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.inter-main-text {
+  display: flex;
+  flex-direction: column;
+}
+.inter-main-text > .main-title {
+  text-align: left;
   margin: 40px;
   margin-bottom: 15px;
   font-size: 30px;
   font-weight: 600;
 }
-.inter-title-box > p {
+.inter-main-text > p {
+  text-align: left;
   margin-left: 40px;
   font-size: 18px;
+}
+/*----------------------------modal-title------------------------------------*/
+.interD-component-box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.interD-select-box {
+  width: 300px;
+  padding: 20px 60px;
+  border: 1px solid var(--gray1);
+  border-radius: 8px;
+  text-align: center;
+}
+.interD-component-box {
+  width: 1240px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+.interD-choice-items {
+  width: 900px;
+  height: 530px;
+  overflow: auto;
+}
+.interD-choice-item {
+  margin-bottom: 20px;
+}
+.interD-check-img-box {
+  border: 1px solid var(--gray1);
+  border-radius: 8px;
+  padding: 20px;
+}
+.interD-check-img-box > img {
+  width: 160px;
 }
