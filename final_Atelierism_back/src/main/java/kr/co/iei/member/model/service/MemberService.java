@@ -15,7 +15,7 @@ public class MemberService {
 
 	public MemberDTO selectOneMember(String memberId) {
 		MemberDTO member = memberDao.selectOneMember(memberId);
-		member.setMemberPw(null);
+		//member.setMemberPw(null);
 		return member;
 	}
 
