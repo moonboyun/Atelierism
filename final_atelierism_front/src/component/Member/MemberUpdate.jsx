@@ -11,6 +11,7 @@ const MemberUpdate = () => {
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
   const [menus, setMenus] = useState([
+    //SideMenu에 전송할 state
     { url: "/member/mypage", text: "마이페이지" },
     { url: "/member/update", text: "정보 수정" },
     { url: "/member/payment", text: "결제 내역" },
@@ -22,6 +23,7 @@ const MemberUpdate = () => {
     setMember(newMember);
   };
   useEffect(() => {
+    //문제의 useEffect
     if (memberId) {
       axios
         .get(`${import.meta.env.VITE_BACK_SERVER}/member/${memberId}`)
@@ -120,13 +122,14 @@ const MemberUpdate = () => {
               </tr>
               <tr>
                 <th>주소</th>
-                <td>
+                <td className="update-addr">
                   <input
                     type="text"
                     name="memberAddr"
                     value={member.memberAddr}
                     onChange={inputMemberData}
                   ></input>
+                  <button className="button">우편번호 조회</button>
                 </td>
               </tr>
               <tr>
