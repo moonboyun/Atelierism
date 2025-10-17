@@ -14,13 +14,7 @@ const AdminMypage = () => {
   ]);
   return (
     <div className="admin-mypage-all-wrap">
-      <div className="admin-mypage-title">
-        <h1>마이페이지</h1>
-      </div>
       <div className="admin-mypage-wrap">
-        <section className="side-menu-section">
-          <SideMenu menus={menus} />
-        </section>
         <section className="section-content">
           <div className="admin-mypage-content1">
             <div className="main-chart">

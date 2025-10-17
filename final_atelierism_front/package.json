@@ -17,10 +17,8 @@
     "@mui/material": "^7.3.4",
     "@mui/x-charts": "^8.14.0",
     "axios": "^1.12.2",
-
     "chart.js": "^4.5.1",
     "chartjs-plugin-datalabels": "^2.2.0",
-
     "highcharts": "^12.4.0",
     "quill": "^2.0.3",
     "quill-image-resize-module-react": "^3.0.0",

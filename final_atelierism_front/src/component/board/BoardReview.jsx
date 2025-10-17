@@ -1,58 +1,28 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./board.css";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { isLoginState } from "../utils/RecoilData";
 
 const BoardReview = () => {
-  const boardList = [
-    {
-      id: 1,
-      thumb: "/image/image.thumbnail.png",
-      title: "부엌 리폼 후기",
-      author: "유저A",
-      date: "2025.10.10",
-      oneLine: "주방 동선이 정말 편해졌어요.",
-    },
-    {
-      id: 2,
-      thumb: "/image/image.thumbnail.png",
-      title: "거실 포인트 컬러",
-      author: "유저B",
-      date: "2025.09.29",
-      oneLine: "포인트 벽 하나로 분위기 확 바뀜!",
-    },
-    {
-      id: 3,
-      thumb: "/image/image.thumbnail.png",
-      title: "작은방 북카페화",
-      author: "유저C",
-      date: "2025.09.20",
-      oneLine: "아늑한 독서 공간 완성.",
-    },
-    {
-      id: 4,
-      thumb: "/image/image.thumbnail.png",
-      title: "아이방 꾸미기",
-      author: "유저D",
-      date: "2025.09.18",
-      oneLine: "수납+안전+컬러 모두 만족.",
-    },
-    {
-      id: 5,
-      thumb: "/image/image.thumbnail.png",
-      title: "현관 수납장 교체",
-      author: "유저E",
-      date: "2025.09.12",
-      oneLine: "깔끔하게 정리돼서 출근이 쾌적!",
-    },
-    {
-      id: 6,
-      thumb: "/image/image.thumbnail.png",
-      title: "서재 조명 변경",
-      author: "유저F",
-      date: "2025.09.02",
-      oneLine: "눈 피로가 줄었어요.",
-    },
-  ];
+  const [boardList, setBoardList] = useState([]);
+  const [reqPqge, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
+  const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
+  const isLogin = useRecoilValue(isLoginState);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/board?reqPage=${reqPqge}`)
+      .then((res) => {
+        console.log(res);
+        setBoardList(res.data.boardList);
+        setPi(res.data.pi);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [reqPqge]);
 
   return (
     <div className="board-wrap">
@@ -83,9 +53,11 @@ const BoardReview = () => {
       <section className="section board-review-page">
         <div className="review-header">
           <div className="right-tools">
-            <Link to="/board/review/writer" className="btn-primary sm">
-              글 작성
-            </Link>
+            {isLogin && (
+              <Link to="/board/review/writer" className="btn-primary sm">
+                글 작성
+              </Link>
+            )}
             <select className="sort-select" defaultValue="latest">
               {/* 기본값(최신순)으로 설정 */}
               <option value="latest">최신순</option>
@@ -97,22 +69,9 @@ const BoardReview = () => {
 
         {/* 카드 그리드 */}
         <div className="review-grid">
-          {boardList.map((board) => (
-            <article key={board.id} className="review-card">
-              <div className="thumb">
-                <img src={board.thumb} />
-              </div>
-              <div className="card-meta">
-                <div className="card-title">{board.title}</div>
-                <div className="card-sub">
-                  <span className="author">{board.author}</span>
-                  <span className="dot">•</span>
-                  <span className="date">{board.date}</span>
-                </div>
-                <p className="one-line">{board.oneLine}</p>
-              </div>
-            </article>
-          ))}
+          {boardList.map((board, i) => {
+            return <BoardItem key={"board-" + i} board={board} />;
+          })}
         </div>
 
         {/* 페이징 */}
@@ -134,6 +93,34 @@ const BoardReview = () => {
           </button>
         </div>
       </section>
+    </div>
+  );
+};
+
+const BoardItem = (props) => {
+  const board = props.board;
+  const navigate = useNavigate();
+  return (
+    <div
+      className="posting-item"
+      onClick={() => {
+        navigate(`/board/view${board.boardNo}`);
+      }}
+    >
+      <article key={board.boardNo} className="review-card">
+        <div className="thumb">
+          <img src={board.thumbnail} />
+        </div>
+        <div className="card-meta">
+          <div className="card-title">{board.boardtitle}</div>
+          <div className="card-sub">
+            <span className="author">{board.boardWriter}</span>
+            <span className="dot">•</span>
+            <span className="date">{board.date}</span>
+          </div>
+          <p className="one-line">{board.oneLine}</p>
+        </div>
+      </article>
     </div>
   );
 };
