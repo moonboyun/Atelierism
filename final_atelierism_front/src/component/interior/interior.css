@@ -62,7 +62,7 @@
   font-size: 20px;
 }
 /*----------------------------modal-btn------------------------------------*/
-.inter-title-box {
+.inter-main-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,6 +70,7 @@
 .inter-main-text {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 .inter-main-text > .main-title {
   text-align: left;
