@@ -4,6 +4,7 @@ import "./common.css";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
 import InteriorApplication from "../interior/InteriorApplication";
+import Swal from "sweetalert2";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
@@ -60,6 +61,25 @@ const HeaderLink = () => {
     navigate("/");
   };
   const [interiorModal, setInteriorModal] = useState(false);
+  const InteriorApp = () => {
+    if (memberId == "") {
+      Swal.fire({
+        title: "로그인 확인",
+        text: "로그인 후 이용 가능합니다.",
+        icon: "info",
+        reverseButtons: true,
+        showCancelButton: true,
+        cancelButtonText: "닫기",
+        confirmButtonText: "로그인하러 가기",
+      }).then((select) => {
+        if (select.isConfirmed) {
+          navigate("/member/login");
+        }
+      });
+    } else {
+      setInteriorModal(true);
+    }
+  };
   return (
     <ul className="user-menu">
       {memberId !== "" && memberType !== 0 ? (
@@ -87,7 +107,7 @@ const HeaderLink = () => {
           </li>
         </>
       )}
-      <button className="interior-btn" onClick={() => setInteriorModal(true)}>
+      <button className="interior-btn" onClick={InteriorApp}>
         <span>인테리어 컨설팅</span>
       </button>
       {interiorModal && (

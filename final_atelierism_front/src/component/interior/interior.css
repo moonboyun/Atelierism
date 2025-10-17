@@ -7,15 +7,55 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: "center";
+  align-items: center;
   z-index: 1000;
 }
 .inter-content {
   background-color: #fff;
   padding: 20;
-  border-radius: 8;
-  width: 80%;
-  max-width: 600;
-  max-height: 80vh;
+  border-radius: 10px;
+  width: 90%;
+  height: 90%;
   overflow-y: auto;
+}
+.inter-content > button {
+  margin: 40px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.inter-content > button > .inter-del-btn {
+  font-size: 40px;
+  fill: var(--gray5);
+}
+.inter-next-box {
+  display: flex;
+  justify-content: flex-end;
+}
+.inter-next-btn {
+  display: flex;
+  align-items: center;
+  background-color: var(--main1);
+  padding: 7px 10px;
+  border-radius: 8px;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+.inter-next-btn > svg {
+  fill: #fff;
+  vertical-align: middle;
+  padding-left: 5px;
+  font-size: 20px;
+}
+.inter-title-box > .main-title {
+  margin: 40px;
+  margin-bottom: 15px;
+  font-size: 30px;
+  font-weight: 600;
+}
+.inter-title-box > p {
+  margin-left: 40px;
+  font-size: 18px;
 }
