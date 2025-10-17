@@ -34,7 +34,11 @@ const MemberInfo = () => {
         console.log(err);
       });
   }, []);
-
+  const [menus, setMenus] = useState([
+    { url: "/member/mypage", text: "마이페이지" },
+    { url: "/member/update", text: "정보 수정" },
+    { url: "/member/payment", text: "결제 내역" },
+  ]);
   const navigate = useNavigate();
   const deleteMember = () => {
     Swal.fire({
@@ -72,7 +76,7 @@ const MemberInfo = () => {
     <div className="mypage-wrap">
       <div className="page-title">마이페이지</div>
       <section className="side-menu">
-        <SideMenu />
+        <SideMenu menus={menus} />
       </section>
       {member !== null && (
         <form>
