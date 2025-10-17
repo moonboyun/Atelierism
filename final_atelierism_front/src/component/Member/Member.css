@@ -288,6 +288,7 @@
 .update-wrap {
   width: 1440px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 .update-tbl {
   width: 60%;
@@ -340,6 +341,7 @@
   margin: 0 auto;
   overflow: hidden;
   margin-bottom: 50px;
+  margin-top: 50px;
 }
 .payment-content-wrap {
   width: 100%;

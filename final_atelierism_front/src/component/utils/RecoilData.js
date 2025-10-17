@@ -16,6 +16,12 @@ const memberTypeState = atom({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
+/*
+const authReadyState = atom({
+  key: "authReadyState",
+  default: false,
+});
+*/
 const isLoginState = selector({
   key: "isLoginState",
   get: (state) => {
