@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "../utils/SideMenu";
 import "./member.css";
 import { useRecoilState } from "recoil";
@@ -25,6 +25,8 @@ const MemberInfo = () => {
     .catch((err) => {
       console.log(err);
     });
+
+  const navigate = useNavigate();
   const deleteMember = () => {
     Swal.fire({
       title: "회원 탈퇴",
@@ -46,6 +48,8 @@ const MemberInfo = () => {
               }).then(() => {
                 setMemberId("");
                 setMemberType(0);
+                delete axios.defaults.headers.common["Authorization"];
+                navigate("/");
               });
             }
           })
