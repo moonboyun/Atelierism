@@ -1,16 +1,35 @@
 import { ArrowForwardIos, Clear } from "@mui/icons-material";
 import "./interior.css";
+import { Route, Routes } from "react-router-dom";
+import InteriorDesigner from "./InteriorDesigner";
+import { useState } from "react";
 
 const InteriorApplication = ({ onClose }) => {
+  const [step, setStep] = useState(1); // 현재 단계
+  const nextStep = () => {
+    setStep((prev) => prev + 1);
+  };
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return <InteriorDesigner />;
+      // case 2:
+      //   return <NextComponent />;
+      // case 3:
+      //   return <AnotherComponent />;
+      default:
+        return <InteriorDesigner />;
+    }
+  };
   return (
     <section className="inter-section">
       <div className="inter-content">
         <button onClick={onClose} style={{ float: "right" }}>
           <Clear className="inter-del-btn" />
         </button>
-        <DesignerCheck />
+        {renderStep()}
         <div className="inter-next-box">
-          <button className="inter-next-btn">
+          <button className="inter-next-btn" onClick={nextStep}>
             다음 <ArrowForwardIos />
           </button>
         </div>
@@ -18,12 +37,5 @@ const InteriorApplication = ({ onClose }) => {
     </section>
   );
 };
-const DesignerCheck = () => {
-  return (
-    <div className="inter-title-box">
-      <div className="main-title">1 / 4 디자이너 선택</div>
-      <p>나만의 공간을 완성할 맞춤형 디자이너를 선택하세요.</p>
-    </div>
-  );
-};
+
 export default InteriorApplication;
