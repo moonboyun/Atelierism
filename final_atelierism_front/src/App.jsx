@@ -19,9 +19,9 @@ import { useRecoilState } from "recoil";
 import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
 import Intro from "./component/designer/intro";
+import InquiryWriter from "./component/board/InquiryWriter";
 import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
 import AdminMain from "./component/Admin/AdminMain";
-// import { loginIdState, memberTypeState } from "./component/util/RecoilData";
 
 function App() {
   return (
@@ -41,14 +41,17 @@ function App() {
           <Route path="member/payment" element={<Payment />} />
           {/*----------------------admin---------------------*/}
           <Route path="/admin/detail" element={<Applicantdetail />} />
-          <Route path="/admin/sales" element={<AdminSalesStatus data={1} />} />
           <Route path="/admin/mypage" element={<AdminMypage />} />
+          <Route path="/admin/sales" element={<AdminSalesStatus />} />
+          <Route path="/admin/sales" element={<AdminSalesStatus />} />
           <Route path="/admin/*" element={<AdminMain />} />
           {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
           <Route path="/board/review" element={<BoardReview />} />
           <Route path="/board/inquiry" element={<BoardInquiry />} />
           <Route path="/board/designer" element={<BoardDesigner />} />
+          <Route path="/board/inquiry/writer" element={<InquiryWriter />} />
+          {/*----------------------designer---------------------*/}
           <Route path="/designer/intro" element={<Intro />} />
         </Routes>
       </main>

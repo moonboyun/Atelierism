@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.iei.board.model.dao.InquiryBoardDao">
+	
+	<select id="totalCount" resultType="int">
+		select count(*) from inquiry_board_tbl where inquiry_board_status = 1
+	</select>
+
+	<select id="selectBoardList" resultType="inquiry">
+		select * from (select rownum as rnum, b. * from (select inquiry_board_no, inquiry_board_title, inquiry_board_writer_id, inquiry_board_content, inquiry_board_option, inquiry_board_status, inquiry_board_date from inquiry_board_tbl where inquiry_board_status = 1 order by inquiry_board_no desc)b)
+		where rnum between #{start} and #{end}
+	</select>
+</mapper>

@@ -19,7 +19,9 @@ const SideMenu = (props) => {
         <img src="/image/default_image.png" width={"165px"} height={"165px"} />
         <div className="text-box">
           <span>{memberId}님</span>
-          <NavLink>프로필 수정</NavLink>
+          {(memberType === 2 || memberType === 3) && (
+            <NavLink>프로필 수정</NavLink>
+          )}
         </div>
       </div>
       <ul className="menu-list">
