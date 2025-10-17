@@ -2,8 +2,16 @@ import { colors } from "@mui/material";
 import SideMenu from "../utils/SideMenu";
 import "./Admin.css";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { useState } from "react";
 
 const AdminMypage = () => {
+  const [menus, setMenus] = useState([
+    { url: "/admin/mypage", text: "마이페이지" },
+    { url: "/admin/sales", text: "매출 현황" },
+    { url: "/admin/applicantList", text: "신청자 리스트" },
+    { url: "/admin/designerList", text: "디자이너 리스트" },
+    { url: "/admin/memberList", text: "회원 리스트" },
+  ]);
   return (
     <div className="admin-mypage-all-wrap">
       <div className="admin-mypage-title">
@@ -11,7 +19,7 @@ const AdminMypage = () => {
       </div>
       <div className="admin-mypage-wrap">
         <section className="side-menu-section">
-          <SideMenu />
+          <SideMenu menus={menus} />
         </section>
         <section className="section-content">
           <div className="admin-mypage-content1">
