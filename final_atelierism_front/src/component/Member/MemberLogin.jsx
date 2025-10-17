@@ -19,12 +19,10 @@ const MemberLogin = () => {
     const value = e.target.value; //입력된 값
     const newMember = { ...member, [name]: value }; //기존 멤버객체 복사 후
     setMember(newMember); //새로운 멤버 객체로 업데이트
-    console.log(newMember);
   };
   const navigate = useNavigate();
 
   const login = () => {
-    console.log(member);
     if (member.memberId !== "" && member.memberPw !== "") {
       const backServer = import.meta.env.VITE_BACK_SERVER;
       axios

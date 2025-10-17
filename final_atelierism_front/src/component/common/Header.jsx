@@ -61,6 +61,7 @@ const HeaderLink = () => {
     navigate("/");
   };
   const [interiorModal, setInteriorModal] = useState(false);
+  const [ani, setAni] = useState(false);
   const InteriorApp = () => {
     if (memberId == "") {
       Swal.fire({
@@ -111,7 +112,14 @@ const HeaderLink = () => {
         <span>인테리어 컨설팅</span>
       </button>
       {interiorModal && (
-        <InteriorApplication onClose={() => setInteriorModal(false)} />
+        <InteriorApplication
+          onClose={() => {
+            setInteriorModal(false);
+            setAni(false);
+          }}
+          ani={ani}
+          setAni={setAni}
+        />
       )}
     </ul>
   );

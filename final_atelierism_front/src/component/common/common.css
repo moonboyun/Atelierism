@@ -402,8 +402,17 @@ section.section.bg-section {
   justify-content: center;
   flex-direction: column;
 }
-.com-board-item > img {
+.com-board-img-box:hover > img {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.com-board-img-box > img {
+  transition: 0.3s;
+}
+.com-board-img-box {
   width: 400px;
+  height: 400px;
+  overflow: hidden;
   cursor: pointer;
 }
 .com-board-info {

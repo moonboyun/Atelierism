@@ -1,6 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
+import { useState } from "react";
+import Swal from "sweetalert2";
 const Agreement = () => {
+  const [isChecked1, setIsChecked1] = useState(false);
+  const [isChecked2, setIsChecked2] = useState(false);
+
+  const checkBox1 = (e) => {
+    setIsChecked1(e.target.checked);
+  };
+  const checkBox2 = (e) => {
+    setIsChecked2(e.target.checked);
+  };
+
+  const navigate = useNavigate();
+  const nextPage = () => {
+    if (isChecked1 && isChecked2) {
+      Swal.fire({
+        text: "회원가입을 진행합니다.",
+        icon: "info",
+      });
+    } else {
+      Swal.fire({
+        text: "약관동의를 모두 체크해주세요",
+        icon: "warning",
+      });
+      navigate("/member/agree");
+    }
+  };
   return (
     <section className="agree-wrap">
       <div className="page-title">약관동의</div>
@@ -96,7 +123,7 @@ const Agreement = () => {
           </div>
           <div className="check-box">
             <div>동의합니다</div>
-            <input type="checkbox"></input>
+            <input type="checkbox" name="agree" onChange={checkBox1}></input>
           </div>
         </div>
 
@@ -211,14 +238,16 @@ const Agreement = () => {
           </div>
           <div className="check-box">
             <div>동의합니다</div>
-            <input type="checkbox"></input>
+            <input type="checkbox" name="agree" onChange={checkBox2}></input>
           </div>
           <div className="sb-button-zone">
             <button type="button">
               <Link to="/">이전</Link>
             </button>
-            <button type="button">
-              <Link to="/member/join">다음</Link>
+            <button type="button" onClick={nextPage}>
+              <Link to="/member/join" disabled={!isChecked1 && !isChecked2}>
+                다음
+              </Link>
             </button>
           </div>
         </div>
