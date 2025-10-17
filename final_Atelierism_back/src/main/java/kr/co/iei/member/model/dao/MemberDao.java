@@ -9,4 +9,6 @@ public interface MemberDao {
 
 	MemberDTO selectOneMember(String memberId);
 
+	int deleteMember(String memberId);
+
 }
