@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
 import SideMenu from "../utils/SideMenu";
 import { useEffect, useState } from "react";
@@ -10,6 +10,8 @@ const MemberUpdate = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
+  const [memberNewPwRe, setmemberNewPwRe] = useState("");
+  const [isAuth, setIsAuth] = useState(false); //현재 비밀번호 입력용
   const [menus, setMenus] = useState([
     //SideMenu에 전송할 state
     { url: "/member/mypage", text: "마이페이지" },
@@ -22,19 +24,19 @@ const MemberUpdate = () => {
     const newMember = { ...member, [name]: value };
     setMember(newMember);
   };
+  const backServer = import.meta.env.VITE_BACK_SERVER;
   useEffect(() => {
     //문제의 useEffect
     if (memberId) {
-      axios
-        .get(`${import.meta.env.VITE_BACK_SERVER}/member/${memberId}`)
-        .then((res) => {
-          setMember(res.data);
-        });
+      axios.get(`${backServer}/member/${memberId}`).then((res) => {
+        setMember(res.data);
+      });
     }
   }, [memberId]);
+  const navigate = useNavigate();
   const update = () => {
     axios
-      .patch(`${import.meta.env.VITE_BACK_SERVER}/member/update`, member)
+      .patch(`${backServer}/member`, member)
       .then((res) => {
         if (res.data === 1) {
           Swal.fire({
@@ -42,10 +44,26 @@ const MemberUpdate = () => {
             icon: "success",
           });
         }
+        navigate("/member/mypage");
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const checkPw = () => {
+    axios.post(`${backServer}/member/check-pw`, member).then((res) => {
+      if (res.data === 1) {
+        setIsAuth({ ...member, memberPw: "" });
+      }
+    });
+  };
+  const inputPw = (e) => {
+    const newMember = { ...member, memberPw: e.target.value };
+    setMember(newMember);
+  };
+  const inputPwRe = (e) => {
+    setmemberNewPwRe(e.target.value);
   };
   return (
     <div className="update-wrap">
@@ -54,7 +72,12 @@ const MemberUpdate = () => {
         <SideMenu menus={menus} />
       </section>
       {member !== null && (
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            update();
+          }}
+        >
           <table className="update-tbl">
             <tbody>
               <tr>
@@ -74,7 +97,8 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberPw"
-                    onChange={inputMemberData}
+                    value={member.memberPw}
+                    onChange={checkPw}
                   ></input>
                 </td>
               </tr>
@@ -84,7 +108,8 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberNewPw"
-                    onChange={inputMemberData}
+                    value={member.memberPw}
+                    onChange={inputPw}
                   ></input>
                 </td>
               </tr>
@@ -94,7 +119,7 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberNewPwRe"
-                    onChange={inputMemberData}
+                    onChange={inputPwRe}
                   ></input>
                 </td>
               </tr>
@@ -149,7 +174,7 @@ const MemberUpdate = () => {
             <button type="button">
               <Link to="/member/mypage">취소하기</Link>
             </button>
-            <button type="button" onClick={update}>
+            <button type="button">
               <Link to="/member/mypage">수정하기</Link>
             </button>
           </div>
