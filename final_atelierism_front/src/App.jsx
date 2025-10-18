@@ -40,10 +40,6 @@ function App() {
           <Route path="member/recoverPw" element={<RecoverPw />} />
           <Route path="member/payment" element={<Payment />} />
           {/*----------------------admin---------------------*/}
-          <Route path="/admin/detail" element={<Applicantdetail />} />
-          <Route path="/admin/mypage" element={<AdminMypage />} />
-          <Route path="/admin/sales" element={<AdminSalesStatus />} />
-          <Route path="/admin/sales" element={<AdminSalesStatus />} />
           <Route path="/admin/*" element={<AdminMain />} />
           {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
