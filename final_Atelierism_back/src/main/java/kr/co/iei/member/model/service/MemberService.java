@@ -36,4 +36,14 @@ public class MemberService {
 		int result = memberDao.updateMemeber(member);
 		return result;
 	}
+
+	@Transactional
+	public int checkPw(MemberDTO member) {
+		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
+		if(member.getMemberPw() == m.getMemberPw()) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
 }
