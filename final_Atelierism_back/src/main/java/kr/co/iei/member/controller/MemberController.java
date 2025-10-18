@@ -43,4 +43,9 @@ public class MemberController {
 		int result = memberService.updateMember(member);
 		return ResponseEntity.ok(result);
 	}
+	@PostMapping(value="/check-pw")
+	public ResponseEntity<Integer> checkPw(@RequestBody MemberDTO member){
+		int result = memberService.checkPw(member);
+		return ResponseEntity.ok(result);
+	}
 }
