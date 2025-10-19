@@ -30,7 +30,7 @@
   transition: all 0.75s ease-in-out, border-radius 0.75s 0.35s ease-in-out;
 }
 .inter-content-info{
-  position: relative; /* 또는 absolute */
+  position: relative;
   opacity: 0;
   pointer-events: none;
   z-index: 0;
@@ -129,9 +129,12 @@
   width: 70%;
   height: 530px;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 .interD-choice-item {
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .interD-check-img-box {
   border: 1px solid var(--gray1);
