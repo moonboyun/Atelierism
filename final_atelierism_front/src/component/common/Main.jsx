@@ -94,7 +94,7 @@ const Main = () => {
           <div className="img-info">
             <p>Final.</p>
             <p className="img-title">
-              상담을 통해 맞춤 인테리어를 시작하고, 진행 사황을 단계별로 확인할
+              상담을 통해 맞춤 인테리어를 시작하고, 진행 상황을 단계별로 확인할
               수 있어요
             </p>
             <p>
