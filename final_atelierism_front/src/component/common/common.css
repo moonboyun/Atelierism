@@ -246,7 +246,7 @@ section.section.bg-section {
 }
 
 .slider img {
-  width: 1905px;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   flex-shrink: 0;
