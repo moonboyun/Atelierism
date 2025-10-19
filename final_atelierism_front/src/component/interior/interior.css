@@ -86,6 +86,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0px 20px;
 }
 .inter-main-text {
   display: flex;
@@ -112,20 +113,20 @@
 }
 
 .interD-select-box {
-  width: 300px;
+  width: 30%;
   padding: 20px 60px;
   border: 1px solid var(--gray1);
   border-radius: 8px;
   text-align: center;
 }
 .interD-component-box {
-  width: 1240px;
+  width: 90%;
   display: flex;
   gap: 40px;
   justify-content: center;
 }
 .interD-choice-items {
-  width: 900px;
+  width: 70%;
   height: 530px;
   overflow: auto;
 }
