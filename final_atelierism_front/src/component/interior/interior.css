@@ -36,7 +36,7 @@
   z-index: 0;
   transform: translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  transition-delay: 0.3s; /* 팝업 애니메이션 후 약간의 딜레이 */
+  transition-delay: 0.5s; /* 팝업 애니메이션 후 약간의 딜레이 */
   pointer-events: none; /* 안 보이는 동안 클릭 안 되게 */
 }
 .appear{
@@ -136,12 +136,14 @@
   margin-bottom: 20px;
   cursor: pointer;
 }
-.interD-check-img-box {
+.interD-check-box {
   border: 1px solid var(--gray1);
   border-radius: 8px;
   padding: 20px;
+  display: flex;
+  gap: 20px;
 }
-.interD-check-img-box > img {
+.interD-check-box > img {
   width: 160px;
 }
 
