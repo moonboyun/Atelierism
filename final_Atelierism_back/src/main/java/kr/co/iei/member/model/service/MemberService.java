@@ -1,9 +1,13 @@
 package kr.co.iei.member.model.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.member.model.dao.MemberDao;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
 import kr.co.iei.member.model.dto.MemberDTO;
@@ -45,5 +49,17 @@ public class MemberService {
 		}else {
 			return 0;
 		}
+	}
+
+	public List searchDesignerId(List<DesignerDTO> designerList) {
+		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
+		for(DesignerDTO designer : designerList) {
+			String memberId = designer.getMemberId();
+			MemberDTO member = memberDao.searchIdMember(memberId);
+			if(member != null) {
+				list.add(member);
+			}
+		}
+		return list;
 	}
 }

@@ -13,4 +13,6 @@ public interface MemberDao {
 
 	int updateMemeber(MemberDTO member);
 
+	MemberDTO searchIdMember(String memberId);
+
 }

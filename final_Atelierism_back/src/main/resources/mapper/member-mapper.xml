@@ -16,4 +16,7 @@
 			member_addrDetail = #{memberAddrDetail}
 		where member_id = #{memberId}
 	</update>
+	<select id="searchIdMember" resultType="member">
+		select * from member_tbl where member_id = #{memberId}
+	</select>
 </mapper>
