@@ -29,6 +29,26 @@
   border-radius: 8px;
   transition: all 0.75s ease-in-out, border-radius 0.75s 0.35s ease-in-out;
 }
+.inter-content-info{
+  position: relative; /* 또는 absolute */
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.3s; /* 팝업 애니메이션 후 약간의 딜레이 */
+  pointer-events: none; /* 안 보이는 동안 클릭 안 되게 */
+}
+.appear{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  z-index: 1;
+}
+.inter-del-btn {
+  position: relative;
+  z-index: 10;
+}
 /*----------------------------screen------------------------------------*/
 .inter-content > button {
   margin: 40px;
@@ -120,3 +140,4 @@
 .interD-check-img-box > img {
   width: 160px;
 }
+
