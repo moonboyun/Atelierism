@@ -29,6 +29,26 @@
   border-radius: 8px;
   transition: all 0.75s ease-in-out, border-radius 0.75s 0.35s ease-in-out;
 }
+.inter-content-info{
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.5s; /* 팝업 애니메이션 후 약간의 딜레이 */
+  pointer-events: none; /* 안 보이는 동안 클릭 안 되게 */
+}
+.appear{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  z-index: 1;
+}
+.inter-del-btn {
+  position: relative;
+  z-index: 10;
+}
 /*----------------------------screen------------------------------------*/
 .inter-content > button {
   margin: 40px;
@@ -62,14 +82,16 @@
   font-size: 20px;
 }
 /*----------------------------modal-btn------------------------------------*/
-.inter-title-box {
+.inter-main-box {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0px 20px;
 }
 .inter-main-text {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 .inter-main-text > .main-title {
   text-align: left;
@@ -91,31 +113,37 @@
 }
 
 .interD-select-box {
-  width: 300px;
+  width: 30%;
   padding: 20px 60px;
   border: 1px solid var(--gray1);
   border-radius: 8px;
   text-align: center;
 }
 .interD-component-box {
-  width: 1240px;
+  width: 90%;
   display: flex;
   gap: 40px;
   justify-content: center;
 }
 .interD-choice-items {
-  width: 900px;
+  width: 70%;
   height: 530px;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 .interD-choice-item {
   margin-bottom: 20px;
+  cursor: pointer;
 }
-.interD-check-img-box {
+.interD-check-box {
   border: 1px solid var(--gray1);
   border-radius: 8px;
   padding: 20px;
+  display: flex;
+  gap: 20px;
 }
-.interD-check-img-box > img {
+.interD-check-box > img {
   width: 160px;
 }
+

@@ -7,4 +7,16 @@
 	<delete id="deleteMember">
 		delete from member_tbl where member_id = #{memberId}
 	</delete>
+	<update id="updateMemeber">
+		update member_tbl set
+			member_pw = #{memberPw},
+			member_phone = #{memberPhone},
+			member_email = #{memberEmail},
+			member_addr = #{memberAddr},
+			member_addrDetail = #{memberAddrDetail}
+		where member_id = #{memberId}
+	</update>
+	<select id="searchIdMember" resultType="member">
+		select * from member_tbl where member_id = #{memberId}
+	</select>
 </mapper>

@@ -34,7 +34,9 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
         <button onClick={onClose} style={{ float: "right" }}>
           <Clear className="inter-del-btn" />
         </button>
+        <div className={ani ? "inter-content-info appear" : "inter-content-info"}>
         {renderStep()}
+        </div>
         <div className="inter-next-box">
           <button className="inter-next-btn" onClick={nextStep}>
             다음 <ArrowForwardIos />

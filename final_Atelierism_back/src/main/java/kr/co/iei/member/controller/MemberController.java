@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,16 @@ public class MemberController {
 	@DeleteMapping(value="/{memberId}")
 	public ResponseEntity<Integer> deleteMember(@PathVariable String memberId){
 		int result = memberService.deleteMember(memberId);
+		return ResponseEntity.ok(result);
+	}
+	@PatchMapping
+	public ResponseEntity<Integer> updateMember(@RequestBody MemberDTO member){
+		int result = memberService.updateMember(member);
+		return ResponseEntity.ok(result);
+	}
+	@PostMapping(value="/check-pw")
+	public ResponseEntity<Integer> checkPw(@RequestBody MemberDTO member){
+		int result = memberService.checkPw(member);
 		return ResponseEntity.ok(result);
 	}
 }

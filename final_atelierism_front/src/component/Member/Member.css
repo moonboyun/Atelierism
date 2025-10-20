@@ -335,7 +335,21 @@
 .update-btn > button > a {
   color: #fff;
 }
-
+.update-tbl > tr > .update-addr {
+  margin: 0 auto;
+  float: left;
+}
+.update-addr > input {
+  width: 82%;
+}
+.update-addr > button {
+  padding: 5px 15px;
+  margin-left: 10px;
+  color: #fff;
+  border: 1px solid #8aa996;
+  background-color: #8aa996;
+  border-radius: 8px;
+}
 .payment-wrap {
   width: 1440px;
   margin: 0 auto;
