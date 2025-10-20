@@ -7,7 +7,14 @@ import axios from "axios";
 const InteriorDesigner = () => {
   const [designerList, setDesignerList] = useState([]);
   const [memberList, setMemberList] = useState([]);
-  const [checkedDesignerId, setCheckedDesignerId] = useState("");
+  const [checkedDesigner, setCheckedDesigner] = useState({
+    memberThumb: null,
+    memberId: "",
+    memberName: "",
+    memberCareer: 0,
+    memberIntroduce: "",
+  });
+  console.log(checkedDesigner.memberName);
   const loginId = useRecoilValue(loginIdState);
 
   useEffect(() => {
@@ -33,12 +40,12 @@ const InteriorDesigner = () => {
         <div className="interD-component-box">
           <SelectDesigner
             designerList={designerList}
-            checkedDesignerId={checkedDesignerId}
+            checkedDesigner={checkedDesigner}
           />
           <ChoiceDesigner
             designerList={designerList}
             memberList={memberList}
-            setCheckedDesignerId={setCheckedDesignerId}
+            setCheckedDesigner={setCheckedDesigner}
           />
         </div>
       </div>
@@ -48,14 +55,29 @@ const InteriorDesigner = () => {
 
 const SelectDesigner = (props) => {
   const designerList = props.designerList;
-  const checkedDesignerId = props.checkedDesignerId;
+  const checkedDesigner = props.checkedDesigner;
   return (
     <div className="interD-select-box">
-      <p>
-        {checkedDesignerId == ""
-          ? "디자이너를 선택하지 않았습니다."
-          : checkedDesignerId}
-      </p>
+      <div>
+        {checkedDesigner.memberId == "" ? (
+          "디자이너를 선택하지 않았습니다."
+        ) : (
+          <div className="interD-checked-info-box">
+            <div className="interD-checked-img-box">
+              {checkedDesigner.memberThumb == null ? (
+                <img src="/image/default_image.png" />
+              ) : (
+                <img src={`/image/${checkedDesigner.memberThumb}`} />
+              )}
+            </div>
+            <div className="interD-checked-Designer-info">
+              <div>{checkedDesigner.memberName}</div>
+              <div>경력 | {checkedDesigner.memberCareer}년</div>
+              <div>한줄 소개 | {checkedDesigner.memberIntroduce}</div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -75,7 +97,7 @@ const ChoiceDesigner = (props) => {
             key={"designer-member-" + index}
             designer={designer}
             member={matchedMember}
-            setCheckedDesignerId={props.setCheckedDesignerId}
+            setCheckedDesigner={props.setCheckedDesigner}
           />
         );
       })}
@@ -96,9 +118,15 @@ const DesignerItem = (props) => {
   const designer = props.designer;
   const member = props.member;
   console.log(member);
-  const setCheckedDesignerId = props.setCheckedDesignerId;
-  const checkedDesigner = (e) => {
-    setCheckedDesignerId(e.target.value);
+  const setCheckedDesigner = props.setCheckedDesigner;
+  const checkedDesigner = () => {
+    setCheckedDesigner({
+      memberThumb: member.memberThumb || null, // 썸네일 이미지가 있으면 사용
+      memberId: member.memberId,
+      memberName: member.memberName,
+      memberCareer: designer.designerCareer,
+      memberIntroduce: designer.designerIntroduce,
+    });
   };
   return (
     <label className="interD-choice-item">
@@ -111,7 +139,11 @@ const DesignerItem = (props) => {
         style={{ display: "none" }}
       ></input>
       <div className="interD-check-box">
-        <img src="/image/default_image.png" />
+        {member.memberThumb == null ? (
+          <img src="/image/default_image.png" />
+        ) : (
+          <img src={`/image/${member.memberThumb}`} />
+        )}
         <div className="interD-info-box">
           <div>{member.memberName}</div>
           <div>경력 | {designer.designerCareer}년</div>
