@@ -3,6 +3,8 @@ import "./interior.css";
 import { useRecoilValue } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { ArrowForwardIos } from "@mui/icons-material";
 
 const InteriorDesigner = () => {
   const [designerList, setDesignerList] = useState([]);
@@ -46,6 +48,7 @@ const InteriorDesigner = () => {
             designerList={designerList}
             memberList={memberList}
             setCheckedDesigner={setCheckedDesigner}
+            checkedDesigner={checkedDesigner}
           />
         </div>
       </div>
@@ -57,7 +60,13 @@ const SelectDesigner = (props) => {
   const designerList = props.designerList;
   const checkedDesigner = props.checkedDesigner;
   return (
-    <div className="interD-select-box">
+    <div
+      className={
+        checkedDesigner.memberId == ""
+          ? "interD-select-box"
+          : "interD-select-box interD-checked"
+      }
+    >
       <div>
         {checkedDesigner.memberId == "" ? (
           "디자이너를 선택하지 않았습니다."
@@ -98,6 +107,7 @@ const ChoiceDesigner = (props) => {
             designer={designer}
             member={matchedMember}
             setCheckedDesigner={props.setCheckedDesigner}
+            checkedDesigner={props.checkedDesigner}
           />
         );
       })}
@@ -117,9 +127,9 @@ const ChoiceDesigner = (props) => {
 const DesignerItem = (props) => {
   const designer = props.designer;
   const member = props.member;
-  console.log(member);
   const setCheckedDesigner = props.setCheckedDesigner;
-  const checkedDesigner = () => {
+  const checkedDesigner = props.checkedDesigner;
+  const designerInfo = () => {
     setCheckedDesigner({
       memberThumb: member.memberThumb || null, // 썸네일 이미지가 있으면 사용
       memberId: member.memberId,
@@ -135,10 +145,16 @@ const DesignerItem = (props) => {
         id={`designer-${designer.memberId}`}
         name="designer"
         value={designer.memberId}
-        onChange={checkedDesigner}
+        onChange={designerInfo}
         style={{ display: "none" }}
       ></input>
-      <div className="interD-check-box">
+      <div
+        className={
+          designer.memberId === checkedDesigner.memberId
+            ? "interD-check-box interD-checked"
+            : "interD-check-box"
+        }
+      >
         {member.memberThumb == null ? (
           <img src="/image/default_image.png" />
         ) : (
@@ -148,6 +164,10 @@ const DesignerItem = (props) => {
           <div>{member.memberName}</div>
           <div>경력 | {designer.designerCareer}년</div>
           <div>한줄 소개 | {designer.designerIntroduce}</div>
+        </div>
+        <div className="interD-introduction">
+          <Link to="#">디자이너 소개 보러가기</Link>
+          <ArrowForwardIos />
         </div>
       </div>
     </label>
