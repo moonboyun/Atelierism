@@ -1,27 +1,73 @@
-.content-wrap {
+/* 전체 컨텐츠 폭/여백 */
+.intro-container {
+  width: 100%;
+  max-width: 1200px; /* 중앙 정렬 폭 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 20px;
+}
+
+/* 카드 그리드 (반응형: 300px 기준으로 자동 열 생성) */
+.post-card-grid {
   display: grid;
-  place-items: center;
-  min-height: 100vh;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
-.intro-wrap {
-  width: 1400px;
-  height: 1200px;
-  background-color: beige;
+
+/* === PostCard.jsx 에서 쓰는 클래스들 === */
+.post-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden; /* 모서리 밖으로 튀는 내용 숨김 */
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
-.intro-box {
-  width: 400px;
-  height: 500px;
-  background-color: bisque;
+
+.card-image-wrapper {
+  width: 100%;
+  padding-top: 100%; /* 1:1 정사각형 비율 */
+  position: relative;
+  background-color: #f3f3f3;
 }
-.intro-box1 {
-  height: 400px;
-  background-color: blanchedalmond;
+
+.card-image-wrapper img {
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 와 동일 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 꽉 차게 */
 }
-.intro-box2 {
-  height: 50px;
-  background-color: azure;
+
+.card-content {
+  background-color: #f8f8f8;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.intro-box3 {
-  height: 50px;
-  background-color: antiquewhite;
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
 }
+
+.card-likes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.like-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #aaa;
+  transition: transform 0.15s ease;
+}
+.like-icon:hover {
+  transform: scale(1.15);
+}
+.like-icon.liked {
+  color: #e53935;
+} /* 좋아요 눌렀을 때 빨간색 */
