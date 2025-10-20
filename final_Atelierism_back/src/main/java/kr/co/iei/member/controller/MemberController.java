@@ -45,7 +45,9 @@ public class MemberController {
 	}
 	@PostMapping(value="/checkPw")
 	public ResponseEntity<Integer> checkPw(@RequestBody MemberDTO member){
+		System.out.println("컨트롤러 member : "+member.getMemberPw());
 		int result = memberService.checkPw(member);
+		System.out.println("컨트롤러 result : " + result);
 		return ResponseEntity.ok(result);
 	}
 }

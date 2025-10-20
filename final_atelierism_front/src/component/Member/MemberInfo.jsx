@@ -46,8 +46,8 @@ const MemberInfo = () => {
       text: "탈퇴하시겠습니까?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "탈퇴하기",
       cancelButtonText: "취소",
+      confirmButtonText: "탈퇴하기",
     }).then((res1) => {
       if (res1.isConfirmed) {
         axios
