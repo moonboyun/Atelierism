@@ -72,15 +72,20 @@ const MemberUpdate = () => {
             icon: "success",
           });
           setIsAuth(true);
-        } else {
-          Swal.fire({
-            title: "비밀번호가 일치하지 않습니다.",
-            icon: "warning",
-          });
-          setIsAuth(false);
         }
       })
       .catch((err) => {
+        if (memberPw === "") {
+          Swal.fire({
+            title: "기존 비밀번호를 입력해주세요",
+            icon: "warning",
+          });
+        } else if (!memberPw) {
+          Swal.fire({
+            title: "잘못된 비밀번호 입니다.",
+            icon: "warning",
+          });
+        }
         setIsAuth(false);
       });
   };

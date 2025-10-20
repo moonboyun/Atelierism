@@ -3,6 +3,7 @@ import SideMenu from "../utils/SideMenu";
 import AdminSalesStatus from "./AdminSalesStatus";
 import { useState } from "react";
 import AdminMypage from "./AdminMypage";
+import AdminList from "./AdminList";
 const AdminMain = () => {
   const [menus, setMenus] = useState([
     { url: "/admin/sales", text: "매출 현황" },
@@ -21,6 +22,9 @@ const AdminMain = () => {
           <Routes>
             <Route path="/sales" element={<AdminSalesStatus />} />
             <Route path="/mypage" element={<AdminMypage />} />
+            <Route path="/memberList" element={<AdminList data={1} />} />
+            <Route path="/designerList" element={<AdminList data={2} />} />
+            <Route path="/applicantList" element={<AdminList data={3} />} />
           </Routes>
         </section>
       </div>

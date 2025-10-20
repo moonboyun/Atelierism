@@ -1,0 +1,91 @@
+/*-----------------price-modal-all-wrap-----------------*/
+.price-modal-all-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+/*-----------------price-modal-wrap------------------*/
+.price-modal-wrap {
+  position: fixed;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/*----------------------price-modal-title------------------*/
+.price-modal-title {
+  text-align: center;
+}
+/*-----------------price-modal-content---------------------*/
+.price-table-form {
+  border-spacing: 0;
+  width: 300px;
+  text-align: center;
+  margin-top: 10px;
+}
+.price-table-form > thead > tr {
+  background-color: var(--main1);
+}
+.price-table-form > thead > tr > th {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  border-top: 1px solid var(--gray3);
+  border-bottom: 1px solid var(--gray3);
+  padding: 3px;
+  box-sizing: border-box;
+}
+.price-table-form > tbody > tr {
+  font-size: 18px;
+}
+.price-table-form > tbody > tr > td {
+  border-bottom: 1px solid var(--gray3);
+  padding: 5px;
+}
+.price-table-form > tbody > tr > td:first-child {
+  border-right: 1px solid var(--gray3);
+}
+.price-table-form > tbody > tr > td > input {
+  border: none;
+  outline: none;
+  font-size: 18px;
+  width: 170px;
+  text-align: center;
+}
+/*----------------modal-btn-zone----------------*/
+.modal-btn-zone {
+  margin-top: 15px;
+}
+.modal-btn-zone > button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+.modal-btn-zone > #update-cancel {
+  background-color: var(--gray5);
+  margin-right: 10px;
+}
+.modal-btn-zone > #update-cancel:hover {
+  cursor: pointer;
+  color: var(--gray2);
+}
+.modal-btn-zone > #update-ok {
+  background-color: var(--main1);
+}
+.modal-btn-zone > #update-ok:hover {
+  cursor: pointer;
+  background-color: var(--btnHover);
+}
