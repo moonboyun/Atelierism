@@ -1,11 +1,14 @@
 import { useState } from "react";
+import "./AdminModal.css";
 import SideMenu from "../utils/SideMenu";
+import AdminChart from "./AdminChart";
 
 const AdminSalesStatus = () => {
   const [priceModal, setPriceModal] = useState(false);
   const priceUpdate = () => {
     setPriceModal(true);
   };
+  const [order, setOrder] = useState(1);
   const [priceList, setPriceList] = useState({});
   return (
     <div className="admin-sales-status-allwrap">
@@ -14,7 +17,9 @@ const AdminSalesStatus = () => {
           <div className="admin-sales-status-content-top">
             <div className="sales-chart">
               <h2>매출 그래프</h2>
-              <div className="chart-zone"></div>
+              <div className="chart-zone">
+                <AdminChart />
+              </div>
               <div className="sales-btn-zone">
                 <button type="button" id="month-3">
                   3개월
@@ -155,61 +160,75 @@ const AdminSalesStatus = () => {
 
 const PriceUpdateModal = ({ onClose }) => {
   return (
-    <section className="price-modal-wrap">
-      <div className="price-modal-title">
-        <h2>가격표 수정</h2>
-      </div>
-      <div className="price-modal-content">
-        <table>
-          <thead>
-            <tr>
-              <th>상품명</th>
-              <th>가격</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>원룸</td>
-              <td>
-                <input type="text" id="oneroom" name="oneroom" />
-              </td>
-            </tr>
-            <tr>
-              <td>거실</td>
-              <td>
-                <input type="text" id="living-room" name="living-room" />
-              </td>
-            </tr>
-            <tr>
-              <td>부엌</td>
-              <td>
-                <input type="text" id="kitchen" name="kitchen" />
-              </td>
-            </tr>
-            <tr>
-              <td>아이방</td>
-              <td>
-                <input type="text" id="kids-room" name="kids-room" />
-              </td>
-            </tr>
-            <tr>
-              <td>안방</td>
-              <td>
-                <input type="text" id="bed-room" name="bed-room" />
-              </td>
-            </tr>
-            <tr>
-              <td>서재</td>
-              <td>
-                <input type="text" id="study-room" name="study-room" />
-              </td>
-            </tr>
-            <tr>
-              <td>수수료</td>
-              <td>5%</td>
-            </tr>
-          </tbody>
-        </table>
+    <section className="price-modal-all-wrap">
+      <div className="price-modal-wrap">
+        <div className="price-modal-title">
+          <h2>가격표 수정</h2>
+        </div>
+        <div className="price-modal-content">
+          <form>
+            <table className="price-table-form">
+              <thead>
+                <tr>
+                  <th>상품명</th>
+                  <th>가격</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>원룸</td>
+                  <td>
+                    <input type="text" id="oneroom" name="oneroom" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>거실</td>
+                  <td>
+                    <input type="text" id="living-room" name="living-room" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>부엌</td>
+                  <td>
+                    <input type="text" id="kitchen" name="kitchen" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>아이방</td>
+                  <td>
+                    <input type="text" id="kids-room" name="kids-room" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>안방</td>
+                  <td>
+                    <input type="text" id="bed-room" name="bed-room" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>서재</td>
+                  <td>
+                    <input type="text" id="study-room" name="study-room" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>수수료</td>
+                  <td>
+                    <input type="text" id="study-room" name="study-room" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="modal-btn-zone">
+              <button type="button" id="update-cancel" onClick={onClose}>
+                취소
+              </button>
+              <button type="submit" id="update-ok">
+                확인
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );
