@@ -1,5 +1,4 @@
-/* 전체 래핑 */
-.mypage-wrap {
+.de-mypage-wrap {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -7,38 +6,36 @@
   padding: 24px 20px 40px;
 }
 
-/* 제목 */
-.page-title {
+.de-page-title {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 18px;
 }
 
-/* ✅ 사이드메뉴 + 테이블을 옆으로 나란히 배치 */
-.mypage-content {
+.de-mypage-content {
   display: flex;
   align-items: flex-start;
   gap: 40px;
 }
-.mypage-content > .side-menu {
-  flex: 0 0 240px !important; /* 240px 고정 */
+
+.de-mypage-content > .de-side-menu {
+  flex: 0 0 240px !important;
   max-width: 240px !important;
   width: 240px !important;
-  margin: 0 !important; /* 아래쪽으로 밀리는 마진 제거 */
+  margin: 0 !important;
   align-self: flex-start;
 }
-.mypage-content > .mypage-form {
+
+.de-mypage-content > .de-mypage-form {
   flex: 1 1 auto;
-  min-width: 0; /* 테이블이 넘치며 줄바꿈 안 되는 것 방지 */
+  min-width: 0;
 }
 
-/* 테이블 (오른쪽 콘텐츠 영역) */
-.mypage-form {
-  flex: 1; /* 나머지 공간 차지 */
+.de-mypage-form {
+  flex: 1;
 }
 
-/* 테이블 스타일 */
-.mypage-tbl {
+.de-mypage-tbl {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
@@ -47,7 +44,7 @@
   overflow: hidden;
 }
 
-.mypage-tbl th {
+.de-mypage-tbl th {
   width: 180px;
   background: #f3f1ee;
   text-align: center;
@@ -57,12 +54,12 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.mypage-tbl td {
+.de-mypage-tbl td {
   padding: 10px 14px;
   border-bottom: 1px solid #e8e8e8;
 }
 
-.mypage-tbl input[type="text"] {
+.de-mypage-tbl input[type="text"] {
   width: 100%;
   border: none;
   background: transparent;
@@ -71,14 +68,13 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* 탈퇴 버튼 */
-.secession-btn {
+.de-secession-btn {
   display: flex;
   justify-content: flex-end;
   margin-top: 14px;
 }
 
-.secession-btn button {
+.de-secession-btn button {
   background: #e95a5a;
   color: #fff;
   border: none;
@@ -86,16 +82,16 @@
   padding: 10px 14px;
   cursor: pointer;
 }
-.secession-btn button:hover {
+
+.de-secession-btn button:hover {
   opacity: 0.92;
 }
 
-/* 반응형 (모바일에서는 세로 배치) */
 @media (max-width: 768px) {
-  .mypage-content {
+  .de-mypage-content {
     flex-direction: column;
   }
-  .side-menu {
+  .de-side-menu {
     width: 100%;
   }
 }
