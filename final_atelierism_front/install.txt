@@ -23,6 +23,7 @@ npm install quill-image-resize-module-react
 ------------------------------------------
 2025-10-15 10:42 박준석
 npm install quill
+확인: 조성빈
 
 2025-10-15 16:07 문보윤
 npm install @mui/x-charts
@@ -36,4 +37,4 @@ npm install highcharts @highcharts/react
 2025-10-26 11:49 문보윤
 npm install --save chart.js react-chartjs-2
 npm install chartjs-plugin-datalabels
-확인 : 
+확인 : 조성빈

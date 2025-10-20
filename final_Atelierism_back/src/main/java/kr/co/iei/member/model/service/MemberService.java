@@ -44,7 +44,7 @@ public class MemberService {
 	@Transactional
 	public int checkPw(MemberDTO member) {
 		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
-		if(member.getMemberPw() == m.getMemberPw()) {
+		if(member.getMemberPw().equals(m.getMemberPw())) {
 			return 1;
 		}else {
 			return 0;
