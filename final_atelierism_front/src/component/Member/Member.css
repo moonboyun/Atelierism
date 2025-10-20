@@ -318,6 +318,19 @@
   text-align: center;
   margin-bottom: 30px;
 }
+.sb-check-pw > td > input {
+  width: 90%;
+}
+.sb-check-pw > td > button {
+  text-align: center;
+  margin-left: 10px;
+  padding: 5px 15px;
+  border: 1px solid #8aa996;
+  border-radius: 8px;
+  background-color: #8aa996;
+  color: #fff;
+  cursor: pointer;
+}
 .update-btn > button {
   border: 1px solid #c0c0c0;
   width: 150px;
@@ -331,6 +344,9 @@
 }
 .update-btn > button:last-child {
   background-color: #8aa996;
+}
+.update-btn > button {
+  color: #fff;
 }
 .update-btn > button > a {
   color: #fff;
