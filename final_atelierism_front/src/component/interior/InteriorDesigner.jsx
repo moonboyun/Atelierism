@@ -6,7 +6,7 @@ import axios from "axios";
 
 const InteriorDesigner = () => {
   const [designerList, setDesignerList] = useState([]);
-  const [memberList,setMemberList] = useState([]);
+  const [memberList, setMemberList] = useState([]);
   const [checkedDesignerId, setCheckedDesignerId] = useState("");
   const loginId = useRecoilValue(loginIdState);
 
@@ -14,7 +14,7 @@ const InteriorDesigner = () => {
     axios
       .get(`${import.meta.env.VITE_BACK_SERVER}/designer`)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         setDesignerList(res.data.designerList);
         setMemberList(res.data.memberList);
       })
@@ -22,7 +22,7 @@ const InteriorDesigner = () => {
         console.log(err);
       });
   }, []);
-  
+
   return (
     <div className="inter-title-box">
       <div className="inter-main-text">
@@ -31,14 +31,13 @@ const InteriorDesigner = () => {
       </div>
       <div className="inter-main-box">
         <div className="interD-component-box">
-            <SelectDesigner
+          <SelectDesigner
             designerList={designerList}
             checkedDesignerId={checkedDesignerId}
-
           />
           <ChoiceDesigner
             designerList={designerList}
-            memberList ={memberList}
+            memberList={memberList}
             setCheckedDesignerId={setCheckedDesignerId}
           />
         </div>
@@ -63,22 +62,33 @@ const SelectDesigner = (props) => {
 const ChoiceDesigner = (props) => {
   const designerList = props.designerList;
   const memberList = props.memberList;
+  const [moreDesigner, setMoreDesigner] = useState(3);
   return (
     <div className="interD-choice-items">
-      {designerList.map((designer, index) => {
-        const matchedMember = memberList.find(member => member.memberId === designer.memberId);
-        console.log("Designer:", designer);
-        console.log("Matched Member:", matchedMember);
-          if (!matchedMember) return null;
-          return (
-            <DesignerItem
-              key={"designer-member-" + index}
-              designer={designer}
-              member={matchedMember}
-              setCheckedDesignerId={props.setCheckedDesignerId}
-            />
-          );
+      {designerList.slice(0, moreDesigner).map((designer, index) => {
+        const matchedMember = memberList.find(
+          (member) => member.memberId === designer.memberId
+        );
+        if (!matchedMember) return null;
+        return (
+          <DesignerItem
+            key={"designer-member-" + index}
+            designer={designer}
+            member={matchedMember}
+            setCheckedDesignerId={props.setCheckedDesignerId}
+          />
+        );
       })}
+      {moreDesigner < designerList.length && (
+        <div className="interD-more-btn">
+          <button
+            type="button"
+            onClick={() => setMoreDesigner(moreDesigner + 3)}
+          >
+            더보기
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -101,9 +111,11 @@ const DesignerItem = (props) => {
         style={{ display: "none" }}
       ></input>
       <div className="interD-check-box">
-        <img src="/image/default_image.png" />  
+        <img src="/image/default_image.png" />
         <div className="interD-info-box">
           <div>{member.memberName}</div>
+          <div>경력 | {designer.designerCareer}년</div>
+          <div>한줄 소개 | {designer.designerIntroduce}</div>
         </div>
       </div>
     </label>
