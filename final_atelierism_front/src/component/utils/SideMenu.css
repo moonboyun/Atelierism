@@ -42,14 +42,14 @@
 .side-menu > .menu-list > li:hover {
   cursor: pointer;
 }
-/* 여기도 완성 후 풀어주시면 됩니다
-.menu-list .click > span {
+
+.menu-list .active-link > span {
   color: var(--main1);
 }
-.menu-list .click > svg {
+.menu-list .active-link > svg {
   fill: var(--main1);
 }
-*/
+
 /*----------------------side-menu-------------------------------*/
 .side-menu {
   width: 220px;
