@@ -346,6 +346,17 @@
 .update-addr > input {
   width: 82%;
 }
+.sb-check-pw > td > input {
+  width: 88%;
+}
+.sb-check-pw > td > button {
+  border: 1px solid #8aa996;
+  border-radius: 8px;
+  background-color: #8aa996;
+  padding: 5px 15px;
+  color: #fff;
+  cursor: pointer;
+}
 .update-addr > button {
   padding: 5px 15px;
   margin-left: 10px;
