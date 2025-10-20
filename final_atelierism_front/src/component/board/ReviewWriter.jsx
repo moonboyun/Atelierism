@@ -2,16 +2,45 @@ import { useState } from "react";
 import ReviewFrm from "./ReviewFrm";
 import TextEditor from "../utils/TextEditor";
 import "./board.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { loginIdState } from "../utils/RecoilData";
+import axios from "axios";
 
 const ReviewWriter = () => {
   const [boardTitle, setBoardTitle] = useState(""); // 제목
   const [oneLine, setOneLine] = useState(""); // 한줄평
   const [thumbnail, setThumbnail] = useState(null); // 썸네일
   const [boardContent, setBoardContent] = useState(""); // 본문
+  const [memberId, setMemberId] = useRecoilState(loginIdState); // 회원 아이디를 가져옴
 
+  const navigate = useNavigate();
   const upload = () => {
-    alert("등록완료"); // 실제 전송 X
+    if (boardTitle !== "" && boardContent !== "") {
+      const form = new FormData();
+      form.append("reviewBoardTitle", boardTitle);
+      form.append("reviewBoardOneline", oneLine);
+      form.append("reviewBoardWriter", memberId);
+      form.append("reviewBoardContent", boardContent);
+      if (thumbnail !== null) {
+        form.append("thumbnail", thumbnail);
+      }
+      axios
+        .post(`${import.meta.env.VITE_BACK_SERVER}/board`, form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data > 0) {
+            navigate("/board/review");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <section className="section board-content-wrap">
