@@ -61,17 +61,17 @@ const DesignerMypage = () => {
   };
 
   return (
-    <div className="mypage-wrap">
-      <div className="page-title">마이페이지</div>
+    <div className="de-mypage-wrap">
+      <div className="de-page-title">마이페이지</div>
 
-      <div className="mypage-content">
-        <section className="side-menu">
+      <div className="de-mypage-content">
+        <section className="de-side-menu">
           <SideMenu menus={menus} />
         </section>
 
         {designer && (
-          <form className="mypage-form">
-            <table className="mypage-tbl">
+          <form className="de-mypage-form">
+            <table className="de-mypage-tbl">
               <tbody>
                 <tr>
                   <th>아이디</th>
@@ -184,7 +184,7 @@ const DesignerMypage = () => {
               </tbody>
             </table>
 
-            <div className="secession-btn">
+            <div className="de-secession-btn">
               <button type="button" onClick={deleteDesigner}>
                 회원 탈퇴
               </button>
