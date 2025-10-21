@@ -12,7 +12,9 @@ const InteriorSpace = (props) => {
       <div className="inter-main-text">
         <div className="main-title">2 / 4 인테리어 공간 선택</div>
         <p>전문가에게 인테리어 컨설팅을 맡길 공간을 선택해주세요.</p>
-        <p>여러 공간일 경우 결제 창에서 갯수 선택이 가능합니다!</p>
+        <p className="inter-sub-title">
+          여러 공간일 경우 결제 창에서 갯수 선택이 가능합니다!
+        </p>
       </div>
       <div className="interS-main-box">
         <div className="interS-choice-items">
@@ -29,7 +31,7 @@ const InteriorSpace = (props) => {
               className={
                 interior.interiorLiving === 0
                   ? "interS-check-box"
-                  : "interS-check-box interS-checked"
+                  : "interS-check-box inter-checked"
               }
             >
               <div className="interS-info-box">
@@ -51,7 +53,7 @@ const InteriorSpace = (props) => {
               className={
                 interior.interiorKitchen === 0
                   ? "interS-check-box"
-                  : "interS-check-box interS-checked"
+                  : "interS-check-box inter-checked"
               }
             >
               <div className="interS-info-box">
@@ -73,7 +75,7 @@ const InteriorSpace = (props) => {
               className={
                 interior.interiorBed === 0
                   ? "interS-check-box"
-                  : "interS-check-box interS-checked"
+                  : "interS-check-box inter-checked"
               }
             >
               <div className="interS-info-box">
@@ -97,7 +99,7 @@ const InteriorSpace = (props) => {
               className={
                 interior.interiorOneroom === 0
                   ? "interS-check-box"
-                  : "interS-check-box interS-checked"
+                  : "interS-check-box inter-checked"
               }
             >
               <div className="interS-info-box">
@@ -119,7 +121,7 @@ const InteriorSpace = (props) => {
               className={
                 interior.interiorKidroom === 0
                   ? "interS-check-box"
-                  : "interS-check-box interS-checked"
+                  : "interS-check-box inter-checked"
               }
             >
               <div className="interS-info-box">
@@ -141,7 +143,7 @@ const InteriorSpace = (props) => {
               className={
                 interior.interiorStudy === 0
                   ? "interS-check-box"
-                  : "interS-check-box interS-checked"
+                  : "interS-check-box inter-checked"
               }
             >
               <div className="interS-info-box">
