@@ -454,3 +454,42 @@
   cursor: pointer;
   background-color: var(--btnHover);
 }
+/*--------------------------AdminList--------------------------*/
+/*------------------admin-list-title------------------*/
+.admin-list-title {
+  display: flex;
+  justify-content: space-between;
+}
+.admin-list-title > select {
+  width: 150px;
+  font-size: 18px;
+  text-align: center;
+}
+/*------------------admin-list-content------------------*/
+.admin-list-content {
+  margin-top: 20px;
+}
+/*----------------------admin-list-table--------------------*/
+.admin-list-table {
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
+}
+.admin-list-table > thead > tr {
+  background-color: var(--main1);
+  height: 40px;
+  font-size: 20px;
+}
+.admin-list-table > thead > tr > th {
+  color: #fff;
+  font-weight: 600;
+  border-top: 1px solid var(--gray3);
+  border-bottom: 1px solid var(--gray3);
+}
+.admin-list-table > tbody > tr {
+  height: 40px;
+  font-size: 18px;
+}
+.admin-list-table > tbody > tr > td {
+  border-bottom: 1px solid var(--gray3);
+}

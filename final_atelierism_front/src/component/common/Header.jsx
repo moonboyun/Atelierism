@@ -88,6 +88,8 @@ const HeaderLink = () => {
           <li>
             {memberType == 1 ? (
               <Link to="/admin/mypage">마이페이지</Link>
+            ) : memberType == 2 ? (
+              <Link to="/designer/mypage">마이페이지</Link>
             ) : (
               <Link to="/member/mypage">마이페이지</Link>
             )}

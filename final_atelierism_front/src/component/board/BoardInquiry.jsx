@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./inquiry.css";
+import { useRecoilState } from "recoil";
+import { loginIdState } from "../utils/RecoilData";
+import InteriorApplication from "../interior/InteriorApplication";
 
 const BoardInquiry = () => {
   const faq = [
@@ -39,6 +42,30 @@ const BoardInquiry = () => {
 
   const toggle = (i) => {
     setOpenIdx((prev) => (prev === i ? null : i)); // 같은 걸 다시 누르면 닫힘
+  };
+
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [interiorModal, setInteriorModal] = useState(false);
+  const [ani, setAni] = useState(false);
+
+  const InteriorApp = () => {
+    if (memberId == "") {
+      Swal.fire({
+        title: "로그인 확인",
+        text: "로그인 후 이용 가능합니다.",
+        icon: "info",
+        reverseButtons: true,
+        showCancelButton: true,
+        cancelButtonText: "닫기",
+        confirmButtonText: "로그인하러 가기",
+      }).then((select) => {
+        if (select.isConfirmed) {
+          navigate("/member/login");
+        }
+      });
+    } else {
+      setInteriorModal(true);
+    }
   };
 
   return (
@@ -102,7 +129,19 @@ const BoardInquiry = () => {
           </h3>
         </div>
         <div className="btn-bottom-box">
-          <Link to="/">컨설팅 받으러 가기</Link>
+          <button className="interior-btn" onClick={InteriorApp}>
+            컨설팅 받으러 가기
+          </button>
+          {interiorModal && (
+            <InteriorApplication
+              onClose={() => {
+                setInteriorModal(false);
+                setAni(false);
+              }}
+              ani={ani}
+              setAni={setAni}
+            />
+          )}
         </div>
       </div>
     </div>

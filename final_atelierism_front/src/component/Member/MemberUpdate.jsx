@@ -10,8 +10,11 @@ const MemberUpdate = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
+  const [memberPw, setMemberPw] = useState("");
+  const [memberNewPw, setMemberNewPw] = useState("");
   const [memberNewPwRe, setmemberNewPwRe] = useState("");
   const [isAuth, setIsAuth] = useState(false); //현재 비밀번호 입력용
+  //const [authChecked, setAuthChecked] = useState(false); //기존 비밀번호가 제대로 입력됐는지 체크
   const [menus, setMenus] = useState([
     //SideMenu에 전송할 state
     { url: "/member/mypage", text: "마이페이지" },
@@ -35,8 +38,14 @@ const MemberUpdate = () => {
   }, [memberId]);
   const navigate = useNavigate();
   const update = () => {
+    const updatedMember = {
+      ...member,
+    };
+    if (memberNewPw.trim() !== "") {
+      updatedMember.memberPw = memberNewPw;
+    }
     axios
-      .patch(`${backServer}/member`, member)
+      .patch(`${backServer}/member`, updatedMember)
       .then((res) => {
         if (res.data === 1) {
           Swal.fire({
@@ -52,18 +61,26 @@ const MemberUpdate = () => {
   };
 
   const checkPw = () => {
-    axios.post(`${backServer}/member/check-pw`, member).then((res) => {
-      if (res.data === 1) {
-        setIsAuth({ ...member, memberPw: "" });
-      }
-    });
-  };
-  const inputPw = (e) => {
-    const newMember = { ...member, memberPw: e.target.value };
-    setMember(newMember);
-  };
-  const inputPwRe = (e) => {
-    setmemberNewPwRe(e.target.value);
+    axios
+      .post(`${backServer}/member/checkPw`, { ...member, memberPw: memberPw })
+      .then((res) => {
+        console.log(res);
+        if (res.data === 1) {
+          Swal.fire({
+            title: "비밀번호 인증 성공",
+            icon: "success",
+          });
+          setIsAuth(true);
+        } else {
+          Swal.fire({
+            title: "기존 비밀번호를 입력해주세요.",
+            icon: "warning",
+          });
+        }
+      })
+      .catch((err) => {
+        setIsAuth(false);
+      });
   };
   return (
     <div className="update-wrap">
@@ -91,15 +108,21 @@ const MemberUpdate = () => {
                   ></input>
                 </td>
               </tr>
-              <tr>
+              <tr className="sb-check-pw">
                 <th>기존 비밀번호</th>
                 <td>
                   <input
                     type="password"
                     name="memberPw"
-                    value={member.memberPw}
-                    onChange={checkPw}
+                    value={memberPw}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setMemberPw(e.target.value);
+                    }}
                   ></input>
+                  <button type="button" onClick={checkPw}>
+                    인증하기
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -108,8 +131,8 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberNewPw"
-                    value={member.memberPw}
-                    onChange={inputPw}
+                    value={memberNewPw}
+                    onChange={(e) => setMemberNewPw(e.target.value)}
                   ></input>
                 </td>
               </tr>
@@ -119,8 +142,20 @@ const MemberUpdate = () => {
                   <input
                     type="password"
                     name="memberNewPwRe"
-                    onChange={inputPwRe}
+                    value={memberNewPwRe}
+                    onChange={(e) => setmemberNewPwRe(e.target.value)}
                   ></input>
+                  {memberNewPw === "" ? (
+                    ""
+                  ) : memberNewPw === memberNewPwRe ? (
+                    <div className="success" style={{ color: "blue" }}>
+                      새 비밀번호가 일치합니다.
+                    </div>
+                  ) : (
+                    <div className="error-message" style={{ color: "red" }}>
+                      새 비밀번호가 일치하지 않습니다
+                    </div>
+                  )}
                 </td>
               </tr>
               <tr>
@@ -174,9 +209,7 @@ const MemberUpdate = () => {
             <button type="button">
               <Link to="/member/mypage">취소하기</Link>
             </button>
-            <button type="button">
-              <Link to="/member/mypage">수정하기</Link>
-            </button>
+            <button type="submit">수정하기</button>
           </div>
         </form>
       )}

@@ -30,7 +30,7 @@ const SideMenu = (props) => {
             <li key={"side-menu" + i}>
               <NavLink
                 to={menu.url}
-                className={({ isClick }) => (isClick ? "click" : "")}
+                className={({ isActive }) => (isActive ? "active-link" : "")}
               >
                 <span>{menu.text}</span>
                 <ChevronRight />

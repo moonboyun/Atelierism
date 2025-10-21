@@ -18,10 +18,12 @@ import { loginIdState, memberTypeState } from "./component/utils/RecoilData";
 import { useRecoilState } from "recoil";
 import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
-import Intro from "./component/designer/intro";
+import Intro from "./component/designer/Intro";
 import InquiryWriter from "./component/board/InquiryWriter";
 import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
 import AdminMain from "./component/Admin/AdminMain";
+import DesignerMypage from "./component/designer/designerMypage";
+import DesignerInfo from "./component/designer/DesignerInfo";
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
           <Route path="/board/inquiry/writer" element={<InquiryWriter />} />
           {/*----------------------designer---------------------*/}
           <Route path="/designer/intro" element={<Intro />} />
+          <Route path="/designer/mypage" element={<DesignerMypage />} />
+          <Route path="/designer/designerInfo" element={<DesignerInfo />} />
         </Routes>
       </main>
       <Footer />
