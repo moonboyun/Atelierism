@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import "./member.css";
+import { useState } from "react";
 const MemberJoin = () => {
+  const [member, setMember] = useState({
+    memberId: "",
+    memberPw: "",
+    memberName: "",
+    memberAge: 0,
+  });
   return (
     <section className="join-wrap">
       <div className="page-title">회원가입</div>
@@ -59,20 +66,6 @@ const MemberJoin = () => {
             id="memberName"
             name="memberName"
             placeholder="이름을 입력해주세요"
-            required
-          ></input>
-        </div>
-      </div>
-      <div className="input-wrap">
-        <div className="input-title">
-          <label htmlFor="memberAge">나이</label>
-        </div>
-        <div className="input-item">
-          <input
-            type="text"
-            id="memberAge"
-            name="memberAge"
-            placeholder="나이를 입력해주세요"
             required
           ></input>
         </div>
