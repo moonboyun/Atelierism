@@ -47,4 +47,11 @@ public class ReviewBoardController {
 	    return ResponseEntity.ok(result);
 	}
 	
+	@PostMapping(value="/image")
+	public ResponseEntity<String> editorImageUpload(@ModelAttribute MultipartFile image){
+	    String savepath = root + "/review/content/";
+	    String filename = fileUtil.upload(savepath, image);
+	    return ResponseEntity.ok(filename);
+	}
+	
 }// ReviewBoardController

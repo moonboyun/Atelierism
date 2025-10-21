@@ -23,6 +23,7 @@
 						review_board_title,
 						review_board_writer,
 						review_board_oneline,
+						review_board_content,
 						review_board_thumbnail,
 						review_board_date
 					from review_board_tbl order by review_board_no desc)b)
