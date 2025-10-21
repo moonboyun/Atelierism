@@ -9,6 +9,8 @@ import kr.co.iei.admin.model.dto.PriceListDto;
 @Mapper
 public interface AdminDao {
 
-	List priceListSelect();
+	PriceListDto priceListSelect();
+
+	int updatePriceList(PriceListDto priceList);
 
 }

@@ -16,12 +16,12 @@ const memberTypeState = atom({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
-/*
+
 const authReadyState = atom({
   key: "authReadyState",
   default: false,
 });
-*/
+
 const isLoginState = selector({
   key: "isLoginState",
   get: (state) => {
@@ -30,4 +30,4 @@ const isLoginState = selector({
     return loginId !== "" && memberType !== 0;
   },
 });
-export { loginIdState, memberTypeState, isLoginState };
+export { loginIdState, memberTypeState, isLoginState, authReadyState };

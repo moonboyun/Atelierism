@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class LoginMemberDTO {
+	private String accessToken;
+	private String refreshToken;
 	private String memberId;
 	private int memberType;
 }

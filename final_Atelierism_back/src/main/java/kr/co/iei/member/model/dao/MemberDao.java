@@ -15,4 +15,8 @@ public interface MemberDao {
 
 	MemberDTO searchIdMember(String memberId);
 
+	int exists(String memberId);
+
+	int insertMember(MemberDTO member);
+
 }

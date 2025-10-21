@@ -4,4 +4,31 @@
 	<select id="priceListSelect" resultType="priceList">
 		select * from price_tbl
 	</select>
+	
+	<update id="updatePriceList">
+		update price_tbl
+			<set>
+				<if test="priceLiving != null and priceLiving != 0">
+            		price_living = #{priceLiving},
+        		</if>
+        		<if test="priceKitchen != null and priceKitchen != 0">
+            		price_kitchen = #{priceKitchen},
+        		</if>
+        		<if test="priceBed != null and priceBed != 0">
+            		price_bed = #{priceBed},
+        		</if>
+        		<if test="priceOneroom != null and priceOneroom != 0">
+            		price_oneroom = #{priceOneroom},
+        		</if>
+        		<if test="priceKidroom != null and priceKidroom != 0">
+            		price_kidroom = #{priceKidroom},
+        		</if>
+        		<if test="priceStudy != null and priceStudy != 0">
+            		price_study = #{priceStudy},
+        		</if>
+        		<if test="priceCharge != null and priceCharge != 0">
+            		price_charge = #{priceCharge},
+        		</if>
+			</set>
+	</update>
 </mapper>

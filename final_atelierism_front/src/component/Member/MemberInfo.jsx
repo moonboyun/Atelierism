@@ -1,8 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "../utils/SideMenu";
 import "./member.css";
-import { useRecoilState } from "recoil";
-import { loginIdState, memberTypeState } from "../utils/RecoilData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  authReadyState,
+  isLoginState,
+  loginIdState,
+  memberTypeState,
+} from "../utils/RecoilData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,7 +15,7 @@ const MemberInfo = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
-  //const [authReady, setAuthReady] = useRecoilState(authReadyState);
+  const [authReady, setAuthReady] = useRecoilState(authReadyState);
   const inputMemberData = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -18,12 +23,13 @@ const MemberInfo = () => {
     setMember(newMember);
   };
   const backServer = import.meta.env.VITE_BACK_SERVER;
-  /*useEffect(() => {
+  console.log(authReady);
+  useEffect(() => {
     if (!authReady) {
       return;
     }
-  }, [authReady]);*/
-  useEffect(() => {
+    console.log(member);
+    console.log(memberId);
     axios
       .get(`${backServer}/member/${memberId}`)
       .then((res) => {
@@ -33,7 +39,9 @@ const MemberInfo = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [authReady]);
+  console.log(member);
+
   const [menus, setMenus] = useState([
     { url: "/member/mypage", text: "마이페이지" },
     { url: "/member/update", text: "정보 수정" },
@@ -46,8 +54,8 @@ const MemberInfo = () => {
       text: "탈퇴하시겠습니까?",
       icon: "warning",
       showCancelButton: true,
-      cancelButtonText: "취소",
       confirmButtonText: "탈퇴하기",
+      cancelButtonText: "취소",
     }).then((res1) => {
       if (res1.isConfirmed) {
         axios
@@ -62,6 +70,7 @@ const MemberInfo = () => {
                 setMemberId("");
                 setMemberType(0);
                 delete axios.defaults.headers.common["Authorization"];
+                window.localStorage.removeItem("refreshToken");
                 navigate("/");
               });
             }
