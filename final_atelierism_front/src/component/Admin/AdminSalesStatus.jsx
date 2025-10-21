@@ -1,15 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./AdminModal.css";
 import SideMenu from "../utils/SideMenu";
 import AdminChart from "./AdminChart";
+import axios from "axios";
 
 const AdminSalesStatus = () => {
+  const backServer = import.meta.env.VITE_BACK_SERVER;
   const [priceModal, setPriceModal] = useState(false);
+  const [chartOrder, setChartOrder] = useState(1); //1: 6개월, 2: 3개월, 3: 년단위
   const priceUpdate = () => {
     setPriceModal(true);
   };
-  const [order, setOrder] = useState(1);
-  const [priceList, setPriceList] = useState({});
+  const chartSet = () => {};
+  const [priceList, setPriceList] = useState(null);
+  useEffect(() => {
+    axios
+      .get(`${backServer}/admin/list`)
+      .then((res) => {
+        setPriceList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(priceList);
+  const updatePriceTable = () => {};
   return (
     <div className="admin-sales-status-allwrap">
       <div className="admin-sales-status-wrap">
@@ -18,10 +33,10 @@ const AdminSalesStatus = () => {
             <div className="sales-chart">
               <h2>매출 그래프</h2>
               <div className="chart-zone">
-                <AdminChart />
+                <AdminChart data={chartOrder} />
               </div>
               <div className="sales-btn-zone">
-                <button type="button" id="month-3">
+                <button type="button" id="month-3" onClick={chartSet}>
                   3개월
                 </button>
                 <button type="button" id="month-6">
@@ -98,59 +113,62 @@ const AdminSalesStatus = () => {
                 </table>
               </div>
             </div>
-            <div className="price-list">
-              <h2>가격표</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>상품명</th>
-                    <th>가격</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>원룸</td>
-                    <td>700000원</td>
-                  </tr>
-                  <tr>
-                    <td>거실</td>
-                    <td>800000원</td>
-                  </tr>
-                  <tr>
-                    <td>부엌</td>
-                    <td>500000원</td>
-                  </tr>
-                  <tr>
-                    <td>아이방</td>
-                    <td>500000원</td>
-                  </tr>
-                  <tr>
-                    <td>안방</td>
-                    <td>700000원</td>
-                  </tr>
-                  <tr>
-                    <td>서재</td>
-                    <td>600000원</td>
-                  </tr>
-                  <tr>
-                    <td>수수료</td>
-                    <td>5%</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className="sales-btn-zone">
-                <button type="button" id="price-update" onClick={priceUpdate}>
-                  가격수정
-                </button>
-                {priceModal && (
-                  <PriceUpdateModal
-                    onClose={() => {
-                      setPriceModal(false);
-                    }}
-                  />
-                )}
+            {/*-------가격표-------------*/}
+            {priceList !== null && (
+              <div className="price-list">
+                <h2>가격표</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>상품명</th>
+                      <th>가격</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>원룸</td>
+                      <td>{priceList[0].priceOneroom}원</td>
+                    </tr>
+                    <tr>
+                      <td>거실</td>
+                      <td>{priceList[0].priceLiving}원</td>
+                    </tr>
+                    <tr>
+                      <td>부엌</td>
+                      <td>{priceList[0].priceKitchen}원</td>
+                    </tr>
+                    <tr>
+                      <td>아이방</td>
+                      <td>{priceList[0].priceKidroom}원</td>
+                    </tr>
+                    <tr>
+                      <td>안방</td>
+                      <td>{priceList[0].priceBed}원</td>
+                    </tr>
+                    <tr>
+                      <td>서재</td>
+                      <td>{priceList[0].priceStudy}원</td>
+                    </tr>
+                    <tr>
+                      <td>수수료</td>
+                      <td>{priceList[0].priceCharge}%</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="sales-btn-zone">
+                  <button type="button" id="price-update" onClick={priceUpdate}>
+                    가격수정
+                  </button>
+                  {priceModal && (
+                    <PriceUpdateModal
+                      onClose={() => {
+                        setPriceModal(false);
+                      }}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
       </div>
@@ -223,7 +241,7 @@ const PriceUpdateModal = ({ onClose }) => {
               <button type="button" id="update-cancel" onClick={onClose}>
                 취소
               </button>
-              <button type="submit" id="update-ok">
+              <button type="submit" id="update-ok" onClick={updatePriceTable}>
                 확인
               </button>
             </div>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.iei.board.model.dao.ReviewBoardDao">
+	
+	<select id="getReviewBoardNo" resultType="int">
+		select review_seq.nextval from dual
+	</select>
+	
+	<insert id="insertBoard">
+		insert into review_board_tbl values(#{reviewBoardNo}, #{reviewBoardTitle}, #{reviewBoardWriter}, #{reviewBoardOneline}, #{reviewBoardContent}, #{reviewBoardThumbnail}, to_char(sysdate, 'yyyy-mm-dd'))
+	</insert>
+	
+	<select id="totalCount" resultType="int">
+		select count(*) from review_board_tbl
+	</select>
+	
+	<select id="selectBoardList" resultType="review">
+		select * from
+			(select rownum as rnum, b. *
+				from
+					(select
+						review_board_no,
+						review_board_title,
+						review_board_writer,
+						review_board_oneline,
+						review_board_thumbnail,
+						review_board_date
+					from review_board_tbl order by review_board_no desc)b)
+		where rnum between #{start} and #{end}
+	</select>
+	
+</mapper>

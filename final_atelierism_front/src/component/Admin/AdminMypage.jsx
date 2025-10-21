@@ -3,6 +3,7 @@ import SideMenu from "../utils/SideMenu";
 import "./Admin.css";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useState } from "react";
+import AdminChart from "./AdminChart";
 
 const AdminMypage = () => {
   const [menus, setMenus] = useState([
@@ -20,23 +21,7 @@ const AdminMypage = () => {
             <div className="main-chart">
               <h2>매출 현황</h2>
               <div className="admin-chart-content">
-                <BarChart
-                  xAxis={[{ data: ["1월", "2월", "3월", "4월", "5월", "6월"] }]}
-                  series={[
-                    {
-                      data: [
-                        25166558, 5641628, 231215568, 56463215, 23148867,
-                        1568815,
-                      ],
-                    },
-                  ]}
-                  height={300}
-                  width={450}
-                  sx={{
-                    marginRight: "25px",
-                    marginTop: "10px",
-                  }}
-                />
+                <AdminChart />
               </div>
             </div>
             <div className="applicant-list">
