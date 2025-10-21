@@ -44,7 +44,6 @@ const AdminSalesStatus = () => {
             icon: "success",
           });
         }
-        navigate("/admin/sales");
       })
       .catch((err) => {
         console.log(err);
@@ -225,7 +224,12 @@ const PriceUpdateModal = ({
           <h2>가격표 수정</h2>
         </div>
         <div className="price-modal-content">
-          <form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onUpdateSuccess;
+            }}
+          >
             <table className="price-table-form">
               <thead>
                 <tr>
