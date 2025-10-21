@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "../utils/SideMenu";
 import "./member.css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   authReadyState,
+  isLoginState,
   loginIdState,
   memberTypeState,
 } from "../utils/RecoilData";
@@ -22,11 +23,12 @@ const MemberInfo = () => {
     setMember(newMember);
   };
   const backServer = import.meta.env.VITE_BACK_SERVER;
-
+  console.log(authReady);
   useEffect(() => {
     if (!authReady) {
       return;
     }
+    console.log(member);
     axios
       .get(`${backServer}/member/${memberId}`)
       .then((res) => {
@@ -37,6 +39,8 @@ const MemberInfo = () => {
         console.log(err);
       });
   }, [authReady]);
+  console.log(member);
+
   const [menus, setMenus] = useState([
     { url: "/member/mypage", text: "마이페이지" },
     { url: "/member/update", text: "정보 수정" },
@@ -49,8 +53,8 @@ const MemberInfo = () => {
       text: "탈퇴하시겠습니까?",
       icon: "warning",
       showCancelButton: true,
-      cancelButtonText: "취소",
       confirmButtonText: "탈퇴하기",
+      cancelButtonText: "취소",
     }).then((res1) => {
       if (res1.isConfirmed) {
         axios
