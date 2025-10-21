@@ -2,7 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "../utils/SideMenu";
 import "./member.css";
 import { useRecoilState } from "recoil";
-import { loginIdState, memberTypeState } from "../utils/RecoilData";
+import {
+  authReadyState,
+  loginIdState,
+  memberTypeState,
+} from "../utils/RecoilData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -10,7 +14,7 @@ const MemberInfo = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
-  //const [authReady, setAuthReady] = useRecoilState(authReadyState);
+  const [authReady, setAuthReady] = useRecoilState(authReadyState);
   const inputMemberData = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -18,12 +22,11 @@ const MemberInfo = () => {
     setMember(newMember);
   };
   const backServer = import.meta.env.VITE_BACK_SERVER;
-  /*useEffect(() => {
+
+  useEffect(() => {
     if (!authReady) {
       return;
     }
-  }, [authReady]);*/
-  useEffect(() => {
     axios
       .get(`${backServer}/member/${memberId}`)
       .then((res) => {
@@ -33,7 +36,7 @@ const MemberInfo = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [authReady]);
   const [menus, setMenus] = useState([
     { url: "/member/mypage", text: "마이페이지" },
     { url: "/member/update", text: "정보 수정" },
@@ -62,6 +65,7 @@ const MemberInfo = () => {
                 setMemberId("");
                 setMemberType(0);
                 delete axios.defaults.headers.common["Authorization"];
+                window.localStorage.removeItem("refreshToken");
                 navigate("/");
               });
             }
