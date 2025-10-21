@@ -37,7 +37,7 @@ function App() {
   const [authReady, setAuthReady] = useRecoilState(authReadyState);
   useEffect(() => {
     refresh();
-    window.setInterval(1000 * 60 * 50);
+    window.setInterval(refresh, 1000 * 60 * 50);
   });
   const refresh = () => {
     //localStorage에서 refreshToken을 받아와서 자동으로 로그인 처리
