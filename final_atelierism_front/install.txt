@@ -37,4 +37,4 @@ npm install highcharts @highcharts/react
 2025-10-26 11:49 문보윤
 npm install --save chart.js react-chartjs-2
 npm install chartjs-plugin-datalabels
-확인 : 조성빈
+확인 : 조성빈, 이설항
