@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.iei.member.model.dto.LoginMemberDTO;
@@ -25,6 +26,18 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private JwtUtils Jwt;
+	@PostMapping
+	public ResponseEntity<Integer> insertMember(@RequestBody MemberDTO member){
+		System.out.println("컨트롤러 멤버 : "+member);
+		int result = memberService.insertMember(member);
+		System.out.println("컨트롤러 결과 : "+result);
+		return ResponseEntity.ok(result);
+	}
+	@GetMapping(value="/exists")
+	public ResponseEntity<Integer> exists(@RequestParam String memberId){
+		int result = memberService.exists(memberId);
+		return ResponseEntity.ok(result);
+	}
 	@PostMapping(value="/login")
 	public ResponseEntity<LoginMemberDTO> login(@RequestBody MemberDTO member){
 		System.out.println("컨트롤러 member : "+member);
