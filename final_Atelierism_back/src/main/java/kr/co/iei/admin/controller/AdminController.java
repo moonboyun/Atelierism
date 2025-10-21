@@ -32,7 +32,12 @@ public class AdminController {
 	@PatchMapping
 	public ResponseEntity<Integer> updatePriceList(@RequestBody PriceListDto priceList){
 		int result = adminService.updatePriceList(priceList);
-		System.out.println(result);
 		return ResponseEntity.ok(result);
 	}
+	
+	/*@GetMapping(value = "adminList")
+	public ResponseEntity<List> selectAdminList(@ResponseBody int pageList){
+		List adminListData = adminService.selectAdminList(pageList);
+		return ResponseEntity.ok(adminListData);
+	}*/
 }

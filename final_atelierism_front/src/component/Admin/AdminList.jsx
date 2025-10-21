@@ -1,8 +1,21 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const AdminList = (props) => {
+  const backServer = import.meta.env.VITE_BACK_SERVER;
   const pageList = props.data;
   const [listData, setListData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${backServer}/admin/adminList`, pageList)
+      .then((res) => {
+        console.log(res);
+        setListData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="admin-list-all-wrap">
       <div className="admin-list-title">
@@ -35,12 +48,28 @@ const AdminList = (props) => {
       <div className="admin-list-content">
         <table className="admin-list-table">
           <thead>
-            <tr>
-              <th>아이디</th>
-              <th>이름</th>
-              <th>연락처</th>
-              <th>등급</th>
-            </tr>
+            {pageList === 1 ? (
+              <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>등급</th>
+              </tr>
+            ) : pageList === 2 ? (
+              <tr>
+                <th>이름</th>
+                <th>입점일</th>
+                <th>금월매출액</th>
+                <th>매출성적</th>
+              </tr>
+            ) : (
+              <tr>
+                <th>신청자명</th>
+                <th>신청일</th>
+                <th>경력</th>
+                <th>상태</th>
+              </tr>
+            )}
           </thead>
           <tbody>
             <tr>
