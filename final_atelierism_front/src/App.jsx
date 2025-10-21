@@ -14,7 +14,11 @@ import ReviewWriter from "./component/board/ReviewWriter";
 import BoardReview from "./component/board/BoardReview";
 import BoardInquiry from "./component/board/BoardInquiry";
 import BoardDesigner from "./component/board/BoardDesigner";
-import { loginIdState, memberTypeState } from "./component/utils/RecoilData";
+import {
+  authReadyState,
+  loginIdState,
+  memberTypeState,
+} from "./component/utils/RecoilData";
 import { useRecoilState } from "recoil";
 import AdminMypage from "./component/Admin/AdminMypage";
 import RecoverPw from "./component/member/RecoverPw";
@@ -24,8 +28,44 @@ import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
 import AdminMain from "./component/Admin/AdminMain";
 import DesignerMypage from "./component/designer/designerMypage";
 import DesignerInfo from "./component/designer/DesignerInfo";
+import axios from "axios";
+import { useEffect } from "react";
 
 function App() {
+  const [memberId, setMemberId] = useRecoilState(loginIdState); //회원 아이디를 저장하고 있는 state
+  const [memberType, setMemberType] = useRecoilState(memberTypeState); //회원 등급을 저장하고 있는 state
+  const [authReady, setAuthReady] = useRecoilState(authReadyState);
+  useEffect(() => {
+    refresh();
+    window.setInterval(1000 * 60 * 50);
+  });
+  const refresh = () => {
+    //localStorage에서 refreshToken을 받아와서 자동으로 로그인 처리
+    const refreshToken = window.localStorage.getItem("refreshToken");
+
+    if (refreshToken !== null) {
+      //refreshToken을 사용중이면 인증받아서 자동으로 로그인 처리
+      axios.defaults.headers.common["Authorization"] = refreshToken;
+      axios
+        .get(`${import.meta.env.VITE_BACK_SERVER}/member/refresh`)
+        .then((res) => {
+          setMemberId(res.data.memberId);
+          setMemberType(res.data.memberType);
+          axios.defaults.headers.common["Authorization"] = res.data.accessToken;
+          window.localStorage.setItem("refreshToken", res.data.refreshToken);
+          setAuthReady(true);
+        })
+        .catch((err) => {
+          setMemberId("");
+          setMemberType(0);
+          delete axios.defaults.headers.common["Authorization"];
+          window.localStorage.removeItem("refreshToken");
+          setAuthReady(true);
+        });
+    } else {
+      setAuthReady(true);
+    }
+  };
   return (
     <div className="wrap">
       <Header />
