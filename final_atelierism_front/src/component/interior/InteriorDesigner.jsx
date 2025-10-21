@@ -23,8 +23,8 @@ const InteriorDesigner = (props) => {
     if (checkedDesigner.memberId) {
       setInterior((prev) => ({
         ...prev,
-        designerId: checkedDesigner.memberId,
-        customerId: loginId,
+        interiorDesigner: checkedDesigner.memberId,
+        interiorCustomer: loginId,
       }));
     }
   }, [checkedDesigner.memberId, loginId]);

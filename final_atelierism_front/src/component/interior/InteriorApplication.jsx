@@ -7,18 +7,18 @@ import InteriorSpace from "./InteriorSpace";
 
 const InteriorApplication = ({ onClose, ani, setAni }) => {
   const [interior, setInterior] = useState({
-    designerId: "",
-    customerId: "",
-    living: 0,
-    kitchen: 0,
-    bedroom: 0,
-    oneroom: 0,
-    kidroom: 0,
-    study: 0,
-    range: 0,
-    why: "",
-    price: 0,
-    paymentCheck: 0,
+    interiorDesigner: "",
+    interiorCustomer: "",
+    interiorLiving: 0,
+    interiorKitchen: 0,
+    interiorBed: 0,
+    interiorOneroom: 0,
+    interiorKidroom: 0,
+    interiorStudy: 0,
+    interiorRange: 0,
+    interiorWhy: "",
+    interiorPrice: 0,
+    interiorPayment: 0,
   });
   console.log(interior);
   const [step, setStep] = useState(1); // 현재 단계
@@ -30,7 +30,7 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
     };
   }, []);
   const nextStep = () => {
-    if (interior.designerId !== "") {
+    if (interior.interiorDesigner !== "") {
       setStep(2);
     } else {
       Swal.fire({
@@ -46,7 +46,7 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
       case 1:
         return <InteriorDesigner setInterior={setInterior} />;
       case 2:
-        return <InteriorSpace setInterior={setInterior} />;
+        return <InteriorSpace setInterior={setInterior} interior={interior} />;
       // case 3:
       //   return <AnotherComponent />;
       default:
