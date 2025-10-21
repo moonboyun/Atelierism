@@ -37,16 +37,15 @@ const MemberLogin = () => {
             //로그인을 성공하면 갱신을 위한 refreshToken을 브라우저에 저장
             window.localStorage.setItem("refreshToken", res.data.refreshToken);
             navigate("/");
-          } else {
-            Swal.fire({
-              title: "로그인 실패",
-              text: "아이디 또는 비밀번호를 확인하세요",
-              icon: "warning",
-            });
           }
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            title: "로그인 실패",
+            text: "아이디 또는 비밀번호를 확인하세요",
+            icon: "warning",
+          });
         });
     } else {
       Swal.fire({
