@@ -68,7 +68,6 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   justify-content: flex-end;
   width: 90%;
   margin: 0 auto;
-  margin-top: 20px;
 }
 .inter-next-btn {
   display: flex;
@@ -80,6 +79,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   border: none;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
 }
 .inter-next-btn > svg {
   fill: #fff;
@@ -111,6 +111,11 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   margin-left: 40px;
   font-size: 18px;
 }
+.inter-main-text > p:last-child {
+  font-size: 16px;
+  color: var(--gray4);
+  margin-top: 5px;
+}
 /*----------------------------modal-title------------------------------------*/
 .interD-component-box {
   display: flex;
@@ -129,6 +134,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   overflow: auto;
   display: flex;
   flex-direction: column;
+  padding: 0px 15px;
 }
 .interD-choice-item {
   margin-bottom: 20px;
@@ -150,8 +156,8 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
 .interD-introduction > a {
   font-size: 18px;
 }
-.interD-introduction > a > svg {
-  font-weight: 300;
+.interD-introduction > svg {
+  font-size: 18px;
 }
 .interD-check-box > .interD-info-box {
   display: flex;
@@ -226,4 +232,50 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
 }
 .interD-checked-Designer-info > div {
   font-size: 20px;
+}
+/*----------------------------Designer-checked-info------------------------------------*/
+.interS-main-box {
+  display: flex;
+  height: 579px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  gap: 30px;
+}
+
+.interS-choice-items {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.interS-choice-item {
+  cursor: pointer;
+  width: 25%;
+}
+.interS-check-box {
+  height: 200px;
+  border: 1px solid var(--gray1);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.interS-checked {
+  border: 1px solid var(--btnHover);
+  box-shadow: 0px 0px 20px 0 rgba(138, 169, 150, 0.6);
+}
+.interS-check-box > .interS-info-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.material-symbols-outlined {
+  font-size: 80px;
+  font-variation-settings: "FILL" 1, "wght" 300, "GRAD" 1, "opsz" 48;
+}
+.interS-info-box > div {
+  font-size: 27px;
 }

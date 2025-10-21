@@ -127,21 +127,21 @@ const BoardInquiry = () => {
             Atelierism은 여러분의 집과 공간을 위한 최고의 인테리어 디자인을 위해
             노력합니다.
           </h3>
-        </div>
-        <div className="btn-bottom-box">
-          <button className="interior-btn" onClick={InteriorApp}>
-            컨설팅 받으러 가기
-          </button>
-          {interiorModal && (
-            <InteriorApplication
-              onClose={() => {
-                setInteriorModal(false);
-                setAni(false);
-              }}
-              ani={ani}
-              setAni={setAni}
-            />
-          )}
+          <div className="btn-bottom-box">
+            <button className="interior-btn" onClick={InteriorApp}>
+              컨설팅 받으러 가기
+            </button>
+            {interiorModal && (
+              <InteriorApplication
+                onClose={() => {
+                  setInteriorModal(false);
+                  setAni(false);
+                }}
+                ani={ani}
+                setAni={setAni}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

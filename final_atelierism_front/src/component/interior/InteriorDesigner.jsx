@@ -6,7 +6,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { ArrowForwardIos } from "@mui/icons-material";
 
-const InteriorDesigner = () => {
+const InteriorDesigner = (props) => {
+  const setInterior = props.setInterior;
   const [designerList, setDesignerList] = useState([]);
   const [memberList, setMemberList] = useState([]);
   const [checkedDesigner, setCheckedDesigner] = useState({
@@ -16,14 +17,22 @@ const InteriorDesigner = () => {
     memberCareer: 0,
     memberIntroduce: "",
   });
-  console.log(checkedDesigner.memberName);
   const loginId = useRecoilValue(loginIdState);
+
+  useEffect(() => {
+    if (checkedDesigner.memberId) {
+      setInterior((prev) => ({
+        ...prev,
+        interiorDesigner: checkedDesigner.memberId,
+        interiorCustomer: loginId,
+      }));
+    }
+  }, [checkedDesigner.memberId, loginId]);
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACK_SERVER}/designer`)
       .then((res) => {
-        console.log(res);
         setDesignerList(res.data.designerList);
         setMemberList(res.data.memberList);
       })

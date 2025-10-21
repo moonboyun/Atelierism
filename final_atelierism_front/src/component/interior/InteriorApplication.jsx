@@ -1,26 +1,56 @@
 import { ArrowForwardIos, Clear } from "@mui/icons-material";
 import "./interior.css";
-import { Route, Routes } from "react-router-dom";
 import InteriorDesigner from "./InteriorDesigner";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import InteriorSpace from "./InteriorSpace";
 
 const InteriorApplication = ({ onClose, ani, setAni }) => {
+  const [interior, setInterior] = useState({
+    interiorDesigner: "",
+    interiorCustomer: "",
+    interiorLiving: 0,
+    interiorKitchen: 0,
+    interiorBed: 0,
+    interiorOneroom: 0,
+    interiorKidroom: 0,
+    interiorStudy: 0,
+    interiorRange: 0,
+    interiorWhy: "",
+    interiorPrice: 0,
+    interiorPayment: 0,
+  });
+  console.log(interior);
   const [step, setStep] = useState(1); // 현재 단계
-  document.body.style.overflow = "hidden";
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   const nextStep = () => {
-    setStep((prev) => prev + 1);
+    if (interior.interiorDesigner !== "") {
+      setStep(2);
+    } else {
+      Swal.fire({
+        title: "디자이너 선택 확인",
+        text: "디자이너 선택을 확인해주세요.",
+        icon: "info",
+        confirmButtonText: "확인",
+      });
+    }
   };
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <InteriorDesigner />;
-      // case 2:
-      //   return <NextComponent />;
+        return <InteriorDesigner setInterior={setInterior} />;
+      case 2:
+        return <InteriorSpace setInterior={setInterior} interior={interior} />;
       // case 3:
       //   return <AnotherComponent />;
       default:
-        return <InteriorDesigner />;
+        return <InteriorDesigner setInterior={setInterior} />;
     }
   };
   useEffect(() => {

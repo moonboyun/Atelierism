@@ -228,9 +228,11 @@
 /* 하단 버튼 */
 .btn-bottom-box {
   position: absolute;
-  left: 50%;
   bottom: 20px;
   z-index: 100;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .btn-bottom-box > button {
   display: inline-flex;
