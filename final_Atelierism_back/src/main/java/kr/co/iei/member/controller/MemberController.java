@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
 import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.member.model.service.MemberService;
+import kr.co.iei.util.JwtUtils;
 
 @CrossOrigin("*")
 @RestController
@@ -22,10 +23,18 @@ import kr.co.iei.member.model.service.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private JwtUtils Jwt;
 	@PostMapping(value="/login")
-	public ResponseEntity<MemberDTO> login(@RequestBody MemberDTO member){
-		MemberDTO m = memberService.login(member);
-		return ResponseEntity.ok(m);
+	public ResponseEntity<LoginMemberDTO> login(@RequestBody MemberDTO member){
+		System.out.println("컨트롤러 member : "+member);
+		LoginMemberDTO m = memberService.login(member);
+		System.out.println("컨트롤러 m : "+m);
+		if(m != null) {			
+			return ResponseEntity.ok(m);
+		}else {
+			return ResponseEntity.status(404).build();
+		}
 
 	}
 	@GetMapping(value="/{memberId}")
