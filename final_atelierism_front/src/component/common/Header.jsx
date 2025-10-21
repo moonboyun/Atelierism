@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
 import InteriorApplication from "../interior/InteriorApplication";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Header = (props) => {
   const isLogin = props.isLogin;
@@ -58,6 +59,8 @@ const HeaderLink = () => {
   const logout = () => {
     setMemberId("");
     setMemberType(0);
+    delete axios.defaults.headers.common["Authorization"];
+    window.localStorage.removeItem("refreshToken");
     navigate("/");
   };
   const [interiorModal, setInteriorModal] = useState(false);

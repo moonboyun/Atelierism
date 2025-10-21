@@ -80,6 +80,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   border: none;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
 }
 .inter-next-btn > svg {
   fill: #fff;
@@ -110,6 +111,11 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   text-align: left;
   margin-left: 40px;
   font-size: 18px;
+}
+.inter-main-text > p:last-child {
+  font-size: 16px;
+  color: var(--gray4);
+  margin-top: 5px;
 }
 /*----------------------------modal-title------------------------------------*/
 .interD-component-box {
@@ -150,8 +156,8 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
 .interD-introduction > a {
   font-size: 18px;
 }
-.interD-introduction > a > svg {
-  font-weight: 300;
+.interD-introduction > svg {
+  font-size: 18px;
 }
 .interD-check-box > .interD-info-box {
   display: flex;

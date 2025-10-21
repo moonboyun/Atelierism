@@ -31,17 +31,21 @@ const MemberLogin = () => {
           if (res.data && res.data.memberId) {
             setMemberId(res.data.memberId); //로그인한 회원 아이디 정보
             setMemberType(res.data.memberType); //로그인한 회원 등급 정보
+            //로그인 이후 axios 통한 요청을 수행하는 경우 토큰값을 자동으로 axios에 추가하는 로직
+            axios.defaults.headers.common["Authorization"] =
+              res.data.accessToken;
+            //로그인을 성공하면 갱신을 위한 refreshToken을 브라우저에 저장
+            window.localStorage.setItem("refreshToken", res.data.refreshToken);
             navigate("/");
-          } else {
-            Swal.fire({
-              title: "로그인 실패",
-              text: "아이디 또는 비밀번호를 확인하세요",
-              icon: "warning",
-            });
           }
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            title: "로그인 실패",
+            text: "아이디 또는 비밀번호를 확인하세요",
+            icon: "warning",
+          });
         });
     } else {
       Swal.fire({
