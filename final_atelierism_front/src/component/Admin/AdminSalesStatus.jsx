@@ -44,6 +44,7 @@ const AdminSalesStatus = () => {
             icon: "success",
           });
         }
+        navigate("/admin/sales");
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +76,7 @@ const AdminSalesStatus = () => {
                   6개월
                 </button>
                 <button type="button" id="year-by-year" className="inclick">
-                  년단위
+                  12개월
                 </button>
               </div>
             </div>
