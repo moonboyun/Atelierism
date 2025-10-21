@@ -87,4 +87,22 @@ public class MemberService {
 		}
 		return list;
 	}
+
+	public int exists(String memberId) {
+		int result = memberDao.exists(memberId);
+		return result;
+	}
+
+	@Transactional
+	public int insertMember(MemberDTO member) {
+		System.out.println("서비스 멤버 : "+member);
+		String memberPw = member.getMemberPw();
+		System.out.println("일반 비번 : "+memberPw);
+		String encPw = encoder.encode(memberPw);
+		System.out.println("암호화 비번 : "+ encPw);
+		member.setMemberPw(encPw);
+		int result = memberDao.insertMember(member);
+		System.out.println("서비스 결과 : "+result);
+		return result;
+	}
 }
