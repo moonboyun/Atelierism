@@ -14,7 +14,14 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	    registry.addResourceHandler("/board/review/**")
-	            .addResourceLocations("file:///" + root + "/review/");
+		
+		// 리뷰게시판 썸네일 이미지
+	    registry.addResourceHandler("/board/review/thumbnail/**")
+	            .addResourceLocations("file:///" + root + "/review/thumbnail/");
+	    
+	    // 리뷰게시판 Content 이미지
+        registry
+        .addResourceHandler("/board/review/content/**")
+        .addResourceLocations("file:///" + root + "/review/content/");
 	}
-}
+}// WebConfig
