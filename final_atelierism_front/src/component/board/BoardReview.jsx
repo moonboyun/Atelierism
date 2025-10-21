@@ -4,6 +4,7 @@ import "./board.css";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { isLoginState } from "../utils/RecoilData";
+import PageNaviGation from "../utils/PageNavigation";
 
 const BoardReview = () => {
   const [boardList, setBoardList] = useState([]);
@@ -73,24 +74,11 @@ const BoardReview = () => {
             return <BoardItem key={"board-" + i} board={board} />;
           })}
         </div>
-
         {/* 페이징 */}
-        <div className="review-pagination">
-          <button type="button" className="page-btn" disabled>
-            ‹
-          </button>
-          <button type="button" className="page-btn active">
-            1
-          </button>
-          <button type="button" className="page-btn">
-            2
-          </button>
-          <button type="button" className="page-btn">
-            3
-          </button>
-          <button type="button" className="page-btn">
-            ›
-          </button>
+        <div className="board-paging-wrap">
+          {pi !== null && (
+            <PageNaviGation pi={pi} reqPqge={reqPqge} setReqPage={setReqPage} />
+          )}
         </div>
       </section>
     </div>
@@ -104,21 +92,28 @@ const BoardItem = (props) => {
     <div
       className="posting-item"
       onClick={() => {
-        navigate(`/board/view${board.boardNo}`);
+        navigate(`/board/review/view/${board.reviewBoardNo}`);
       }}
     >
-      <article key={board.boardNo} className="review-card">
+      <article key={board.reviewBoardNo} className="review-card">
         <div className="thumb">
-          <img src={board.thumbnail} />
+          <img
+            src={
+              board.reviewBoardThumbnail !== null
+                ? `${import.meta.env.VITE_BACK_SERVER}/board/review/thumbnail/${
+                    board.reviewBoardThumbnail
+                  }`
+                : "/image/default_image.png"
+            }
+          ></img>
         </div>
         <div className="card-meta">
-          <div className="card-title">{board.boardtitle}</div>
+          <div className="card-title">{board.reviewBoardTitle}</div>
           <div className="card-sub">
-            <span className="author">{board.boardWriter}</span>
-            <span className="dot">•</span>
-            <span className="date">{board.date}</span>
+            <span className="author">{board.reviewBoardWriter}</span>
+            <span className="date">{board.reviewBoardDate}</span>
           </div>
-          <p className="one-line">{board.oneLine}</p>
+          <p className="one-line">{board.reviewBoardOneline}</p>
         </div>
       </article>
     </div>

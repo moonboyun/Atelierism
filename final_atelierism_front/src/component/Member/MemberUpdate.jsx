@@ -61,9 +61,8 @@ const MemberUpdate = () => {
   };
 
   const checkPw = () => {
-    console.log(memberPw);
     axios
-      .post(`${backServer}/member/checkPw`, member)
+      .post(`${backServer}/member/checkPw`, { ...member, memberPw: memberPw })
       .then((res) => {
         console.log(res);
         if (res.data === 1) {
@@ -72,20 +71,14 @@ const MemberUpdate = () => {
             icon: "success",
           });
           setIsAuth(true);
+        } else {
+          Swal.fire({
+            title: "기존 비밀번호를 입력해주세요.",
+            icon: "warning",
+          });
         }
       })
       .catch((err) => {
-        if (memberPw === "") {
-          Swal.fire({
-            title: "기존 비밀번호를 입력해주세요",
-            icon: "warning",
-          });
-        } else if (!memberPw) {
-          Swal.fire({
-            title: "잘못된 비밀번호 입니다.",
-            icon: "warning",
-          });
-        }
         setIsAuth(false);
       });
   };
@@ -123,6 +116,7 @@ const MemberUpdate = () => {
                     name="memberPw"
                     value={memberPw}
                     onChange={(e) => {
+                      console.log(e.target.value);
                       setMemberPw(e.target.value);
                     }}
                   ></input>

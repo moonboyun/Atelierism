@@ -29,7 +29,7 @@
   border-radius: 8px;
   transition: all 0.75s ease-in-out, border-radius 0.75s 0.35s ease-in-out;
 }
-.inter-content-info{
+.inter-content-info {
   position: relative;
   opacity: 0;
   pointer-events: none;
@@ -39,7 +39,7 @@
   transition-delay: 0.5s; /* 팝업 애니메이션 후 약간의 딜레이 */
   pointer-events: none; /* 안 보이는 동안 클릭 안 되게 */
 }
-.appear{
+.appear {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
@@ -48,6 +48,9 @@
 .inter-del-btn {
   position: relative;
   z-index: 10;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  background-color: var(--gray1);
 }
 /*----------------------------screen------------------------------------*/
 .inter-content > button {
@@ -63,12 +66,15 @@
 .inter-next-box {
   display: flex;
   justify-content: flex-end;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 .inter-next-btn {
   display: flex;
   align-items: center;
   background-color: var(--main1);
-  padding: 7px 10px;
+  padding: 10px 20px;
   border-radius: 8px;
   color: #fff;
   border: none;
@@ -91,7 +97,7 @@
 .inter-main-text {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .inter-main-text > .main-title {
   text-align: left;
@@ -111,14 +117,6 @@
   justify-content: center;
   align-items: flex-start;
 }
-
-.interD-select-box {
-  width: 30%;
-  padding: 20px 60px;
-  border: 1px solid var(--gray1);
-  border-radius: 8px;
-  text-align: center;
-}
 .interD-component-box {
   width: 90%;
   display: flex;
@@ -127,7 +125,7 @@
 }
 .interD-choice-items {
   width: 70%;
-  height: 530px;
+  height: 600px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -142,8 +140,90 @@
   padding: 20px;
   display: flex;
   gap: 20px;
+  justify-content: space-between;
+}
+.interD-introduction {
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+.interD-introduction > a {
+  font-size: 18px;
+}
+.interD-introduction > a > svg {
+  font-weight: 300;
+}
+.interD-check-box > .interD-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.interD-info-box > div {
+  font-size: 18px;
 }
 .interD-check-box > img {
-  width: 160px;
+  width: 120px;
+  border-radius: 8px;
+}
+.interD-more-btn {
+  display: flex;
+  justify-content: center;
+}
+.interD-more-btn > button {
+  border: 1px solid var(--main1);
+  background-color: #fff;
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-size: 20px;
+  transition: 0.2s;
+  cursor: pointer;
 }
 
+.interD-more-btn > button:hover {
+  background-color: var(--main1);
+  border: 1px solid #fff;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+/*----------------------------Designer-items------------------------------------*/
+.interD-select-box {
+  width: 30%;
+  padding: 20px 20px;
+  border: 1px solid var(--gray1);
+  border-radius: 8px;
+  text-align: center;
+}
+.interD-checked {
+  border: 1px solid var(--btnHover);
+  box-shadow: 0px 0px 20px 0 rgba(138, 169, 150, 0.6);
+}
+.interD-checked-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.interD-checked-info-box .interD-checked-img-box {
+  width: 100%;
+  max-width: 280px;
+}
+.interD-checked-img-box > img {
+  width: 100%;
+  border-radius: 8px;
+}
+.interD-checked-Designer-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+.interD-checked-Designer-info > div:first-child {
+  margin-top: 20px;
+  font-weight: 600;
+}
+.interD-checked-Designer-info > div {
+  font-size: 20px;
+}
