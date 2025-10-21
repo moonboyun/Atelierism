@@ -29,6 +29,7 @@ const MemberInfo = () => {
       return;
     }
     console.log(member);
+    console.log(memberId);
     axios
       .get(`${backServer}/member/${memberId}`)
       .then((res) => {
