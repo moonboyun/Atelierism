@@ -4,18 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.iei.FinalAtelierismBackApplication;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.member.model.dao.MemberDao;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
 import kr.co.iei.member.model.dto.MemberDTO;
+import kr.co.iei.util.JwtUtils;
 
 @Service
 public class MemberService {
+	private final FinalAtelierismBackApplication finalAtelierismBackApplication;
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	@Autowired
+	private JwtUtils jwtUtil;
+	
+	MemberService(FinalAtelierismBackApplication finalAtelierismBackApplication) {
+        this.finalAtelierismBackApplication = finalAtelierismBackApplication;
+    }
 
 	public MemberDTO selectOneMember(String memberId) {
 		MemberDTO member = memberDao.selectOneMember(memberId);
@@ -23,10 +35,23 @@ public class MemberService {
 		return member;
 	}
 
-	public MemberDTO login(MemberDTO member) {
+	public LoginMemberDTO login(MemberDTO member) {
+		System.out.println("서비스 member : " + member);
 		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
-		//LoginMemberDTO loginMember = new LoginMemberDTO(m.getMemberId(), m.getMemberType());
-		return m;
+		System.out.println("서비스 m : "+m);
+		System.out.println("member.pw : "+member.getMemberPw());
+		System.out.println("m.pw : "+m.getMemberPw());
+		if(m != null) {
+			if(encoder.matches(member.getMemberPw(), m.getMemberPw())) {				
+				String accessToken = jwtUtil.createAccessToken(m.getMemberId(), m.getMemberType());
+				String refreshToken = jwtUtil.createRefreshToken(m.getMemberId(), m.getMemberType());
+				LoginMemberDTO loginMember = new LoginMemberDTO(accessToken, refreshToken, m.getMemberId(), m.getMemberType());
+				return loginMember;
+			}else {
+				return null;
+			}
+		}
+		return null;
 	}
 
 	@Transactional
