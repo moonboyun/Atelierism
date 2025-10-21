@@ -20,4 +20,5 @@ public class DesignerDTO {
 	private String designerProfolio;
 	private String designerChat;
 	private String designerIntroduce;
+	private String designerAge;
 }
