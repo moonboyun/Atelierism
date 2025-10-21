@@ -4,6 +4,14 @@
 	<select id="selectOneMember" resultType="member">
 		select * from member_tbl where member_id = #{memberId}
 	</select>
+	<insert id="insertMember">
+		insert into member_tbl
+			values
+			(#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberAddr}, #{memberAddrDetail}, 3, default, to_char(sysdate, 'yyyy-mm-dd'), 0)
+	</insert>
+	<select id="exists" resultType="int">
+		select count(*) from member_tbl where member_id = #{memberId}
+	</select>
 	<delete id="deleteMember">
 		delete from member_tbl where member_id = #{memberId}
 	</delete>
