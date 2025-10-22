@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./inquiry.css";
 import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import InteriorApplication from "../interior/InteriorApplication";
+import axios from "axios";
 
 const BoardInquiry = () => {
   const faq = [
@@ -44,9 +45,12 @@ const BoardInquiry = () => {
     setOpenIdx((prev) => (prev === i ? null : i)); // 같은 걸 다시 누르면 닫힘
   };
 
+  const [isInterior, setIsInterior] = useState(0);
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [interiorModal, setInteriorModal] = useState(false);
   const [ani, setAni] = useState(false);
+
+  const navigate = useNavigate();
 
   const InteriorApp = () => {
     if (memberId == "") {
@@ -66,6 +70,22 @@ const BoardInquiry = () => {
     } else {
       setInteriorModal(true);
     }
+  };
+
+  useEffect(() => {
+    if (memberId !== "") {
+      axios
+        .get(`${import.meta.env.VITE_BACK_SERVER}/interior/${memberId}`)
+        .then((res) => {
+          setIsInterior(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [memberId]);
+  const payPage = () => {
+    navigate("/interior/payPage");
   };
 
   return (
@@ -128,9 +148,20 @@ const BoardInquiry = () => {
             노력합니다.
           </h3>
           <div className="btn-bottom-box">
-            <button className="interior-btn" onClick={InteriorApp}>
-              컨설팅 받으러 가기
-            </button>
+            {isInterior === 0 ? (
+              <button className="interior-btn" onClick={InteriorApp}>
+                <span>컨설팅 받으러 가기</span>
+              </button>
+            ) : (
+              <button className="interior-btn" onClick={payPage}>
+                <div className="interior-btn-box">
+                  <span>장바구니</span>
+                  <span className="material-symbols-outlined header-shopping-cart">
+                    shopping_cart
+                  </span>
+                </div>
+              </button>
+            )}
             {interiorModal && (
               <InteriorApplication
                 onClose={() => {
@@ -139,6 +170,7 @@ const BoardInquiry = () => {
                 }}
                 ani={ani}
                 setAni={setAni}
+                setIsInterior={setIsInterior}
               />
             )}
           </div>
