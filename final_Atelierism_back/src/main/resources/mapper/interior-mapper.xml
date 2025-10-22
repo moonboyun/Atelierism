@@ -19,4 +19,7 @@
   		null
   	)
   </insert>
+  <select id="selectIsInterior" resultType="int">
+  	select count(*) from interior_tbl where interior_customer = #{memberId} and interior_payment_check = 0
+  </select>
 </mapper>

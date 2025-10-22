@@ -18,4 +18,9 @@ public class InteriorService {
 		int result = interiorDao.insertInterior(interior);
 		return result;
 	}
+
+	public int selectisInterior(String memberId) {
+		int result = interiorDao.selectIsInterior(memberId);
+		return result;
+	}
 }
