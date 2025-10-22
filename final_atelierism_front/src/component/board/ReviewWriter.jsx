@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const ReviewWriter = () => {
   const [boardTitle, setBoardTitle] = useState(""); // 제목
@@ -25,6 +26,16 @@ const ReviewWriter = () => {
       if (thumbnail !== null) {
         form.append("thumbnail", thumbnail);
       }
+      // 유효성 체크 알림
+      if (boardTitle === "" || boardContent === "") {
+        Swal.fire({
+          title: "입력 확인",
+          text: "제목과 내용을 입력해주세요.",
+          icon: "warning",
+          confirmButtonText: "확인",
+        });
+        return;
+      }
       axios
         .post(`${import.meta.env.VITE_BACK_SERVER}/board`, form, {
           headers: {
@@ -32,9 +43,15 @@ const ReviewWriter = () => {
           },
         })
         .then((res) => {
-          console.log(res);
           if (res.data > 0) {
-            navigate("/board/review");
+            Swal.fire({
+              title: "등록 완료",
+              text: "게시글이 정상적으로 등록되었습니다.",
+              icon: "success",
+              confirmButtonText: "확인",
+            }).then(() => {
+              navigate("/board/review");
+            });
           }
         })
         .catch((err) => {
