@@ -11,18 +11,11 @@ const AdminSalesStatus = () => {
   const navigate = useNavigate();
   const [priceModal, setPriceModal] = useState(false);
   const [chartOrder, setChartOrder] = useState(1); //1: 6개월, 2: 3개월, 3: 년단위
-  const adminInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const newPriceList = { ...priceList, [name]: value };
-    setPriceList(newPriceList);
-  };
   const priceUpdate = () => {
     setPriceModal(true);
   };
   const chartSet = () => {};
   const [priceList, setPriceList] = useState(null);
-
   useEffect(() => {
     axios
       .get(`${backServer}/admin/list`)
@@ -33,30 +26,6 @@ const AdminSalesStatus = () => {
         console.log(err);
       });
   }, []);
-  const updatePriceTable = () => {
-    axios
-      .patch(`${backServer}/admin`, priceList)
-      .then((res) => {
-        console.log(res);
-        if (res.data >= 1) {
-          Swal.fire({
-            title: "가격변경 완료",
-            icon: "success",
-          });
-        }
-        navigate("/admin/sales");
-      })
-      .catch((err) => {
-        console.log(err);
-        if (res.data !== 1) {
-          Swal.fire({
-            title: "가격변경 실패",
-            icon: "warning",
-          });
-        }
-        navigate("/admin/sales");
-      });
-  };
 
   return (
     <div className="admin-sales-status-allwrap">
@@ -197,9 +166,9 @@ const AdminSalesStatus = () => {
                       onClose={() => {
                         setPriceModal(false);
                       }}
-                      onUpdateSuccess={updatePriceTable}
                       priceList={priceList}
-                      adminInput={adminInput}
+                      setPriceList={setPriceList}
+                      backServer={backServer}
                     />
                   )}
                 </div>
@@ -212,12 +181,56 @@ const AdminSalesStatus = () => {
   );
 };
 
-const PriceUpdateModal = ({
-  onClose,
-  onUpdateSuccess,
-  priceList,
-  adminInput,
-}) => {
+const PriceUpdateModal = ({ onClose, priceList, setPriceList, backServer }) => {
+  const [inputPrice, setInputPrice] = useState({ ...priceList });
+  const priceInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const newInputPrice = { ...inputPrice, [name]: value };
+    setInputPrice(newInputPrice);
+  };
+  const updatePriceTable = () => {
+    const newList = {};
+    for (const listCheck in inputPrice) {
+      if (inputPrice[listCheck] !== "0" && inputPrice[listCheck] !== "") {
+        newList[listCheck] = inputPrice[listCheck];
+        //newList라는 객체를 새로 생성 후
+        //[listCheck]라는 key에 inputPrice[listCheck]라는 value를 넣음
+        //그리고 newList에 복사해서 넣음
+      }
+    }
+    console.log(newList);
+    {
+      /*정상적인 값만 가지고 있는 newList를 axios에 전달*/
+    }
+    axios
+      .patch(`${backServer}/admin`, newList)
+      .then((res) => {
+        if (res.data >= 1) {
+          for (const key in newList) {
+            //정보 처리가 끝난 뒤 다시 for in 문을 사용
+            //newList에 있는 정상적인 데이터를 PriceList(화면처리 데이터)에 set
+            //모달창 안쪽도 반영해야하니까 InputPrice에도 set
+            priceList[key] = newList[key];
+          }
+          setPriceList({ ...priceList });
+          setInputPrice({ ...priceList });
+          Swal.fire({
+            title: "가격변경 완료",
+            icon: "success",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        if (res.data !== 1) {
+          Swal.fire({
+            title: "가격변경 실패",
+            icon: "warning",
+          });
+        }
+      });
+  };
   return (
     <section className="price-modal-all-wrap">
       <div className="price-modal-wrap">
@@ -228,7 +241,7 @@ const PriceUpdateModal = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              onUpdateSuccess;
+              updatePriceTable;
             }}
           >
             <table className="price-table-form">
@@ -246,8 +259,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceOneroom"
                       name="priceOneroom"
-                      value={priceList.priceOneroom}
-                      onChange={adminInput}
+                      value={inputPrice.priceOneroom}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -258,8 +271,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceLiving"
                       name="priceLiving"
-                      value={priceList.priceLiving}
-                      onChange={adminInput}
+                      value={inputPrice.priceLiving}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -270,8 +283,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceKitchen"
                       name="priceKitchen"
-                      value={priceList.priceKitchen}
-                      onChange={adminInput}
+                      value={inputPrice.priceKitchen}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -282,8 +295,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceKidroom"
                       name="priceKidroom"
-                      value={priceList.priceKidroom}
-                      onChange={adminInput}
+                      value={inputPrice.priceKidroom}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -294,8 +307,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceBed"
                       name="priceBed"
-                      value={priceList.priceBed}
-                      onChange={adminInput}
+                      value={inputPrice.priceBed}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -306,8 +319,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceStudy"
                       name="priceStudy"
-                      value={priceList.priceStudy}
-                      onChange={adminInput}
+                      value={inputPrice.priceStudy}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -318,8 +331,8 @@ const PriceUpdateModal = ({
                       type="text"
                       id="priceCharge"
                       name="priceCharge"
-                      value={priceList.priceCharge}
-                      onChange={adminInput}
+                      value={inputPrice.priceCharge}
+                      onChange={priceInput}
                     />
                   </td>
                 </tr>
@@ -329,7 +342,7 @@ const PriceUpdateModal = ({
               <button type="button" id="update-cancel" onClick={onClose}>
                 취소
               </button>
-              <button type="submit" id="update-ok" onClick={onUpdateSuccess}>
+              <button type="submit" id="update-ok" onClick={updatePriceTable}>
                 확인
               </button>
             </div>
