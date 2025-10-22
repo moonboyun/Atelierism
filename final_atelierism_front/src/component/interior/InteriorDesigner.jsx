@@ -23,8 +23,8 @@ const InteriorDesigner = (props) => {
     if (checkedDesigner.memberId) {
       setInterior((prev) => ({
         ...prev,
-        designerId: checkedDesigner.memberId,
-        customerId: loginId,
+        interiorDesigner: checkedDesigner.memberId,
+        interiorCustomer: loginId,
       }));
     }
   }, [checkedDesigner.memberId, loginId]);
@@ -73,7 +73,7 @@ const SelectDesigner = (props) => {
       className={
         checkedDesigner.memberId == ""
           ? "interD-select-box"
-          : "interD-select-box interD-checked"
+          : "interD-select-box inter-checked"
       }
     >
       <div>
@@ -160,7 +160,7 @@ const DesignerItem = (props) => {
       <div
         className={
           designer.memberId === checkedDesigner.memberId
-            ? "interD-check-box interD-checked"
+            ? "interD-check-box inter-checked"
             : "interD-check-box"
         }
       >

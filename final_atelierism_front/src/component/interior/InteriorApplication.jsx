@@ -4,21 +4,22 @@ import InteriorDesigner from "./InteriorDesigner";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import InteriorSpace from "./InteriorSpace";
+import InteriorRange from "./InteriorRange";
 
 const InteriorApplication = ({ onClose, ani, setAni }) => {
   const [interior, setInterior] = useState({
-    designerId: "",
-    customerId: "",
-    living: 0,
-    kitchen: 0,
-    bedroom: 0,
-    oneroom: 0,
-    kidroom: 0,
-    study: 0,
-    range: 0,
-    why: "",
-    price: 0,
-    paymentCheck: 0,
+    interiorDesigner: "",
+    interiorCustomer: "",
+    interiorLiving: 0,
+    interiorKitchen: 0,
+    interiorBed: 0,
+    interiorOneroom: 0,
+    interiorKidroom: 0,
+    interiorStudy: 0,
+    interiorRange: 0,
+    interiorWhy: "",
+    interiorPrice: 0,
+    interiorPayment: 0,
   });
   console.log(interior);
   const [step, setStep] = useState(1); // 현재 단계
@@ -30,8 +31,25 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
     };
   }, []);
   const nextStep = () => {
-    if (interior.designerId !== "") {
+    if (interior.interiorDesigner !== "") {
       setStep(2);
+      if (
+        interior.interiorBed !== 0 ||
+        interior.interiorLiving !== 0 ||
+        interior.interiorKitchen !== 0 ||
+        interior.interiorOneroom !== 0 ||
+        interior.interiorKidroom !== 0 ||
+        interior.interiorStudy !== 0
+      ) {
+        setStep(3);
+      } else if (step === 2) {
+        Swal.fire({
+          title: "인테리어 공간 확인",
+          text: "인테리어 공간 선택을 확인해주세요.",
+          icon: "info",
+          confirmButtonText: "확인",
+        });
+      }
     } else {
       Swal.fire({
         title: "디자이너 선택 확인",
@@ -46,9 +64,9 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
       case 1:
         return <InteriorDesigner setInterior={setInterior} />;
       case 2:
-        return <InteriorSpace setInterior={setInterior} />;
-      // case 3:
-      //   return <AnotherComponent />;
+        return <InteriorSpace setInterior={setInterior} interior={interior} />;
+      case 3:
+        return <InteriorRange setInterior={setInterior} interior={interior} />;
       default:
         return <InteriorDesigner setInterior={setInterior} />;
     }

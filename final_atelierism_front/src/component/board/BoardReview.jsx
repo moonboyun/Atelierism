@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./board.css";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { isLoginState } from "../utils/RecoilData";
 import PageNaviGation from "../utils/PageNavigation";
+import CloseIcon from "@mui/icons-material/Close";
 
 const BoardReview = () => {
   const [boardList, setBoardList] = useState([]);
@@ -12,11 +13,18 @@ const BoardReview = () => {
   const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
   const isLogin = useRecoilValue(isLoginState);
 
+  // modal
+  const [reviewModal, setReviewModal] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState(null);
+  const openModal = (board) => {
+    setReviewModal(true);
+    setSelectedBoard(board);
+  };
+
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACK_SERVER}/board?reqPage=${reqPqge}`)
       .then((res) => {
-        console.log(res);
         setBoardList(res.data.boardList);
         setPi(res.data.pi);
       })
@@ -41,6 +49,7 @@ const BoardReview = () => {
           </p>
         </div>
       </div>
+
       {/* 배너 */}
       <div className="review-banner">
         <div className="banner-inner">
@@ -50,6 +59,7 @@ const BoardReview = () => {
           </div>
         </div>
       </div>
+
       {/* Content */}
       <section className="section board-review-page">
         <div className="review-header">
@@ -60,20 +70,30 @@ const BoardReview = () => {
               </Link>
             )}
             <select className="sort-select" defaultValue="latest">
-              {/* 기본값(최신순)으로 설정 */}
               <option value="latest">최신순</option>
               <option value="oldest">오래된순</option>
               <option value="popular">인기순</option>
             </select>
           </div>
         </div>
-
         {/* 카드 그리드 */}
         <div className="review-grid">
           {boardList.map((board, i) => {
-            return <BoardItem key={"board-" + i} board={board} />;
+            return (
+              <BoardItem key={"board-" + i} board={board} onClick={openModal} />
+            );
           })}
         </div>
+        {/* modal 랜더링 */}
+        {reviewModal && selectedBoard && (
+          <ReviewModalApp
+            board={selectedBoard}
+            onClose={() => {
+              setReviewModal(false);
+              setSelectedBoard(null);
+            }}
+          />
+        )}
         {/* 페이징 */}
         <div className="board-paging-wrap">
           {pi !== null && (
@@ -87,14 +107,8 @@ const BoardReview = () => {
 
 const BoardItem = (props) => {
   const board = props.board;
-  const navigate = useNavigate();
   return (
-    <div
-      className="posting-item"
-      onClick={() => {
-        navigate(`/board/review/view/${board.reviewBoardNo}`);
-      }}
-    >
+    <div className="posting-item" onClick={() => props.onClick(board)}>
       <article key={board.reviewBoardNo} className="review-card">
         <div className="thumb">
           <img
@@ -117,6 +131,58 @@ const BoardItem = (props) => {
         </div>
       </article>
     </div>
+  );
+};
+
+const ReviewModalApp = ({ onClose, board }) => {
+  // Esc로 닫기
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+  return (
+    <section className="review-modal">
+      <div className="modal-wrap">
+        <div className="modal-page-title">
+          <h3>리뷰 상세보기</h3>
+          <span className="close-icon" onClick={onClose}>
+            <CloseIcon />
+          </span>
+        </div>
+        <div className="modal-page-content">
+          <div className="user-thumbnail">
+            <img
+              src={
+                board.reviewBoardThumbnail !== null
+                  ? `${
+                      import.meta.env.VITE_BACK_SERVER
+                    }/board/review/thumbnail/${board.reviewBoardThumbnail}`
+                  : "/image/default_image.png"
+              }
+            />
+          </div>
+          <div className="user-data">
+            <span className="user-title">{board.reviewBoardTitle}</span>
+            <span className="user-writer">{board.reviewBoardWriter}</span>
+            <span className="user-oneline">{board.reviewBoardOneline}</span>
+          </div>
+        </div>
+        <div
+          className="board-content-wrap"
+          dangerouslySetInnerHTML={{ __html: board.reviewBoardContent }}
+        ></div>
+      </div>
+      <div
+        className="modal-backdrop"
+        onClick={onClose}
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "rgba(0,0,0,0.45)",
+        }}
+      />
+    </section>
   );
 };
 

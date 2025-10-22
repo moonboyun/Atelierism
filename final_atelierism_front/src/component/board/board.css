@@ -637,20 +637,261 @@
   transform: translateY(-1px);
 }
 
-/* 더 작은 화면에서 한 번 더 축소 */
-@media (max-width: 768px) {
-  .board-paging-wrap .pagination {
-    gap: 18px;
+/* ========== Modal (BoardReview in-page overlay) ========== */
+
+/* 모달 열릴 때 바디 스크롤 잠금 */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* 반투명 배경 */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 999; /* 헤더/푸터보다 위 */
+}
+
+/* 중앙 카드(시트) */
+.modal-sheet {
+  width: min(900px, 96vw);
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: popIn 0.16s ease-out;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.98);
+    opacity: 0.6;
   }
-  .board-paging-wrap .page-item {
-    font-size: 22px;
-    padding: 2px 6px;
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
-  .board-paging-wrap .active-page {
-    min-width: 40px;
-    height: 40px;
-  }
-  .board-paging-wrap .MuiSvgIcon-root {
-    font-size: 24px;
-  }
+}
+
+/* 상단 헤더 */
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--gray6);
+  background: #fbfbfb;
+}
+.sheet-head strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray1);
+}
+
+/* 닫기 버튼 */
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--gray6);
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 20px; /* × 글자 크기 */
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-btn:hover {
+  background: #f6f7f8;
+}
+
+/* 내용 영역(스크롤) */
+.sheet-body {
+  padding: 18px 20px;
+  overflow: auto; /* 내부 스크롤 */
+}
+
+/* 로딩/에러 공통 */
+.loading {
+  text-align: center;
+  padding: 36px 0;
+  color: var(--gray3);
+  font-size: 14px;
+}
+
+/* 상세 상단(제목/작성자/날짜/한줄평) */
+.detail-head {
+  margin-bottom: 14px;
+}
+.detail-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray1);
+}
+.detail-sub {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--gray3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.detail-sub .dot {
+  color: var(--gray5);
+}
+
+.oneline {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #eef5f0;
+  color: #2d6a4f;
+  border: 1px solid #cfe6d8;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* 본문 */
+.detail-content {
+  margin-top: 16px;
+  line-height: 1.7;
+  color: var(--gray1);
+  word-break: break-word;
+}
+
+/* 에디터(HTML) 출력 대비 */
+.content-html img,
+.content-html video,
+.content-html iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.content-html p {
+  margin: 0 0 12px;
+}
+.content-text {
+  color: var(--gray3);
+}
+/*===================================================*/
+
+/* ===== Review Modal (SLOPLAY 스타일) ===== */
+.review-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000; /* 컨테이너 자체 레이어 */
+  pointer-events: none; /* backdrop/카드에서만 이벤트 받도록 */
+}
+
+/* 카드 */
+.review-modal .modal-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(640px, calc(100vw - 40px));
+  max-height: 84vh;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.04);
+  overflow: hidden; /* 상단/하단 라운딩 유지 */
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto; /* 카드에서 클릭 가능 */
+  z-index: 1002;
+}
+
+/* 헤더 */
+.review-modal .modal-page-title {
+  padding: 16px 20px;
+  border-bottom: 1px solid #edf0f2;
+  background: #f9fafb;
+}
+.review-modal .modal-page-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+}
+
+/* 콘텐츠 스크롤 영역 */
+.review-modal .modal-page-content,
+.review-modal .main-content {
+  padding: 18px 20px;
+}
+
+/* 상단 정보 블록(썸네일 + 텍스트) */
+.review-modal .modal-page-content {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 1px solid #f2f4f6;
+}
+
+/* 썸네일 */
+.review-modal .user-thumbnail {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1px solid #eceef1;
+  flex-shrink: 0;
+}
+.review-modal .user-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 텍스트 블록 */
+.review-modal .user-data {
+  display: grid;
+  gap: 6px;
+}
+.review-modal .user-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  display: block;
+}
+.review-modal .user-writer {
+  font-size: 13px;
+  color: #6b7280;
+  display: block;
+}
+.review-modal .user-oneline {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.45;
+  display: block;
+}
+
+/* 본문(리뷰 내용) */
+.review-modal .main-content {
+  color: #1f2937;
+  font-size: 14px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 닫기 버튼이 있다면(현재는 없음) 이 영역에 스타일 추가 가능 */
+/* .review-modal .close-btn { ... } */
+
+/* 배경 딤(이미 인라인 스타일 있지만, 레이어 보정만) */
+.review-modal .modal-backdrop {
+  z-index: 1001;
+  backdrop-filter: saturate(90%) blur(0.5px); /* 살짝 더 고급스럽게 */
 }
