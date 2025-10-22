@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./board.css";
 import axios from "axios";
 import { useRecoilValue, useRecoilState } from "recoil";
