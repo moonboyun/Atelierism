@@ -38,3 +38,13 @@ npm install highcharts @highcharts/react
 npm install --save chart.js react-chartjs-2
 npm install chartjs-plugin-datalabels
 확인 : 조성빈, 이설항
+
+-------------------------------------------
+2025-10-22 10:05 조성빈
+npm install react-daum-postcode
+확인 :
+
+2025-10-22 11:00 조성빈
+npm install react-modal
+npm install react-modal @types/react-modal
+-------------------------------------------

@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.iei.interior.model.dao.InteriorDao">
-  
+  <insert id="insertInterior">
+  	insert into interior_tbl values(
+  		interior_seq.nextval,
+  		#{interiorDesigner},
+  		#{interiorCustomer},
+  		#{interiorLiving},
+  		#{interiorKitchen},
+  		#{interiorBed},
+  		#{interiorOneroom},
+  		#{interiorKidroom},
+  		#{interiorStudy},
+  		#{interiorRange},
+  		#{interiorWhy},
+  		#{interiorPrice},
+  		0,
+  		null
+  	)
+  </insert>
+  <select id="selectIsInterior" resultType="int">
+  	select count(*) from interior_tbl where interior_customer = #{memberId} and interior_payment_check = 0
+  </select>
 </mapper>

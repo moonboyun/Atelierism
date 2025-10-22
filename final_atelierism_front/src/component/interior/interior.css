@@ -328,3 +328,57 @@
   color: var(--main2);
   font-weight: 700;
 }
+/*----------------------------Range-checked-info------------------------------------*/
+.interW-main-box {
+  height: 576px;
+  padding: 0px 20px;
+  margin-bottom: 24px;
+}
+
+.interW-choice-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.interW-choice-item {
+  cursor: pointer;
+  width: 60%;
+}
+
+.interW-check-box {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid var(--gray1);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  height: 55px;
+}
+
+.interW-info-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.interW-info-box > .material-symbols-outlined {
+  width: 10%;
+  font-size: 60px;
+  padding: 0 30px;
+}
+.interW-info-box > .inter-checked-icon {
+  font-weight: 900;
+  font-size: 64px;
+  color: var(--main1);
+}
+.interW-info-box > span:last-child {
+  width: 70%;
+  text-align: center;
+  font-size: 22px;
+}

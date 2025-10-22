@@ -30,6 +30,7 @@ import DesignerMypage from "./component/designer/designerMypage";
 import DesignerInfo from "./component/designer/DesignerInfo";
 import axios from "axios";
 import { useEffect } from "react";
+import InteriorPayPage from "./component/interior/InteriorPayPage";
 
 function App() {
   const [memberId, setMemberId] = useRecoilState(loginIdState); //회원 아이디를 저장하고 있는 state
@@ -93,6 +94,8 @@ function App() {
           <Route path="/designer/intro" element={<Intro />} />
           <Route path="/designer/mypage" element={<DesignerMypage />} />
           <Route path="/designer/designerInfo" element={<DesignerInfo />} />
+          {/*----------------------interior---------------------*/}
+          <Route path="/interior/payPage" element={<InteriorPayPage />} />
         </Routes>
       </main>
       <Footer />

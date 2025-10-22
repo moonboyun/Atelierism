@@ -163,6 +163,10 @@
 .join-button > button > a {
   color: #fff;
 }
+.sb-close-modal {
+  text-align: center;
+}
+
 .agree-wrap {
   width: 1440px;
   margin: 0 auto;
@@ -217,6 +221,7 @@
   height: 50px;
   border-radius: 15px;
   border: none;
+  color: #fff;
 }
 .sb-button-zone > button:last-child {
   background-color: #8aa996;
@@ -225,10 +230,7 @@
   text-decoration: none;
   color: #000;
 }
-.sb-button-zone > button:last-child > a {
-  color: #fff;
-  font-weight: 500;
-}
+
 .sb-button-zone > button > a:hover {
   color: blue;
   text-decoration: underline;

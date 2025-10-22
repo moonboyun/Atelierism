@@ -16,16 +16,12 @@ const Agreement = () => {
   const navigate = useNavigate();
   const nextPage = () => {
     if (isChecked1 && isChecked2) {
-      Swal.fire({
-        text: "회원가입을 진행합니다.",
-        icon: "info",
-      });
+      navigate("/member/join");
     } else {
       Swal.fire({
         text: "약관동의를 모두 체크해주세요",
         icon: "warning",
       });
-      navigate("/member/agree");
     }
   };
   return (
@@ -245,9 +241,7 @@ const Agreement = () => {
               <Link to="/">이전</Link>
             </button>
             <button type="button" onClick={nextPage}>
-              <Link to="/member/join" disabled={!isChecked1 && !isChecked2}>
-                다음
-              </Link>
+              다음
             </button>
           </div>
         </div>

@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
 import { useRef, useState } from "react";
 import axios from "axios";
+import DaumPostcode from "react-daum-postcode";
+import Modal from "react-modal";
 const MemberJoin = () => {
   const [member, setMember] = useState({
     memberId: "",
@@ -65,6 +67,7 @@ const MemberJoin = () => {
       member.memberAddrDetail !== "",
       idCheck === 1 && pwMsgRef.current.classList.contains("valid"))
     ) {
+      setMember({ ...member, memberAddr: memberAddr.address });
       console.log(member);
       axios
         .post(`${backServer}/member`, member)
@@ -78,6 +81,29 @@ const MemberJoin = () => {
         });
     }
   };
+
+  const [isModal, setIsModal] = useState(false);
+  const [memberAddr, setMemberAddr] = useState({
+    zonecode: "",
+    address: "",
+  });
+  const openModal = () => {
+    setIsModal(true);
+  };
+  const closeModal = () => {
+    setIsModal(false);
+  };
+  const onComplete = (data) => {
+    //console.log(data);
+    setMemberAddr({
+      zonecode: data.zonecode,
+      address: data.address,
+    });
+    console.log(memberAddr.address);
+    closeModal;
+    setMember({ ...member, memberAddr: data.address });
+  };
+  console.log(memberAddr);
   return (
     <section className="join-wrap">
       <div className="page-title">회원가입</div>
@@ -100,6 +126,7 @@ const MemberJoin = () => {
               onChange={inputMemberData}
               onBlur={checkId}
               placeholder="아이디를 입력해주세요"
+              required
             ></input>
             <p
               className={
@@ -133,6 +160,7 @@ const MemberJoin = () => {
               onChange={inputMemberData}
               onBlur={checkPw}
               placeholder="비밀번호를 입력해주세요"
+              required
             ></input>
           </div>
         </div>
@@ -151,6 +179,7 @@ const MemberJoin = () => {
                 setMemberPwRe(e.target.value);
               }}
               onBlur={checkPw}
+              required
             ></input>
             <p className="input-msg" ref={pwMsgRef}></p>
           </div>
@@ -167,6 +196,7 @@ const MemberJoin = () => {
               value={member.memberName}
               onChange={inputMemberData}
               placeholder="이름을 입력해주세요"
+              required
             ></input>
           </div>
         </div>
@@ -182,6 +212,7 @@ const MemberJoin = () => {
               value={member.memberPhone}
               onChange={inputMemberData}
               placeholder="전화번호를 입력해주세요"
+              required
             ></input>
           </div>
         </div>
@@ -197,6 +228,7 @@ const MemberJoin = () => {
               value={member.memberEmail}
               onChange={inputMemberData}
               placeholder="이메일을 입력해주세요"
+              required
             ></input>
             <button type="button">인증코드 전송</button>
             <div className="check-email">
@@ -214,18 +246,51 @@ const MemberJoin = () => {
               type="text"
               id="memberAddr"
               name="memberAddr"
-              value={member.memberAddr}
+              value={memberAddr.address}
               onChange={inputMemberData}
               placeholder="주소를 입력해주세요"
             ></input>
-            <button className="button">우편번호 조회</button>
+            <button type="button" onClick={openModal}>
+              우편번호 조회
+            </button>
+            {isModal && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  zIndex: 1000,
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "white",
+                    padding: "20px",
+                  }}
+                >
+                  <DaumPostcode onComplete={onComplete} onClose={closeModal} />
+                  <button onClick={closeModal} className="sb-close-modal">
+                    닫기
+                  </button>
+                </div>
+              </div>
+            )}
+
             <input
               type="text"
-              id="memberAddr"
+              id="memberAddrDetail"
               name="memberAddrDetail"
               value={member.memberAddrDetail}
               onChange={inputMemberData}
               placeholder="상세주소를 입력해주세요"
+              required
             ></input>
           </div>
         </div>
