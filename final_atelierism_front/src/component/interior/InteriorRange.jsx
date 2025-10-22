@@ -3,8 +3,8 @@ const InteriorRange = (props) => {
   const setInterior = props.setInterior;
 
   const rangeCheck = (e) => {
-    const value = e.target.value;
-    const newInterior = { ...interior, InteriorRange: value };
+    const value = Number(e.target.value);
+    const newInterior = { ...interior, interiorRange: value };
     setInterior(newInterior);
   };
   return (
@@ -18,15 +18,15 @@ const InteriorRange = (props) => {
           <label className="interR-choice-item">
             <input
               type="radio"
-              id="interiorLiving"
-              name="interiorLiving"
+              id="interiorRange1"
+              name="interiorRange1"
               value={1}
-              onChange={rangeCheck}
+              onClick={rangeCheck}
               style={{ display: "none" }}
             ></input>
             <div
               className={
-                interior.InteriorRange !== 1
+                interior.interiorRange !== 1
                   ? "interR-check-box"
                   : "interR-check-box inter-checked"
               }
@@ -46,15 +46,15 @@ const InteriorRange = (props) => {
           <label className="interR-choice-item">
             <input
               type="radio"
-              id="interiorKitchen"
-              name="interiorKitchen"
+              id="interiorRange2"
+              name="interiorRange2"
               value={2}
-              onChange={rangeCheck}
+              onClick={rangeCheck}
               style={{ display: "none" }}
             ></input>
             <div
               className={
-                interior.InteriorRange !== 2
+                interior.interiorRange !== 2
                   ? "interR-check-box"
                   : "interR-check-box inter-checked"
               }
@@ -71,15 +71,15 @@ const InteriorRange = (props) => {
           <label className="interR-choice-item">
             <input
               type="radio"
-              id="interiorBed"
-              name="interiorBed"
+              id="interiorRange3"
+              name="interiorRange3"
               value={3}
-              onChange={rangeCheck}
+              onClick={rangeCheck}
               style={{ display: "none" }}
             ></input>
             <div
               className={
-                interior.InteriorRange !== 3
+                interior.interiorRange !== 3
                   ? "interR-check-box"
                   : "interR-check-box inter-checked"
               }
