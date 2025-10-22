@@ -18,4 +18,8 @@ public interface ReviewBoardDao {
 
 	List selectBoardList(PageInfo pi);
 
+	ReviewBoardDTO selectOneBoard(int reviewBoardNo);
+
+	int deleteBoard(int reviewBoardNo);
+
 }// ReviewBoardDao

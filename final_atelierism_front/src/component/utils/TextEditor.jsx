@@ -10,39 +10,36 @@ const TextEditor = (props) => {
   const setData = props.setData;
   const editorRef = useRef(null);
   const imageHandler = () => {
-    //input태그 생성
-    const input = document.createElement("input"); //e.타겟
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
     input.click();
 
     input.onchange = () => {
       const files = input.files;
-      if (files.length !== 0) {
-        const form = new FormData();
-        form.append("image", files[0]);
-        axios
-          .post(`${import.meta.env.VITE_BACK_SERVER}/board/image`, form, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            //에디터 사용법 이대로 사용하면된다
-            const editor = editorRef.current.getEditor();
-            const range = editor.getSelection(); //에디터 내부 이미지를 관리하는 객체
-            editor.insertEmbed(
-              range.index,
-              "image",
-              `${import.meta.env.VITE_BACK_SERVER}/editor/${res.data}`
-            );
-            editor.setSelection(range.index + 1);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
+      if (!files || files.length === 0) return;
+
+      const form = new FormData();
+      form.append("image", files[0]);
+
+      axios
+        .post(`${import.meta.env.VITE_BACK_SERVER}/board/image`, form, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((res) => {
+          const filename = res.data; // 서버가 돌려준 "저장 파일명"
+          const editor = editorRef.current.getEditor();
+          const range = editor.getSelection();
+          const url = `${
+            import.meta.env.VITE_BACK_SERVER
+          }/board/review/content/${encodeURIComponent(filename)}`;
+
+          editor.insertEmbed(range.index, "image", url);
+          editor.setSelection(range.index + 1);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
   };
 

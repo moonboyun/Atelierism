@@ -94,7 +94,7 @@ const BoardInquiry = () => {
       <div className="review-hero">
         <div className="hero-inner">
           <img className="title-img" src="/image/image (review).png" />
-          <h1 className="hero-title">FaQ & QnA</h1>
+          <h1 className="hero-title">FAQ & QnA</h1>
         </div>
       </div>
 

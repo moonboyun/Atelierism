@@ -30,4 +30,12 @@
 		where rnum between #{start} and #{end}
 	</select>
 	
+	<select id="selectOneBoard" resultType="review">
+		select * from review_board_tbl where review_board_no = #{reviewBoardNo}
+	</select>
+	
+	<delete id="deleteBoard">
+		delete from review_board_tbl where review_board_no = #{reviewBoardNo}
+	</delete>
+	
 </mapper>
