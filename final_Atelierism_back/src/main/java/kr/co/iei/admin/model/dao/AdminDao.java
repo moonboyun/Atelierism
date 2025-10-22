@@ -13,4 +13,10 @@ public interface AdminDao {
 
 	int updatePriceList(PriceListDto priceList);
 
+	List adminMemberList();
+
+	List adminDesignerList();
+
+	List adminApplicantList();
+
 }

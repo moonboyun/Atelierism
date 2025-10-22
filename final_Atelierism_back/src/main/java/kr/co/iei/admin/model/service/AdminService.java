@@ -26,4 +26,17 @@ public class AdminService {
 		return result;
 	}
 
+	public List selectAdminList(int pageList) {
+		if(pageList == 1) {
+			List adminListData = adminDao.adminMemberList();
+			return adminListData;
+		} else if(pageList == 2) {
+			List adminListData = adminDao.adminDesignerList();
+			return adminListData;
+		}else{
+			List adminListData = adminDao.adminApplicantList();
+			return adminListData;
+		}
+	}
+
 }
