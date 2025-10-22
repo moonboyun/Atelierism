@@ -9,7 +9,7 @@ import InteriorWhy from "./InteriorWhy";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const InteriorApplication = ({ onClose, ani, setAni }) => {
+const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
   const [interior, setInterior] = useState({
     interiorDesigner: "",
     interiorCustomer: "",
@@ -131,6 +131,7 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
             }
             onClose();
             document.body.style.overflow = "auto";
+            setIsInterior(1);
           });
         })
         .catch((err) => {

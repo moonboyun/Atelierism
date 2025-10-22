@@ -152,6 +152,7 @@ const HeaderLink = () => {
           }}
           ani={ani}
           setAni={setAni}
+          setIsInterior={setIsInterior}
         />
       )}
     </ul>
