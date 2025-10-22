@@ -7,7 +7,11 @@ const AdminList = (props) => {
   const [listData, setListData] = useState([]);
   useEffect(() => {
     axios
-      .get(`${backServer}/admin/adminList`, pageList)
+      .get(`${backServer}/admin/adminList`, {
+        params: {
+          pageList: pageList,
+        },
+      })
       .then((res) => {
         console.log(res);
         setListData(res.data);
@@ -58,7 +62,7 @@ const AdminList = (props) => {
             ) : pageList === 2 ? (
               <tr>
                 <th>이름</th>
-                <th>입점일</th>
+                <th>전화번호</th>
                 <th>금월매출액</th>
                 <th>매출성적</th>
               </tr>
@@ -72,18 +76,16 @@ const AdminList = (props) => {
             )}
           </thead>
           <tbody>
-            <tr>
-              <td>user01</td>
-              <td>김민수</td>
-              <td>010-4564-4371</td>
-              <td>일반회원</td>
-            </tr>
-            <tr>
-              <td>user02</td>
-              <td>최철용</td>
-              <td>010-8421-7544</td>
-              <td>일반회원</td>
-            </tr>
+            {listData.map((list, i) => {
+              return (
+                <tr key={"listData-" + i}>
+                  <td>{list.memberId}</td>
+                  <td>{list.memberName}</td>
+                  <td>{list.memberPhone}</td>
+                  {list.memberType === 3 && <td>일반회원</td>}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
