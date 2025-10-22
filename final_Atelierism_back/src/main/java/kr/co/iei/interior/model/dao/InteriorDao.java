@@ -9,4 +9,6 @@ public interface InteriorDao {
 
 	int insertInterior(InteriorDTO interior);
 
+	int selectIsInterior(String memberId);
+
 }
