@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
+import Swal from "sweetalert2";
 const MemberJoin = () => {
   const [member, setMember] = useState({
     memberId: "",
@@ -60,12 +61,13 @@ const MemberJoin = () => {
   const navigate = useNavigate();
   const joinMember = () => {
     if (
-      (member.memberName !== "",
+      ((member.memberName !== "",
       member.memberPhone !== "",
       member.memberEmail !== "",
       member.memberAddr !== "",
       member.memberAddrDetail !== "",
-      idCheck === 1 && pwMsgRef.current.classList.contains("valid"))
+      idCheck === 1 && pwMsgRef.current.classList.contains("valid")),
+      emailAuthStatus === 2)
     ) {
       setMember({ ...member, memberAddr: memberAddr.address });
       console.log(member);
@@ -104,6 +106,68 @@ const MemberJoin = () => {
     setMember({ ...member, memberAddr: data.address });
   };
   console.log(memberAddr);
+
+  const [emailCode, setEmailCode] = useState("");
+  const [emailAuthStatus, setEmailAuthStatus] = useState(0);
+  const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+  const sendCode = () => {
+    if (!emailReg.test(member.memberEmail)) {
+      Swal.fire({
+        title: "이메일 오류",
+        text: "올바른 이메일 주소를 입력해주세요.",
+        icon: "warning",
+      });
+    }
+    axios
+      .post(`${backServer}/member/sendCode`, { email: member.memberEmail })
+      .then((res) => {
+        if (res.data.success) {
+          Swal.fire({
+            text: "인증코드가 전송되었습니다.",
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            text: "인증코드 전송에 실패했습니다.",
+            icon: "error",
+          });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          text: "오류가 발생했습니다.",
+          icon: "warning",
+        });
+      });
+  };
+
+  const [inputEmailCode, setInputEmailCode] = useState("");
+
+  const verifyCode = () => {
+    if (inputEmailCode.trim() === "") {
+      alert("인증 코드를 입력해주세요.");
+      return;
+    }
+
+    axios
+      .post(`${backServer}/member/verifyEmailCode`, {
+        email: member.memberEmail,
+        code: inputEmailCode,
+      })
+      .then((res) => {
+        if (res.data.verified) {
+          alert("이메일 인증이 완료되었습니다.");
+          setEmailAuthStatus(2); // 인증 성공 상태
+        } else {
+          alert("인증 코드가 올바르지 않습니다.");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("서버 오류가 발생했습니다.");
+      });
+  };
   return (
     <section className="join-wrap">
       <div className="page-title">회원가입</div>
@@ -230,11 +294,24 @@ const MemberJoin = () => {
               placeholder="이메일을 입력해주세요"
               required
             ></input>
-            <button type="button">인증코드 전송</button>
-            <div className="check-email">
-              <input type="text" placeholder="인증번호를 입력해주세요" />
-              <button type="button">인증하기</button>
-            </div>
+            <button type="button" onClick={sendCode}>
+              인증코드 전송
+            </button>
+            {emailAuthStatus > 0 && (
+              <div className="check-email">
+                <input
+                  type="text"
+                  placeholder="인증번호를 입력해주세요"
+                  value={inputEmailCode}
+                  onChange={(e) => {
+                    setInputEmailCode(e.target.value);
+                  }}
+                />
+                <button type="button" onClick={verifyCode}>
+                  인증하기
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="input-wrap">
