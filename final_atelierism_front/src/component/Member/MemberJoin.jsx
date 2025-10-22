@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
 import { useRef, useState } from "react";
 import axios from "axios";
+import DaumPostcode from "react-daum-postcode";
+import Modal from "react-modal";
 const MemberJoin = () => {
   const [member, setMember] = useState({
     memberId: "",
@@ -77,6 +79,22 @@ const MemberJoin = () => {
           console.log(err);
         });
     }
+  };
+
+  const [zipCode, setZipCode] = useState("");
+  const [roadAddress, setRoadAddress] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const onComplete = (data) => {
+    setZipCode(data.zonecode);
+    setRoadAddress(data.roadAddress);
+    setIsOpen(false);
+  };
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+  const changeHandler = (e) => {
+    setDetailAddress(e.target.value);
   };
   return (
     <section className="join-wrap">
@@ -214,11 +232,32 @@ const MemberJoin = () => {
               type="text"
               id="memberAddr"
               name="memberAddr"
-              value={member.memberAddr}
+              value={roadAddress}
               onChange={inputMemberData}
               placeholder="주소를 입력해주세요"
             ></input>
-            <button className="button">우편번호 조회</button>
+            <button type="button" onClick={toggle}>
+              우편번호 조회
+            </button>
+            <div>
+              <Modal isOpen={isOpen} ariaHideApp={false}>
+                <DaumPostcode
+                  onClick={onComplete}
+                  style={{
+                    overlay: {
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                    },
+                    width: "400px",
+                    margin: "0 auto",
+                    marginTop: "100px",
+                    padding: "0",
+                    border: "1px solid black",
+                    borderRadius: "5px",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </Modal>
+            </div>
             <input
               type="text"
               id="memberAddr"
