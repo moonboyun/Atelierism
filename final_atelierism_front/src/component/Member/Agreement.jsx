@@ -16,10 +16,6 @@ const Agreement = () => {
   const navigate = useNavigate();
   const nextPage = () => {
     if (isChecked1 && isChecked2) {
-      Swal.fire({
-        text: "회원가입을 진행합니다.",
-        icon: "info",
-      });
       navigate("/member/join");
     } else {
       Swal.fire({
