@@ -24,6 +24,7 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
     interiorPrice: 0,
     interiorPayment: 0,
   });
+  const [priceList, setPriceList] = useState({});
   console.log(interior);
   const [step, setStep] = useState(1); // 현재 단계
   useEffect(() => {
@@ -32,6 +33,16 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
     return () => {
       document.body.style.overflow = "auto";
     };
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/interior`)
+      .then((res) => {
+        setPriceList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   const nextStep = () => {
     if (interior.interiorDesigner !== "") {
@@ -44,15 +55,16 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
         interior.interiorKidroom !== 0 ||
         interior.interiorStudy !== 0
       ) {
+        const price =
+          interior.interiorBed * priceList.priceBed +
+          interior.interiorLiving * priceList.priceLiving +
+          interior.interiorKitchen * priceList.priceKitchen +
+          interior.interiorOneroom * priceList.priceOneroom +
+          interior.interiorKidroom * priceList.priceKidroom +
+          interior.interiorStudy * priceList.priceStudy;
+        const newInterior = { ...interior, interiorPrice: price };
+        setInterior(newInterior);
         setStep(3);
-        axios
-          .get(`${import.meta.env.VITE_BACK_SERVER}/interior`)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
         if (interior.interiorRange !== 0) {
           setStep(4);
         } else if (step === 3) {
@@ -97,23 +109,33 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
   const navigate = useNavigate();
   const payPage = () => {
     if (interior.interiorWhy !== "") {
-      Swal.fire({
-        title: "설문 완료!",
-        text: "설문 조사가 저장되었습니다!",
-        icon: "success",
-        reverseButtons: true,
-        showCancelButton: true,
-        cancelButtonText: "닫기",
-        confirmButtonText: "결제하러 가기",
-      }).then((select) => {
-        if (select.isConfirmed) {
-          navigate("/interior/payPage", {
-            state: { interior },
+      axios
+        .post(`${import.meta.env.VITE_BACK_SERVER}/interior`, interior)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: "설문 완료!",
+            text: "설문 조사가 저장되었습니다!",
+            icon: "success",
+            reverseButtons: true,
+            showCancelButton: true,
+            cancelButtonText: "닫기",
+            confirmButtonText: "결제하러 가기",
+          }).then((select) => {
+            if (select.isConfirmed) {
+              navigate("/interior/payPage", {
+                state: { interior },
+              });
+            } else {
+              navigate("/");
+            }
+            onClose();
+            document.body.style.overflow = "auto";
           });
-        } else {
-          navigate("/");
-        }
-      });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else if (step === 4) {
       Swal.fire({
         title: "인테리어 이유 확인",
