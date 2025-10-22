@@ -123,9 +123,7 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
             confirmButtonText: "결제하러 가기",
           }).then((select) => {
             if (select.isConfirmed) {
-              navigate("/interior/payPage", {
-                state: { interior },
-              });
+              navigate("/interior/payPage");
             } else {
               navigate("/");
             }
@@ -154,20 +152,25 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
     return () => clearTimeout(timeout);
   }, []);
   const closedModal = () => {
-    Swal.fire({
-      title: "설문 나가기",
-      text: "창을 닫을 시 지금까지 한 설문은 저장되지 않습니다.",
-      icon: "warning",
-      reverseButtons: true,
-      showCancelButton: true,
-      cancelButtonText: "닫기",
-      confirmButtonText: "나가기",
-    }).then((select) => {
-      if (select.isConfirmed) {
-        onClose();
-        document.body.style.overflow = "auto";
-      }
-    });
+    if (interior.interiorDesigner !== "") {
+      Swal.fire({
+        title: "설문 나가기",
+        text: "창을 닫을 시 지금까지 한 설문은 저장되지 않습니다.",
+        icon: "warning",
+        reverseButtons: true,
+        showCancelButton: true,
+        cancelButtonText: "닫기",
+        confirmButtonText: "나가기",
+      }).then((select) => {
+        if (select.isConfirmed) {
+          onClose();
+          document.body.style.overflow = "auto";
+        }
+      });
+    } else {
+      onClose();
+      document.body.style.overflow = "auto";
+    }
   };
   return (
     <section className="inter-section">
