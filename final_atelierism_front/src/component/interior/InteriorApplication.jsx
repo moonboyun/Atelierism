@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import InteriorSpace from "./InteriorSpace";
 import InteriorRange from "./InteriorRange";
+import InteriorWhy from "./InteriorWhy";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const InteriorApplication = ({ onClose, ani, setAni }) => {
   const [interior, setInterior] = useState({
@@ -42,18 +45,36 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
         interior.interiorStudy !== 0
       ) {
         setStep(3);
+        axios
+          .get(`${import.meta.env.VITE_BACK_SERVER}/interior`)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        if (interior.interiorRange !== 0) {
+          setStep(4);
+        } else if (step === 3) {
+          Swal.fire({
+            title: "인테리어 범위 확인",
+            text: "인테리어 범위를 확인해주세요.",
+            icon: "info",
+            confirmButtonText: "확인",
+          });
+        }
       } else if (step === 2) {
         Swal.fire({
           title: "인테리어 공간 확인",
-          text: "인테리어 공간 선택을 확인해주세요.",
+          text: "인테리어 공간을 확인해주세요.",
           icon: "info",
           confirmButtonText: "확인",
         });
       }
     } else {
       Swal.fire({
-        title: "디자이너 선택 확인",
-        text: "디자이너 선택을 확인해주세요.",
+        title: "디자이너 확인",
+        text: "디자이너를 확인해주세요.",
         icon: "info",
         confirmButtonText: "확인",
       });
@@ -67,8 +88,39 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
         return <InteriorSpace setInterior={setInterior} interior={interior} />;
       case 3:
         return <InteriorRange setInterior={setInterior} interior={interior} />;
+      case 4:
+        return <InteriorWhy setInterior={setInterior} interior={interior} />;
       default:
         return <InteriorDesigner setInterior={setInterior} />;
+    }
+  };
+  const navigate = useNavigate();
+  const payPage = () => {
+    if (interior.interiorWhy !== "") {
+      Swal.fire({
+        title: "설문 완료!",
+        text: "설문 조사가 저장되었습니다!",
+        icon: "success",
+        reverseButtons: true,
+        showCancelButton: true,
+        cancelButtonText: "닫기",
+        confirmButtonText: "결제하러 가기",
+      }).then((select) => {
+        if (select.isConfirmed) {
+          navigate("/interior/payPage", {
+            state: { interior },
+          });
+        } else {
+          navigate("/");
+        }
+      });
+    } else if (step === 4) {
+      Swal.fire({
+        title: "인테리어 이유 확인",
+        text: "인테리어 이유를 확인해주세요.",
+        icon: "info",
+        confirmButtonText: "확인",
+      });
     }
   };
   useEffect(() => {
@@ -106,9 +158,15 @@ const InteriorApplication = ({ onClose, ani, setAni }) => {
           {renderStep()}
         </div>
         <div className="inter-next-box">
-          <button className="inter-next-btn" onClick={nextStep}>
-            다음 <ArrowForwardIos />
-          </button>
+          {step !== 4 ? (
+            <button className="inter-next-btn" onClick={nextStep}>
+              다음 <ArrowForwardIos />
+            </button>
+          ) : (
+            <button className="inter-next-btn" onClick={payPage}>
+              완료
+            </button>
+          )}
         </div>
       </div>
     </section>
