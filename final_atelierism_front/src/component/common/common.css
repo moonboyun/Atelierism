@@ -163,7 +163,7 @@ body {
   display: flex;
 }
 .interior-btn span {
-  font-weight: 600;
+  font-weight: 500;
   color: #fff;
   font-size: 18px;
 }
@@ -239,9 +239,6 @@ section.section {
   margin: 0 auto;
   flex: 1;
   background-color: #fff;
-}
-section.section.bg-section {
-  background-color: #f0f0f0;
 }
 /*-----------------------------content-box---------------------------------------*/
 .slider-container {
