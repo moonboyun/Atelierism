@@ -159,9 +159,13 @@ body {
   height: 35px;
   cursor: pointer;
 }
-.interior-btn > span {
+.interior-btn-box {
+  display: flex;
+}
+.interior-btn span {
   font-weight: 600;
   color: #fff;
+  font-size: 18px;
 }
 .interior-btn:hover {
   background-color: var(--btnHover);
@@ -170,6 +174,12 @@ body {
 .interior-btn:hover span {
   color: #fff;
   font-weight: 600;
+}
+.interior-btn .header-shopping-cart {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 10px;
+  padding-top: 2px;
 }
 /*-----------------------------header---------------------------------------*/
 .footer {
