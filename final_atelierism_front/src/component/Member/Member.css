@@ -1,8 +1,10 @@
 .login-wrap {
+  display: flex;
+  flex-direction: column;
   width: 600px;
   margin: 0 auto;
-  min-height: 500px;
-  padding-top: 50px;
+  min-height: 700px;
+  justify-content: center;
 }
 .login-wrap > .page-title {
   text-align: center;
