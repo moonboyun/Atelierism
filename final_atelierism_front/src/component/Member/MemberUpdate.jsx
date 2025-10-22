@@ -29,7 +29,6 @@ const MemberUpdate = () => {
   };
   const backServer = import.meta.env.VITE_BACK_SERVER;
   useEffect(() => {
-    //문제의 useEffect
     if (memberId) {
       axios.get(`${backServer}/member/${memberId}`).then((res) => {
         setMember(res.data);
