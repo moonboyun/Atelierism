@@ -23,32 +23,36 @@ const MemberUpdate = () => {
     { url: "/member/payment", text: "결제 내역" },
   ]);
   const formatPhoneNumber = (value) => {
-    // 숫자만 추출
+    // 문자열 안에 숫자가 아닌 문자들을 모두 제거하는 로직
+    //-> /\D/g : 숫자가 아닌 문자(\D) 전체(g) 찾기
     value = value.replace(/\D/g, "");
 
     if (value.length < 4) return value; // 3자리 이하
 
     if (value.length < 8) {
-      // 4~7자리 (010-1234)
+      // 전화번호 앞에서 7자리 기준으로 하이픈 한개 포함
       return value.slice(0, 3) + "-" + value.slice(3);
     }
 
     // 8자리 이상 (010-1234-5678)
     return (
+      //문자열(value)의 특정 위치에서 잘라서(slice) 그 사이에 하이픈을 넣는 로직
       value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
     );
   };
   const inputMemberData = (e) => {
     const name = e.target.name;
     let value = e.target.value;
+
+    //회원가입 시 전화번호 입력란에 도착하면
     if (name === "memberPhone") {
-      // 숫자만 추출
+      // 숫자만 추출해서
       value = value.replace(/\D/g, "");
 
-      // 3자리마다 '-' 삽입
+      // 3자리마다 '-' 삽입하고
       value = formatPhoneNumber(value, 3, "-");
 
-      // 마지막에 '-'가 붙으면 제거 (ex: 010-)
+      // 마지막에 '-'가 붙으면 제거
       if (value.endsWith("-")) {
         value = value.slice(0, -1);
       }
