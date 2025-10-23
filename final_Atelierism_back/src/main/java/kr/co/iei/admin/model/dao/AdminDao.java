@@ -1,10 +1,12 @@
 package kr.co.iei.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.admin.model.dto.PriceListDto;
+import kr.co.iei.util.PageInfo;
 
 @Mapper
 public interface AdminDao {
@@ -18,5 +20,9 @@ public interface AdminDao {
 	List adminDesignerList();
 
 	List adminApplicantList();
+
+	int memberTotalCount();
+
+	List selectMemberList(Map<String, Object> orderMap);
 
 }
