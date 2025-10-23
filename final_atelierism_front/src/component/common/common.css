@@ -48,6 +48,9 @@ body {
   position: relative;
   background-color: #fff;
 }
+label {
+  cursor: pointer;
+}
 .wrap {
   display: flex;
   flex-direction: column;
