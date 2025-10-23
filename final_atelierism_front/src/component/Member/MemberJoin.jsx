@@ -45,7 +45,6 @@ const MemberJoin = () => {
     }
   };
   const [memberPwRe, setMemberPwRe] = useState("");
-  const pwMsgRef = useRef(null);
 
   const pwRegMsgRef = useRef(null);
   const checkPwReg = () => {
