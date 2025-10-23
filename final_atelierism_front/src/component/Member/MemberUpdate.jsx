@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
 import DaumPostcode from "react-daum-postcode";
 import SideMenu from "../utils/SideMenu";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
 import axios from "axios";
@@ -102,6 +102,75 @@ const MemberUpdate = () => {
     closeModal();
     setMember({ ...member, memberAddr: data.address });
   };
+
+  const [email, setEmail] = useState("");
+  const [mailCode, setMailCode] = useState(null);
+  const [inputCode, setInputCode] = useState("");
+  const [authMsg, setAuthMsg] = useState("");
+  const [authColor, setAuthColor] = useState("black");
+  const [isAuthVisible, setIsAuthVisible] = useState(false);
+  const [time, setTime] = useState(180); // 3분 = 180초
+  const intervalRef = useRef(null);
+  const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+  useEffect(() => {
+    if (!isAuthVisible) return;
+
+    // 기존 타이머 정리
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      setTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current);
+          setMailCode(null);
+          setAuthMsg("인증시간이 만료되었습니다.");
+          setAuthColor("red");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalRef.current);
+  }, [isAuthVisible]);
+
+  const sendCode = async () => {
+    try {
+      clearInterval(intervalRef.current); // 기존 타이머 중지
+      setTime(180); // 3분 초기화
+      setIsAuthVisible(true);
+      setAuthMsg("");
+      const res = await axios.get(
+        `${backServer}/member/sendCode?memberEmail=${member.memberEmail}`
+      );
+      setMailCode(res.data);
+    } catch (error) {
+      setAuthMsg("인증코드 전송에 실패했습니다.");
+      setAuthColor("red");
+    }
+  };
+
+  const verifyCode = () => {
+    if (inputCode === mailCode) {
+      setAuthMsg("인증완료");
+      setAuthColor("blue");
+      clearInterval(intervalRef.current);
+      setMailCode(null);
+      setTime(0);
+    } else {
+      setAuthMsg("인증번호를 입력하세요");
+      setAuthColor("red");
+    }
+  };
+
+  const formatTime = (seconds) => {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min.toString().padStart(2, "0")}:${sec
+      .toString()
+      .padStart(2, "0")}`;
+  };
   return (
     <div className="update-wrap">
       <div className="page-title">회원정보 수정</div>
@@ -189,16 +258,66 @@ const MemberUpdate = () => {
                   ></input>
                 </td>
               </tr>
-              <tr>
+              <tr className="sb-check-email">
                 <th>이메일</th>
-                <td>
-                  <input
-                    type="text"
-                    name="memberEmail"
-                    value={member.memberEmail}
-                    onChange={inputMemberData}
-                  ></input>
-                </td>
+                {!isAuthVisible && (
+                  <td>
+                    <input
+                      type="text"
+                      name="memberEmail"
+                      value={member.memberEmail}
+                      onChange={inputMemberData}
+                    ></input>
+                    <button type="button" onClick={sendCode}>
+                      인증번호 받기
+                    </button>
+                  </td>
+                )}
+                {isAuthVisible && (
+                  <td className="check-email">
+                    <input
+                      type="text"
+                      placeholder="인증번호를 입력해주세요"
+                      value={inputCode}
+                      onChange={(e) => setInputCode(e.target.value)}
+                      style={{
+                        float: "left",
+                        fontSize: "15px",
+                        marginRight: "5px",
+                      }}
+                    />
+                    {time > 0 && (
+                      <p
+                        style={{
+                          color: "green",
+                          float: "left",
+                          marginRight: "5px",
+                          textAlign: "center",
+                          marginTop: "20px",
+                        }}
+                      >
+                        {formatTime(time)}
+                      </p>
+                    )}
+                    <button
+                      type="button"
+                      onClick={verifyCode}
+                      style={{ marginTop: "18px" }}
+                    >
+                      인증하기
+                    </button>
+                    {authMsg && (
+                      <p
+                        style={{
+                          color: authColor,
+                          clear: "both",
+                        }}
+                      >
+                        {authMsg}
+                      </p>
+                    )}
+                  </td>
+                )}
               </tr>
               <tr>
                 <th>주소</th>
