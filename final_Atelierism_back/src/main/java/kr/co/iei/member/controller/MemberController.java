@@ -36,7 +36,6 @@ public class MemberController {
 	
 	@PostMapping
 	public ResponseEntity<Integer> insertMember(@RequestBody MemberDTO member){
-		System.out.println("컨트롤러 멤버 : "+member);
 		int result = memberService.insertMember(member);
 		System.out.println("컨트롤러 결과 : "+result);
 		return ResponseEntity.ok(result);
@@ -48,9 +47,7 @@ public class MemberController {
 	}
 	@PostMapping(value="/login")
 	public ResponseEntity<LoginMemberDTO> login(@RequestBody MemberDTO member){
-		System.out.println("컨트롤러 member : "+member);
 		LoginMemberDTO m = memberService.login(member);
-		System.out.println("컨트롤러 m : "+m);
 		if(m != null) {			
 			return ResponseEntity.ok(m);
 		}else {
@@ -75,9 +72,7 @@ public class MemberController {
 	}
 	@PostMapping(value="/checkPw")
 	public ResponseEntity<Integer> checkPw(@RequestBody MemberDTO member){
-		System.out.println("컨트롤러 member : "+member.getMemberPw());
 		int result = memberService.checkPw(member);
-		System.out.println("컨트롤러 result : " + result);
 		return ResponseEntity.ok(result);
 	}
 	
@@ -96,7 +91,6 @@ public class MemberController {
 	public String sendCode(@RequestParam String memberEmail) {
 		//인증 메일용 제목 생성
 		String emailTitle = "Atelierism 인증메일입니다.";
-		System.out.println(emailTitle);
 		//인증코드 생성
 		Random r = new Random();
 		StringBuffer sb = new StringBuffer();
@@ -105,23 +99,15 @@ public class MemberController {
 			//소문자: r.nextInt(26)+97
 			//숫자: r.nextInt(10)
 			int flag = r.nextInt(3); //0:숫자, 1:대문자, 2:소문자
-			System.out.println(flag);
-			System.out.println(r);
 			if(flag==0) {
 				int randomCode = r.nextInt(10);
 				sb.append(randomCode);
-				System.out.println(sb);
-				System.out.println(randomCode);
 			}else if(flag==1) {
 				char randomCode = (char)(r.nextInt(26)+65);
 				sb.append(randomCode);
-				System.out.println(sb);
-				System.out.println(randomCode);
 			}else if(flag==2) {
 				char randomCode = (char)(r.nextInt(26)+97);
 				sb.append(randomCode);
-				System.out.println(sb);
-				System.out.println(randomCode);
 			}
 		}//for
 		String emailContent = "안녕하세요 Atelierism입니다.";
@@ -131,9 +117,6 @@ public class MemberController {
 
 		emailContent += "]입니다";
 		mailSender.sendMail(emailTitle, memberEmail, emailContent);
-		System.out.println(emailTitle);
-		System.out.println(memberEmail);
-		System.out.println(emailContent);
 		return sb.toString();
 	}//sendCode
 }
