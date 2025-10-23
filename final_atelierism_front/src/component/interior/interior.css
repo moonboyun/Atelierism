@@ -392,6 +392,16 @@
   justify-content: center;
   gap: 40px;
 }
+
+label .payI-checked {
+  border: 1px solid var(--btnHover);
+  background-color: rgba(138, 169, 150, 0.1);
+}
+.payI-checked span {
+  color: var(--btnHover);
+  font-weight: 500;
+}
+
 .orderI-info-box {
   margin-top: 30px;
   width: 700px;
