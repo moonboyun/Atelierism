@@ -16,5 +16,6 @@ public class InquiryBoardDTO {
 	private String inquiryBoardContent;		// 게시판 내용
 	private int inquiryBoardOption;			// 공개글/비밀글 확인 여부(1: 공개 / 2: 비밀글)
 	private int inquiryBoardStatus;			// 답변 상태 여부(1: 답변대기 / 2: 답변완료) 관리자 답변 여부
+	private int inquiryPassword;			// 게시글 비밀번호(기본값: 0)
 	private String inquiryBoardDate;		// 게시글 등록 날짜
 }

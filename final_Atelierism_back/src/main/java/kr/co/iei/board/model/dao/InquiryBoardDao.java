@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.iei.board.model.dto.InquiryBoardDTO;
 import kr.co.iei.util.PageInfo;
 
 @Mapper
@@ -13,4 +14,8 @@ public interface InquiryBoardDao {
 
 	List selectBoardList(PageInfo pi);
 
-}
+	int getInquiryBoardNo();
+
+	int insertBoard(InquiryBoardDTO board);
+
+}// InquiryBoardDao
