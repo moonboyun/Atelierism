@@ -60,27 +60,38 @@ const MemberUpdate = () => {
       });
   };
 
+  const [memberPwRe, setMemberPwRe] = useState("");
+
+  const pwRegMsgRef = useRef(null);
+  const checkPwReg = () => {
+    pwRegMsgRef.current.classList.remove("valid", "invalid");
+
+    const pwReg =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+
+    if (!pwReg.test(member.memberPw)) {
+      pwRegMsgRef.current.classList.add("invalid");
+      pwRegMsgRef.current.innerText =
+        "비밀번호는 영문, 숫자, 특수문자를 포함한 8~16자여야 합니다.";
+    } else {
+      pwRegMsgRef.current.classList.add("valid");
+      pwRegMsgRef.current.innerText = "사용 가능한 비밀번호입니다.";
+    }
+  };
+
+  const pwMatchMsgRef = useRef(null);
   const checkPw = () => {
-    axios
-      .post(`${backServer}/member/checkPw`, { ...member, memberPw: memberPw })
-      .then((res) => {
-        console.log(res);
-        if (res.data === 1) {
-          Swal.fire({
-            title: "비밀번호 인증 성공",
-            icon: "success",
-          });
-          setIsAuth(true);
-        } else {
-          Swal.fire({
-            title: "기존 비밀번호를 입력해주세요.",
-            icon: "warning",
-          });
-        }
-      })
-      .catch((err) => {
-        setIsAuth(false);
-      });
+    pwMatchMsgRef.current.classList.remove("valid", "invalid");
+
+    if (memberPwRe === "") return;
+
+    if (member.memberPw === memberPwRe) {
+      pwMatchMsgRef.current.classList.add("valid");
+      pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
+    } else {
+      pwMatchMsgRef.current.classList.add("invalid");
+      pwMatchMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
+    }
   };
 
   const [isModal, setIsModal] = useState(false);
@@ -222,7 +233,9 @@ const MemberUpdate = () => {
                     name="memberNewPw"
                     value={memberNewPw}
                     onChange={(e) => setMemberNewPw(e.target.value)}
+                    onBlur={checkPwReg}
                   ></input>
+                  <p className="input-msg" ref={pwRegMsgRef}></p>
                 </td>
               </tr>
               <tr>
@@ -233,18 +246,9 @@ const MemberUpdate = () => {
                     name="memberNewPwRe"
                     value={memberNewPwRe}
                     onChange={(e) => setmemberNewPwRe(e.target.value)}
+                    onBlur={checkPw}
                   ></input>
-                  {memberNewPw === "" ? (
-                    ""
-                  ) : memberNewPw === memberNewPwRe ? (
-                    <div className="success" style={{ color: "blue" }}>
-                      새 비밀번호가 일치합니다.
-                    </div>
-                  ) : (
-                    <div className="error-message" style={{ color: "red" }}>
-                      새 비밀번호가 일치하지 않습니다
-                    </div>
-                  )}
+                  <p className="input-msg" ref={pwMatchMsgRef}></p>
                 </td>
               </tr>
               <tr>
