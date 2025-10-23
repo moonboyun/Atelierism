@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
@@ -107,66 +107,64 @@ const MemberJoin = () => {
   };
   console.log(memberAddr);
 
-  const [emailCode, setEmailCode] = useState("");
-  const [emailAuthStatus, setEmailAuthStatus] = useState(0);
+  const [email, setEmail] = useState("");
+  const [mailCode, setMailCode] = useState(null);
+  const [inputCode, setInputCode] = useState("");
+  const [authMsg, setAuthMsg] = useState("");
+  const [authColor, setAuthColor] = useState("black");
+  const [isAuthVisible, setIsAuthVisible] = useState(false);
+  const [time, setTime] = useState(180); // 3분 = 180초
+  const intervalRef = useRef(null);
   const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
-  const sendCode = () => {
-    if (!emailReg.test(member.memberEmail)) {
-      Swal.fire({
-        title: "이메일 오류",
-        text: "올바른 이메일 주소를 입력해주세요.",
-        icon: "warning",
-      });
+  useEffect(() => {
+    //타이머의 시간이 흘러가도록 하는 useEffect
+    if (isAuthVisible && time > 0) {
+      intervalRef.current = setInterval(() => {
+        setTime((prev) => prev - 1);
+      }, 1000);
     }
-    axios
-      .post(`${backServer}/member/sendCode`, { email: member.memberEmail })
-      .then((res) => {
-        if (res.data.success) {
-          Swal.fire({
-            text: "인증코드가 전송되었습니다.",
-            icon: "success",
-          });
-        } else {
-          Swal.fire({
-            text: "인증코드 전송에 실패했습니다.",
-            icon: "error",
-          });
-        }
-      })
-      .catch((err) => {
-        Swal.fire({
-          text: "오류가 발생했습니다.",
-          icon: "warning",
-        });
-      });
+    return () => clearInterval(intervalRef.current);
+  }, [isAuthVisible]);
+  useEffect(() => {
+    //위의 useEffect가 끝나면 실행되는 useEffect
+    if (time === 0) {
+      clearInterval(intervalRef.current);
+      setMailCode(null);
+      setAuthMsg("인증시간이 만료되었습니다.");
+      setAuthColor("red");
+    }
+  }, [time]);
+
+  const sendCode = async () => /*비동기 함수*/ {
+    try {
+      const res =
+        await /*async 설정시 같이 사용 -> 다음 함수 실행까지 기다림*/ axios.get(
+          "/member/sendCode",
+          { params: { receiver: email } }
+        );
+      setMailCode(res.data);
+      setIsAuthVisible(true);
+      setTime(180);
+      setAuthMsg("");
+    } catch (error) {
+      console.error("인증코드 전송 실패:", error);
+      setAuthMsg("인증코드 전송에 실패했습니다.");
+      setAuthColor("red");
+    }
   };
 
-  const [inputEmailCode, setInputEmailCode] = useState("");
-
   const verifyCode = () => {
-    if (inputEmailCode.trim() === "") {
-      alert("인증 코드를 입력해주세요.");
-      return;
+    if (inputCode === mailCode) {
+      setAuthMsg("인증완료");
+      setAuthColor("blue");
+      clearInterval(intervalRef.current);
+      setMailCode(null);
+      setTime(0);
+    } else {
+      setAuthMsg("인증번호를 입력하세요");
+      setAuthColor("red");
     }
-
-    axios
-      .post(`${backServer}/member/verifyEmailCode`, {
-        email: member.memberEmail,
-        code: inputEmailCode,
-      })
-      .then((res) => {
-        if (res.data.verified) {
-          alert("이메일 인증이 완료되었습니다.");
-          setEmailAuthStatus(2); // 인증 성공 상태
-        } else {
-          alert("인증 코드가 올바르지 않습니다.");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("서버 오류가 발생했습니다.");
-      });
   };
   return (
     <section className="join-wrap">
@@ -297,21 +295,18 @@ const MemberJoin = () => {
             <button type="button" onClick={sendCode}>
               인증코드 전송
             </button>
-            {emailAuthStatus > 0 && (
-              <div className="check-email">
-                <input
-                  type="text"
-                  placeholder="인증번호를 입력해주세요"
-                  value={inputEmailCode}
-                  onChange={(e) => {
-                    setInputEmailCode(e.target.value);
-                  }}
-                />
-                <button type="button" onClick={verifyCode}>
-                  인증하기
-                </button>
-              </div>
-            )}
+
+            <div className="check-email">
+              <input
+                type="text"
+                placeholder="인증번호를 입력해주세요"
+                value={inputCode}
+                onChange={(e) => setInputCode(e.target.value)}
+              />
+              <button type="button" onClick={verifyCode}>
+                인증하기
+              </button>
+            </div>
           </div>
         </div>
         <div className="input-wrap">
