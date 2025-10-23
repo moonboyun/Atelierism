@@ -117,7 +117,6 @@ const MemberJoin = () => {
       zonecode: data.zonecode,
       address: data.address,
     });
-    console.log(memberAddr.address);
     closeModal();
     setMember({ ...member, memberAddr: data.address });
   };
