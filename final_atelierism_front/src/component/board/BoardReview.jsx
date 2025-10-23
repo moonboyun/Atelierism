@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Swal from "sweetalert2";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { memberTypeState } from "../utils/RecoilData";
 
 const BoardReview = () => {
   const [boardList, setBoardList] = useState([]);
@@ -30,7 +31,9 @@ const BoardReview = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACK_SERVER}/board?reqPage=${reqPqge}`)
+      .get(
+        `${import.meta.env.VITE_BACK_SERVER}/board/review?reqPage=${reqPqge}`
+      )
       .then((res) => {
         setBoardList(res.data.boardList);
         setPi(res.data.pi);
@@ -46,7 +49,6 @@ const BoardReview = () => {
     return new Date(s);
   };
 
-  // ✅ 정렬된 리스트 메모이즈
   const sortedBoards = useMemo(() => {
     const arr = [...boardList];
     arr.sort((a, b) => {
@@ -101,20 +103,25 @@ const BoardReview = () => {
                 글 작성
               </Link>
             )}
-            <select className="sort-select" defaultValue="latest">
+            <select
+              className="sort-select"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
               <option value="latest">최신순</option>
               <option value="oldest">오래된순</option>
-              <option value="popular">인기순</option>
+              <option value="popular" disabled>
+                인기순
+              </option>
             </select>
           </div>
         </div>
         {/* 카드 그리드 */}
+        {/* 정렬된 배열로 렌더링 */}
         <div className="review-grid">
-          {boardList.map((board, i) => {
-            return (
-              <BoardItem key={"board-" + i} board={board} onClick={openModal} />
-            );
-          })}
+          {sortedBoards.map((board, i) => (
+            <BoardItem key={"board-" + i} board={board} onClick={openModal} />
+          ))}
         </div>
         {/* modal 랜더링 */}
         {reviewModal && selectedBoard && (
@@ -187,12 +194,15 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
         console.log("삭제");
         axios
           .delete(
-            `${import.meta.env.VITE_BACK_SERVER}/board/${board.reviewBoardNo}`
+            `${import.meta.env.VITE_BACK_SERVER}/board/review/${
+              board.reviewBoardNo
+            }`
           )
           .then((res) => {
             console.log(res);
             if (res.data === 1) {
               onClose();
+              return alert("게시글이 삭제되었습니다.");
             }
           })
           .catch((err) => {
@@ -244,7 +254,8 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
           className="board-content-wrap"
           dangerouslySetInnerHTML={{ __html: board.reviewBoardContent }}
         ></div>
-        {memberId === board.reviewBoardWriter && (
+        {memberId === board.reviewBoardWriter ||
+        useRecoilValue(memberTypeState) === 1 ? (
           <div className="button-box">
             <div className="button">
               <button type="button" className="delete" onClick={deleteButton}>
@@ -252,7 +263,7 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
       <div
         className="modal-backdrop"
