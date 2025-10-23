@@ -97,7 +97,7 @@ const MemberUpdate = () => {
     const pwReg =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 
-    if (!pwReg.test(member.memberPw)) {
+    if (!pwReg.test(memberNewPw)) {
       pwRegMsgRef.current.classList.add("invalid");
       pwRegMsgRef.current.innerText =
         "비밀번호는 영문, 숫자, 특수문자를 포함한 8~16자여야 합니다.";
@@ -113,7 +113,7 @@ const MemberUpdate = () => {
 
     if (memberPwRe === "") return;
 
-    if (member.memberPw === memberPwRe) {
+    if (memberNewPw === memberNewPwRe) {
       pwMatchMsgRef.current.classList.add("valid");
       pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
     } else {
@@ -210,6 +210,43 @@ const MemberUpdate = () => {
       .toString()
       .padStart(2, "0")}`;
   };
+  const checkCurrentPw = async () => {
+    if (!memberPw) {
+      Swal.fire({
+        icon: "warning",
+        title: "기존 비밀번호를 입력해주세요.",
+      });
+      return;
+    }
+
+    try {
+      const res = await axios.post(`${backServer}/member/checkPw`, {
+        memberId: member.memberId, // 또는 memberId 상태값 사용
+        memberPw: memberPw,
+      });
+
+      if (res.data === 1) {
+        // 보통 1이면 성공, 0이면 실패라고 예상
+        Swal.fire({
+          icon: "success",
+          title: "비밀번호 인증 성공",
+        });
+        setIsAuth(true);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "비밀번호가 일치하지 않습니다.",
+        });
+        setIsAuth(false);
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "서버 오류가 발생했습니다.",
+      });
+      setIsAuth(false);
+    }
+  };
   return (
     <div className="update-wrap">
       <div className="page-title">회원정보 수정</div>
@@ -248,7 +285,7 @@ const MemberUpdate = () => {
                       setMemberPw(e.target.value);
                     }}
                   ></input>
-                  <button type="button" onClick={checkPw}>
+                  <button type="button" onClick={checkCurrentPw}>
                     인증하기
                   </button>
                 </td>
