@@ -82,12 +82,13 @@ const MemberJoin = () => {
   const navigate = useNavigate();
   const joinMember = () => {
     if (
-      (member.memberName !== "",
-      member.memberPhone !== "",
-      member.memberEmail !== "",
-      member.memberAddr !== "",
-      member.memberAddrDetail !== "",
-      idCheck === 1 && pwMsgRef.current.classList.contains("valid"))
+      member.memberName !== "" &&
+      member.memberPhone !== "" &&
+      member.memberEmail !== "" &&
+      member.memberAddr !== "" &&
+      member.memberAddrDetail !== "" &&
+      idCheck === 1 &&
+      pwRegMsgRef.current.classList.contains("valid")
     ) {
       setMember({ ...member, memberAddr: memberAddr.address });
       console.log(member);
