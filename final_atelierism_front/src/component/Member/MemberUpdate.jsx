@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
+import DaumPostcode from "react-daum-postcode";
 import SideMenu from "../utils/SideMenu";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -80,6 +81,26 @@ const MemberUpdate = () => {
       .catch((err) => {
         setIsAuth(false);
       });
+  };
+
+  const [isModal, setIsModal] = useState(false);
+  const [memberAddr, setMemberAddr] = useState({
+    zonecode: "",
+    address: "",
+  });
+  const openModal = () => {
+    setIsModal(true);
+  };
+  const closeModal = () => {
+    setIsModal(false);
+  };
+  const onComplete = (data) => {
+    setMemberAddr({
+      zonecode: data.zonecode,
+      address: data.address,
+    });
+    closeModal();
+    setMember({ ...member, memberAddr: data.address });
   };
   return (
     <div className="update-wrap">
@@ -188,7 +209,45 @@ const MemberUpdate = () => {
                     value={member.memberAddr}
                     onChange={inputMemberData}
                   ></input>
-                  <button className="button">우편번호 조회</button>
+                  <button
+                    type="button"
+                    onClick={openModal}
+                    style={{ cursor: "pointer" }}
+                  >
+                    우편번호 조회
+                  </button>
+                  {isModal && (
+                    <div
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        zIndex: 1000,
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          backgroundColor: "white",
+                          padding: "20px",
+                        }}
+                      >
+                        <DaumPostcode
+                          onComplete={onComplete}
+                          onClose={closeModal}
+                        />
+                        <button onClick={closeModal} className="sb-close-modal">
+                          닫기
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </td>
               </tr>
               <tr>
