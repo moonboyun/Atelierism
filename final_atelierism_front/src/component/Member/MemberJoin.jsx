@@ -64,7 +64,6 @@ const MemberJoin = () => {
     }
   };
 
-  // ✅ 비밀번호 일치 여부 검사 (두 번째 input)
   const pwMatchMsgRef = useRef(null);
   const checkPw = () => {
     pwMatchMsgRef.current.classList.remove("valid", "invalid");
@@ -91,7 +90,6 @@ const MemberJoin = () => {
       pwRegMsgRef.current.classList.contains("valid")
     ) {
       setMember({ ...member, memberAddr: memberAddr.address });
-      console.log(member);
       axios
         .post(`${backServer}/member`, member)
         .then((res) => {
@@ -99,9 +97,7 @@ const MemberJoin = () => {
             navigate("/");
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   };
 
@@ -117,7 +113,6 @@ const MemberJoin = () => {
     setIsModal(false);
   };
   const onComplete = (data) => {
-    //console.log(data);
     setMemberAddr({
       zonecode: data.zonecode,
       address: data.address,
@@ -126,7 +121,6 @@ const MemberJoin = () => {
     closeModal();
     setMember({ ...member, memberAddr: data.address });
   };
-  console.log(memberAddr);
 
   const [email, setEmail] = useState("");
   const [mailCode, setMailCode] = useState(null);
@@ -171,7 +165,6 @@ const MemberJoin = () => {
       );
       setMailCode(res.data);
     } catch (error) {
-      console.error("인증코드 전송 실패:", error);
       setAuthMsg("인증코드 전송에 실패했습니다.");
       setAuthColor("red");
     }
