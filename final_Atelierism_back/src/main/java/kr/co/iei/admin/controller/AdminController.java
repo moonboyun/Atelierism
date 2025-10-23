@@ -1,6 +1,7 @@
 package kr.co.iei.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.admin.model.service.AdminService;
+import kr.co.iei.board.model.service.ReviewBoardService;
 
 @CrossOrigin("*")
 @RestController
@@ -23,6 +25,8 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private ReviewBoardService rbService;
 	
 	@GetMapping(value = "/list")
 	public ResponseEntity<PriceListDto> selectPriceList() {
@@ -36,9 +40,16 @@ public class AdminController {
 		return ResponseEntity.ok(result);
 	}
 	
-	@GetMapping(value = "adminList")
-	public ResponseEntity<List> selectAdminList(@RequestParam int pageList){
+	/*@GetMapping(value = "adminList")//제일 처음 리스트 들고 올 코드//일단은 안 씀
+	public ResponseEntity<List> selectAdminList(@RequestParam String pageList){
 		List adminListData = adminService.selectAdminList(pageList);
 		return ResponseEntity.ok(adminListData);
+	}*/
+	
+	
+	@GetMapping//페이지 이동이나 새로운 정렬을 요청할 시 돌아갈 코드
+	public ResponseEntity<Map> adminList(@RequestParam int reqPage, @RequestParam String memOrder){
+		Map map = adminService.selectBoardList(reqPage, memOrder);
+		return ResponseEntity.ok(map);
 	}
 }
