@@ -1,6 +1,8 @@
 package kr.co.iei.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.admin.model.dao.AdminDao;
 import kr.co.iei.admin.model.dto.PriceListDto;
+import kr.co.iei.board.model.dao.ReviewBoardDao;
+import kr.co.iei.util.PageInfo;
+import kr.co.iei.util.PageInfoUtils;
 
 @Service
 public class AdminService {
 	
 	@Autowired
 	private AdminDao adminDao;
+	@Autowired
+	private PageInfoUtils pageInfoUtils;
 
 	public PriceListDto priceListSelect() {
 		PriceListDto pl = adminDao.priceListSelect();
@@ -24,6 +31,39 @@ public class AdminService {
 	public int updatePriceList(PriceListDto priceList) {
 		int result = adminDao.updatePriceList(priceList);
 		return result;
-	}
+	}//updatePriceList
+
+	/*public List selectAdminList(String pageList) {
+		if(pageList.equals("m1")) {
+			List adminListData = adminDao.adminMemberList();
+			return adminListData;
+		} else if(pageList.equals("m2")) {
+			List adminListData = adminDao.adminDesignerList();
+			return adminListData;
+		}else{
+			List adminListData = adminDao.adminApplicantList();
+			return adminListData;
+		}
+	}*/
+
+	public Map selectBoardList(int reqPage, String memOrder) {
+		int numPerPage = 10;		//한 페이지당 게시물 수
+		int pageNaviSize = 5;		//페이지 네비 길이
+		int totalCount = adminDao.memberTotalCount();
+		PageInfo pi = pageInfoUtils.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);//ok
+		//pi랑 정렬기준을 둘 다 줘야하기때문에 Map이라는 객체로 묶어서 보냄
+		//정렬에 필요한건 start, end, memOrder 3가지라서 이것만 묶어서 보냄
+		Map<String, Object> orderMap = new HashMap<String, Object>();
+		orderMap.put("start",pi.getStart());
+		orderMap.put("end", pi.getEnd());
+		orderMap.put("memOrder", memOrder);
+		//묶은뒤 전송
+		List reqList = adminDao.selectMemberList(orderMap);
+		//select 성공하면 다른 map으로 묶어서 전송해줌
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("reqList", reqList);
+		map.put("pi", pi);
+		return map;
+	}//selectBoardList
 
 }

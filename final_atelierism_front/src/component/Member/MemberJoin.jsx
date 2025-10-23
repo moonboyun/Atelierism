@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
+import Swal from "sweetalert2";
 const MemberJoin = () => {
   const [member, setMember] = useState({
     memberId: "",
@@ -14,9 +15,40 @@ const MemberJoin = () => {
     memberAddr: "",
     memberAddrDetail: "",
   });
+
+  const formatPhoneNumber = (value) => {
+    // 숫자만 추출
+    value = value.replace(/\D/g, "");
+
+    if (value.length < 4) return value; // 3자리 이하
+
+    if (value.length < 8) {
+      // 4~7자리 (010-1234)
+      return value.slice(0, 3) + "-" + value.slice(3);
+    }
+
+    // 8자리 이상 (010-1234-5678)
+    return (
+      value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
+    );
+  };
   const inputMemberData = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+
+    if (name === "memberPhone") {
+      // 숫자만 추출
+      value = value.replace(/\D/g, "");
+
+      // 3자리마다 '-' 삽입
+      value = formatPhoneNumber(value, 3, "-");
+
+      // 마지막에 '-'가 붙으면 제거 (ex: 010-)
+      if (value.endsWith("-")) {
+        value = value.slice(0, -1);
+      }
+    }
+
     const newMember = { ...member, [name]: value };
     setMember(newMember);
   };
@@ -44,31 +76,50 @@ const MemberJoin = () => {
     }
   };
   const [memberPwRe, setMemberPwRe] = useState("");
-  const pwMsgRef = useRef(null);
-  const checkPw = () => {
-    pwMsgRef.current.classList.remove("valid");
-    pwMsgRef.current.classList.remove("invalid");
-    if (member.memberPw === memberPwRe) {
-      pwMsgRef.current.classList.add("valid");
-      pwMsgRef.current.classList.innerText = "비밀번호가 일치합니다.";
+
+  const pwRegMsgRef = useRef(null);
+  const checkPwReg = () => {
+    pwRegMsgRef.current.classList.remove("valid", "invalid");
+
+    const pwReg =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+
+    if (!pwReg.test(member.memberPw)) {
+      pwRegMsgRef.current.classList.add("invalid");
+      pwRegMsgRef.current.innerText =
+        "비밀번호는 영문, 숫자, 특수문자를 포함한 8~16자여야 합니다.";
     } else {
-      pwMsgRef.current.classList.add("invalid");
-      pwMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
+      pwRegMsgRef.current.classList.add("valid");
+      pwRegMsgRef.current.innerText = "사용 가능한 비밀번호입니다.";
     }
   };
 
+  const pwMatchMsgRef = useRef(null);
+  const checkPw = () => {
+    pwMatchMsgRef.current.classList.remove("valid", "invalid");
+
+    if (memberPwRe === "") return;
+
+    if (member.memberPw === memberPwRe) {
+      pwMatchMsgRef.current.classList.add("valid");
+      pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
+    } else {
+      pwMatchMsgRef.current.classList.add("invalid");
+      pwMatchMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
+    }
+  };
   const navigate = useNavigate();
   const joinMember = () => {
     if (
-      (member.memberName !== "",
-      member.memberPhone !== "",
-      member.memberEmail !== "",
-      member.memberAddr !== "",
-      member.memberAddrDetail !== "",
-      idCheck === 1 && pwMsgRef.current.classList.contains("valid"))
+      member.memberName !== "" &&
+      member.memberPhone !== "" &&
+      member.memberEmail !== "" &&
+      member.memberAddr !== "" &&
+      member.memberAddrDetail !== "" &&
+      idCheck === 1 &&
+      pwRegMsgRef.current.classList.contains("valid")
     ) {
       setMember({ ...member, memberAddr: memberAddr.address });
-      console.log(member);
       axios
         .post(`${backServer}/member`, member)
         .then((res) => {
@@ -76,9 +127,7 @@ const MemberJoin = () => {
             navigate("/");
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   };
 
@@ -94,16 +143,83 @@ const MemberJoin = () => {
     setIsModal(false);
   };
   const onComplete = (data) => {
-    //console.log(data);
     setMemberAddr({
       zonecode: data.zonecode,
       address: data.address,
     });
-    console.log(memberAddr.address);
-    closeModal;
+    closeModal();
     setMember({ ...member, memberAddr: data.address });
   };
-  console.log(memberAddr);
+
+  const [email, setEmail] = useState("");
+  const [mailCode, setMailCode] = useState(null);
+  const [inputCode, setInputCode] = useState("");
+  const [authMsg, setAuthMsg] = useState("");
+  const [authColor, setAuthColor] = useState("black");
+  const [isAuthVisible, setIsAuthVisible] = useState(false);
+  const [time, setTime] = useState(180); // 3분 = 180초
+  const intervalRef = useRef(null);
+  const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+  useEffect(() => {
+    if (!isAuthVisible) return;
+
+    // 기존 타이머 정리
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      setTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current);
+          setMailCode(null);
+          setAuthMsg("인증시간이 만료되었습니다.");
+          setAuthColor("red");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalRef.current);
+  }, [isAuthVisible]);
+
+  const sendCode = async () => {
+    try {
+      clearInterval(intervalRef.current); // 기존 타이머 중지
+      setTime(180); // 3분 초기화
+      setIsAuthVisible(true);
+      setAuthMsg("");
+      const res = await axios.get(
+        `${backServer}/member/sendCode?memberEmail=${member.memberEmail}`
+      );
+      setMailCode(res.data);
+    } catch (error) {
+      setAuthMsg("인증코드 전송에 실패했습니다.");
+      setAuthColor("red");
+    }
+  };
+
+  const verifyCode = () => {
+    if (inputCode === mailCode) {
+      setAuthMsg("인증완료");
+      setAuthColor("blue");
+      clearInterval(intervalRef.current);
+      setMailCode(null);
+      setTime(0);
+    } else {
+      setAuthMsg("인증번호를 입력하세요");
+      setAuthColor("red");
+    }
+  };
+
+  const formatTime = (seconds) => {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min.toString().padStart(2, "0")}:${sec
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
   return (
     <section className="join-wrap">
       <div className="page-title">회원가입</div>
@@ -158,10 +274,11 @@ const MemberJoin = () => {
               name="memberPw"
               value={member.memberPw}
               onChange={inputMemberData}
-              onBlur={checkPw}
+              onBlur={checkPwReg}
               placeholder="비밀번호를 입력해주세요"
               required
             ></input>
+            <p className="input-msg" ref={pwRegMsgRef}></p>
           </div>
         </div>
         <div className="input-wrap">
@@ -181,7 +298,7 @@ const MemberJoin = () => {
               onBlur={checkPw}
               required
             ></input>
-            <p className="input-msg" ref={pwMsgRef}></p>
+            <p className="input-msg" ref={pwMatchMsgRef}></p>
           </div>
         </div>
         <div className="input-wrap">
@@ -221,20 +338,59 @@ const MemberJoin = () => {
             <label htmlFor="memberEmail">이메일</label>
           </div>
           <div className="input-item">
-            <input
-              type="text"
-              id="memberEmail"
-              name="memberEmail"
-              value={member.memberEmail}
-              onChange={inputMemberData}
-              placeholder="이메일을 입력해주세요"
-              required
-            ></input>
-            <button type="button">인증코드 전송</button>
-            <div className="check-email">
-              <input type="text" placeholder="인증번호를 입력해주세요" />
-              <button type="button">인증하기</button>
-            </div>
+            {!isAuthVisible && (
+              <>
+                <input
+                  type="text"
+                  id="memberEmail"
+                  name="memberEmail"
+                  value={member.memberEmail}
+                  onChange={inputMemberData}
+                  placeholder="이메일을 입력해주세요"
+                  required
+                />
+                <button type="button" onClick={sendCode}>
+                  인증코드 전송
+                </button>
+              </>
+            )}
+
+            {isAuthVisible && (
+              <div className="check-email">
+                <input
+                  type="text"
+                  placeholder="인증번호를 입력해주세요"
+                  value={inputCode}
+                  onChange={(e) => setInputCode(e.target.value)}
+                  style={{ float: "left" }}
+                />
+                {time > 0 && (
+                  <p
+                    style={{
+                      color: "green",
+                      marginTop: "5px",
+                      float: "left",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {formatTime(time)}
+                  </p>
+                )}
+                <button type="button" onClick={verifyCode}>
+                  인증하기
+                </button>
+                {authMsg && (
+                  <p
+                    style={{
+                      color: authColor,
+                      clear: "both",
+                    }}
+                  >
+                    {authMsg}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div className="input-wrap">

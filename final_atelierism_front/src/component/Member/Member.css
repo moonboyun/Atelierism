@@ -12,14 +12,17 @@
   font-size: 40px;
 }
 .login-wrap .input-wrap {
+  display: flex;
+  margin-right: 60px;
+  justify-content: center;
   margin-top: 30px;
-  margin-bottom: 50px;
 }
 
 .input-title {
   float: left;
-  margin-right: 10px;
-  width: 20%;
+  margin-right: 30px;
+  width: 90px;
+  text-align: right;
   font-size: 20px;
   font-weight: bold;
   line-height: 60px;
@@ -28,11 +31,13 @@
   padding-top: 15px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
-  width: 75%;
+  width: 300px;
   font-size: 18px;
 }
 .login-button {
-  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
   text-align: center;
 }
 .login-button > button {
@@ -64,8 +69,7 @@
   padding-left: 10px;
 }
 .member-link-box > a:hover {
-  color: blue;
-  text-decoration: underline;
+  color: var(--btnHover);
 }
 
 .join-wrap {
@@ -117,7 +121,7 @@
   margin-top: 10px;
 }
 .check-email > input {
-  width: 60%;
+  width: 55%;
   margin-right: 30px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
@@ -313,10 +317,19 @@
 .update-tbl input {
   border: none;
   outline: none;
-  width: 100%;
+  width: 50%;
   height: 55px;
   font-size: 22px;
   border-bottom: 1px solid #8aa996;
+}
+.sb-check-email > td > button {
+  margin-left: 10px;
+  border: 1px solid #8aa996;
+  border-radius: 8px;
+  background-color: #8aa996;
+  padding: 5px 15px;
+  color: #fff;
+  cursor: pointer;
 }
 .update-btn {
   text-align: center;
@@ -347,13 +360,9 @@
   margin: 0 auto;
   float: left;
 }
-.update-addr > input {
-  width: 82%;
-}
-.sb-check-pw > td > input {
-  width: 88%;
-}
+
 .sb-check-pw > td > button {
+  margin-left: 10px;
   border: 1px solid #8aa996;
   border-radius: 8px;
   background-color: #8aa996;
