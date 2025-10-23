@@ -218,15 +218,13 @@ const MemberUpdate = () => {
       });
       return;
     }
-
     try {
       const res = await axios.post(`${backServer}/member/checkPw`, {
         memberId: member.memberId, // 또는 memberId 상태값 사용
         memberPw: memberPw,
       });
-
       if (res.data === 1) {
-        // 보통 1이면 성공, 0이면 실패라고 예상
+        // 보통 1이면 성공, 0이면 실패
         Swal.fire({
           icon: "success",
           title: "비밀번호 인증 성공",
