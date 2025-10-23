@@ -153,6 +153,12 @@
   gap: 20px;
   justify-content: space-between;
 }
+.interD-check-box > .interD-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 580px;
+}
 .interD-introduction {
   height: 24px;
   display: flex;
@@ -163,11 +169,6 @@
 }
 .interD-introduction > svg {
   font-size: 18px;
-}
-.interD-check-box > .interD-info-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
 }
 .interD-info-box > div {
   font-size: 18px;
@@ -397,6 +398,7 @@ label .payI-checked {
   border: 1px solid var(--btnHover);
   background-color: rgba(138, 169, 150, 0.1);
 }
+
 .payI-checked span {
   color: var(--btnHover);
   font-weight: 500;
@@ -528,6 +530,7 @@ label .payI-checked {
   gap: 20px;
   margin-top: 10px;
 }
+
 .designerI-item img {
   width: 60px;
   border-radius: 8px;
