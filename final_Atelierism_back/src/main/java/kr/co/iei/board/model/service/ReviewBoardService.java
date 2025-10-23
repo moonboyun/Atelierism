@@ -42,4 +42,21 @@ public class ReviewBoardService {
 	}
 
 	
+	public ReviewBoardDTO selectOneBoard(int reviewBoardNo) {
+		ReviewBoardDTO board = reviewBoardDao.selectOneBoard(reviewBoardNo);
+		return board;
+	}
+	
+	@Transactional
+	public ReviewBoardDTO deleteBoard(int reviewBoardNo) {
+		ReviewBoardDTO board = reviewBoardDao.selectOneBoard(reviewBoardNo);
+		int result = reviewBoardDao.deleteBoard(reviewBoardNo);
+		if(result > 0) {
+			return board;
+		}else {			
+			return null;
+		}
+	}
+
+	
 }// ReviewBoardService
