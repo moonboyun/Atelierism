@@ -146,13 +146,29 @@ const MemberUpdate = () => {
     setMember({ ...member, memberAddr: data.address });
   };
 
+  // 사용자가 입력한 이메일 주소를 저장하는 상태
   const [email, setEmail] = useState("");
+
+  // 서버에서 전송된 인증 코드를 저장하는 상태
+  // null일 때는 아직 코드가 발급되지 않은 상태
   const [mailCode, setMailCode] = useState(null);
+
+  // 사용자가 직접 입력한 인증번호를 저장하는 상태
   const [inputCode, setInputCode] = useState("");
+
+  // 인증 성공 / 실패 메시지를 저장하는 상태
   const [authMsg, setAuthMsg] = useState("");
+
+  // 인증 메시지 색상
   const [authColor, setAuthColor] = useState("black");
+
+  // 인증번호 입력창을 보여줄지 숨길지 결정하는 상태
+  // false면 안 보이고, true면 인증 입력칸이 보임
   const [isAuthVisible, setIsAuthVisible] = useState(false);
   const [time, setTime] = useState(180); // 3분 = 180초
+
+  // setInterval을 제어하기 위한 참조값 (interval ID 저장)
+  // useRef는 렌더링이 다시 일어나도 값이 유지됨
   const intervalRef = useRef(null);
   const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
