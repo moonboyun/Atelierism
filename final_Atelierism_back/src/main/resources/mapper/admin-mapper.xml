@@ -31,4 +31,39 @@
         		</if>
 			</set>
 	</update>
+	
+	<select id="adminMemberList" resultType="member">
+		select * from member_tbl where member_type = 3
+	</select>
+	
+	<!-- <select id="adminDesignerList">
+		
+	</select> -->
+	
+	<select id="memberTotalCount" resultType="int">
+		select count(*) from member_tbl where member_type = 3
+	</select>
+	
+	<select id="selectMemberList" resultType="member">
+    SELECT * FROM (
+        SELECT rownum AS rnum, b.*
+        FROM (
+            SELECT
+                member_id,
+                member_name,
+                member_phone,
+                member_type
+            FROM member_tbl 
+            WHERE member_type = 3
+            
+            <if test="memOrder == 'm1'">
+                ORDER BY enroll_date DESC
+            </if>
+            <if test="memOrder == 'm2'">
+                ORDER BY enroll_date ASC
+            </if>
+            ) b
+    )
+    WHERE rnum BETWEEN #{start} AND #{end}
+</select>
 </mapper>
