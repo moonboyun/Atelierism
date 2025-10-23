@@ -22,7 +22,7 @@ import kr.co.iei.util.FileUtil;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(value="/board")
+@RequestMapping(value="/board/review")
 public class ReviewBoardController {
 	@Autowired
 	private ReviewBoardService reviewBoardService;

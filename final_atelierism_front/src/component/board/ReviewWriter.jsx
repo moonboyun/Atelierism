@@ -74,9 +74,10 @@ const ReviewWriter = () => {
         />
         {/* 중단: 본문 */}
         <div className="board-content-wrap">
-          <TextEditor // ReactQuill 기반 에디터
-            data={boardContent} // 본문 값
-            setData={setBoardContent} // 본문 변경 함수
+          <TextEditor
+            data={boardContent}
+            setData={setBoardContent}
+            base="/board/review"
           />
         </div>
         {/* 하단: 버튼 영역 */}

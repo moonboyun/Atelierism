@@ -23,4 +23,9 @@ public class InteriorService {
 		int result = interiorDao.selectIsInterior(memberId);
 		return result;
 	}
+
+	public InteriorDTO selectInterior(String memberId) {
+		InteriorDTO interior = interiorDao.selectInterior(memberId);
+		return interior;
+	}
 }

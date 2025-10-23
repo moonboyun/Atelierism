@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import InteriorApplication from "../interior/InteriorApplication";
 import axios from "axios";
+import PageNaviGation from "../utils/PageNavigation";
 
 const BoardInquiry = () => {
   const faq = [
@@ -40,17 +41,34 @@ const BoardInquiry = () => {
 
   const [def, setDef] = useState(1); // 1: FAQ, 2: 1:1 문의
   const [openIdx, setOpenIdx] = useState(null); // 현재 열려있는 질문 인덱스(없으면 null)
+  const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
+  const [reqPqge, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
+  const [inquiryList, setInquiryList] = useState([]);
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
 
   const toggle = (i) => {
     setOpenIdx((prev) => (prev === i ? null : i)); // 같은 걸 다시 누르면 닫힘
   };
 
   const [isInterior, setIsInterior] = useState(0);
-  const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [interiorModal, setInteriorModal] = useState(false);
   const [ani, setAni] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(
+        `${import.meta.env.VITE_BACK_SERVER}/board/inquiry?reqPage=${reqPqge}`
+      )
+      .then((res) => {
+        setInquiryList(res.data.inquiryList);
+        setPi(res.data.pi);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [reqPqge]);
 
   const InteriorApp = () => {
     if (memberId == "") {
@@ -133,8 +151,40 @@ const BoardInquiry = () => {
                   글 작성
                 </Link>
               </div>
-              <div className="qna-empty">문의 목록이 없습니다.</div>
+              <div className="qna-empty">
+                <table className="table-wrap" border={1}>
+                  <thead>
+                    <tr>
+                      <th style={{ width: "10%" }}>번호</th>
+                      <th style={{ width: "20%" }}>작성자</th>
+                      <th style={{ width: "35%" }}>제목</th>
+                      <th style={{ width: "15%" }}>상태</th>
+                      <th style={{ width: "15%" }}>작성일</th>
+                      <th style={{ width: "10%" }}>공개/비공개</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {inquiryList.map((inquiry, i) => {
+                      return (
+                        <tr key={"inquiry-" + i}>
+                          <td>{inquiry.inquiryBoardNo}</td>
+                          <td>{inquiry.inquiryBoardWriterId}</td>
+                          <td>{inquiry.inquiryBoardTitle}</td>
+                          <td>{inquiry.inquiryBoardStatus}</td>
+                          <td>{inquiry.inquiryBoardDate}</td>
+                          <td>{inquiry.inquiryBoardOption}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
+          )}
+        </div>
+        <div className="board-paging-wrap">
+          {pi !== null && (
+            <PageNaviGation pi={pi} reqPqge={reqPqge} setReqPage={setReqPage} />
           )}
         </div>
       </section>

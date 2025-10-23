@@ -908,12 +908,8 @@
 }
 
 /* 컨텐츠 */
-.board-content-wrap {
-  margin: 0 auto;
-}
 .board-content-wrap p > img {
   max-width: 700px;
-  text-align: center;
 }
 
 /* 삭제 버튼 */
