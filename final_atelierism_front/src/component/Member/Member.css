@@ -121,7 +121,7 @@
   margin-top: 10px;
 }
 .check-email > input {
-  width: 60%;
+  width: 55%;
   margin-right: 30px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
@@ -317,10 +317,19 @@
 .update-tbl input {
   border: none;
   outline: none;
-  width: 100%;
+  width: 50%;
   height: 55px;
   font-size: 22px;
   border-bottom: 1px solid #8aa996;
+}
+.sb-check-email > td > button {
+  margin-left: 10px;
+  border: 1px solid #8aa996;
+  border-radius: 8px;
+  background-color: #8aa996;
+  padding: 5px 15px;
+  color: #fff;
+  cursor: pointer;
 }
 .update-btn {
   text-align: center;
@@ -351,13 +360,9 @@
   margin: 0 auto;
   float: left;
 }
-.update-addr > input {
-  width: 82%;
-}
-.sb-check-pw > td > input {
-  width: 88%;
-}
+
 .sb-check-pw > td > button {
+  margin-left: 10px;
   border: 1px solid #8aa996;
   border-radius: 8px;
   background-color: #8aa996;

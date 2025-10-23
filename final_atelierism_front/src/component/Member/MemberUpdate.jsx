@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./member.css";
+import DaumPostcode from "react-daum-postcode";
 import SideMenu from "../utils/SideMenu";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
 import axios from "axios";
@@ -21,9 +22,37 @@ const MemberUpdate = () => {
     { url: "/member/update", text: "정보 수정" },
     { url: "/member/payment", text: "결제 내역" },
   ]);
+  const formatPhoneNumber = (value) => {
+    // 숫자만 추출
+    value = value.replace(/\D/g, "");
+
+    if (value.length < 4) return value; // 3자리 이하
+
+    if (value.length < 8) {
+      // 4~7자리 (010-1234)
+      return value.slice(0, 3) + "-" + value.slice(3);
+    }
+
+    // 8자리 이상 (010-1234-5678)
+    return (
+      value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
+    );
+  };
   const inputMemberData = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (name === "memberPhone") {
+      // 숫자만 추출
+      value = value.replace(/\D/g, "");
+
+      // 3자리마다 '-' 삽입
+      value = formatPhoneNumber(value, 3, "-");
+
+      // 마지막에 '-'가 붙으면 제거 (ex: 010-)
+      if (value.endsWith("-")) {
+        value = value.slice(0, -1);
+      }
+    }
     const newMember = { ...member, [name]: value };
     setMember(newMember);
   };
@@ -59,27 +88,164 @@ const MemberUpdate = () => {
       });
   };
 
+  const [memberPwRe, setMemberPwRe] = useState("");
+
+  const pwRegMsgRef = useRef(null);
+  const checkPwReg = () => {
+    pwRegMsgRef.current.classList.remove("valid", "invalid");
+
+    const pwReg =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+
+    if (!pwReg.test(memberNewPw)) {
+      pwRegMsgRef.current.classList.add("invalid");
+      pwRegMsgRef.current.innerText =
+        "비밀번호는 영문, 숫자, 특수문자를 포함한 8~16자여야 합니다.";
+    } else {
+      pwRegMsgRef.current.classList.add("valid");
+      pwRegMsgRef.current.innerText = "사용 가능한 비밀번호입니다.";
+    }
+  };
+
+  const pwMatchMsgRef = useRef(null);
   const checkPw = () => {
-    axios
-      .post(`${backServer}/member/checkPw`, { ...member, memberPw: memberPw })
-      .then((res) => {
-        console.log(res);
-        if (res.data === 1) {
-          Swal.fire({
-            title: "비밀번호 인증 성공",
-            icon: "success",
-          });
-          setIsAuth(true);
-        } else {
-          Swal.fire({
-            title: "기존 비밀번호를 입력해주세요.",
-            icon: "warning",
-          });
+    pwMatchMsgRef.current.classList.remove("valid", "invalid");
+
+    if (memberPwRe === "") return;
+
+    if (memberNewPw === memberNewPwRe) {
+      pwMatchMsgRef.current.classList.add("valid");
+      pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
+    } else {
+      pwMatchMsgRef.current.classList.add("invalid");
+      pwMatchMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
+    }
+  };
+
+  const [isModal, setIsModal] = useState(false);
+  const [memberAddr, setMemberAddr] = useState({
+    zonecode: "",
+    address: "",
+  });
+  const openModal = () => {
+    setIsModal(true);
+  };
+  const closeModal = () => {
+    setIsModal(false);
+  };
+  const onComplete = (data) => {
+    setMemberAddr({
+      zonecode: data.zonecode,
+      address: data.address,
+    });
+    closeModal();
+    setMember({ ...member, memberAddr: data.address });
+  };
+
+  const [email, setEmail] = useState("");
+  const [mailCode, setMailCode] = useState(null);
+  const [inputCode, setInputCode] = useState("");
+  const [authMsg, setAuthMsg] = useState("");
+  const [authColor, setAuthColor] = useState("black");
+  const [isAuthVisible, setIsAuthVisible] = useState(false);
+  const [time, setTime] = useState(180); // 3분 = 180초
+  const intervalRef = useRef(null);
+  const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+  useEffect(() => {
+    if (!isAuthVisible) return;
+
+    // 기존 타이머 정리
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      setTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current);
+          setMailCode(null);
+          setAuthMsg("인증시간이 만료되었습니다.");
+          setAuthColor("red");
+          return 0;
         }
-      })
-      .catch((err) => {
-        setIsAuth(false);
+        return prev - 1;
       });
+    }, 1000);
+
+    return () => clearInterval(intervalRef.current);
+  }, [isAuthVisible]);
+
+  const sendCode = async () => {
+    try {
+      clearInterval(intervalRef.current); // 기존 타이머 중지
+      setTime(180); // 3분 초기화
+      setIsAuthVisible(true);
+      setAuthMsg("");
+      const res = await axios.get(
+        `${backServer}/member/sendCode?memberEmail=${member.memberEmail}`
+      );
+      setMailCode(res.data);
+    } catch (error) {
+      setAuthMsg("인증코드 전송에 실패했습니다.");
+      setAuthColor("red");
+    }
+  };
+
+  const verifyCode = () => {
+    if (inputCode === mailCode) {
+      setAuthMsg("인증완료");
+      setAuthColor("blue");
+      clearInterval(intervalRef.current);
+      setMailCode(null);
+      setTime(0);
+    } else {
+      setAuthMsg("인증번호를 입력하세요");
+      setAuthColor("red");
+    }
+  };
+
+  const formatTime = (seconds) => {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min.toString().padStart(2, "0")}:${sec
+      .toString()
+      .padStart(2, "0")}`;
+  };
+  const checkCurrentPw = async () => {
+    if (!memberPw) {
+      Swal.fire({
+        icon: "warning",
+        title: "기존 비밀번호를 입력해주세요.",
+      });
+      return;
+    }
+
+    try {
+      const res = await axios.post(`${backServer}/member/checkPw`, {
+        memberId: member.memberId, // 또는 memberId 상태값 사용
+        memberPw: memberPw,
+      });
+
+      if (res.data === 1) {
+        // 보통 1이면 성공, 0이면 실패라고 예상
+        Swal.fire({
+          icon: "success",
+          title: "비밀번호 인증 성공",
+        });
+        setIsAuth(true);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "비밀번호가 일치하지 않습니다.",
+        });
+        setIsAuth(false);
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "서버 오류가 발생했습니다.",
+      });
+      setIsAuth(false);
+    }
   };
   return (
     <div className="update-wrap">
@@ -119,7 +285,7 @@ const MemberUpdate = () => {
                       setMemberPw(e.target.value);
                     }}
                   ></input>
-                  <button type="button" onClick={checkPw}>
+                  <button type="button" onClick={checkCurrentPw}>
                     인증하기
                   </button>
                 </td>
@@ -132,7 +298,9 @@ const MemberUpdate = () => {
                     name="memberNewPw"
                     value={memberNewPw}
                     onChange={(e) => setMemberNewPw(e.target.value)}
+                    onBlur={checkPwReg}
                   ></input>
+                  <p className="input-msg" ref={pwRegMsgRef}></p>
                 </td>
               </tr>
               <tr>
@@ -143,18 +311,9 @@ const MemberUpdate = () => {
                     name="memberNewPwRe"
                     value={memberNewPwRe}
                     onChange={(e) => setmemberNewPwRe(e.target.value)}
+                    onBlur={checkPw}
                   ></input>
-                  {memberNewPw === "" ? (
-                    ""
-                  ) : memberNewPw === memberNewPwRe ? (
-                    <div className="success" style={{ color: "blue" }}>
-                      새 비밀번호가 일치합니다.
-                    </div>
-                  ) : (
-                    <div className="error-message" style={{ color: "red" }}>
-                      새 비밀번호가 일치하지 않습니다
-                    </div>
-                  )}
+                  <p className="input-msg" ref={pwMatchMsgRef}></p>
                 </td>
               </tr>
               <tr>
@@ -168,16 +327,66 @@ const MemberUpdate = () => {
                   ></input>
                 </td>
               </tr>
-              <tr>
+              <tr className="sb-check-email">
                 <th>이메일</th>
-                <td>
-                  <input
-                    type="text"
-                    name="memberEmail"
-                    value={member.memberEmail}
-                    onChange={inputMemberData}
-                  ></input>
-                </td>
+                {!isAuthVisible && (
+                  <td>
+                    <input
+                      type="text"
+                      name="memberEmail"
+                      value={member.memberEmail}
+                      onChange={inputMemberData}
+                    ></input>
+                    <button type="button" onClick={sendCode}>
+                      인증번호 받기
+                    </button>
+                  </td>
+                )}
+                {isAuthVisible && (
+                  <td className="check-email">
+                    <input
+                      type="text"
+                      placeholder="인증번호를 입력해주세요"
+                      value={inputCode}
+                      onChange={(e) => setInputCode(e.target.value)}
+                      style={{
+                        float: "left",
+                        fontSize: "15px",
+                        marginRight: "5px",
+                      }}
+                    />
+                    {time > 0 && (
+                      <p
+                        style={{
+                          color: "green",
+                          float: "left",
+                          marginRight: "5px",
+                          textAlign: "center",
+                          marginTop: "20px",
+                        }}
+                      >
+                        {formatTime(time)}
+                      </p>
+                    )}
+                    <button
+                      type="button"
+                      onClick={verifyCode}
+                      style={{ marginTop: "18px" }}
+                    >
+                      인증하기
+                    </button>
+                    {authMsg && (
+                      <p
+                        style={{
+                          color: authColor,
+                          clear: "both",
+                        }}
+                      >
+                        {authMsg}
+                      </p>
+                    )}
+                  </td>
+                )}
               </tr>
               <tr>
                 <th>주소</th>
@@ -188,7 +397,45 @@ const MemberUpdate = () => {
                     value={member.memberAddr}
                     onChange={inputMemberData}
                   ></input>
-                  <button className="button">우편번호 조회</button>
+                  <button
+                    type="button"
+                    onClick={openModal}
+                    style={{ cursor: "pointer" }}
+                  >
+                    우편번호 조회
+                  </button>
+                  {isModal && (
+                    <div
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        zIndex: 1000,
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          backgroundColor: "white",
+                          padding: "20px",
+                        }}
+                      >
+                        <DaumPostcode
+                          onComplete={onComplete}
+                          onClose={closeModal}
+                        />
+                        <button onClick={closeModal} className="sb-close-modal">
+                          닫기
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </td>
               </tr>
               <tr>

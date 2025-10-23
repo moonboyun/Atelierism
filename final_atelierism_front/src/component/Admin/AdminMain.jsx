@@ -22,9 +22,9 @@ const AdminMain = () => {
           <Routes>
             <Route path="/sales" element={<AdminSalesStatus />} />
             <Route path="/mypage" element={<AdminMypage />} />
-            <Route path="/memberList" element={<AdminList data={1} />} />
-            <Route path="/designerList" element={<AdminList data={2} />} />
-            <Route path="/applicantList" element={<AdminList data={3} />} />
+            <Route path="/memberList" element={<AdminList data={"m1"} />} />
+            <Route path="/designerList" element={<AdminList data={"d1"} />} />
+            <Route path="/applicantList" element={<AdminList data={"a1"} />} />
           </Routes>
         </section>
       </div>
