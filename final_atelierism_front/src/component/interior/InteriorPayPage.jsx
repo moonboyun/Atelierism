@@ -24,6 +24,7 @@ const InteriorPayPage = () => {
   console.log("interior : ", interior);
   console.log("member : ", member);
   console.log("price : ", price);
+  console.log(typeof "dkss");
   return (
     <section className="section">
       <div className="payP-main-content">
@@ -49,18 +50,29 @@ const OrderInfo = (props) => {
   const setInterior = props.setInterior;
   const price = props.price;
   const spacePlus = (e) => {
-    const value = Number(e.target.value);
-    const name = e.target.name;
-    setInterior((prev) => ({ ...interior, [name]: prev[name] + value }));
+    const button = e.currentTarget; // 클릭된 버튼 자체
+    const value = Number(button.value);
+    const name = button.name;
+    setInterior((prev) => ({ ...prev, [name]: prev[name] + value }));
   };
 
   const spaceMinus = (e) => {
-    const value = Number(e.target.value);
-    const name = e.target.name;
-    setInterior((prev) => ({ ...interior, [name]: prev[name] - value }));
+    const button = e.currentTarget; // 클릭된 버튼 자체
+    const value = Number(button.value);
+    const name = button.name;
+    setInterior((prev) => ({ ...prev, [name]: prev[name] - value }));
   };
 
-  const spaceCheck = () => {};
+  const interiorInfoCheck = (e) => {
+    const name = e.target.name;
+    const rawValue = e.target.value;
+    if (isNaN(Number(rawValue))) {
+      setInterior((prev) => ({ ...prev, [name]: rawValue }));
+    } else {
+      const value = Number(rawValue);
+      setInterior((prev) => ({ ...prev, [name]: value }));
+    }
+  };
   return (
     <div className="orderI-info-box">
       <div className="orderI-member-box">
@@ -82,11 +94,11 @@ const OrderInfo = (props) => {
             <span>거실</span>
           </div>
           <div className="orderI-group-box">
-            <button className="interiorLiving" value={1} onClick={spaceMinus}>
+            <button name="interiorLiving" value={1} onClick={spaceMinus}>
               <span className="material-symbols-outlined">remove</span>
             </button>
             <span>{interior.interiorLiving}</span>
-            <button className="interiorLiving" value={1} onClick={spacePlus}>
+            <button name="interiorLiving" value={1} onClick={spacePlus}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -109,11 +121,11 @@ const OrderInfo = (props) => {
             <span>부엌</span>
           </div>
           <div className="orderI-group-box">
-            <button className="interiorKitchen" value={1} onClick={spaceMinus}>
+            <button name="interiorKitchen" value={1} onClick={spaceMinus}>
               <span className="material-symbols-outlined">remove</span>
             </button>
             <span>{interior.interiorKitchen}</span>
-            <button className="interiorKitchen" value={1} onClick={spacePlus}>
+            <button name="interiorKitchen" value={1} onClick={spacePlus}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -136,11 +148,11 @@ const OrderInfo = (props) => {
             <span>안방</span>
           </div>
           <div className="orderI-group-box">
-            <button className="interiorBed" value={1} onClick={spaceMinus}>
+            <button name="interiorBed" value={1} onClick={spaceMinus}>
               <span className="material-symbols-outlined">remove</span>
             </button>
             <span>{interior.interiorBed}</span>
-            <button className="interiorBed" value={1} onClick={spacePlus}>
+            <button name="interiorBed" value={1} onClick={spacePlus}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -161,11 +173,11 @@ const OrderInfo = (props) => {
             <span>원룸</span>
           </div>
           <div className="orderI-group-box">
-            <button className="interiorOneroom" value={1} onClick={spaceMinus}>
+            <button name="interiorOneroom" value={1} onClick={spaceMinus}>
               <span className="material-symbols-outlined">remove</span>
             </button>
             <span>{interior.interiorOneroom}</span>
-            <button className="interiorOneroom" value={1} onClick={spacePlus}>
+            <button name="interiorOneroom" value={1} onClick={spacePlus}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -188,11 +200,11 @@ const OrderInfo = (props) => {
             <span>아이방</span>
           </div>
           <div className="orderI-group-box">
-            <button className="interiorKidroom" value={1} onClick={spaceMinus}>
+            <button name="interiorKidroom" value={1} onClick={spaceMinus}>
               <span className="material-symbols-outlined">remove</span>
             </button>
             <span>{interior.interiorKidroom}</span>
-            <button className="interiorKidroom" value={1} onClick={spacePlus}>
+            <button name="interiorKidroom" value={1} onClick={spacePlus}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -215,11 +227,11 @@ const OrderInfo = (props) => {
             <span>서재</span>
           </div>
           <div className="orderI-group-box">
-            <button className="interiorStudy" value={1} onClick={spaceMinus}>
+            <button name="interiorStudy" value={1} onClick={spaceMinus}>
               <span className="material-symbols-outlined">remove</span>
             </button>
             <span>{interior.interiorStudy}</span>
-            <button className="interiorStudy" value={1} onClick={spacePlus}>
+            <button name="interiorStudy" value={1} onClick={spacePlus}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -237,42 +249,60 @@ const OrderInfo = (props) => {
       <div className="orderI-interior-check-box">
         <div className="orderI-interior-items">
           <label>
-            <div className="orderI-interior-item">
+            <div
+              className={
+                interior.interiorLiving >= 1
+                  ? "orderI-interior-item payI-checked"
+                  : "orderI-interior-item"
+              }
+            >
               <span className="material-symbols-outlined">scene</span>
               <input
                 type="checkbox"
                 id="interiorLiving"
                 name="interiorLiving"
                 value={interior.interiorLiving >= 1 ? 0 : 1}
-                onChange={spaceCheck}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>거실</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item">
+            <div
+              className={
+                interior.interiorKitchen >= 1
+                  ? "orderI-interior-item payI-checked"
+                  : "orderI-interior-item"
+              }
+            >
               <span className="material-symbols-outlined">dine_lamp</span>
               <input
                 type="checkbox"
                 id="interiorKitchen"
                 name="interiorKitchen"
-                value={1}
-                onChange={spaceCheck}
+                value={interior.interiorKitchen >= 1 ? 0 : 1}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>부엌</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item">
+            <div
+              className={
+                interior.interiorBed >= 1
+                  ? "orderI-interior-item payI-checked"
+                  : "orderI-interior-item"
+              }
+            >
               <span className="material-symbols-outlined">bed</span>
               <input
                 type="checkbox"
                 id="interiorBed"
                 name="interiorBed"
-                value={1}
-                onChange={spaceCheck}
+                value={interior.interiorBed >= 1 ? 0 : 1}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>안방</span>
@@ -282,42 +312,60 @@ const OrderInfo = (props) => {
 
         <div className="orderI-interior-items">
           <label>
-            <div className="orderI-interior-item">
+            <div
+              className={
+                interior.interiorOneroom >= 1
+                  ? "orderI-interior-item payI-checked"
+                  : "orderI-interior-item"
+              }
+            >
               <span className="material-symbols-outlined">hotel</span>
               <input
                 type="checkbox"
                 id="interiorOneroom"
                 name="interiorOneroom"
-                value={1}
-                onChange={spaceCheck}
+                value={interior.interiorOneroom >= 1 ? 0 : 1}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>원룸</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item">
+            <div
+              className={
+                interior.interiorKidroom >= 1
+                  ? "orderI-interior-item payI-checked"
+                  : "orderI-interior-item"
+              }
+            >
               <span className="material-symbols-outlined">child_hat</span>
               <input
                 type="checkbox"
                 id="interiorKidroom"
                 name="interiorKidroom"
-                value={1}
-                onChange={spaceCheck}
+                value={interior.interiorKidroom >= 1 ? 0 : 1}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>아이방</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item">
+            <div
+              className={
+                interior.interiorStudy >= 1
+                  ? "orderI-interior-item payI-checked"
+                  : "orderI-interior-item"
+              }
+            >
               <span className="material-symbols-outlined">menu_book</span>
               <input
                 type="checkbox"
                 id="interiorStudy"
                 name="interiorStudy"
-                value={1}
-                onChange={spaceCheck}
+                value={interior.interiorStudy >= 1 ? 0 : 1}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>서재</span>
@@ -330,39 +378,57 @@ const OrderInfo = (props) => {
       <div className="orderI-interior-check-box">
         <div className="orderI-interior-items">
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorRange === 1
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorRange1"
                 name="interiorRange"
                 value={1}
-                onChange={spaceCheck}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>완전히 새롭게</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorRange === 2
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorRange2"
                 name="interiorRange"
-                value={1}
-                onChange={spaceCheck}
+                value={2}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>몇 가지 가구 유지</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorRange === 3
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorRange3"
                 name="interiorRange"
-                value={1}
-                onChange={spaceCheck}
+                value={3}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>가구 다 유지</span>
@@ -375,39 +441,59 @@ const OrderInfo = (props) => {
       <div className="orderI-interior-check-box border-none">
         <div className="orderI-interior-items">
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorWhy === "이사를 준비하고 있어요."
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorWhy1"
                 name="interiorWhy"
-                value={1}
-                onChange={spaceCheck}
+                value={"이사를 준비하고 있어요."}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>이사준비</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorWhy ===
+                "신혼집을 구해 인테리어를 준비하고 있어요."
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorWhy2"
                 name="interiorWhy"
-                value={1}
-                onChange={spaceCheck}
+                value={"신혼집을 구해 인테리어를 준비하고 있어요."}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>신혼집</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorWhy ===
+                "살고 있는 집을 새롭게 인테리어 하고 싶어요."
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorWhy3"
                 name="interiorWhy"
-                value={1}
-                onChange={spaceCheck}
+                value={"살고 있는 집을 새롭게 인테리어 하고 싶어요."}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>리모델링</span>
@@ -417,26 +503,39 @@ const OrderInfo = (props) => {
 
         <div className="orderI-interior-items orderI-evenly">
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorWhy ===
+                "전문가의 인테리어 감각에 도움을 받고 싶어요."
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorWhy4"
                 name="interiorWhy"
-                value={1}
-                onChange={spaceCheck}
+                value={"전문가의 인테리어 감각에 도움을 받고 싶어요."}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>전문가의 도움</span>
             </div>
           </label>
           <label>
-            <div className="orderI-interior-item orderI-center">
+            <div
+              className={
+                interior.interiorWhy === "다른 이유가 있어요.(기타)"
+                  ? "orderI-interior-item orderI-center payI-checked"
+                  : "orderI-interior-item orderI-center"
+              }
+            >
               <input
                 type="radio"
                 id="interiorWhy5"
                 name="interiorWhy"
-                value={1}
-                onChange={spaceCheck}
+                value={"다른 이유가 있어요.(기타)"}
+                onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
               <span>다른 이유</span>
