@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./common.css";
 import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
@@ -55,10 +55,12 @@ const Header = (props) => {
 const HeaderLink = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
+  const [isInterior, setIsInterior] = useState(0);
   const navigate = useNavigate();
   const logout = () => {
     setMemberId("");
     setMemberType(0);
+    setIsInterior(0);
     delete axios.defaults.headers.common["Authorization"];
     window.localStorage.removeItem("refreshToken");
     navigate("/");
@@ -83,6 +85,21 @@ const HeaderLink = () => {
     } else {
       setInteriorModal(true);
     }
+  };
+  useEffect(() => {
+    if (memberId !== "") {
+      axios
+        .get(`${import.meta.env.VITE_BACK_SERVER}/interior/${memberId}`)
+        .then((res) => {
+          setIsInterior(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [memberId]);
+  const payPage = () => {
+    navigate("/interior/payPage");
   };
   return (
     <ul className="user-menu">
@@ -113,9 +130,20 @@ const HeaderLink = () => {
           </li>
         </>
       )}
-      <button className="interior-btn" onClick={InteriorApp}>
-        <span>인테리어 컨설팅</span>
-      </button>
+      {isInterior === 0 ? (
+        <button className="interior-btn" onClick={InteriorApp}>
+          <span>인테리어 컨설팅</span>
+        </button>
+      ) : (
+        <button className="interior-btn" onClick={payPage}>
+          <div className="interior-btn-box">
+            <span>장바구니</span>
+            <span className="material-symbols-outlined header-shopping-cart">
+              shopping_cart
+            </span>
+          </div>
+        </button>
+      )}
       {interiorModal && (
         <InteriorApplication
           onClose={() => {
@@ -124,6 +152,7 @@ const HeaderLink = () => {
           }}
           ani={ani}
           setAni={setAni}
+          setIsInterior={setIsInterior}
         />
       )}
     </ul>

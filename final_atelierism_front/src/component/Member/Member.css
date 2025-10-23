@@ -1,8 +1,10 @@
 .login-wrap {
+  display: flex;
+  flex-direction: column;
   width: 600px;
   margin: 0 auto;
-  min-height: 500px;
-  padding-top: 50px;
+  min-height: 700px;
+  justify-content: center;
 }
 .login-wrap > .page-title {
   text-align: center;
@@ -10,14 +12,17 @@
   font-size: 40px;
 }
 .login-wrap .input-wrap {
+  display: flex;
+  margin-right: 60px;
+  justify-content: center;
   margin-top: 30px;
-  margin-bottom: 50px;
 }
 
 .input-title {
   float: left;
-  margin-right: 10px;
-  width: 20%;
+  margin-right: 30px;
+  width: 90px;
+  text-align: right;
   font-size: 20px;
   font-weight: bold;
   line-height: 60px;
@@ -26,11 +31,13 @@
   padding-top: 15px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
-  width: 75%;
+  width: 300px;
   font-size: 18px;
 }
 .login-button {
-  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
   text-align: center;
 }
 .login-button > button {
@@ -62,8 +69,7 @@
   padding-left: 10px;
 }
 .member-link-box > a:hover {
-  color: blue;
-  text-decoration: underline;
+  color: var(--btnHover);
 }
 
 .join-wrap {
@@ -115,7 +121,7 @@
   margin-top: 10px;
 }
 .check-email > input {
-  width: 60%;
+  width: 55%;
   margin-right: 30px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
@@ -163,6 +169,10 @@
 .join-button > button > a {
   color: #fff;
 }
+.sb-close-modal {
+  text-align: center;
+}
+
 .agree-wrap {
   width: 1440px;
   margin: 0 auto;
@@ -217,6 +227,7 @@
   height: 50px;
   border-radius: 15px;
   border: none;
+  color: #fff;
 }
 .sb-button-zone > button:last-child {
   background-color: #8aa996;
@@ -225,10 +236,7 @@
   text-decoration: none;
   color: #000;
 }
-.sb-button-zone > button:last-child > a {
-  color: #fff;
-  font-weight: 500;
-}
+
 .sb-button-zone > button > a:hover {
   color: blue;
   text-decoration: underline;

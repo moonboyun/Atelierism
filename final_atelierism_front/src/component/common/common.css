@@ -159,9 +159,13 @@ body {
   height: 35px;
   cursor: pointer;
 }
-.interior-btn > span {
-  font-weight: 600;
+.interior-btn-box {
+  display: flex;
+}
+.interior-btn span {
+  font-weight: 500;
   color: #fff;
+  font-size: 18px;
 }
 .interior-btn:hover {
   background-color: var(--btnHover);
@@ -171,6 +175,12 @@ body {
   color: #fff;
   font-weight: 600;
 }
+.interior-btn .header-shopping-cart {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 10px;
+  padding-top: 2px;
+}
 /*-----------------------------header---------------------------------------*/
 .footer {
   background-color: var(--gray6);
@@ -178,7 +188,7 @@ body {
 }
 .footer > div {
   max-width: 1400px;
-  padding: 20px 10px;
+  padding: 10px 10px;
   margin: 0 auto;
 }
 .footer > div:last-child {
@@ -229,9 +239,6 @@ section.section {
   margin: 0 auto;
   flex: 1;
   background-color: #fff;
-}
-section.section.bg-section {
-  background-color: #f0f0f0;
 }
 /*-----------------------------content-box---------------------------------------*/
 .slider-container {
