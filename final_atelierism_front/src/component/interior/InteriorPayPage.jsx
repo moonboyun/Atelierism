@@ -623,84 +623,59 @@ const OrderInfo = (props) => {
   );
 };
 
-const DesignerInfo = () => {
+const DesignerInfo = (props) => {
+  const designerList = props.designerList;
+  const memberList = props.memberList;
+  const designerId = props.designerId;
+  const setDesignerId = props.setDesignerId;
+  const [moreDesigner, setMoreDesigner] = useState(3);
   const designerCheck = () => {};
   return (
     <div className="designerI-info-box">
       <div className="designerI-title">디자이너 선택</div>
       <div className="designerI-items">
-        <label>
-          <input
-            type="radio"
-            id="interiorDesigner-1"
-            name="interiorDesigner"
-            value={1}
-            onChange={designerCheck}
-            style={{ display: "none" }}
-          ></input>
-          <div className="designerI-item">
-            <img src="/image/default_image.png" />
-            <div className="designerI-info">
-              <div className="designerI-name-career">
-                <span>디자이너 이름</span>
-                <span>경력 | 1년</span>
+        {designerList.slice(0, moreDesigner).map((designer, index) => {
+          const matchedMember = memberList.find(
+            (member) => member.memberId === designer.memberId
+          );
+          if (!matchedMember) return null;
+          return (
+            <label key={"designer-" + index}>
+              <div
+                className={
+                  designer.memberId === designerId
+                    ? "designerI-item payI-checked"
+                    : "designerI-item"
+                }
+              >
+                <input
+                  type="radio"
+                  id="interiorDesigner-1"
+                  name="interiorDesigner"
+                  value={designer.memberId}
+                  onChange={designerCheck}
+                  style={{ display: "none" }}
+                ></input>
+                <img src="/image/default_image.png" />
+                <div className="designerI-info">
+                  <div className="designerI-name-career">
+                    <span>{matchedMember.memberName}</span>
+                    <span>경력 | {designer.designerCareer}년</span>
+                  </div>
+                  <span className="designerI-introduce">
+                    {designer.designerIntroduce}
+                  </span>
+                </div>
               </div>
-              <span className="designerI-introduce">
-                30자 테스트~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-              </span>
-            </div>
-          </div>
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            id="interiorDesigner-1"
-            name="interiorDesigner"
-            value={1}
-            onChange={designerCheck}
-            style={{ display: "none" }}
-          ></input>
-          <div className="designerI-item">
-            <img src="/image/default_image.png" />
-            <div className="designerI-info">
-              <div className="designerI-name-career">
-                <span>디자이너 이름</span>
-                <span>경력 | 1년</span>
-              </div>
-              <span className="designerI-introduce">
-                30자 테스트~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-              </span>
-            </div>
-          </div>
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            id="interiorDesigner-1"
-            name="interiorDesigner"
-            value={1}
-            onChange={designerCheck}
-            style={{ display: "none" }}
-          ></input>
-          <div className="designerI-item">
-            <img src="/image/default_image.png" />
-            <div className="designerI-info">
-              <div className="designerI-name-career">
-                <span>디자이너 이름</span>
-                <span>경력 | 1년</span>
-              </div>
-              <span className="designerI-introduce">
-                30자 테스트~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-              </span>
-            </div>
-          </div>
-        </label>
+            </label>
+          );
+        })}
       </div>
       {
         <div className="designerI-more-btn">
-          <button>더보기</button>
+          <button onClick={() => setMoreDesigner(moreDesigner + 3)}>
+            더보기
+          </button>
         </div>
       }
     </div>
