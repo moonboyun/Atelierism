@@ -44,7 +44,7 @@ const MemberUpdate = () => {
     const name = e.target.name;
     let value = e.target.value;
 
-    //회원가입 시 전화번호 입력란에 도착하면
+    //정보수정 시 전화번호 입력란에 도착하면
     if (name === "memberPhone") {
       // 숫자만 추출해서
       value = value.replace(/\D/g, "");
