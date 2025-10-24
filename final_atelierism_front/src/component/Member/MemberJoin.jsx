@@ -15,9 +15,40 @@ const MemberJoin = () => {
     memberAddr: "",
     memberAddrDetail: "",
   });
+
+  const formatPhoneNumber = (value) => {
+    // 숫자만 추출
+    value = value.replace(/\D/g, "");
+
+    if (value.length < 4) return value; // 3자리 이하
+
+    if (value.length < 8) {
+      // 4~7자리 (010-1234)
+      return value.slice(0, 3) + "-" + value.slice(3);
+    }
+
+    // 8자리 이상 (010-1234-5678)
+    return (
+      value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
+    );
+  };
   const inputMemberData = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+
+    if (name === "memberPhone") {
+      // 숫자만 추출
+      value = value.replace(/\D/g, "");
+
+      // 3자리마다 '-' 삽입
+      value = formatPhoneNumber(value, 3, "-");
+
+      // 마지막에 '-'가 붙으면 제거 (ex: 010-)
+      if (value.endsWith("-")) {
+        value = value.slice(0, -1);
+      }
+    }
+
     const newMember = { ...member, [name]: value };
     setMember(newMember);
   };
@@ -45,7 +76,6 @@ const MemberJoin = () => {
     }
   };
   const [memberPwRe, setMemberPwRe] = useState("");
-  const pwMsgRef = useRef(null);
 
   const pwRegMsgRef = useRef(null);
   const checkPwReg = () => {
@@ -346,7 +376,11 @@ const MemberJoin = () => {
                     {formatTime(time)}
                   </p>
                 )}
-                <button type="button" onClick={verifyCode}>
+                <button
+                  type="button"
+                  onClick={verifyCode}
+                  style={{ cursor: "pointer" }}
+                >
                   인증하기
                 </button>
                 {authMsg && (

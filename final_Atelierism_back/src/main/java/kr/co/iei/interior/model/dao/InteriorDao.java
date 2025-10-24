@@ -11,4 +11,8 @@ public interface InteriorDao {
 
 	int selectIsInterior(String memberId);
 
+	InteriorDTO selectInterior(String memberId);
+
+	int deleteInterior(int interiorNo);
+
 }

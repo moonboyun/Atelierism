@@ -121,6 +121,7 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
             showCancelButton: true,
             cancelButtonText: "닫기",
             confirmButtonText: "결제하러 가기",
+            confirmButtonColor: " #8aa996",
           }).then((select) => {
             if (select.isConfirmed) {
               navigate("/interior/payPage");
@@ -161,6 +162,7 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
         showCancelButton: true,
         cancelButtonText: "닫기",
         confirmButtonText: "나가기",
+        confirmButtonColor: " #8aa996",
       }).then((select) => {
         if (select.isConfirmed) {
           onClose();

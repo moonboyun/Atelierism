@@ -1,8 +1,12 @@
 package kr.co.iei.interior.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +19,8 @@ import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.admin.model.service.AdminService;
 import kr.co.iei.interior.model.dto.InteriorDTO;
 import kr.co.iei.interior.model.service.InteriorService;
+import kr.co.iei.member.model.dto.MemberDTO;
+import kr.co.iei.member.model.service.MemberService;
 
 @CrossOrigin("*")
 @RestController
@@ -26,6 +32,9 @@ public class InteriorController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping
 	public ResponseEntity<PriceListDto> selectPrice(){
@@ -40,6 +49,22 @@ public class InteriorController {
 	@PostMapping
 	public ResponseEntity<Integer> insertInterior(@RequestBody InteriorDTO interior ){
 		int result = interiorService.insertInterior(interior);
+		return ResponseEntity.ok(result);
+	}
+	@PostMapping(value="/{memberId}")
+	public ResponseEntity<Map> selectInterior(@PathVariable String memberId){
+		InteriorDTO interior = interiorService.selectInterior(memberId);
+		MemberDTO member = memberService.selectOneMember(memberId);
+		PriceListDto price = adminService.priceListSelect();
+		Map memberInfo = new HashMap<String, Object>();
+		memberInfo.put("interior", interior);
+		memberInfo.put("member", member);
+		memberInfo.put("price", price);
+		return ResponseEntity.ok(memberInfo);
+	}
+	@DeleteMapping(value="/{interiorNo}")
+	public ResponseEntity<Integer> deleteInterior(@PathVariable int interiorNo){
+		int result = interiorService.deleteInterior(interiorNo);
 		return ResponseEntity.ok(result);
 	}
 

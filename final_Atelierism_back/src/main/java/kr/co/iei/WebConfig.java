@@ -37,5 +37,10 @@ public class WebConfig implements WebMvcConfigurer, WebSocketConfigurer{
         .addResourceLocations("file:///" + root + "/review/content/");
 	    registry.addResourceHandler("/board/review/**")
 	            .addResourceLocations("file:///" + root + "/review/");
+	    
+	    // 문의용 컨텐츠 이미지 매핑 추가
+	    registry.addResourceHandler("/board/inquiry/content/**")
+	            .addResourceLocations("file:///" + root + "/inquiry/content/");
 	}
+	
 }// WebConfig

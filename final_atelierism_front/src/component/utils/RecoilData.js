@@ -30,4 +30,17 @@ const isLoginState = selector({
     return loginId !== "" && memberType !== 0;
   },
 });
-export { loginIdState, memberTypeState, isLoginState, authReadyState };
+
+//인테리어가 있는 지 저장하는 저장소
+const isInteriorState = atom({
+  key: "isInteriorState",
+  default: false,
+});
+
+export {
+  loginIdState,
+  memberTypeState,
+  isLoginState,
+  authReadyState,
+  isInteriorState,
+};
