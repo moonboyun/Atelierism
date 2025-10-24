@@ -2,7 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./common.css";
 import { useRecoilState } from "recoil";
-import { loginIdState, memberTypeState } from "../utils/RecoilData";
+import {
+  isInteriorState,
+  loginIdState,
+  memberTypeState,
+} from "../utils/RecoilData";
 import InteriorApplication from "../interior/InteriorApplication";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -53,9 +57,9 @@ const Header = (props) => {
   );
 };
 const HeaderLink = () => {
-  const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
-  const [isInterior, setIsInterior] = useState(0);
+  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [isInterior, setIsInterior] = useRecoilState(isInteriorState);
   const navigate = useNavigate();
   const logout = () => {
     setMemberId("");
@@ -77,6 +81,7 @@ const HeaderLink = () => {
         showCancelButton: true,
         cancelButtonText: "닫기",
         confirmButtonText: "로그인하러 가기",
+        confirmButtonColor: " #8aa996",
       }).then((select) => {
         if (select.isConfirmed) {
           navigate("/member/login");
@@ -87,17 +92,17 @@ const HeaderLink = () => {
     }
   };
   useEffect(() => {
-    if (memberId !== "") {
-      axios
-        .get(`${import.meta.env.VITE_BACK_SERVER}/interior/${memberId}`)
-        .then((res) => {
-          setIsInterior(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    if (!memberId) return;
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/interior/${memberId}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data !== 0) {
+          setIsInterior(true);
+        }
+      });
   }, [memberId]);
+  console.log(isInterior);
   const payPage = () => {
     navigate("/interior/payPage");
   };
@@ -130,11 +135,7 @@ const HeaderLink = () => {
           </li>
         </>
       )}
-      {isInterior === 0 ? (
-        <button className="interior-btn" onClick={InteriorApp}>
-          <span>인테리어 컨설팅</span>
-        </button>
-      ) : (
+      {isInterior ? (
         <button className="interior-btn" onClick={payPage}>
           <div className="interior-btn-box">
             <span>장바구니</span>
@@ -142,6 +143,10 @@ const HeaderLink = () => {
               shopping_cart
             </span>
           </div>
+        </button>
+      ) : (
+        <button className="interior-btn" onClick={InteriorApp}>
+          <span>인테리어 컨설팅</span>
         </button>
       )}
       {interiorModal && (
