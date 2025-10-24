@@ -627,10 +627,13 @@ label .payI-checked {
   font-weight: 600;
 }
 .payI-price-box > button:last-child {
+  width: 60px;
+  margin: 0 auto;
   background-color: #fff;
   border: none;
   color: var(--gray5);
   font-size: 16px;
   font-weight: 400;
   padding: 0;
+  cursor: pointer;
 }
