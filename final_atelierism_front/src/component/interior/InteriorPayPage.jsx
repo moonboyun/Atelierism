@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { loginIdState } from "../utils/RecoilData";
+import { isInteriorState, loginIdState } from "../utils/RecoilData";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const InteriorPayPage = () => {
   const backServer = import.meta.env.VITE_BACK_SERVER;
   const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [isInterior, setIsInterior] = useRecoilState(isInteriorState);
   const [member, setMember] = useState({});
   const [interior, setInterior] = useState({});
   const [price, setPrice] = useState({});
   useEffect(() => {
+    if (!memberId) return;
     axios
       .post(`${backServer}/interior/${memberId}`)
       .then((res) => {
@@ -38,7 +41,7 @@ const InteriorPayPage = () => {
           />
           <div className="payP-Designer-pay-box">
             <DesignerInfo />
-            <PayInfo interior={interior} />
+            <PayInfo interior={interior} setIsInterior={setIsInterior} />
           </div>
         </div>
       </div>
@@ -634,6 +637,8 @@ const DesignerInfo = () => {
 
 const PayInfo = (props) => {
   const interior = props.interior;
+  const setIsInterior = props.setIsInterior;
+  const navigate = useNavigate();
   const delInterior = () => {
     Swal.fire({
       title: "장바구니 삭제",
@@ -643,6 +648,7 @@ const PayInfo = (props) => {
       showCancelButton: true,
       cancelButtonText: "닫기",
       confirmButtonText: "삭제하기",
+      confirmButtonColor: " #8aa996",
     }).then((select) => {
       if (select.isConfirmed) {
         axios
@@ -652,7 +658,16 @@ const PayInfo = (props) => {
             }`
           )
           .then((res) => {
-            console.log(res);
+            Swal.fire({
+              title: "삭제 완료!",
+              text: "장바구니 삭제가 완료되었습니다.",
+              icon: "success",
+              timer: 1500,
+              confirmButtonText: "닫기",
+              confirmButtonColor: " #8aa996",
+            });
+            setIsInterior(false);
+            navigate("/");
           })
           .catch((err) => {
             console.log(err);
