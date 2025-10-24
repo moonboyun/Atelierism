@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RecoverPw = () => {
   const backServer = import.meta.env.VITE_BACK_SERVER;
@@ -123,6 +123,7 @@ const RecoverPw = () => {
       .padStart(2, "0")}`;
   };
 
+  const navigate = useNavigate();
   const resetPw = () => {
     if (
       idCheck !== 1 ||
@@ -134,7 +135,7 @@ const RecoverPw = () => {
     }
 
     axios
-      .put(`${backServer}/member/recoverPw`, {
+      .post(`${backServer}/member/checkPw`, {
         memberId,
         memberPw: newPw,
       })
@@ -142,6 +143,7 @@ const RecoverPw = () => {
         if (res.data === 1) {
           Swal.fire("완료", "비밀번호가 재설정되었습니다.", "success");
         }
+        navigate("/member/login");
       })
       .catch((err) => {
         Swal.fire("오류", "서버 오류가 발생했습니다.", "error");
