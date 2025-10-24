@@ -51,20 +51,20 @@ const RecoverPw = () => {
       setMailCode(res.data);
     } catch (err) {
       setAuthMsg("인증코드 전송 실패");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
   const verifyCode = () => {
     if (inputCode === mailCode) {
       setAuthMsg("인증 완료");
-      setAuthColor("blue");
+      setAuthColor("#40C79C");
       clearInterval(intervalRef.current);
       setMailCode(null);
       setTime(0);
     } else {
       setAuthMsg("인증번호를 확인해주세요");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
