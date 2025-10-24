@@ -25,4 +25,8 @@ public interface AdminDao {
 
 	List selectMemberList(Map<String, Object> orderMap);
 
+	List selectApplicantList(Map<String, Object> orderMap);
+
+	int applicantTotalCount(String memOrder);
+
 }
