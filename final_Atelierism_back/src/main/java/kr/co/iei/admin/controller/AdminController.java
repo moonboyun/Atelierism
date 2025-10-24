@@ -47,9 +47,10 @@ public class AdminController {
 	}*/
 	
 	
-	@GetMapping//페이지 이동이나 새로운 정렬을 요청할 시 돌아갈 코드
+	@GetMapping
 	public ResponseEntity<Map> adminList(@RequestParam int reqPage, @RequestParam String memOrder){
 		Map map = adminService.selectBoardList(reqPage, memOrder);
+		System.out.println(map);
 		return ResponseEntity.ok(map);
 	}
 }
