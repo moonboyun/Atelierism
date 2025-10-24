@@ -232,6 +232,9 @@ const RecoverPw = () => {
                     boxSizing: "border-box",
                   }}
                 />
+                {authMsg && (
+                  <p style={{ color: authColor, clear: "both" }}>{authMsg}</p>
+                )}
                 {time > 0 && (
                   <p
                     style={{
@@ -246,9 +249,6 @@ const RecoverPw = () => {
                 <button type="button" onClick={verifyCode}>
                   인증하기
                 </button>
-                {authMsg && (
-                  <p style={{ color: authColor, clear: "both" }}>{authMsg}</p>
-                )}
               </div>
             )}
           </div>
