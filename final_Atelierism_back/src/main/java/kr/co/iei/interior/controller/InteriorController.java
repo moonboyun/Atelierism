@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,6 +61,11 @@ public class InteriorController {
 		memberInfo.put("member", member);
 		memberInfo.put("price", price);
 		return ResponseEntity.ok(memberInfo);
+	}
+	@DeleteMapping(value="/{interiorNo}")
+	public ResponseEntity<Integer> deleteInterior(@PathVariable int interiorNo){
+		int result = interiorService.deleteInterior(interiorNo);
+		return ResponseEntity.ok(result);
 	}
 
 }
