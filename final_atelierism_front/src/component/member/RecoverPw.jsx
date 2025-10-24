@@ -51,20 +51,20 @@ const RecoverPw = () => {
       setMailCode(res.data);
     } catch (err) {
       setAuthMsg("인증코드 전송 실패");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
   const verifyCode = () => {
     if (inputCode === mailCode) {
       setAuthMsg("인증 완료");
-      setAuthColor("blue");
+      setAuthColor("#40C79C");
       clearInterval(intervalRef.current);
       setMailCode(null);
       setTime(0);
     } else {
       setAuthMsg("인증번호를 확인해주세요");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
@@ -159,7 +159,6 @@ const RecoverPw = () => {
           resetPw();
         }}
       >
-        {/* 아이디 입력 */}
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="memberId">아이디</label>
@@ -193,8 +192,6 @@ const RecoverPw = () => {
             </p>
           </div>
         </div>
-
-        {/* 이메일 인증 */}
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="memberEmail">이메일</label>
@@ -253,8 +250,6 @@ const RecoverPw = () => {
             )}
           </div>
         </div>
-
-        {/* 새 비밀번호 */}
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="newPw">새 비밀번호</label>
@@ -272,8 +267,6 @@ const RecoverPw = () => {
             <p className="input-msg" ref={pwRegMsgRef}></p>
           </div>
         </div>
-
-        {/* 새 비밀번호 확인 */}
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="newPwRe">새 비밀번호 확인</label>
