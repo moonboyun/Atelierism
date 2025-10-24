@@ -12,6 +12,10 @@ const InteriorPayPage = () => {
   const [member, setMember] = useState({});
   const [interior, setInterior] = useState({});
   const [price, setPrice] = useState({});
+  const [memberPrice, setMemberPrice] = useState(0);
+  const [designerList, setDesignerList] = useState([]);
+  const [memberList, setMemberList] = useState([]);
+  const [designerId, setDesignerId] = useState("");
   useEffect(() => {
     if (!memberId) return;
     axios
@@ -25,10 +29,23 @@ const InteriorPayPage = () => {
         console.log(err);
       });
   }, [memberId]);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/designer`)
+      .then((res) => {
+        setDesignerList(res.data.designerList);
+        setMemberList(res.data.memberList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   console.log("interior : ", interior);
-  console.log("member : ", member);
-  console.log("price : ", price);
-  console.log(typeof "dkss");
+  useEffect(() => {
+    if (!interior.interiorDesigner) return;
+    setDesignerId(interior.interiorDesigner);
+  }, [interior]);
+  console.log("designerId : ", designerId);
   return (
     <section className="section">
       <div className="payP-main-content">
@@ -38,10 +55,21 @@ const InteriorPayPage = () => {
             interior={interior}
             setInterior={setInterior}
             price={price}
+            setMemberPrice={setMemberPrice}
+            memberPrice={memberPrice}
           />
           <div className="payP-Designer-pay-box">
-            <DesignerInfo />
-            <PayInfo interior={interior} setIsInterior={setIsInterior} />
+            <DesignerInfo
+              designerList={designerList}
+              memberList={memberList}
+              designerId={designerId}
+              setDesignerId={setDesignerId}
+            />
+            <PayInfo
+              interior={interior}
+              setIsInterior={setIsInterior}
+              memberPrice={memberPrice}
+            />
           </div>
         </div>
       </div>
@@ -53,6 +81,8 @@ const OrderInfo = (props) => {
   const interior = props.interior;
   const setInterior = props.setInterior;
   const price = props.price;
+  const setMemberPrice = props.setMemberPrice;
+  const memberPrice = props.memberPrice;
   const spacePlus = (e) => {
     const button = e.currentTarget; // 클릭된 버튼 자체
     const value = Number(button.value);
@@ -70,13 +100,37 @@ const OrderInfo = (props) => {
   const interiorInfoCheck = (e) => {
     const name = e.target.name;
     const rawValue = e.target.value;
-    if (isNaN(Number(rawValue))) {
+    if (rawValue === "") {
+      setInterior((prev) => ({ ...prev, [name]: "" }));
+    } else if (isNaN(Number(rawValue))) {
       setInterior((prev) => ({ ...prev, [name]: rawValue }));
     } else {
       const value = Number(rawValue);
       setInterior((prev) => ({ ...prev, [name]: value }));
     }
   };
+  const interiorWhyCheck = (e) => {
+    setInterior((prev) => ({
+      ...prev,
+      interiorWhyType: "",
+      interiorWhy: e.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    if (!interior || !price) return;
+
+    const total =
+      (price.priceLiving || 0) * (interior.interiorLiving || 0) +
+      (price.priceKitchen || 0) * (interior.interiorKitchen || 0) +
+      (price.priceBed || 0) * (interior.interiorBed || 0) +
+      (price.priceOneroom || 0) * (interior.interiorOneroom || 0) +
+      (price.priceKidroom || 0) * (interior.interiorKidroom || 0) +
+      (price.priceStudy || 0) * (interior.interiorStudy || 0);
+
+    setMemberPrice(total);
+  }, [interior, price]);
+
   return (
     <div className="orderI-info-box">
       <div className="orderI-member-box">
@@ -457,7 +511,7 @@ const OrderInfo = (props) => {
                 id="interiorWhy1"
                 name="interiorWhy"
                 value={"이사를 준비하고 있어요."}
-                onChange={interiorInfoCheck}
+                onChange={interiorWhyCheck}
                 style={{ display: "none" }}
               ></input>
               <span>이사준비</span>
@@ -477,7 +531,7 @@ const OrderInfo = (props) => {
                 id="interiorWhy2"
                 name="interiorWhy"
                 value={"신혼집을 구해 인테리어를 준비하고 있어요."}
-                onChange={interiorInfoCheck}
+                onChange={interiorWhyCheck}
                 style={{ display: "none" }}
               ></input>
               <span>신혼집</span>
@@ -497,7 +551,7 @@ const OrderInfo = (props) => {
                 id="interiorWhy3"
                 name="interiorWhy"
                 value={"살고 있는 집을 새롭게 인테리어 하고 싶어요."}
-                onChange={interiorInfoCheck}
+                onChange={interiorWhyCheck}
                 style={{ display: "none" }}
               ></input>
               <span>리모델링</span>
@@ -520,7 +574,7 @@ const OrderInfo = (props) => {
                 id="interiorWhy4"
                 name="interiorWhy"
                 value={"전문가의 인테리어 감각에 도움을 받고 싶어요."}
-                onChange={interiorInfoCheck}
+                onChange={interiorWhyCheck}
                 style={{ display: "none" }}
               ></input>
               <span>전문가의 도움</span>
@@ -529,7 +583,7 @@ const OrderInfo = (props) => {
           <label>
             <div
               className={
-                interior.interiorWhy === "다른 이유가 있어요.(기타)"
+                interior.interiorWhyType === "다른 이유"
                   ? "orderI-interior-item orderI-center payI-checked"
                   : "orderI-interior-item orderI-center"
               }
@@ -538,14 +592,32 @@ const OrderInfo = (props) => {
                 type="radio"
                 id="interiorWhy5"
                 name="interiorWhy"
-                value={"다른 이유가 있어요.(기타)"}
-                onChange={interiorInfoCheck}
+                value={"다른 이유"}
+                onChange={(e) => {
+                  setInterior((prev) => ({
+                    ...prev,
+                    interiorWhyType: e.target.value,
+                    interiorWhy: "",
+                  }));
+                }}
                 style={{ display: "none" }}
               ></input>
               <span>다른 이유</span>
             </div>
           </label>
         </div>
+        {interior.interiorWhyType === "다른 이유" && (
+          <div className="orderI-interior-Why">
+            <label htmlFor="interiorWhy">이유</label>
+            <input
+              type="text"
+              name="interiorWhy"
+              value={interior.interiorWhy}
+              onChange={interiorInfoCheck}
+              placeholder="이유를 입력해주세요.(100자 이내)"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -638,6 +710,7 @@ const DesignerInfo = () => {
 const PayInfo = (props) => {
   const interior = props.interior;
   const setIsInterior = props.setIsInterior;
+  const memberPrice = props.memberPrice;
   const navigate = useNavigate();
   const delInterior = () => {
     Swal.fire({
@@ -682,7 +755,7 @@ const PayInfo = (props) => {
         <div className="payI-price-all">
           <span>총 가격</span>
           <div className="payI-price">
-            <span>600,000</span>
+            <span>{memberPrice.toLocaleString()}</span>
             <span>원</span>
           </div>
         </div>
