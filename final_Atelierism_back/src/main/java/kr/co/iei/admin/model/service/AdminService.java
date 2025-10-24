@@ -49,7 +49,13 @@ public class AdminService {
 	public Map selectBoardList(int reqPage, String memOrder) {
 		int numPerPage = 10;		//한 페이지당 게시물 수
 		int pageNaviSize = 5;		//페이지 네비 길이
-		int totalCount = adminDao.memberTotalCount();
+		int totalCount = 0;
+		if(memOrder.equals("m1")||memOrder.equals("m2")) {
+			totalCount = adminDao.memberTotalCount();
+		} else if(memOrder.equals("a1")||memOrder.equals("a2")||memOrder.equals("a3")) {
+			totalCount = adminDao.applicantTotalCount(memOrder);
+		}
+		System.out.println(totalCount);
 		PageInfo pi = pageInfoUtils.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);//ok
 		//pi랑 정렬기준을 둘 다 줘야하기때문에 Map이라는 객체로 묶어서 보냄
 		//정렬에 필요한건 start, end, memOrder 3가지라서 이것만 묶어서 보냄
@@ -58,12 +64,23 @@ public class AdminService {
 		orderMap.put("end", pi.getEnd());
 		orderMap.put("memOrder", memOrder);
 		//묶은뒤 전송
-		List reqList = adminDao.selectMemberList(orderMap);
-		//select 성공하면 다른 map으로 묶어서 전송해줌
-		Map<String, Object> map = new HashMap<String,Object>();
-		map.put("reqList", reqList);
-		map.put("pi", pi);
-		return map;
+		if(memOrder.equals("m1")||memOrder.equals("m2")) {
+			List reqList = adminDao.selectMemberList(orderMap);
+			//select 성공하면 다른 map으로 묶어서 전송해줌
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("reqList", reqList);
+			map.put("pi", pi);
+			return map;
+		}else if(memOrder.equals("a1")||memOrder.equals("a2")||memOrder.equals("a3")) {
+			List reqList = adminDao.selectApplicantList(orderMap);
+			//select 성공하면 다른 map으로 묶어서 전송해줌
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("reqList", reqList);
+			map.put("pi", pi);
+			return map;
+		}else {
+			return null;
+		}
 	}//selectBoardList
 
 }
