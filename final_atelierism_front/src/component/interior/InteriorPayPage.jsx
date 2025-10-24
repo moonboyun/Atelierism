@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const InteriorPayPage = () => {
+  const backServer = import.meta.env.VITE_BACK_SERVER;
   const [memberId, setMemberId] = useRecoilState(loginIdState);
   const [member, setMember] = useState({});
   const [interior, setInterior] = useState({});
   const [price, setPrice] = useState({});
-  const backServer = import.meta.env.VITE_BACK_SERVER;
   useEffect(() => {
     axios
       .post(`${backServer}/interior/${memberId}`)
@@ -37,7 +38,7 @@ const InteriorPayPage = () => {
           />
           <div className="payP-Designer-pay-box">
             <DesignerInfo />
-            <PayInfo />
+            <PayInfo interior={interior} />
           </div>
         </div>
       </div>
@@ -631,7 +632,33 @@ const DesignerInfo = () => {
   );
 };
 
-const PayInfo = () => {
+const PayInfo = (props) => {
+  const interior = props.interior;
+  const delInterior = () => {
+    Swal.fire({
+      title: "장바구니 삭제",
+      text: "장바구니 삭제하시겠습니까?",
+      reverseButtons: true,
+      showCancelButton: true,
+      cancelButtonText: "닫기",
+      confirmButtonText: "삭제하기",
+    }).then((select) => {
+      if (select.isConfirmed) {
+        axios
+          .delete(
+            `${import.meta.env.VITE_BACK_SERVER}/interior/${
+              interior.interiorNo
+            }`
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
   return (
     <div className="payI-info-box">
       <div className="payI-title">결제</div>
@@ -650,6 +677,7 @@ const PayInfo = () => {
           </label>
         </div>
         <button>결제하기</button>
+        <button onClick={delInterior}>삭제하기</button>
       </div>
     </div>
   );
