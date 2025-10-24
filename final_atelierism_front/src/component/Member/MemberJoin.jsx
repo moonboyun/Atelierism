@@ -376,7 +376,11 @@ const MemberJoin = () => {
                     {formatTime(time)}
                   </p>
                 )}
-                <button type="button" onClick={verifyCode}>
+                <button
+                  type="button"
+                  onClick={verifyCode}
+                  style={{ cursor: "pointer" }}
+                >
                   인증하기
                 </button>
                 {authMsg && (
