@@ -12,7 +12,7 @@ const InquiryWriter = () => {
   const [boardTitle, setBoardTitle] = useState("");
   const [option, setOption] = useState(1); // 1 이면 공개글 | 2 이면 비밀글
   const [boardContent, setBoardContent] = useState("");
-  const [inquiryPassword, setInquiryPassword] = useState(); // 게시글 비밀번호(기본값: 0)
+  const [inquiryPassword, setInquiryPassword] = useState(""); // 게시글 비밀번호(기본값: )
 
   const navigate = useNavigate();
   const Write = () => {
@@ -20,8 +20,9 @@ const InquiryWriter = () => {
       const form = new FormData();
       form.append("inquiryBoardTitle", boardTitle);
       form.append("inquiryBoardContent", boardContent);
-      form.append("inquiryBoardWriterId", memberId);
+      form.append("inquiryBoardWriter", memberId);
       form.append("inquiryBoardOption", option);
+
       if (option === 2) {
         form.append("inquiryPassword", inquiryPassword);
       }
