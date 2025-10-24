@@ -32,7 +32,7 @@ const RecoverId = () => {
           clearInterval(intervalRef.current);
           setMailCode(null);
           setAuthMsg("인증시간이 만료되었습니다.");
-          setAuthColor("red");
+          setAuthColor("#F67272");
           return 0;
         }
         return prev - 1;
@@ -46,7 +46,7 @@ const RecoverId = () => {
   const sendCode = async () => {
     if (!memberEmail) {
       setAuthMsg("이메일을 입력해주세요.");
-      setAuthColor("red");
+      setAuthColor("#F67272");
       return;
     }
 
@@ -63,7 +63,7 @@ const RecoverId = () => {
       setAuthColor("green");
     } catch (err) {
       setAuthMsg("인증코드 전송 실패");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
@@ -71,7 +71,7 @@ const RecoverId = () => {
   const verifyCode = () => {
     if (inputCode === mailCode) {
       setAuthMsg("인증 완료");
-      setAuthColor("blue");
+      setAuthColor("#40C79C");
       clearInterval(intervalRef.current);
       setMailCode(null);
       setTime(0);
