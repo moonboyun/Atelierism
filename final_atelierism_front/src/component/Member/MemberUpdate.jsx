@@ -113,17 +113,31 @@ const MemberUpdate = () => {
 
   const pwMatchMsgRef = useRef(null);
   const checkPw = () => {
-    pwMatchMsgRef.current.classList.remove("valid", "invalid");
+    // ref가 없으면 리턴 (렌더링 아직 안된 경우)
+    if (!pwMatchMsgRef.current) return;
 
-    if (memberPwRe === "") return;
+    // state 업데이트 반영 후 실행
+    setTimeout(() => {
+      const msgEl = pwMatchMsgRef.current;
 
-    if (memberNewPw === memberNewPwRe) {
-      pwMatchMsgRef.current.classList.add("valid");
-      pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
-    } else {
-      pwMatchMsgRef.current.classList.add("invalid");
-      pwMatchMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
-    }
+      // 혹시 이전 클래스 남아있으면 제거
+      msgEl.classList.remove("valid", "invalid");
+
+      // 값이 비어 있으면 메시지 숨김
+      if (!memberNewPwRe) {
+        msgEl.innerText = "";
+        return;
+      }
+
+      // 값 비교
+      if (memberNewPw === memberNewPwRe) {
+        msgEl.classList.add("valid");
+        msgEl.innerText = "비밀번호가 일치합니다.";
+      } else {
+        msgEl.classList.add("invalid");
+        msgEl.innerText = "비밀번호가 일치하지 않습니다.";
+      }
+    }, 0);
   };
 
   const [isModal, setIsModal] = useState(false);
