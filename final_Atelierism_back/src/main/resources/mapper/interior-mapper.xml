@@ -25,4 +25,7 @@
   <select id="selectInterior" resultType="interior">
   	select * from interior_tbl where interior_customer = #{memberId} and interior_payment_check = 0
   </select>
+  <delete id="deleteInterior">
+  	delete from interior_tbl where interior_no = #{interiorNo}
+  </delete>
 </mapper>
