@@ -117,9 +117,6 @@
 .join-wrap > .page-title {
   font-size: 24px;
 }
-.check-email {
-  margin-top: 10px;
-}
 .check-email > input {
   width: 55%;
   margin-right: 30px;
@@ -430,16 +427,22 @@
 .recover-wrap .input-wrap > .input-title {
   width: 20%;
   margin: 0 auto;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   border: 1px solid #f5f3f0;
   background-color: #f5f3f0;
   margin-right: 20px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  margin-left: 70px;
+  margin-left: 100px;
+  margin-top: 10px;
 }
-
+.recover-wrap .input-wrap > .input-item {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 32px;
+}
+.recover-wrap .input-wrap .input-item input#memberPw {
+  margin-top: 30px;
+}
 .recover-wrap .input-wrap > .input-item > input {
   margin: 0 auto;
   font-size: 15px;
@@ -449,6 +452,7 @@
   margin: 0 auto;
   width: 60%;
   margin-top: 20px;
+  float: left;
 }
 .recover-wrap .input-wrap > .input-item > button {
   border: 1px solid #8aa996;
@@ -459,24 +463,18 @@
   margin-left: 20px;
   cursor: pointer;
 }
-.recover-wrap .input-wrap > .input-item > .check-email > input {
-  margin-left: 90px;
-}
 .recover-wrap .input-wrap > .input-item > .check-email > button {
-  margin-left: 35px;
+  margin-left: 10px;
   cursor: pointer;
 }
 .recovery-btn {
   text-align: center;
 }
 .recovery-btn > button {
-  margin-top: 30px;
   border: 1px solid #8aa996;
   border-radius: 8px;
   padding: 10px 30px;
   background-color: #8aa996;
   cursor: pointer;
-}
-.recovery-btn > button > a {
   color: #fff;
 }
