@@ -389,7 +389,7 @@ const MemberUpdate = () => {
                     <button
                       type="button"
                       onClick={verifyCode}
-                      style={{ marginTop: "18px" }}
+                      style={{ marginTop: "18px", cursor: "pointer" }}
                     >
                       인증하기
                     </button>
