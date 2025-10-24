@@ -23,7 +23,7 @@ npm install quill-image-resize-module-react
 ------------------------------------------
 2025-10-15 10:42 박준석
 npm install quill
-확인: 조성빈
+확인: 조성빈, 문보윤
 
 2025-10-15 16:07 문보윤
 npm install @mui/x-charts
@@ -42,10 +42,10 @@ npm install chartjs-plugin-datalabels
 -------------------------------------------
 2025-10-22 10:05 조성빈
 npm install react-daum-postcode
-확인 : 이설항
+확인 : 이설항, 문보윤
 
 2025-10-22 11:00 조성빈
 npm install react-modal
 npm install react-modal @types/react-modal
-확인 : 이설항
+확인 : 이설항, 문보윤
 -------------------------------------------
