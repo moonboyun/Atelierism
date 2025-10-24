@@ -638,6 +638,7 @@ const PayInfo = (props) => {
     Swal.fire({
       title: "장바구니 삭제",
       text: "장바구니 삭제하시겠습니까?",
+      icon: "warning",
       reverseButtons: true,
       showCancelButton: true,
       cancelButtonText: "닫기",
