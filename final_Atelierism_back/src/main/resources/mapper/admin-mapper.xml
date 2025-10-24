@@ -44,6 +44,24 @@
 		select count(*) from member_tbl where member_type = 3
 	</select>
 	
+	<select id="applicantTotalCount" resultType="int">
+		select count(*) 
+		from member_tbl m left join designer_tbl d on
+		m.member_id = d.member_id
+		<if test="memOrder == 'a1'">
+			where m.member_type = 3 and m.designer_enter = 0 
+			and d.designer_career is not null
+		</if>
+		<if test="memOrder == 'a2'">
+			where m.member_type = 2 and m.designer_enter = 1 
+			and d.designer_career is not null
+		</if>
+		<if test="memOrder == 'a3'">
+			where m.member_type = 3 and m.designer_enter = 2 
+			and d.designer_career is not null
+		</if>
+	</select>
+	
 	<select id="selectMemberList" resultType="member">
     SELECT * FROM (
         SELECT rownum AS rnum, b.*
@@ -62,6 +80,28 @@
             <if test="memOrder == 'm2'">
                 ORDER BY enroll_date ASC
             </if>
+            ) b
+    )
+    WHERE rnum BETWEEN #{start} AND #{end}
+</select>
+
+<select id="selectApplicantList" resultType="applicant">
+	SELECT * FROM (
+        SELECT rownum AS rnum, b.*
+        FROM (
+            select m.designer_enter, m.member_phone, m.member_name, d.DESIGNER_CAREER , m.member_id
+		from member_tbl m left join designer_tbl d on
+		m.member_id = d.member_id
+		<if test="memOrder == 'a1'">
+			where m.designer_enter = 0 and m.member_type = 3 and d.designer_career is not null
+			ORDER BY member_name DESC
+		</if>
+		<if test="memOrder == 'a3'">
+			where m.designer_enter = 2 ORDER BY member_name DESC
+		</if>
+		<if test="memOrder == 'a2'">
+			where m.designer_enter = 1 ORDER BY member_name DESC
+		</if>
             ) b
     )
     WHERE rnum BETWEEN #{start} AND #{end}

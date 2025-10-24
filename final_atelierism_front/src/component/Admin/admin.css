@@ -486,6 +486,18 @@
   border-top: 1px solid var(--gray3);
   border-bottom: 1px solid var(--gray3);
 }
+.admin-list-table > thead > tr > th:first-child {
+  width: 20%;
+}
+.admin-list-table > thead > tr > th:nth-child(2) {
+  width: 30%;
+}
+.admin-list-table > thead > tr > th:nth-child(3) {
+  width: 30%;
+}
+.admin-list-table > thead > tr > th:last-child {
+  width: 20%;
+}
 .admin-list-table > tbody > tr {
   height: 40px;
   font-size: 18px;

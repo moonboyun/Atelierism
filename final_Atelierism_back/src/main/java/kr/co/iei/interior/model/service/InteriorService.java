@@ -28,4 +28,10 @@ public class InteriorService {
 		InteriorDTO interior = interiorDao.selectInterior(memberId);
 		return interior;
 	}
+	
+	@Transactional
+	public int deleteInterior(int interiorNo) {
+		int result = interiorDao.deleteInterior(interiorNo);
+		return result;
+	}
 }

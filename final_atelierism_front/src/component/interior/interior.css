@@ -508,6 +508,23 @@ label .payI-checked {
 .orderI-evenly {
   justify-content: space-evenly;
 }
+.orderI-interior-Why {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.orderI-interior-Why > label {
+  font-size: 20px;
+  font-weight: 500;
+}
+.orderI-interior-Why > input {
+  width: 500px;
+  border: none;
+  border-bottom: 1px solid var(--gray1);
+  font-size: 18px;
+  padding: 5px;
+}
 /*----------------------------payPage-space-check------------------------------------*/
 .designerI-info-box {
   margin-top: 30px;
@@ -625,4 +642,15 @@ label .payI-checked {
   color: #fff;
   font-size: 24px;
   font-weight: 600;
+}
+.payI-price-box > button:last-child {
+  width: 60px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: none;
+  color: var(--gray5);
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0;
+  cursor: pointer;
 }

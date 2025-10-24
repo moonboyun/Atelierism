@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PageNaviGation from "../utils/PageNavigation";
+import { Link } from "react-router-dom";
 
 const AdminList = (props) => {
   console.log("aaa", props.data);
@@ -43,24 +44,7 @@ const AdminList = (props) => {
     /*위에서 안 돌고 내려오면 이 useEffect가 돌아감, 여기서 setMemOrder가 돌아가서 위에 useEffect가 다시 돌아감*/
     setMemOrder(data);
   }, [data]);
-  //제일 처음에 데이터를 가져오는 axios 얘도 처음에req페이지를 들고 가야함
-  //안씀
-  //처음 정렬은
-  /*useEffect(() => {
-    axios
-      .get(`${backServer}/admin/adminList`, {
-        params: {
-          pageList: pageList,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setListData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);*/
+
   return (
     <div className="admin-list-all-wrap" key={"data-tb-" + props.data}>
       <div className="admin-list-title">
@@ -76,6 +60,7 @@ const AdminList = (props) => {
             className="admin-select-box"
             onChange={(e) => {
               setMemOrder(e.target.value);
+              setReqPage(1);
             }}
           >
             <option value={"m1"}>최신순</option>
@@ -86,6 +71,7 @@ const AdminList = (props) => {
             className="admin-select-box"
             onChange={(e) => {
               setMemOrder(e.target.value);
+              setReqPage(1);
             }}
           >
             <option value={"d1"}>최근 3개월</option>
@@ -97,11 +83,12 @@ const AdminList = (props) => {
             className="admin-select-box"
             onChange={(e) => {
               setMemOrder(e.target.value);
+              setReqPage(1);
             }}
           >
-            <option value={"a1"}>수락됨</option>
-            <option value={"a2"}>반려됨</option>
-            <option value={"a3"}>대기중</option>
+            <option value={"a1"}>대기중</option>
+            <option value={"a2"}>수락됨</option>
+            <option value={"a3"}>반려됨</option>
           </select>
         )}
       </div>
@@ -131,18 +118,56 @@ const AdminList = (props) => {
               </tr>
             )}
           </thead>
-          <tbody>
-            {listData.map((list, i) => {
-              return (
-                <tr key={"listData-" + i}>
-                  <td>{list.memberId}</td>
-                  <td>{list.memberName}</td>
-                  <td>{list.memberPhone}</td>
-                  {list.memberType === 3 && <td>일반회원</td>}
-                </tr>
-              );
-            })}
-          </tbody>
+          {memOrder === "m1" || memOrder === "m2" ? (
+            <tbody>
+              {listData.map((list, i) => {
+                return (
+                  <tr key={"listData-" + i}>
+                    <td>{list.memberId}</td>
+                    <td>{list.memberName}</td>
+                    <td>{list.memberPhone}</td>
+                    {list.memberType === 3 && <td>일반회원</td>}
+                  </tr>
+                );
+              })}
+            </tbody>
+          ) : memOrder === "d1" || memOrder === "d2" || memOrder === "d3" ? (
+            <tbody>
+              {listData.map((list, i) => {
+                return (
+                  <tr key={"listData-" + i}>
+                    <td>{list.memberId}</td>
+                    <td>{list.memberName}</td>
+                    <td>{list.memberPhone}</td>
+                    {list.memberType === 3 && <td>일반회원</td>}
+                  </tr>
+                );
+              })}
+            </tbody>
+          ) : (
+            <tbody>
+              {listData.map((list, i) => {
+                return (
+                  <tr key={"listData-" + i}>
+                    <td>
+                      <Link to={"/admin/applicantDetail/" + list.memberId}>
+                        {list.memberName}
+                      </Link>
+                    </td>
+                    <td>{list.memberPhone}</td>
+                    <td>{list.designerCareer}년</td>
+                    {list.designerEnter === 0 ? (
+                      <td>대기중</td>
+                    ) : list.designerEnter === 1 ? (
+                      <td>수락됨</td>
+                    ) : (
+                      <td>반려됨</td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          )}
         </table>
       </div>
       {/* 페이징 */}

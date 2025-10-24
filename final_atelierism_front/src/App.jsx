@@ -5,7 +5,7 @@ import MemberJoin from "./component/member/MemberJoin";
 import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/member/Agreement";
-import Applicantdetail from "./component/admin/Applicantdetail";
+import Applicantdetail from "./component/Admin/Applicantdetail";
 import MemberInfo from "./component/member/MemberInfo";
 import MemberUpdate from "./component/member/MemberUpdate";
 import Payment from "./component/Member/Payment";
@@ -85,6 +85,7 @@ function App() {
           <Route path="member/payment" element={<Payment />} />
           {/*----------------------admin---------------------*/}
           <Route path="/admin/*" element={<AdminMain />} />
+
           {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
           <Route path="/board/review" element={<BoardReview />} />

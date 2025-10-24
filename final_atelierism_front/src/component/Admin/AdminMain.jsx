@@ -4,6 +4,7 @@ import AdminSalesStatus from "./AdminSalesStatus";
 import { useState } from "react";
 import AdminMypage from "./AdminMypage";
 import AdminList from "./AdminList";
+import Applicantdetail from "./Applicantdetail";
 const AdminMain = () => {
   const [menus, setMenus] = useState([
     { url: "/admin/sales", text: "매출 현황" },
@@ -25,6 +26,10 @@ const AdminMain = () => {
             <Route path="/memberList" element={<AdminList data={"m1"} />} />
             <Route path="/designerList" element={<AdminList data={"d1"} />} />
             <Route path="/applicantList" element={<AdminList data={"a1"} />} />
+            <Route
+              path="/applicantDetail/:memberId"
+              element={<Applicantdetail />}
+            />
           </Routes>
         </section>
       </div>

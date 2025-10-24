@@ -23,32 +23,36 @@ const MemberUpdate = () => {
     { url: "/member/payment", text: "결제 내역" },
   ]);
   const formatPhoneNumber = (value) => {
-    // 숫자만 추출
+    // 문자열 안에 숫자가 아닌 문자들을 모두 제거하는 로직
+    //-> /\D/g : 숫자가 아닌 문자(\D) 전체(g) 찾기
     value = value.replace(/\D/g, "");
 
     if (value.length < 4) return value; // 3자리 이하
 
     if (value.length < 8) {
-      // 4~7자리 (010-1234)
+      // 전화번호 앞에서 7자리 기준으로 하이픈 한개 포함
       return value.slice(0, 3) + "-" + value.slice(3);
     }
 
     // 8자리 이상 (010-1234-5678)
     return (
+      //문자열(value)의 특정 위치에서 잘라서(slice) 그 사이에 하이픈을 넣는 로직
       value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
     );
   };
   const inputMemberData = (e) => {
     const name = e.target.name;
     let value = e.target.value;
+
+    //정보수정 시 전화번호 입력란에 도착하면
     if (name === "memberPhone") {
-      // 숫자만 추출
+      // 숫자만 추출해서
       value = value.replace(/\D/g, "");
 
-      // 3자리마다 '-' 삽입
+      // 3자리마다 '-' 삽입하고
       value = formatPhoneNumber(value, 3, "-");
 
-      // 마지막에 '-'가 붙으면 제거 (ex: 010-)
+      // 마지막에 '-'가 붙으면 제거
       if (value.endsWith("-")) {
         value = value.slice(0, -1);
       }
@@ -109,17 +113,31 @@ const MemberUpdate = () => {
 
   const pwMatchMsgRef = useRef(null);
   const checkPw = () => {
-    pwMatchMsgRef.current.classList.remove("valid", "invalid");
+    // ref가 없으면 리턴 (렌더링 아직 안된 경우)
+    if (!pwMatchMsgRef.current) return;
 
-    if (memberPwRe === "") return;
+    // state 업데이트 반영 후 실행
+    setTimeout(() => {
+      const msgEl = pwMatchMsgRef.current;
 
-    if (memberNewPw === memberNewPwRe) {
-      pwMatchMsgRef.current.classList.add("valid");
-      pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
-    } else {
-      pwMatchMsgRef.current.classList.add("invalid");
-      pwMatchMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
-    }
+      // 혹시 이전 클래스 남아있으면 제거
+      msgEl.classList.remove("valid", "invalid");
+
+      // 값이 비어 있으면 메시지 숨김
+      if (!memberNewPwRe) {
+        msgEl.innerText = "";
+        return;
+      }
+
+      // 값 비교
+      if (memberNewPw === memberNewPwRe) {
+        msgEl.classList.add("valid");
+        msgEl.innerText = "비밀번호가 일치합니다.";
+      } else {
+        msgEl.classList.add("invalid");
+        msgEl.innerText = "비밀번호가 일치하지 않습니다.";
+      }
+    }, 0);
   };
 
   const [isModal, setIsModal] = useState(false);
@@ -142,13 +160,29 @@ const MemberUpdate = () => {
     setMember({ ...member, memberAddr: data.address });
   };
 
+  // 사용자가 입력한 이메일 주소를 저장하는 상태
   const [email, setEmail] = useState("");
+
+  // 서버에서 전송된 인증 코드를 저장하는 상태
+  // null일 때는 아직 코드가 발급되지 않은 상태
   const [mailCode, setMailCode] = useState(null);
+
+  // 사용자가 직접 입력한 인증번호를 저장하는 상태
   const [inputCode, setInputCode] = useState("");
+
+  // 인증 성공 / 실패 메시지를 저장하는 상태
   const [authMsg, setAuthMsg] = useState("");
+
+  // 인증 메시지 색상
   const [authColor, setAuthColor] = useState("black");
+
+  // 인증번호 입력창을 보여줄지 숨길지 결정하는 상태
+  // false면 안 보이고, true면 인증 입력칸이 보임
   const [isAuthVisible, setIsAuthVisible] = useState(false);
   const [time, setTime] = useState(180); // 3분 = 180초
+
+  // setInterval을 제어하기 위한 참조값 (interval ID 저장)
+  // useRef는 렌더링이 다시 일어나도 값이 유지됨
   const intervalRef = useRef(null);
   const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
@@ -164,7 +198,7 @@ const MemberUpdate = () => {
           clearInterval(intervalRef.current);
           setMailCode(null);
           setAuthMsg("인증시간이 만료되었습니다.");
-          setAuthColor("red");
+          setAuthColor("#F67272");
           return 0;
         }
         return prev - 1;
@@ -186,20 +220,20 @@ const MemberUpdate = () => {
       setMailCode(res.data);
     } catch (error) {
       setAuthMsg("인증코드 전송에 실패했습니다.");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
   const verifyCode = () => {
     if (inputCode === mailCode) {
       setAuthMsg("인증완료");
-      setAuthColor("blue");
+      setAuthColor("#40C79C");
       clearInterval(intervalRef.current);
       setMailCode(null);
       setTime(0);
     } else {
       setAuthMsg("인증번호를 입력하세요");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
@@ -218,15 +252,13 @@ const MemberUpdate = () => {
       });
       return;
     }
-
     try {
       const res = await axios.post(`${backServer}/member/checkPw`, {
         memberId: member.memberId, // 또는 memberId 상태값 사용
         memberPw: memberPw,
       });
-
       if (res.data === 1) {
-        // 보통 1이면 성공, 0이면 실패라고 예상
+        // 보통 1이면 성공, 0이면 실패
         Swal.fire({
           icon: "success",
           title: "비밀번호 인증 성공",
@@ -371,7 +403,7 @@ const MemberUpdate = () => {
                     <button
                       type="button"
                       onClick={verifyCode}
-                      style={{ marginTop: "18px" }}
+                      style={{ marginTop: "18px", cursor: "pointer" }}
                     >
                       인증하기
                     </button>
