@@ -173,7 +173,7 @@ const MemberJoin = () => {
           clearInterval(intervalRef.current);
           setMailCode(null);
           setAuthMsg("인증시간이 만료되었습니다.");
-          setAuthColor("red");
+          setAuthColor("#F67272");
           return 0;
         }
         return prev - 1;
@@ -195,20 +195,20 @@ const MemberJoin = () => {
       setMailCode(res.data);
     } catch (error) {
       setAuthMsg("인증코드 전송에 실패했습니다.");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
   const verifyCode = () => {
     if (inputCode === mailCode) {
       setAuthMsg("인증완료");
-      setAuthColor("blue");
+      setAuthColor("#40C79C");
       clearInterval(intervalRef.current);
       setMailCode(null);
       setTime(0);
     } else {
       setAuthMsg("인증번호를 입력하세요");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
