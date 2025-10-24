@@ -538,6 +538,11 @@ label .payI-checked {
   font-size: 20px;
   font-weight: 500;
 }
+.designerI-items {
+  margin-top: 10px;
+  height: 276px;
+  overflow: auto;
+}
 .designerI-item {
   border: 1px solid var(--gray1);
   border-radius: 8px;
