@@ -119,4 +119,14 @@ public class MemberController {
 		mailSender.sendMail(emailTitle, memberEmail, emailContent);
 		return sb.toString();
 	}//sendCode
+	
+	@PostMapping(value="/findId")
+	public ResponseEntity<String> recoverId(@RequestBody MemberDTO member){
+		String foundId = memberService.recoverId(member);
+		if(foundId != null) {
+			return ResponseEntity.ok(foundId);
+		}else {
+			return ResponseEntity.ok("");
+		}
+	}
 }
