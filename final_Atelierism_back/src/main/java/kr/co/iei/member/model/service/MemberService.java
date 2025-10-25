@@ -109,4 +109,9 @@ public class MemberService {
 		System.out.println("서비스 결과 : "+result);
 		return result;
 	}
+
+	public String recoverId(MemberDTO member) {
+		String foundId =  memberDao.recoverId(member);
+		return foundId;
+	}
 }
