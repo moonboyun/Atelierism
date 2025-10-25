@@ -19,4 +19,7 @@ public interface MemberDao {
 
 	int insertMember(MemberDTO member);
 
+	String recoverId(MemberDTO member);
+
+
 }
