@@ -27,4 +27,8 @@
 	<select id="searchIdMember" resultType="member">
 		select * from member_tbl where member_id = #{memberId}
 	</select>
+	
+	<select id="recoverId" resultType="String">
+		select member_id from member_tbl where member_name = #{memberName} and member_phone = #{memberPhone} and member_email = #{memberEmail}
+	</select>
 </mapper>
