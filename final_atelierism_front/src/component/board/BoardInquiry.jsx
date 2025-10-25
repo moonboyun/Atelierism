@@ -6,6 +6,8 @@ import { loginIdState } from "../utils/RecoilData";
 import InteriorApplication from "../interior/InteriorApplication";
 import axios from "axios";
 import PageNaviGation from "../utils/PageNavigation";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import LockIcon from "@mui/icons-material/Lock";
 
 const BoardInquiry = () => {
   const faq = [
@@ -152,13 +154,13 @@ const BoardInquiry = () => {
                 </Link>
               </div>
               <div className="qna-empty">
-                <table className="table-wrap" border={1}>
+                <table className="table-wrap">
                   <thead>
                     <tr>
-                      <th style={{ width: "10%" }}>번호</th>
+                      <th style={{ width: "5%" }}>번호</th>
                       <th style={{ width: "20%" }}>작성자</th>
-                      <th style={{ width: "35%" }}>제목</th>
-                      <th style={{ width: "15%" }}>상태</th>
+                      <th style={{ width: "45%" }}>제목</th>
+                      <th style={{ width: "10%" }}>상태</th>
                       <th style={{ width: "15%" }}>작성일</th>
                       <th style={{ width: "10%" }}>공개/비공개</th>
                     </tr>
@@ -168,11 +170,33 @@ const BoardInquiry = () => {
                       return (
                         <tr key={"inquiry-" + i}>
                           <td>{inquiry.inquiryBoardNo}</td>
-                          <td>{inquiry.inquiryBoardWriterId}</td>
+                          <td>{inquiry.inquiryBoardWriter}</td>
                           <td>{inquiry.inquiryBoardTitle}</td>
-                          <td>{inquiry.inquiryBoardStatus}</td>
+                          {inquiry.adminComment === null ? (
+                            <td style={{ border: "1px solid #333333" }}>
+                              답변대기
+                            </td>
+                          ) : (
+                            <td
+                              style={{
+                                border: "1px solid #333333",
+                                backgroundColor: "#8AA996",
+                                color: "#fff",
+                              }}
+                            >
+                              답변완료
+                            </td>
+                          )}
                           <td>{inquiry.inquiryBoardDate}</td>
-                          <td>{inquiry.inquiryBoardOption}</td>
+                          {inquiry.inquiryBoardOption === 1 ? (
+                            <td>
+                              <LockOpenIcon />
+                            </td>
+                          ) : (
+                            <td>
+                              <LockIcon />
+                            </td>
+                          )}
                         </tr>
                       );
                     })}

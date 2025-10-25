@@ -5,7 +5,7 @@ import MemberJoin from "./component/member/MemberJoin";
 import Header from "./component/common/Header";
 import Footer from "./component/common/Footer";
 import Agreement from "./component/member/Agreement";
-import Applicantdetail from "./component/admin/Applicantdetail";
+import Applicantdetail from "./component/Admin/Applicantdetail";
 import MemberInfo from "./component/member/MemberInfo";
 import MemberUpdate from "./component/member/MemberUpdate";
 import Payment from "./component/Member/Payment";
@@ -31,6 +31,7 @@ import DesignerInfo from "./component/designer/DesignerInfo";
 import axios from "axios";
 import { useEffect } from "react";
 import InteriorPayPage from "./component/interior/InteriorPayPage";
+import InquiryView from "./component/board/InquiryView";
 
 function App() {
   const [memberId, setMemberId] = useRecoilState(loginIdState); //회원 아이디를 저장하고 있는 state
@@ -84,12 +85,17 @@ function App() {
           <Route path="member/payment" element={<Payment />} />
           {/*----------------------admin---------------------*/}
           <Route path="/admin/*" element={<AdminMain />} />
+
           {/*----------------------board---------------------*/}
           <Route path="/board/review/writer" element={<ReviewWriter />} />
           <Route path="/board/review" element={<BoardReview />} />
           <Route path="/board/inquiry" element={<BoardInquiry />} />
           <Route path="/board/designer" element={<BoardDesigner />} />
           <Route path="/board/inquiry/writer" element={<InquiryWriter />} />
+          <Route
+            path="/board/inquiry/view/:inquiryBoardNo"
+            element={<InquiryView />}
+          />
           {/*----------------------designer---------------------*/}
           <Route path="/designer/intro" element={<Intro />} />
           <Route path="/designer/mypage" element={<DesignerMypage />} />

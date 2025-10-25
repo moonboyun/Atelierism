@@ -60,6 +60,7 @@ const AdminList = (props) => {
             className="admin-select-box"
             onChange={(e) => {
               setMemOrder(e.target.value);
+              setReqPage(1);
             }}
           >
             <option value={"m1"}>최신순</option>
@@ -70,6 +71,7 @@ const AdminList = (props) => {
             className="admin-select-box"
             onChange={(e) => {
               setMemOrder(e.target.value);
+              setReqPage(1);
             }}
           >
             <option value={"d1"}>최근 3개월</option>
@@ -81,6 +83,7 @@ const AdminList = (props) => {
             className="admin-select-box"
             onChange={(e) => {
               setMemOrder(e.target.value);
+              setReqPage(1);
             }}
           >
             <option value={"a1"}>대기중</option>
@@ -147,7 +150,7 @@ const AdminList = (props) => {
                 return (
                   <tr key={"listData-" + i}>
                     <td>
-                      <Link to={"/applicantDetail/" + list.memberId}>
+                      <Link to={"/admin/applicantDetail/" + list.memberId}>
                         {list.memberName}
                       </Link>
                     </td>

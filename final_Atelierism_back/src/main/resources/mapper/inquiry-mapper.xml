@@ -7,7 +7,7 @@
 	
 	<insert id="insertBoard">
 		insert into inquiry_board_tbl values
-		(#{inquiryBoardNo}, #{inquiryBoardTitle}, #{inquiryBoardWriterId}, #{inquiryBoardContent}, #{inquiryBoardOption}, #{inquiryBoardStatus}, #{inquiryPassword}, to_char(sysdate, 'yyyy-mm-dd'))
+		(#{inquiryBoardNo}, #{inquiryBoardTitle}, #{inquiryBoardWriter}, #{inquiryBoardContent}, #{inquiryBoardOption}, #{inquiryBoardStatus}, #{adminComment}, #{inquiryPassword}, to_char(sysdate, 'yyyy-mm-dd'))
 	</insert>
 	
 	<select id="totalCount" resultType="int">
@@ -21,10 +21,11 @@
 					(select
 						inquiry_board_no,
 						inquiry_board_title,
-						inquiry_board_writer_id,
+						inquiry_board_writer,
 						inquiry_board_content,
 						inquiry_board_option,
 						inquiry_board_status,
+						admin_comment,
 						inquiry_password,
 						inquiry_board_date
 					from inquiry_board_tbl order by inquiry_board_no asc)b)
