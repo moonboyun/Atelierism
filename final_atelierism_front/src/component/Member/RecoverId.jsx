@@ -12,6 +12,27 @@ const RecoverId = () => {
   const [memberPhone, setMemberPhone] = useState("");
   const [memberEmail, setMemberEmail] = useState("");
 
+  // ✅ 전화번호 자동 하이픈 포맷 함수
+  const formatPhoneNumber = (value) => {
+    value = value.replace(/\D/g, ""); // 숫자만 추출
+
+    if (value.length < 4) return value; // 3자리 이하 그대로
+    if (value.length < 8) {
+      return value.slice(0, 3) + "-" + value.slice(3); // 010-1234
+    }
+    return (
+      value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
+    ); // 010-1234-5678
+  };
+
+  // ✅ 전화번호 입력 시 하이픈 자동 추가
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // 숫자만
+    value = formatPhoneNumber(value);
+    if (value.endsWith("-")) value = value.slice(0, -1); // 맨 끝이 '-'면 제거
+    setMemberPhone(value);
+  };
+
   // 이메일 인증 관련 상태
   const [mailCode, setMailCode] = useState(null);
   const [inputCode, setInputCode] = useState("");
@@ -77,7 +98,7 @@ const RecoverId = () => {
       setTime(0);
     } else {
       setAuthMsg("인증번호가 일치하지 않습니다.");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
@@ -117,7 +138,7 @@ const RecoverId = () => {
           html: `회원님의 아이디는 <b>${res.data}</b> 입니다.`,
           icon: "success",
         }).then(() => {
-          navigate("/member/login"); // 아이디 확인 후 로그인 페이지로 이동
+          navigate("/member/login");
         });
       } else {
         Swal.fire("실패", "입력하신 정보와 일치하는 계정이 없습니다.", "error");
@@ -156,13 +177,14 @@ const RecoverId = () => {
               type="text"
               id="memberPhone"
               value={memberPhone}
-              onChange={(e) => setMemberPhone(e.target.value)}
+              onChange={handlePhoneChange}
               placeholder="전화번호를 입력해주세요"
               required
               style={{ width: "400px" }}
             />
           </div>
         </div>
+
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="memberEmail" style={{ maxWidth: "92px" }}>
