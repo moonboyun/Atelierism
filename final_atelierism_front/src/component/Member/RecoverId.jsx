@@ -222,6 +222,7 @@ const RecoverId = () => {
                     padding: "5px 15px",
                     borderRadius: "8px",
                     color: "#fff",
+                    cursor: "pointer",
                   }}
                 >
                   인증코드 전송
@@ -263,6 +264,7 @@ const RecoverId = () => {
                     borderRadius: "8px",
                     color: "#fff",
                     width: "100px",
+                    cursor: "pointer",
                   }}
                 >
                   인증하기
@@ -295,14 +297,14 @@ const RecoverId = () => {
           },
         }}
       >
-        <h2 style={{ marginBottom: "20px" }}>아이디 찾기 결과</h2>
-        <p>
+        <h2 style={{ marginBottom: "10px" }}>아이디 찾기 결과</h2>
+        <p style={{ fontSize: "18px" }}>
           회원님의 아이디는 <b style={{ color: "#40C79C" }}>{foundId}</b>{" "}
           입니다.
         </p>
         <button
           style={{
-            marginTop: "30px",
+            marginTop: "50px",
             padding: "10px 20px",
             border: "none",
             backgroundColor: "#8aa996",
