@@ -409,3 +409,231 @@
 .btn.ghost:hover {
   background: #f7f7f7;
 }
+
+/*=============== InquiryView =================*/
+/* ===== 공통 토큰 ===== */
+:root {
+  --bg: #f5f7f9;
+  --card: #fff;
+  --line: #e5e7eb;
+  --text: #222;
+  --muted: #6b7280;
+  --accent: #2f2f2f;
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* 페이지 래퍼 */
+.section-view-page {
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 48px 16px 80px;
+  box-sizing: border-box;
+  color: var(--text);
+}
+.section-view-page .head-title {
+  max-width: 840px;
+  margin: 0 auto 20px;
+}
+.section-view-page .head-title h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* 메인 래퍼 */
+.inquiry-view-wrap,
+.inquiry-view-div {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* ===== 상단 카드 (작성자/제목/내용) ===== */
+.user-data-div {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* 작성자/날짜 줄 */
+.writer-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+.writer-div .writer {
+  font-weight: 600;
+  color: var(--accent);
+}
+.writer-div .date {
+  color: var(--muted);
+}
+
+/* 제목 줄 */
+.title-div {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  background: #fbfbfb;
+}
+.title-div .title {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+/* 본문(HTML 포함) */
+.inquiry-content-wrap {
+  padding: 24px 20px 32px;
+  min-height: 320px;
+  background: var(--card);
+  line-height: 1.75;
+  color: var(--text);
+}
+.inquiry-content-wrap img,
+.inquiry-content-wrap video,
+.inquiry-content-wrap iframe {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.inquiry-content-wrap h1,
+.inquiry-content-wrap h2,
+.inquiry-content-wrap h3 {
+  margin: 18px 0 10px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.inquiry-content-wrap p {
+  margin: 10px 0;
+}
+.inquiry-content-wrap ul,
+.inquiry-content-wrap ol {
+  padding-left: 1.2rem;
+}
+.inquiry-content-wrap blockquote {
+  margin: 14px 0;
+  padding: 12px 14px;
+  background: #f9fafb;
+  border-left: 3px solid var(--line);
+  color: #374151;
+  border-radius: 6px;
+}
+
+/* 목록 버튼 */
+.list-button {
+  display: flex;
+  justify-content: center;
+  margin: 18px auto 28px;
+}
+.list-button .btn-primary.lg {
+  min-width: 160px;
+  height: 40px;
+  line-height: 38px;
+  border-radius: 8px;
+}
+
+/* ===== 관리자 답변 카드 ===== */
+.admin-comment-div {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.admin-comment-section {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* 읽기 섹션(항상 표시) */
+.admin-comment-read {
+  border-bottom: 1px solid var(--line);
+  background: #fbfbfb;
+}
+.admin-comment-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.admin-comment-top .status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.admin-comment-top .status.done {
+  background: #8aa996;
+  color: #fff;
+}
+.admin-comment-top .status.wait {
+  background: #e5e7eb;
+  color: #374151;
+}
+.admin-comment-text {
+  padding: 18px 20px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* 편집 섹션(관리자 전용) */
+.admin-comment-edit {
+  padding: 16px 20px 20px;
+}
+.admin-comment-edit input[type="text"],
+.admin-comment-edit textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+  min-height: 44px;
+}
+.admin-comment-edit input[type="text"]:focus,
+.admin-comment-edit textarea:focus {
+  border-color: #9ca3af;
+}
+.admin-comment-edit .btn-primary.lg {
+  margin-top: 12px;
+  min-width: 120px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+/* 비밀글 게이트 */
+.secret-gate {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+.secret-gate p {
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+.secret-gate input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.secret-gate .btn-primary.lg {
+  min-width: 120px;
+  height: 40px;
+  border-radius: 8px;
+}
