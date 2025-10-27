@@ -129,4 +129,10 @@ public class MemberController {
 			return ResponseEntity.ok("");
 		}
 	}
+	
+	@PatchMapping(value="/resetPw")
+	public ResponseEntity<Integer> resetPw(@RequestBody MemberDTO member) {
+	    int result = memberService.resetPw(member);
+	    return ResponseEntity.ok(result);
+	}
 }
