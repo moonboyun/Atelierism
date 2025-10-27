@@ -32,8 +32,6 @@ const DesignerApplyFrm = () => {
 
   const handleInfoChange = (e) => {
     const { name, value } = e.target;
-    // designerCareer 또는 designerAge 필드일 경우, 숫자형으로 변환해줍니다.
-    // 그 외에는 문자열로 처리합니다.
     const processedValue =
       name === "designerCareer" || name === "designerAge"
         ? parseInt(value) || 0
@@ -80,10 +78,20 @@ const DesignerApplyFrm = () => {
   };
 
   const handleSubmit = () => {
+    const filteredCareerList = careerList.filter(
+      (item) =>
+        item.designerCareerSy !== "" ||
+        item.designerCareerEy !== "" ||
+        item.designerCareerCom !== ""
+    );
+
+    const filteredAwardList = awardList.filter(
+      (item) => item.designerAwardsDete !== "" || item.designerAwards !== ""
+    );
     const requestData = {
       designerInfo: { ...designerInfo, memberId },
-      careerList: careerList,
-      awardList: awardList,
+      careerList: filteredCareerList,
+      awardList: filteredAwardList,
     };
 
     const backServer = import.meta.env.VITE_BACK_SERVER;
