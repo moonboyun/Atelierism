@@ -28,4 +28,17 @@
   <delete id="deleteInterior">
   	delete from interior_tbl where interior_no = #{interiorNo}
   </delete>
+  <select id="selectPaymentsByMemberId" resultType="interior">
+  SELECT 
+        INTERIOR_NO,
+        INTERIOR_DESIGNER,
+        INTERIOR_CUSTOMER,
+        INTERIOR_WHY,
+        INTERIOR_PRICE,
+        INTERIOR_PAYMENT_DATE
+    		FROM INTERIOR_TBL
+    		WHERE INTERIOR_CUSTOMER = #{memberId}
+      		AND INTERIOR_PAYMENT_CHECK = 1
+    		ORDER BY INTERIOR_PAYMENT_DATE DESC
+    </select>
 </mapper>
