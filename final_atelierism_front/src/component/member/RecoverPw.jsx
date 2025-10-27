@@ -22,6 +22,8 @@ const RecoverPw = () => {
   const pwRegMsgRef = useRef(null);
   const pwMatchMsgRef = useRef(null);
 
+  const navigate = useNavigate();
+
   // 아이디 존재 여부 확인
   const checkId = () => {
     const idReg = /^[a-zA-Z0-9]{6,12}$/;
@@ -38,7 +40,7 @@ const RecoverPw = () => {
       .catch((err) => console.log(err));
   };
 
-  // 이메일 인증
+  // 이메일 인증코드 전송
   const sendCode = async () => {
     try {
       clearInterval(intervalRef.current);
@@ -55,6 +57,7 @@ const RecoverPw = () => {
     }
   };
 
+  // 인증번호 검증
   const verifyCode = () => {
     if (inputCode === mailCode) {
       setAuthMsg("인증 완료");
@@ -68,6 +71,7 @@ const RecoverPw = () => {
     }
   };
 
+  // 타이머 작동
   useEffect(() => {
     if (!isAuthVisible) return;
 
@@ -88,6 +92,7 @@ const RecoverPw = () => {
     return () => clearInterval(intervalRef.current);
   }, [isAuthVisible]);
 
+  // 비밀번호 정규식 검사
   const checkPwReg = () => {
     pwRegMsgRef.current.classList.remove("valid", "invalid");
     const pwReg =
@@ -103,6 +108,7 @@ const RecoverPw = () => {
     }
   };
 
+  // 비밀번호 일치 검사
   const checkPwMatch = () => {
     pwMatchMsgRef.current.classList.remove("valid", "invalid");
     if (newPw === "") return;
@@ -115,6 +121,7 @@ const RecoverPw = () => {
     }
   };
 
+  // 시간 포맷
   const formatTime = (seconds) => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -123,7 +130,7 @@ const RecoverPw = () => {
       .padStart(2, "0")}`;
   };
 
-  const navigate = useNavigate();
+  // 비밀번호 재설정 요청
   const resetPw = () => {
     if (
       idCheck !== 1 ||
@@ -135,17 +142,22 @@ const RecoverPw = () => {
     }
 
     axios
-      .post(`${backServer}/member/checkPw`, {
+      .patch(`${backServer}/member/resetPw`, {
         memberId,
         memberPw: newPw,
       })
       .then((res) => {
         if (res.data === 1) {
-          Swal.fire("완료", "비밀번호가 재설정되었습니다.", "success");
+          Swal.fire("완료", "비밀번호가 재설정되었습니다.", "success").then(
+            () => {
+              navigate("/member/login");
+            }
+          );
+        } else {
+          Swal.fire("실패", "비밀번호 재설정에 실패했습니다.", "error");
         }
-        navigate("/member/login");
       })
-      .catch((err) => {
+      .catch(() => {
         Swal.fire("오류", "서버 오류가 발생했습니다.", "error");
       });
   };
@@ -163,7 +175,10 @@ const RecoverPw = () => {
           <div className="input-title">
             <label htmlFor="memberId">아이디</label>
           </div>
-          <div className="input-item">
+          <div
+            className="input-item"
+            style={{ flexDirection: "column", alignItems: "flex-start" }}
+          >
             <input
               type="text"
               id="memberId"
@@ -192,6 +207,7 @@ const RecoverPw = () => {
             </p>
           </div>
         </div>
+
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="memberEmail">이메일</label>
@@ -222,12 +238,6 @@ const RecoverPw = () => {
                   placeholder="인증번호를 입력해주세요"
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value)}
-                  style={{
-                    flex: 0.95,
-                    padding: "4px 8px",
-                    margin: 0,
-                    boxSizing: "border-box",
-                  }}
                 />
                 {authMsg && (
                   <p style={{ color: authColor, clear: "both" }}>{authMsg}</p>
@@ -243,18 +253,22 @@ const RecoverPw = () => {
                     {formatTime(time)}
                   </p>
                 )}
-                <button type="button" onClick={verifyCode}>
+                <button type="button" onClick={verifyCode} style={{}}>
                   인증하기
                 </button>
               </div>
             )}
           </div>
         </div>
+
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="newPw">새 비밀번호</label>
           </div>
-          <div className="input-item">
+          <div
+            className="input-item"
+            style={{ flexDirection: "column", alignItems: "flex-start" }}
+          >
             <input
               type="password"
               id="newPw"
@@ -267,18 +281,22 @@ const RecoverPw = () => {
             <p className="input-msg" ref={pwRegMsgRef}></p>
           </div>
         </div>
+
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="newPwRe">새 비밀번호 확인</label>
           </div>
-          <div className="input-item">
+          <div
+            className="input-item"
+            style={{ flexDirection: "column", alignItems: "flex-start" }}
+          >
             <input
               type="password"
               id="newPwRe"
               value={newPwRe}
               onChange={(e) => setNewPwRe(e.target.value)}
               onBlur={checkPwMatch}
-              placeholder="비밀번호를 확인해주세요"
+              placeholder="비밀번호를 다시 입력해주세요"
               required
             />
             <p className="input-msg" ref={pwMatchMsgRef}></p>
