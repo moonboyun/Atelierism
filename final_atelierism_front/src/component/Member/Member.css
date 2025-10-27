@@ -460,6 +460,18 @@
   border-bottom: 1px solid var(--gray4);
   font-size: 18px;
 }
+.check-email p {
+  margin: 0;
+  font-size: 14px;
+  color: inherit; /* authColor가 적용되도록 */
+  line-height: 1.2; /* 버튼과 글씨 높이 맞추기 */
+  white-space: nowrap; /* 한 줄 유지 */
+}
+
+.check-email button {
+  margin-left: auto; /* 버튼을 오른쪽 끝으로 밀기 */
+  white-space: nowrap;
+}
 .recover-wrap .input-wrap > .input-item > input {
   margin: 0 auto;
   font-size: 18px;

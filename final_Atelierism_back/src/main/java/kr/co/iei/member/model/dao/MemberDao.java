@@ -11,7 +11,7 @@ public interface MemberDao {
 
 	int deleteMember(String memberId);
 
-	int updateMemeber(MemberDTO member);
+	int updateMember(MemberDTO member);
 
 	MemberDTO searchIdMember(String memberId);
 
@@ -20,6 +20,8 @@ public interface MemberDao {
 	int insertMember(MemberDTO member);
 
 	String recoverId(MemberDTO member);
+
+	int updatePassword(MemberDTO member);
 
 
 }

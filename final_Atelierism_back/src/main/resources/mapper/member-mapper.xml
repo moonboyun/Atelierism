@@ -15,7 +15,7 @@
 	<delete id="deleteMember">
 		delete from member_tbl where member_id = #{memberId}
 	</delete>
-	<update id="updateMemeber">
+	<update id="updateMember">
 		update member_tbl set
 			member_pw = #{memberPw},
 			member_phone = #{memberPhone},
@@ -31,4 +31,10 @@
 	<select id="recoverId" resultType="String">
 		select member_id from member_tbl where member_name = #{memberName} and member_phone = #{memberPhone} and member_email = #{memberEmail}
 	</select>
+	
+	<update id="updatePassword">
+	    update member_tbl
+	    set member_pw = #{memberPw}
+	    where member_id = #{memberId}
+	</update>
 </mapper>
