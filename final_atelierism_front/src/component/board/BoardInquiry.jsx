@@ -149,9 +149,11 @@ const BoardInquiry = () => {
             <div className="qna-box">
               <div className="qna-head">
                 <div>1:1 문의 게시판</div>
-                <Link to="/board/inquiry/writer" className="btn-primary sm">
-                  글 작성
-                </Link>
+                {memberId && (
+                  <Link to="/board/inquiry/writer" className="btn-primary sm">
+                    글 작성
+                  </Link>
+                )}
               </div>
               <div className="qna-empty">
                 <table className="table-wrap">
@@ -168,7 +170,15 @@ const BoardInquiry = () => {
                   <tbody>
                     {inquiryList.map((inquiry, i) => {
                       return (
-                        <tr key={"inquiry-" + i}>
+                        <tr
+                          key={"inquiry-" + i}
+                          onClick={() => {
+                            navigate(
+                              `/board/inquiry/view/${inquiry.inquiryBoardNo}`
+                            );
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
                           <td>{inquiry.inquiryBoardNo}</td>
                           <td>{inquiry.inquiryBoardWriter}</td>
                           <td>{inquiry.inquiryBoardTitle}</td>
