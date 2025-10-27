@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.iei.designer.model.dto.AwardsCareerDTO;
+import kr.co.iei.designer.model.dto.CareerDetailDTO;
+import kr.co.iei.designer.model.dto.DesignerApplyRequestDTO;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.designer.model.dto.MemberDesignerDTO;
 import kr.co.iei.designer.model.service.DesignerService;
@@ -38,5 +41,16 @@ public class DesignerController {
 		
 		return ResponseEntity.ok(list);
 	}
+	
+	@PostMapping("/apply")
+    public ResponseEntity<Integer> applyDesigner(@RequestBody DesignerApplyRequestDTO requestData) {
+        int result = designerService.applyDesigner(
+            requestData.getDesignerInfo(),
+            requestData.getCareerList(),
+            requestData.getAwardList()
+        );
+
+        return ResponseEntity.ok(result);
+    }
 	
 }
