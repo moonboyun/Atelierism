@@ -36,11 +36,7 @@ public class MemberService {
 	}
 
 	public LoginMemberDTO login(MemberDTO member) {
-		System.out.println("서비스 member : " + member);
 		MemberDTO m = memberDao.selectOneMember(member.getMemberId());
-		System.out.println("서비스 m : "+m);
-		System.out.println("member.pw : "+member.getMemberPw());
-		System.out.println("m.pw : "+m.getMemberPw());
 		if(m != null) {
 			if(encoder.matches(member.getMemberPw(), m.getMemberPw())) {				
 				String accessToken = jwtUtil.createAccessToken(m.getMemberId(), m.getMemberType());
@@ -99,14 +95,10 @@ public class MemberService {
 
 	@Transactional
 	public int insertMember(MemberDTO member) {
-		System.out.println("서비스 멤버 : "+member);
 		String memberPw = member.getMemberPw();
-		System.out.println("일반 비번 : "+memberPw);
 		String encPw = encoder.encode(memberPw);
-		System.out.println("암호화 비번 : "+ encPw);
 		member.setMemberPw(encPw);
 		int result = memberDao.insertMember(member);
-		System.out.println("서비스 결과 : "+result);
 		return result;
 	}
 
