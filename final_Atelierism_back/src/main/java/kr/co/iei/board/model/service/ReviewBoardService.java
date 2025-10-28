@@ -58,5 +58,10 @@ public class ReviewBoardService {
 		}
 	}
 
+	public List selectReviewList() {
+		List list = reviewBoardDao.selectReviewList();
+		return list;
+	}
+
 	
 }// ReviewBoardService
