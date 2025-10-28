@@ -639,7 +639,7 @@ label .payI-checked {
   justify-content: center;
   gap: 10px;
 }
-.payI-price-box > button {
+.payI-btn-group > button {
   border: none;
   background-color: var(--main1);
   padding: 10px 0px;
@@ -649,7 +649,12 @@ label .payI-checked {
   font-weight: 600;
   transition: 0.2s;
 }
-.payI-price-box > button:last-child {
+.payI-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.payI-btn-group > button:last-child {
   width: 60px;
   margin: 0 auto;
   background-color: #fff;
@@ -660,7 +665,7 @@ label .payI-checked {
   padding: 0;
   cursor: pointer;
 }
-.payI-price-box > .payI-pat-btn:hover {
+.payI-btn-group > .payI-pay-btn:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
