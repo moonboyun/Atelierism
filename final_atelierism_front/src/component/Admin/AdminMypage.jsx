@@ -2,8 +2,9 @@ import { colors } from "@mui/material";
 import SideMenu from "../utils/SideMenu";
 import "./Admin.css";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminChart from "./AdminChart";
+import axios from "axios";
 
 const AdminMypage = () => {
   const [menus, setMenus] = useState([
@@ -13,100 +14,99 @@ const AdminMypage = () => {
     { url: "/admin/designerList", text: "디자이너 리스트" },
     { url: "/admin/memberList", text: "회원 리스트" },
   ]);
+  const [mypageList, setMypageList] = useState(null);
+  const [applicantList, setApplicantList] = useState(null);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/admin/myPageList`)
+      .then((res) => {
+        console.log(res);
+        setMypageList(res.data);
+        setApplicantList(res.data.applicantList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="admin-mypage-all-wrap">
-      <div className="admin-mypage-wrap">
-        <section className="section-content">
-          <div className="admin-mypage-content1">
-            <div className="main-chart">
-              <h2>매출 현황</h2>
-              <div className="admin-chart-content">
-                <AdminChart />
+      {mypageList != null && (
+        <div className="admin-mypage-wrap">
+          <section className="section-content">
+            <div className="admin-mypage-content1">
+              <div className="main-chart">
+                <h2>매출 현황</h2>
+                <div className="admin-chart-content">
+                  <AdminChart />
+                </div>
+              </div>
+              <div className="applicant-list">
+                <h2>디자이너 신청자 리스트</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>이름</th>
+                      <th>상태</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {applicantList.map((applicant, i) => {
+                      return (
+                        <tr>
+                          <td>{applicant.memberName}</td>
+                          {applicant.designerEnter === 0 && <td>대기중</td>}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div className="applicant-list">
-              <h2>디자이너 신청자 리스트</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>이름</th>
-                    <th>상태</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>홍길동</td>
-                    <td>대기중</td>
-                  </tr>
-                  <tr>
-                    <td>홍길동</td>
-                    <td>대기중</td>
-                  </tr>
-                  <tr>
-                    <td>홍길동</td>
-                    <td>수락됨</td>
-                  </tr>
-                  <tr>
-                    <td>홍길동</td>
-                    <td>반려됨</td>
-                  </tr>
-                  <tr>
-                    <td>홍길동</td>
-                    <td>수락됨</td>
-                  </tr>
-                  <tr>
-                    <td>홍길동</td>
-                    <td>수락됨</td>
-                  </tr>
-                </tbody>
+            {/*admin-mypage-content1*/}
+            <div className="admin-mypage-content2">
+              <h2>이 달의 디자이너 순위 TOP 5</h2>
+              <table className="admin-designer-table" border={1}>
+                <tr>
+                  <th>디자이너 이름</th>
+                  <th> 입점일</th>
+                  <th>이번달 매출액</th>
+                  <th>매출성적</th>
+                </tr>
+                <tr>
+                  <td>김민지</td>
+                  <td>21/04/12</td>
+                  <td>41,000,000원</td>
+                  <td>1등</td>
+                </tr>
+                <tr>
+                  <td>김민지</td>
+                  <td>21/04/12</td>
+                  <td>41,000,000원</td>
+                  <td>2등</td>
+                </tr>
+                <tr>
+                  <td>김민지</td>
+                  <td>21/04/12</td>
+                  <td>41,000,000원</td>
+                  <td>3등</td>
+                </tr>
+                <tr>
+                  <td>김민지</td>
+                  <td>21/04/12</td>
+                  <td>41,000,000원</td>
+                  <td>4등</td>
+                </tr>
+                <tr>
+                  <td>김민지</td>
+                  <td>21/04/12</td>
+                  <td>41,000,000원</td>
+                  <td>5등</td>
+                </tr>
               </table>
             </div>
-          </div>
-          {/*admin-mypage-content1*/}
-          <div className="admin-mypage-content2">
-            <h2>이 달의 디자이너 순위 TOP 5</h2>
-            <table className="admin-designer-table" border={1}>
-              <tr>
-                <th>디자이너 이름</th>
-                <th> 입점일</th>
-                <th>이번달 매출액</th>
-                <th>매출성적</th>
-              </tr>
-              <tr>
-                <td>김민지</td>
-                <td>21/04/12</td>
-                <td>41,000,000원</td>
-                <td>1등</td>
-              </tr>
-              <tr>
-                <td>김민지</td>
-                <td>21/04/12</td>
-                <td>41,000,000원</td>
-                <td>2등</td>
-              </tr>
-              <tr>
-                <td>김민지</td>
-                <td>21/04/12</td>
-                <td>41,000,000원</td>
-                <td>3등</td>
-              </tr>
-              <tr>
-                <td>김민지</td>
-                <td>21/04/12</td>
-                <td>41,000,000원</td>
-                <td>4등</td>
-              </tr>
-              <tr>
-                <td>김민지</td>
-                <td>21/04/12</td>
-                <td>41,000,000원</td>
-                <td>5등</td>
-              </tr>
-            </table>
-          </div>
-        </section>
-      </div>
-      {/*admin-mypage-wrap*/}
+          </section>
+        </div>
+      )}
     </div> /*admin-mypage-all-wrap*/
   );
 };
