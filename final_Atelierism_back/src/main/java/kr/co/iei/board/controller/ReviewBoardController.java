@@ -1,6 +1,7 @@
 package kr.co.iei.board.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,11 @@ public class ReviewBoardController {
 			}
 			return ResponseEntity.ok(1);
 		}
+	}
+	@GetMapping(value="/main")
+	public ResponseEntity<List> selectReviewList(){
+		List list = reviewBoardService.selectReviewList();
+		return ResponseEntity.ok(list);
 	}
 	
 }// ReviewBoardController

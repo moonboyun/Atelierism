@@ -4,58 +4,81 @@ import {
   Favorite,
   FavoriteBorder,
 } from "@mui/icons-material";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Main = () => {
-  const [like, setLike] = useState(false);
-  const likePush = () => {
-    if (like) {
-      setLike(false);
-    } else {
-      setLike(true);
-    }
-  };
-
+const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 3; // 이미지 개수
+  const totalSlides = 3;
 
-  // 다음 슬라이드
   const handleNext = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   };
 
-  // 이전 슬라이드
   const handlePrev = () => {
     setCurrentSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides); // 이미지 3개일 경우 0 → 1 → 2 → 0 ...
-    }, 5000); // 3초마다 슬라이드
-
-    return () => clearInterval(interval); // cleanup
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
+
+  return (
+    <div className="slider-container">
+      <div
+        className="slider"
+        style={{
+          transform: `translateX(-${currentSlide * 100}%)`,
+        }}
+      >
+        <img src="/image/slider/main-photo1.jpg" />
+        <img src="/image/slider/main-photo2.jpg" />
+        <img src="/image/slider/main-photo3.jpg" />
+      </div>
+      <button className="prev-btn" onClick={handlePrev}>
+        <ArrowBackIosNew />
+      </button>
+      <button className="next-btn" onClick={handleNext}>
+        <ArrowForwardIos />
+      </button>
+    </div>
+  );
+};
+
+const Main = () => {
+  const [designerBoard, setDesignerBoard] = useState([]); //디자이너 소개 게시물 리스트
+  const [reviewList, setReviewList] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/designer/board`)
+      .then((res) => {
+        setDesignerBoard(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/board/review/main`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   return (
     <section className="section">
-      <div className="slider-container">
-        <div
-          className="slider"
-          style={{
-            transform: `translateX(-${currentSlide * 100}%)`,
-          }}
-        >
-          <img src="/image/slider/main-photo1.jpg" />
-          <img src="/image/slider/main-photo2.jpg" />
-          <img src="/image/slider/main-photo3.jpg" />
-        </div>
-        <button className="prev-btn" onClick={handlePrev}>
-          <ArrowBackIosNew />
-        </button>
-        <button className="next-btn" onClick={handleNext}>
-          <ArrowForwardIos />
-        </button>
-      </div>
+      <Slider />
       <div className="main-content">
         <div className="main-title">Q. 어떻게 진행하나요?</div>
         <div className="question">
@@ -128,126 +151,40 @@ const Main = () => {
           </p>
           <div className="com-board-list">
             <div className="com-board-list-btn">
-              <a>
+              <a
+                onClick={() => {
+                  navigate("/designer/intro");
+                }}
+              >
                 전체보기
                 <ArrowForwardIos className="arrow-icon" />
               </a>
             </div>
             <div className="com-board-items">
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/designer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <div className="com-board-info-top">
-                    <p>이OO</p>
-                    {!like ? (
-                      <FavoriteBorder onClick={likePush} />
-                    ) : (
-                      <Favorite onClick={likePush} />
-                    )}
+              {designerBoard.map((desiger, index) => {
+                return (
+                  <div className="com-board-item" key={"desinger-" + index}>
+                    <div className="com-board-img-box">
+                      {desiger.memberThumb === null ? (
+                        <img src="/image/designer-default.jpg" />
+                      ) : (
+                        <img
+                          src={`${
+                            import.meta.env.VITE_BACK_SERVER
+                          }/memberProfile/${desiger.memberThumb}`}
+                        />
+                      )}
+                    </div>
+                    <div className="com-board-info">
+                      <div className="com-board-info-top">
+                        <p>{desiger.memberName}</p>
+                      </div>
+                      <p>{desiger.designerIntroduce}</p>
+                      {console.log(desiger)}
+                    </div>
                   </div>
-                  <p>
-                    편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
-                    디자이너 이OO입니다.
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/designer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <div className="com-board-info-top">
-                    <p>이OO</p>
-                    {!like ? (
-                      <FavoriteBorder onClick={likePush} />
-                    ) : (
-                      <Favorite onClick={likePush} />
-                    )}
-                  </div>
-                  <p>
-                    편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
-                    디자이너 이OO입니다.
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/designer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <div className="com-board-info-top">
-                    <p>이OO</p>
-                    {!like ? (
-                      <FavoriteBorder onClick={likePush} />
-                    ) : (
-                      <Favorite onClick={likePush} />
-                    )}
-                  </div>
-                  <p>
-                    편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
-                    디자이너 이OO입니다.
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/designer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <div className="com-board-info-top">
-                    <p>이OO</p>
-                    {!like ? (
-                      <FavoriteBorder onClick={likePush} />
-                    ) : (
-                      <Favorite onClick={likePush} />
-                    )}
-                  </div>
-                  <p>
-                    편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
-                    디자이너 이OO입니다.
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/designer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <div className="com-board-info-top">
-                    <p>이OO</p>
-                    {!like ? (
-                      <FavoriteBorder onClick={likePush} />
-                    ) : (
-                      <Favorite onClick={likePush} />
-                    )}
-                  </div>
-                  <p>
-                    편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
-                    디자이너 이OO입니다.
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/designer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <div className="com-board-info-top">
-                    <p>이OO</p>
-                    {!like ? (
-                      <FavoriteBorder onClick={likePush} />
-                    ) : (
-                      <Favorite onClick={likePush} />
-                    )}
-                  </div>
-                  <p>
-                    편안하고 모던한 분위기의 인테리어의 전문가, 경력 5년차
-                    디자이너 이OO입니다.
-                  </p>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -262,7 +199,11 @@ const Main = () => {
           <p>실제 고객 경험을 기반으로 한 리뷰를 확인해보세요.</p>
           <div className="com-board-list">
             <div className="com-board-list-btn">
-              <a>
+              <a
+                onClick={() => {
+                  navigate("/board/review");
+                }}
+              >
                 전체보기
                 <ArrowForwardIos className="arrow-icon" />
               </a>

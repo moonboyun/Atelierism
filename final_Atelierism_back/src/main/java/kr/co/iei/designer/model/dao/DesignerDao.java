@@ -28,4 +28,6 @@ public interface DesignerDao {
     List<CareerDetailDTO> selectDesignerCareers(String memberId);
     List<AwardsCareerDTO> selectDesignerAwards(String memberId);
 
+	List selectDesignerBoard();
+
 }
