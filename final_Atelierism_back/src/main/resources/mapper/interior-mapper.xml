@@ -29,10 +29,17 @@
   	delete from interior_tbl where interior_no = #{interiorNo}
   </delete>
   <select id="selectPaymentsByMemberId" resultType="interior">
-  SELECT 
+  SELECT DISTINCT
         i.INTERIOR_NO,
         i.INTERIOR_DESIGNER,
         i.INTERIOR_CUSTOMER,
+        i.INTERIOR_LIVING,
+        i.INTERIOR_KITCHEN,
+        i.INTERIOR_BED,
+        i.INTERIOR_ONEROOM,
+        i.INTERIOR_KIDROOM,
+        i.INTERIOR_STUDY,
+        i.INTERIOR_RANGE,
         i.INTERIOR_WHY,
         i.INTERIOR_PRICE,
         i.INTERIOR_PAYMENT_DATE,
