@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import SideMenu from "../utils/SideMenu";
 import "./Admin.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Applicantdetail = () => {
   const [memberProfile, setMemberPropfile] = useState(null);
@@ -10,6 +11,7 @@ const Applicantdetail = () => {
   const [memberCareer, setMemberCareer] = useState(null);
   const param = useParams();
   const memberId = param.memberId; //유저의 아이디
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(
@@ -24,6 +26,81 @@ const Applicantdetail = () => {
         console.log(err);
       });
   }, []);
+  const backServer = import.meta.env.VITE_BACK_SERVER;
+  const Refusal = () => {
+    Swal.fire({
+      title: "신청자 반려",
+      text: "해당 신청자를 반려하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      reverseButtons: true,
+      confirmButtonColor: " #8aa996",
+    }).then((res1) => {
+      if (res1.isConfirmed) {
+        axios
+          .patch(
+            `${
+              import.meta.env.VITE_BACK_SERVER
+            }/admin/refusal?memberId=${memberId}`
+          )
+          .then((res) => {
+            console.log(res);
+            if (res.data === 1) {
+              Swal.fire({
+                title: "완료",
+                text: "해당 신청자가 반려되었습니다.",
+                icon: "info",
+                confirmButtonColor: " #8aa996",
+              }).then(() => {
+                navigate("/mypage");
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
+  const enter = () => {
+    Swal.fire({
+      title: "신청자 승인",
+      text: "해당 신청자를 승인하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      reverseButtons: true,
+      confirmButtonColor: " #8aa996",
+    }).then((res1) => {
+      if (res1.isConfirmed) {
+        axios
+          .patch(
+            `${
+              import.meta.env.VITE_BACK_SERVER
+            }/admin/enter?memberId=${memberId}`
+          )
+          .then((res) => {
+            console.log(res);
+            if (res.data === 1) {
+              Swal.fire({
+                title: "완료",
+                text: "해당 신청자가 승인되었습니다.",
+                icon: "info",
+                confirmButtonColor: " #8aa996",
+              }).then(() => {
+                navigate("/mypage");
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
   return (
     <div className="detailAllWrap">
       {memberAward != null && memberCareer != null && memberProfile != null && (
@@ -96,8 +173,7 @@ const Applicantdetail = () => {
                     <th id="cartitle">재직기간</th>
                     <th id="cartitle">회사명</th>
                   </tr>
-                  {console.log(memberCareer)}
-                  {memberCareer != null &&
+                  {memberCareer != null ? (
                     memberCareer.map((career, i) => {
                       return (
                         <tr id="care">
@@ -109,7 +185,14 @@ const Applicantdetail = () => {
                           <td>{career.designerCareerCom}</td>
                         </tr>
                       );
-                    })}
+                    })
+                  ) : (
+                    <tr>
+                      <th></th>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  )}
                 </table>
               </div>
               <div className="detail-award">
@@ -119,14 +202,25 @@ const Applicantdetail = () => {
                       <h3>수상내역</h3>
                     </th>
                     <th>수상일</th>
-                    <th>대회명</th>
+                    <th id="award-title">대회명</th>
                   </tr>
-                  <tr>
-                    {console.log(memberAward)}
-                    <td></td>
-                    <td>2020.10</td>
-                    <td>아무튼 진짜 개쩌는 대회 대상</td>
-                  </tr>
+                  {memberAward != null ? (
+                    memberAward.map((award, i) => {
+                      return (
+                        <tr>
+                          <td></td>
+                          <td>{award.designerAwardsDete}</td>
+                          <td>{award.designerAwards}</td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  )}
                 </table>
               </div>
               <div className="detail-payment">
@@ -175,10 +269,10 @@ const Applicantdetail = () => {
               </div>
             </div>
             <div className="button-place">
-              <button type="button" id="cancel">
+              <button type="button" id="cancel" onClick={Refusal}>
                 반려
               </button>
-              <button type="button" id="enter">
+              <button type="button" id="enter" onClick={enter}>
                 승인
               </button>
             </div>
