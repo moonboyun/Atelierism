@@ -23,5 +23,7 @@ public interface MemberDao {
 
 	int updatePassword(MemberDTO member);
 
+	int updateProfile(MemberDTO member);
+
 
 }
