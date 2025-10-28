@@ -31,6 +31,22 @@ const InteriorPayPage = () => {
   }, [memberId, updateInterior.interiorNo]);
   useEffect(() => {
     if (
+      updateInterior.interiorWhy !== "이사를 준비하고 있어요." &&
+      updateInterior.interiorWhy !==
+        "신혼집을 구해 인테리어를 준비하고 있어요." &&
+      updateInterior.interiorWhy !==
+        "살고 있는 집을 새롭게 인테리어하고 싶어요." &&
+      updateInterior.interiorWhy !==
+        "전문가의 인테리어 감각에 도움을 받고 싶어요."
+    ) {
+      setUpdateInterior((prev) => ({
+        ...prev,
+        interiorWhyType: "다른 이유가 있어요.(기타)",
+      }));
+    }
+  }, [updateInterior.interiorWhy]);
+  useEffect(() => {
+    if (
       interior.interiorNo && // 데이터 로드가 완료되었는지 확인
       interior.interiorWhy === "다른 이유가 있어요.(기타)" &&
       updateInterior.interiorWhyType !== "다른 이유가 있어요.(기타)"
@@ -76,6 +92,7 @@ const InteriorPayPage = () => {
               interior={interior}
               setIsInterior={setIsInterior}
               updateInterior={updateInterior}
+              setUpdateInterior={setUpdateInterior}
             />
           </div>
         </div>
@@ -570,7 +587,7 @@ const OrderInfo = (props) => {
             <div
               className={
                 updateInterior.interiorWhy ===
-                "살고 있는 집을 새롭게 인테리어 하고 싶어요."
+                "살고 있는 집을 새롭게 인테리어하고 싶어요."
                   ? "orderI-interior-item orderI-center payI-checked"
                   : "orderI-interior-item orderI-center"
               }
@@ -579,7 +596,7 @@ const OrderInfo = (props) => {
                 type="radio"
                 id="interiorWhy3"
                 name="interiorWhy"
-                value={"살고 있는 집을 새롭게 인테리어 하고 싶어요."}
+                value={"살고 있는 집을 새롭게 인테리어하고 싶어요."}
                 onChange={interiorWhyCheck}
                 style={{ display: "none" }}
               ></input>
@@ -620,7 +637,7 @@ const OrderInfo = (props) => {
               <input
                 type="radio"
                 id="interiorWhy5"
-                name="interiorWhyType"
+                name="interiorWhy"
                 value={"다른 이유가 있어요.(기타)"}
                 onChange={interiorWhyTypeCheck}
                 style={{ display: "none" }}
@@ -712,6 +729,8 @@ const PayInfo = (props) => {
   const interior = props.interior;
   const setIsInterior = props.setIsInterior;
   const updateInterior = props.updateInterior;
+  const setUpdateInterior = props.setUpdateInterior;
+  const [payConsent, setPayConsent] = useState(false);
   const navigate = useNavigate();
   const delInterior = () => {
     Swal.fire({
@@ -749,6 +768,43 @@ const PayInfo = (props) => {
       }
     });
   };
+  const isSame =
+    interior.interiorDesigner === updateInterior.interiorDesigner &&
+    interior.interiorLiving === updateInterior.interiorLiving &&
+    interior.interiorKitchen === updateInterior.interiorKitchen &&
+    interior.interiorBed === updateInterior.interiorBed &&
+    interior.interiorOneroom === updateInterior.interiorOneroom &&
+    interior.interiorKidroom === updateInterior.interiorKidroom &&
+    interior.interiorStudy === updateInterior.interiorStudy &&
+    interior.interiorRange === updateInterior.interiorRange &&
+    interior.interiorWhy === updateInterior.interiorWhy &&
+    // 💡 '다른 이유' 타입 비교 추가
+    (interior.interiorWhyType || "") ===
+      (updateInterior.interiorWhyType || "") &&
+    interior.interiorPrice === updateInterior.interiorPrice;
+  const delUpdate = () => {
+    setUpdateInterior(interior);
+  };
+  const updateInter = () => {
+    axios
+      .patch(`${import.meta.env.VITE_BACK_SERVER}/interior`, updateInterior)
+      .then((res) => {
+        Swal.fire({
+          title: "저장 완료!",
+          text: "장바구니 저장 완료되었습니다.",
+          icon: "success",
+          confirmButtonText: "닫기",
+          confirmButtonColor: " #8aa996",
+        });
+        setUpdateInterior({});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const payConsentCheck = (e) => {};
+  const payInterior = () => {};
+  console.log(payConsent);
   return (
     <div className="payI-info-box">
       <div className="payI-title">결제</div>
@@ -761,29 +817,30 @@ const PayInfo = (props) => {
           </div>
         </div>
         <div className="payI-consent">
-          <input type="checkbox" id="payConsent"></input>
+          <input
+            type="checkbox"
+            id="payConsent"
+            name="payConsent"
+            value={payConsent ? false : true}
+            onChange={payConsentCheck}
+          ></input>
           <label htmlFor="payConsent">
             주문 내용을 확인했으며, 정보 제공 등에 동의합니다.
           </label>
         </div>
-        {interior.interiorDesigner === updateInterior.interiorDesigner &&
-        interior.interiorLiving === updateInterior.interiorLiving &&
-        interior.interiorKitchen === updateInterior.interiorKitchen &&
-        interior.interiorBed === updateInterior.interiorBed &&
-        interior.interiorOneroom === updateInterior.interiorOneroom &&
-        interior.interiorKidroom === updateInterior.interiorKidroom &&
-        interior.interiorStudy === updateInterior.interiorStudy &&
-        interior.interiorRange === updateInterior.interiorRange &&
-        interior.interiorWhy === updateInterior.interiorWhy &&
-        interior.interiorPrice === updateInterior.interiorPrice ? (
-          <button>결제하기</button>
-        ) : (
-          <div className="payI-save-btn">
-            <button>취소하기</button>
-            <button>저장하기</button>
-          </div>
-        )}
-        <button onClick={delInterior}>삭제하기</button>
+        <div className="payI-btn-group">
+          {isSame ? (
+            <button className="payI-pay-btn" onClick={payInterior}>
+              결제하기
+            </button>
+          ) : (
+            <div className="payI-save-btn">
+              <button onClick={delUpdate}>취소하기</button>
+              <button onClick={updateInter}>저장하기</button>
+            </div>
+          )}
+          <button onClick={delInterior}>삭제하기</button>
+        </div>
       </div>
     </div>
   );
