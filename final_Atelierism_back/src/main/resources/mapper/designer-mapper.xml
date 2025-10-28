@@ -19,7 +19,6 @@
             #{designerAge}
         )
     </insert>
-
     <insert id="insertCareerList" parameterType="list">
         INSERT ALL
         <foreach collection="list" item="career">
@@ -33,7 +32,6 @@
         </foreach>
         SELECT * FROM DUAL
     </insert>
-
     <insert id="insertAwardList" parameterType="list">
         INSERT ALL
         <foreach collection="list" item="award">
@@ -52,4 +50,53 @@
         UPDATE member_tbl SET member_type = 2 WHERE member_id = #{memberId}
     </update>
     -->
+    <select id="totalCount" resultType="int">
+	    SELECT COUNT(*)
+	    FROM designer_tbl d
+	    JOIN member_tbl m ON (d.member_id = m.member_id)
+	    WHERE m.member_type = 2
+	</select>
+    <select id="selectDesignerList" parameterType="pageInfo" resultType="designerIntro">
+	    SELECT * FROM (
+	        SELECT ROWNUM AS RNUM, N.* FROM (
+	            SELECT
+	                d.member_id,
+	                m.member_name,
+	                m.member_thumb,
+	                d.designer_introduce
+	            FROM designer_tbl d
+	            JOIN member_tbl m ON (d.member_id = m.member_id)
+	            WHERE m.member_type = 2
+	            ORDER BY m.member_id DESC
+	        ) N
+	    )
+	    WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 디자이너 1명 기본 정보 조회 -->
+	<select id="selectOneDesigner" parameterType="string" resultType="designerDetailDTO">
+        SELECT
+            d.member_id,
+            m.member_name,
+            m.member_thumb,
+            d.designer_career,
+            d.designer_age,
+            d.designer_graduation_date,
+            d.designer_graduation,
+            d.designer_portfolio,
+            d.designer_chat,
+            d.designer_introduce
+        FROM designer_tbl d
+        JOIN member_tbl m ON (d.member_id = m.member_id)
+        WHERE d.member_id = #{memberId}
+    </select>
+    <!-- 디자이너 1명 모든 경력사항 조회 -->
+    <select id="selectDesignerCareers" parameterType="string" resultType="career">
+        SELECT * FROM designer_career_detail_tbl WHERE member_id = #{memberId}
+    </select>
+    <!-- 디자이너 1명 모든 수상내역 조회 -->
+    <select id="selectDesignerAwards" parameterType="string" resultType="awards">
+        SELECT * FROM designer_awards_career_tbl WHERE member_id = #{memberId}
+    </select>
+	
 </mapper>
