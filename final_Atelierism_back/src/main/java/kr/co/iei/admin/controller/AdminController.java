@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.admin.model.service.AdminService;
 import kr.co.iei.board.model.service.ReviewBoardService;
+import kr.co.iei.member.model.dto.MemberDTO;
 
 @CrossOrigin("*")
 @RestController
@@ -50,7 +51,12 @@ public class AdminController {
 	@GetMapping
 	public ResponseEntity<Map> adminList(@RequestParam int reqPage, @RequestParam String memOrder){
 		Map map = adminService.selectBoardList(reqPage, memOrder);
-		System.out.println(map);
 		return ResponseEntity.ok(map);
+	}
+	
+	@GetMapping(value = "detail")
+	public ResponseEntity<Map> selectApplicantDetailList(@RequestParam String memberId){
+		Map detail = adminService.selectApplicantDetailList(memberId);
+		return ResponseEntity.ok(detail);
 	}
 }
