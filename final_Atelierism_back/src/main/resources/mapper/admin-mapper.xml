@@ -129,4 +129,12 @@
 		on m.member_id = c.member_id
 	where m.member_id = #{memberId}
 </select>
+
+<update id="refusalDesigner">
+	update member_tbl set designer_enter = 2 where member_id = #{memberId}
+</update>
+
+<update id="enterDesigner">
+	update member_tbl set designer_enter = 1 where member_id = #{memberId}
+</update>
 </mapper>
