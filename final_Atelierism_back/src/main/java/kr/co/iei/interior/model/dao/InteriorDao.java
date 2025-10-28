@@ -17,6 +17,9 @@ public interface InteriorDao {
 
 	int deleteInterior(int interiorNo);
 
+	int updateInterior(InteriorDTO interior);
+
 	List<InteriorDTO> selectPaymentsByMemberId(String memberId);
+
 
 }
