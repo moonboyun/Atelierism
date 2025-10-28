@@ -66,7 +66,7 @@ public class MemberService {
 	        String encPw = encoder.encode(member.getMemberPw());
 	        member.setMemberPw(encPw);
 	    }
-	    int result = memberDao.updateMemeber(member);
+	    int result = memberDao.updateMember(member);
 	    return result;
 	}
 
@@ -108,5 +108,26 @@ public class MemberService {
 		int result = memberDao.insertMember(member);
 		System.out.println("서비스 결과 : "+result);
 		return result;
+	}
+
+	public String recoverId(MemberDTO member) {
+		String foundId =  memberDao.recoverId(member);
+		return foundId;
+	}
+
+	@Transactional
+	public int resetPw(MemberDTO member) {
+	    if (member.getMemberId() == null || member.getMemberId().isEmpty()) {
+	        return 0;
+	    }
+	    if (member.getMemberPw() == null || member.getMemberPw().isEmpty()) {
+	        return 0;
+	    }
+
+	    String encPw = encoder.encode(member.getMemberPw());
+	    member.setMemberPw(encPw);
+
+	    int result = memberDao.updatePassword(member);
+	    return result;
 	}
 }

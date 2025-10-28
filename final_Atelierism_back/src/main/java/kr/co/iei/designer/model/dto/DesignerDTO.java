@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 public class DesignerDTO {
 	private String memberId;
 	private int designerCareer;
-	private String designerGraduationData;
+	private String designerGraduationDate;
 	private String designerGraduation;
 	private String designerBank;
-	private String designerAccunt;
-	private String designerProfolio;
+	private String designerAccount;
+	private String designerPortfolio;
 	private String designerChat;
 	private String designerIntroduce;
-	private String designerAge;
+	private int designerAge;
 }

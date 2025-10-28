@@ -18,4 +18,8 @@ public interface InquiryBoardDao {
 
 	int insertBoard(InquiryBoardDTO board);
 
+	int updateAdminComment(InquiryBoardDTO comment);
+
+	InquiryBoardDTO selectOneBoard(int inquiryBoardNo);
+
 }// InquiryBoardDao

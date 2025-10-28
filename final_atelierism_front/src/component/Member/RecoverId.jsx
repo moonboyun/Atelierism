@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Swal from "sweetalert2";
+import Modal from "react-modal";
 import "./member.css";
 
 const RecoverId = () => {
@@ -12,6 +12,26 @@ const RecoverId = () => {
   const [memberPhone, setMemberPhone] = useState("");
   const [memberEmail, setMemberEmail] = useState("");
 
+  // 전화번호 자동 하이픈 포맷 함수
+  const formatPhoneNumber = (value) => {
+    value = value.replace(/\D/g, ""); // 숫자만 추출
+    if (value.length < 4) return value;
+    if (value.length < 8) {
+      return value.slice(0, 3) + "-" + value.slice(3);
+    }
+    return (
+      value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
+    );
+  };
+
+  // 전화번호 입력 시 하이픈 자동 추가
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    value = formatPhoneNumber(value);
+    if (value.endsWith("-")) value = value.slice(0, -1);
+    setMemberPhone(value);
+  };
+
   // 이메일 인증 관련 상태
   const [mailCode, setMailCode] = useState(null);
   const [inputCode, setInputCode] = useState("");
@@ -20,6 +40,13 @@ const RecoverId = () => {
   const [isAuthVisible, setIsAuthVisible] = useState(false);
   const [time, setTime] = useState(180);
   const intervalRef = useRef(null);
+
+  // Modal 관련 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [foundId, setFoundId] = useState("");
+
+  // react-modal 설정
+  Modal.setAppElement("#root");
 
   // 타이머
   useEffect(() => {
@@ -77,7 +104,7 @@ const RecoverId = () => {
       setTime(0);
     } else {
       setAuthMsg("인증번호가 일치하지 않습니다.");
-      setAuthColor("red");
+      setAuthColor("#F67272");
     }
   };
 
@@ -95,12 +122,12 @@ const RecoverId = () => {
     e.preventDefault();
 
     if (!memberName || !memberPhone || !memberEmail) {
-      Swal.fire("입력 오류", "모든 정보를 입력해주세요.", "warning");
+      alert("모든 정보를 입력해주세요.");
       return;
     }
 
     if (authMsg !== "인증 완료") {
-      Swal.fire("인증 필요", "이메일 인증을 완료해주세요.", "warning");
+      alert("이메일 인증을 완료해주세요.");
       return;
     }
 
@@ -112,18 +139,13 @@ const RecoverId = () => {
       });
 
       if (res.data) {
-        Swal.fire({
-          title: "아이디 찾기 성공",
-          html: `회원님의 아이디는 <b>${res.data}</b> 입니다.`,
-          icon: "success",
-        }).then(() => {
-          navigate("/member/login"); // 아이디 확인 후 로그인 페이지로 이동
-        });
+        setFoundId(res.data);
+        setIsModalOpen(true);
       } else {
-        Swal.fire("실패", "입력하신 정보와 일치하는 계정이 없습니다.", "error");
+        alert("입력하신 정보와 일치하는 계정이 없습니다.");
       }
     } catch (err) {
-      Swal.fire("서버 오류", "요청 처리 중 오류가 발생했습니다.", "error");
+      alert("요청 처리 중 오류가 발생했습니다.");
     }
   };
 
@@ -147,6 +169,7 @@ const RecoverId = () => {
             />
           </div>
         </div>
+
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="memberPhone">전화번호</label>
@@ -156,13 +179,15 @@ const RecoverId = () => {
               type="text"
               id="memberPhone"
               value={memberPhone}
-              onChange={(e) => setMemberPhone(e.target.value)}
+              onChange={handlePhoneChange}
               placeholder="전화번호를 입력해주세요"
               required
+              maxLength={13}
               style={{ width: "400px" }}
             />
           </div>
         </div>
+
         <div className="input-wrap">
           <div className="input-title">
             <label htmlFor="memberEmail" style={{ maxWidth: "92px" }}>
@@ -197,6 +222,7 @@ const RecoverId = () => {
                     padding: "5px 15px",
                     borderRadius: "8px",
                     color: "#fff",
+                    cursor: "pointer",
                   }}
                 >
                   인증코드 전송
@@ -238,6 +264,7 @@ const RecoverId = () => {
                     borderRadius: "8px",
                     color: "#fff",
                     width: "100px",
+                    cursor: "pointer",
                   }}
                 >
                   인증하기
@@ -252,6 +279,47 @@ const RecoverId = () => {
           <button type="submit">아이디 찾기</button>
         </div>
       </form>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        style={{
+          content: {
+            width: "400px",
+            height: "220px",
+            margin: "auto",
+            borderRadius: "10px",
+            textAlign: "center",
+            paddingTop: "40px",
+          },
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+          },
+        }}
+      >
+        <h2 style={{ marginBottom: "10px" }}>아이디 찾기 결과</h2>
+        <p style={{ fontSize: "18px" }}>
+          회원님의 아이디는 <b style={{ color: "#40C79C" }}>{foundId}</b>{" "}
+          입니다.
+        </p>
+        <button
+          style={{
+            marginTop: "50px",
+            padding: "10px 20px",
+            border: "none",
+            backgroundColor: "#8aa996",
+            color: "#fff",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setIsModalOpen(false);
+            navigate("/member/login");
+          }}
+        >
+          로그인하러 가기
+        </button>
+      </Modal>
     </section>
   );
 };
