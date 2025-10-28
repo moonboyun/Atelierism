@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import { Link, useNavigate } from "react-router-dom";
@@ -46,6 +46,13 @@ const InquiryWriter = () => {
       return alert("필수 항목을 입력해주세요.");
     }
   };
+
+  useEffect(() => {
+    if (!memberId) {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/member/login");
+    }
+  }, [memberId]);
 
   return (
     <section className="section inquiry-writer-wrap">

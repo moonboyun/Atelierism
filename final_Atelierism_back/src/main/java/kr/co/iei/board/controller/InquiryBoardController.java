@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,19 @@ public class InquiryBoardController {
 	public ResponseEntity<Map> inquiryList(@RequestParam int reqPage){
 		Map map = inquiryBoardService.selectBoardList(reqPage);
 		return ResponseEntity.ok(map);
+	}
+	
+	@GetMapping("/view/{inquiryBoardNo}")
+	public ResponseEntity<InquiryBoardDTO> selectOneBoard(@PathVariable int inquiryBoardNo){
+	    InquiryBoardDTO view = inquiryBoardService.selectOneBoard(inquiryBoardNo);
+	    return ResponseEntity.ok(view);
+	}
+	
+	// 관리자 답변 등록
+	@PostMapping(value="/view")
+	public ResponseEntity<Integer> updateAdminCommnet(@ModelAttribute InquiryBoardDTO comment){
+		int result = inquiryBoardService.updateAdminComment(comment);
+		return ResponseEntity.ok(result);
 	}
 	
 	

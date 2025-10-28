@@ -44,6 +44,19 @@ public class InquiryBoardService {
 		int result = inquiryBoardDao.insertBoard(board);
 		return result;
 	}
+
+
+	@Transactional
+	public int updateAdminComment(InquiryBoardDTO comment) {
+		int result = inquiryBoardDao.updateAdminComment(comment);
+		return result;
+	}
+
+
+	public InquiryBoardDTO selectOneBoard(int inquiryBoardNo) {
+		InquiryBoardDTO view = inquiryBoardDao.selectOneBoard(inquiryBoardNo);
+		return view;
+	}
 	
 	
 }// InquiryBoardService
