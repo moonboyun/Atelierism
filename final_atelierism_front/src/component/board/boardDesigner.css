@@ -1,0 +1,192 @@
+/* ===== 공통 토큰 ===== */
+:root {
+  --container-max: 1200px;
+  --gap: 24px;
+
+  /* 기본(넓은 화면) 이미지 상자 크기 */
+  --img-w: 650px;
+  --img-h: 700px;
+
+  /* 중앙 카드 넓이(가운데 텍스트 박스) */
+  --center-w: 280px;
+
+  /* 색상 */
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --brand: #8aa996; /* 버튼/포인트 */
+}
+
+/* 최상위 래퍼 */
+.board-wrap {
+  width: 100%;
+}
+
+/* 상단 히어로(이미지 위 텍스트 오버레이) */
+.image-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 28px;
+}
+.image-section .image-div {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max);
+  overflow: hidden;
+  border-radius: 12px;
+}
+.image-section .title-img {
+  width: 100%;
+  display: block;
+  height: clamp(220px, 32vw, 360px); /* 반응형 높이 */
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+/* 이미지 위 텍스트(중앙 정렬, 살짝 음영) */
+.image-section .img-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  padding: 0 16px;
+  max-width: min(92%, 840px);
+}
+.image-section h3.img-text {
+  top: 22%;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.image-section p.img-text {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(13px, 1.5vw, 16px);
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+/* 메인 컨테이너 */
+.main-content-section {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 8px 8px 48px;
+  box-sizing: border-box;
+}
+
+/* 상단 버튼 박스 */
+.post-box {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 0 20px;
+}
+
+/* ===== 카드 한 줄: before | center | after ===== */
+.card-box {
+  display: grid;
+  grid-template-columns: var(--img-w) var(--center-w) var(--img-w);
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--gap);
+  margin: 0 auto 36px;
+}
+
+/* Before / After 이미지 박스(크기 고정, 안쪽 이미지 cover) */
+.before-img-box,
+.after-box {
+  width: var(--img-w);
+  height: var(--img-h);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+.before-img-box img,
+.after-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 가운데 설명 카드 */
+.center-box {
+  width: var(--center-w);
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 18px;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  row-gap: 10px;
+  text-align: center;
+}
+.center-box .title {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.4px;
+}
+.center-box .text {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 2px;
+}
+.center-box .thumbnail {
+  display: inline-block;
+  margin: 8px auto 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #555;
+  background: #f3f4f6;
+  border-radius: 999px;
+}
+.center-box .writer {
+  font-size: 12px;
+  color: var(--muted);
+}
+.center-box .one-text {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.6;
+  margin-top: 6px;
+}
+.center-box .date {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.center-box .view-btn {
+  margin-top: 12px;
+  height: 40px;
+  border-radius: 9px;
+  border: 1px solid var(--brand);
+  color: #fff;
+  background: var(--brand);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.center-box .view-btn:hover {
+  box-shadow: 0 6px 16px rgba(138, 169, 150, 0.35);
+  transform: translateY(-1px);
+}
+
+/* 버튼 공통 (프로젝트에 이미 있다면 제거 가능) */
+.btn-primary.lg {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
