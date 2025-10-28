@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,6 +66,11 @@ public class InteriorController {
 	@DeleteMapping(value="/{interiorNo}")
 	public ResponseEntity<Integer> deleteInterior(@PathVariable int interiorNo){
 		int result = interiorService.deleteInterior(interiorNo);
+		return ResponseEntity.ok(result);
+	}
+	@PatchMapping
+	public ResponseEntity<Integer> updateInterior(@RequestBody InteriorDTO interior){
+		int result = interiorService.updateInterior(interior);
 		return ResponseEntity.ok(result);
 	}
 
