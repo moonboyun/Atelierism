@@ -15,4 +15,6 @@ public interface InteriorDao {
 
 	int deleteInterior(int interiorNo);
 
+	int updateInterior(InteriorDTO interior);
+
 }
