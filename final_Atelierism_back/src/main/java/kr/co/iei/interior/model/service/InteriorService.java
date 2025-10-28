@@ -34,4 +34,9 @@ public class InteriorService {
 		int result = interiorDao.deleteInterior(interiorNo);
 		return result;
 	}
+	@Transactional
+	public int updateInterior(InteriorDTO interior) {
+		int result = interiorDao.updateInterior(interior);
+		return result;
+	}
 }
