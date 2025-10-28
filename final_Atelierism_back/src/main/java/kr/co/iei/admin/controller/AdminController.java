@@ -33,13 +33,13 @@ public class AdminController {
 	public ResponseEntity<PriceListDto> selectPriceList() {
 		PriceListDto  pl = adminService.priceListSelect();
 		return ResponseEntity.ok(pl);
-	}
+	};
 	
 	@PatchMapping
 	public ResponseEntity<Integer> updatePriceList(@RequestBody PriceListDto priceList){
 		int result = adminService.updatePriceList(priceList);
 		return ResponseEntity.ok(result);
-	}
+	};
 	
 	/*@GetMapping(value = "adminList")//제일 처음 리스트 들고 올 코드//일단은 안 씀
 	public ResponseEntity<List> selectAdminList(@RequestParam String pageList){
@@ -52,11 +52,23 @@ public class AdminController {
 	public ResponseEntity<Map> adminList(@RequestParam int reqPage, @RequestParam String memOrder){
 		Map map = adminService.selectBoardList(reqPage, memOrder);
 		return ResponseEntity.ok(map);
-	}
+	};
 	
 	@GetMapping(value = "detail")
 	public ResponseEntity<Map> selectApplicantDetailList(@RequestParam String memberId){
 		Map detail = adminService.selectApplicantDetailList(memberId);
 		return ResponseEntity.ok(detail);
+	};
+	
+	@PatchMapping(value = "/refusal")
+	public ResponseEntity<Integer> refusalDesigner(@RequestParam String memberId){
+		int result = adminService.refusalDesigner(memberId);
+		return ResponseEntity.ok(result);
+	}
+	
+	@PatchMapping(value = "enter")
+	public ResponseEntity<Integer> enterDesigner(@RequestParam String memberId){
+		int result = adminService.enterDesigner(memberId);
+		return ResponseEntity.ok(null);
 	}
 }

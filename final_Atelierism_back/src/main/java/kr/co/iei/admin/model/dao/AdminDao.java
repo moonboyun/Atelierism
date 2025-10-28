@@ -35,6 +35,10 @@ public interface AdminDao {
 	List selectApplicantAward(String memberId);
 
 	List selectApplicantCareer(String memberId);
+
+	int refusalDesigner(String memberId);
+
+	int enterDesigner(String memberId);
 	
 
 }

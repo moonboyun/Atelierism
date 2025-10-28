@@ -57,7 +57,6 @@ public class AdminService {
 		} else if(memOrder.equals("a1")||memOrder.equals("a2")||memOrder.equals("a3")) {
 			totalCount = adminDao.applicantTotalCount(memOrder);
 		}
-		System.out.println(totalCount);
 		PageInfo pi = pageInfoUtils.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);//ok
 		//pi랑 정렬기준을 둘 다 줘야하기때문에 Map이라는 객체로 묶어서 보냄
 		//정렬에 필요한건 start, end, memOrder 3가지라서 이것만 묶어서 보냄
@@ -90,12 +89,22 @@ public class AdminService {
 		List applicantDetail = adminDao.selectApplicantDetail(memberId);
 		List applicantAward = adminDao.selectApplicantAward(memberId);
 		List applicantCareer = adminDao.selectApplicantCareer(memberId);
-		System.out.println(applicantDetail);
 		Map<String, Object> detail = new HashMap<String, Object>();
 		detail.put("applicantDetail", applicantDetail);
 		detail.put("applicantAward", applicantAward);
 		detail.put("applicantCareer", applicantCareer);
 		return detail;
+	}
+	
+	@Transactional
+	public int refusalDesigner(String memberId) {
+		int result = adminDao.refusalDesigner(memberId);
+		return result;
+	}
+
+	public int enterDesigner(String memberId) {
+		int result = adminDao.enterDesigner(memberId);
+		return result;
 	}
 
 }
