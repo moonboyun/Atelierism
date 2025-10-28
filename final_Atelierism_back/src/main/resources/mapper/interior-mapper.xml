@@ -28,4 +28,18 @@
   <delete id="deleteInterior">
   	delete from interior_tbl where interior_no = #{interiorNo}
   </delete>
+  <update id="updateInterior">
+  	update interior_tbl set 
+  		interior_designer = #{interiorDesigner},
+  		interior_living = #{interiorLiving},
+  		interior_kitchen = #{interiorKitchen},
+  		interior_bed = #{interiorBed},
+  		interior_oneroom = #{interiorOneroom},
+  		interior_kidroom = #{interiorKidroom},
+  		interior_study = #{interiorStudy},
+  		interior_range = #{interiorRange},
+  		interior_why = #{interiorWhy},
+  		interior_price = #{interiorPrice}
+  	where interior_no = #{interiorNo}
+  </update>
 </mapper>
