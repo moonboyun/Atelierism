@@ -106,4 +106,35 @@
     )
     WHERE rnum BETWEEN #{start} AND #{end}
 </select>
+
+<select id="selectApplicantDetail" resultType="applicantDetail">
+	select m.member_id, m.member_thumb, m.member_name, d.designer_career, d.designer_age, m.member_email, m.member_phone, m.member_addr, d.designer_graduation_date,
+	d.designer_graduation, d.designer_bank, d.designer_account, d.designer_portfolio, d.designer_chat from
+		MEMBER_TBL m left join DESIGNER_TBL d 
+		on m.member_id = d.MEMBER_ID
+	where m.member_id = #{memberId}
+</select>
+
+<select id="selectApplicantAward" resultType="applicantAward">
+	select m.member_id, a.award_no, a.designer_awards_dete, a.designer_awards 
+		from member_tbl m left join designer_awards_career_tbl a 
+		on m.member_id = a.member_id
+	where m.member_id = #{memberId}
+</select>
+
+<select id="selectApplicantCareer" resultType="applicantCareer">
+	select m.member_id, c.career_no, c.designer_career_sy, 
+	c.designer_career_ey, c.designer_career_com
+		from member_tbl m left join designer_career_detail_tbl c
+		on m.member_id = c.member_id
+	where m.member_id = #{memberId}
+</select>
+
+<update id="refusalDesigner">
+	update member_tbl set designer_enter = 2 where member_id = #{memberId}
+</update>
+
+<update id="enterDesigner">
+	update member_tbl set designer_enter = 1 where member_id = #{memberId}
+</update>
 </mapper>

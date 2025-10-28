@@ -1,5 +1,6 @@
 package kr.co.iei.member.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.iei.interior.model.dto.InteriorDTO;
+import kr.co.iei.interior.model.service.InteriorService;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
 import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.member.model.service.MemberService;
@@ -33,6 +36,8 @@ public class MemberController {
 	private JwtUtils Jwt;
 	@Autowired
 	private EmailSender mailSender;
+	@Autowired
+	private InteriorService interiorService;
 	
 	@PostMapping
 	public ResponseEntity<Integer> insertMember(@RequestBody MemberDTO member){
@@ -134,5 +139,10 @@ public class MemberController {
 	public ResponseEntity<Integer> resetPw(@RequestBody MemberDTO member) {
 	    int result = memberService.resetPw(member);
 	    return ResponseEntity.ok(result);
+	}
+	@GetMapping("/payments/{memberId}")
+	public ResponseEntity<List<InteriorDTO>> getPayments(@PathVariable String memberId) {
+	    List<InteriorDTO> list = interiorService.selectPaymentsByMemberId(memberId);
+	    return ResponseEntity.ok(list);
 	}
 }

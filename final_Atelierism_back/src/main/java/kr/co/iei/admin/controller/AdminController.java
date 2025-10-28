@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.admin.model.service.AdminService;
 import kr.co.iei.board.model.service.ReviewBoardService;
+import kr.co.iei.member.model.dto.MemberDTO;
 
 @CrossOrigin("*")
 @RestController
@@ -32,13 +33,13 @@ public class AdminController {
 	public ResponseEntity<PriceListDto> selectPriceList() {
 		PriceListDto  pl = adminService.priceListSelect();
 		return ResponseEntity.ok(pl);
-	}
+	};
 	
 	@PatchMapping
 	public ResponseEntity<Integer> updatePriceList(@RequestBody PriceListDto priceList){
 		int result = adminService.updatePriceList(priceList);
 		return ResponseEntity.ok(result);
-	}
+	};
 	
 	/*@GetMapping(value = "adminList")//제일 처음 리스트 들고 올 코드//일단은 안 씀
 	public ResponseEntity<List> selectAdminList(@RequestParam String pageList){
@@ -50,7 +51,24 @@ public class AdminController {
 	@GetMapping
 	public ResponseEntity<Map> adminList(@RequestParam int reqPage, @RequestParam String memOrder){
 		Map map = adminService.selectBoardList(reqPage, memOrder);
-		System.out.println(map);
 		return ResponseEntity.ok(map);
+	};
+	
+	@GetMapping(value = "detail")
+	public ResponseEntity<Map> selectApplicantDetailList(@RequestParam String memberId){
+		Map detail = adminService.selectApplicantDetailList(memberId);
+		return ResponseEntity.ok(detail);
+	};
+	
+	@PatchMapping(value = "/refusal")
+	public ResponseEntity<Integer> refusalDesigner(@RequestParam String memberId){
+		int result = adminService.refusalDesigner(memberId);
+		return ResponseEntity.ok(result);
+	}
+	
+	@PatchMapping(value = "enter")
+	public ResponseEntity<Integer> enterDesigner(@RequestParam String memberId){
+		int result = adminService.enterDesigner(memberId);
+		return ResponseEntity.ok(null);
 	}
 }
