@@ -21,6 +21,7 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
     interiorStudy: 0,
     interiorRange: 0,
     interiorWhy: "",
+    interiorWhyType: "",
     interiorPrice: 0,
     interiorPayment: 0,
   });
@@ -108,7 +109,7 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
   };
   const navigate = useNavigate();
   const payPage = () => {
-    if (interior.interiorWhy !== "") {
+    if (interior.interiorWhy !== "" || interior.interiorWhyType !== "") {
       axios
         .post(`${import.meta.env.VITE_BACK_SERVER}/interior`, interior)
         .then((res) => {
