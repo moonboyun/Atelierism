@@ -1,5 +1,8 @@
 package kr.co.iei.member.model.dto;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.AllArgsConstructor;
