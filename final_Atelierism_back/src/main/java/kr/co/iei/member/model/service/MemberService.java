@@ -122,4 +122,14 @@ public class MemberService {
 	    int result = memberDao.updatePassword(member);
 	    return result;
 	}
+
+	@Transactional
+	public int updateProfile(String memberId, String filename) {
+	    MemberDTO member = new MemberDTO();
+	    member.setMemberId(memberId);
+	    member.setMemberThumb(filename);
+	    
+	    return memberDao.updateProfile(member);
+	}
+	
 }
