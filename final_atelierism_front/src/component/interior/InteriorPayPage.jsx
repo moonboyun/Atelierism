@@ -802,8 +802,22 @@ const PayInfo = (props) => {
         console.log(err);
       });
   };
-  const payConsentCheck = (e) => {};
-  const payInterior = () => {};
+  const payConsentCheck = (e) => {
+    setPayConsent(e.target.checked);
+  };
+  const payInterior = () => {
+    if (!payConsent) {
+      Swal.fire({
+        title: "동의 확인",
+        text: "정보 제공 동의를 확인해주세요.",
+        icon: "info",
+        confirmButtonText: "확인",
+        confirmButtonColor: " #8aa996",
+      });
+    } else {
+      console.log("결제 api 실행");
+    }
+  };
   console.log(payConsent);
   return (
     <div className="payI-info-box">
@@ -821,7 +835,7 @@ const PayInfo = (props) => {
             type="checkbox"
             id="payConsent"
             name="payConsent"
-            value={payConsent ? false : true}
+            checked={payConsent}
             onChange={payConsentCheck}
           ></input>
           <label htmlFor="payConsent">
