@@ -37,5 +37,7 @@
 	<delete id="deleteBoard">
 		delete from review_board_tbl where review_board_no = #{reviewBoardNo}
 	</delete>
-	
+	<!--
+	<select id="selectReviewList" resultType=""></select> 
+	 -->
 </mapper>
