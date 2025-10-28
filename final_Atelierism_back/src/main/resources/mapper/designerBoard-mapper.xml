@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.iei.board.model.dao.DesignerBoardDao">
+	<select id="totalCount" resultType="int">
+		select count(*) from designer_review_tbl
+	</select>
+	
+	<select id="selectDesignerBoardList" resultType="designerReview">
+		select * from 
+			(select rownum as rnum, b. *
+      			from 
+      				(select
+          				designer_review_no,
+          				interior_no,
+          				designer_review_title,
+          				designer_review_writer,
+          				interior_customer,
+          				interior_payment_check,
+          				interior_price,
+          				one_text,
+          				interior_kategorie,
+          				designer_review_content,
+          				before_img,
+          				after_img,
+          				designer_thumbnail,
+          				designer_review_date
+        			from designer_review_tbl order by designer_review_no desc ) b )
+    	where rnum between #{start} and #{end}
+	</select>
+
+</mapper>
