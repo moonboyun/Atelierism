@@ -98,5 +98,20 @@
     <select id="selectDesignerAwards" parameterType="string" resultType="awards">
         SELECT * FROM designer_awards_career_tbl WHERE member_id = #{memberId}
     </select>
-	
+    
+	<select id="selectDesignerBoard" resultType="designerIntro">
+    select *
+    from (
+        select 
+            d.designer_introduce, 
+            m.member_name, 
+            m.member_thumb, 
+            m.member_id
+        from member_tbl m
+        right join designer_tbl d on m.member_id = d.member_id
+        order by m.member_name desc
+    )
+    where rownum &lt; 7
+    <!-- <, >은 예약어라서 xml에서 사용 불가능 &lt; 사용 -->
+	</select>
 </mapper>
