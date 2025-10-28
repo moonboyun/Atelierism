@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.iei.admin.model.dao.AdminDao;
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.board.model.dao.ReviewBoardDao;
+import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.util.PageInfo;
 import kr.co.iei.util.PageInfoUtils;
 
@@ -55,7 +57,6 @@ public class AdminService {
 		} else if(memOrder.equals("a1")||memOrder.equals("a2")||memOrder.equals("a3")) {
 			totalCount = adminDao.applicantTotalCount(memOrder);
 		}
-		System.out.println(totalCount);
 		PageInfo pi = pageInfoUtils.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);//ok
 		//pi랑 정렬기준을 둘 다 줘야하기때문에 Map이라는 객체로 묶어서 보냄
 		//정렬에 필요한건 start, end, memOrder 3가지라서 이것만 묶어서 보냄
@@ -82,5 +83,28 @@ public class AdminService {
 			return null;
 		}
 	}//selectBoardList
+
+	
+	public Map selectApplicantDetailList(String memberId) {
+		List applicantDetail = adminDao.selectApplicantDetail(memberId);
+		List applicantAward = adminDao.selectApplicantAward(memberId);
+		List applicantCareer = adminDao.selectApplicantCareer(memberId);
+		Map<String, Object> detail = new HashMap<String, Object>();
+		detail.put("applicantDetail", applicantDetail);
+		detail.put("applicantAward", applicantAward);
+		detail.put("applicantCareer", applicantCareer);
+		return detail;
+	}
+	
+	@Transactional
+	public int refusalDesigner(String memberId) {
+		int result = adminDao.refusalDesigner(memberId);
+		return result;
+	}
+
+	public int enterDesigner(String memberId) {
+		int result = adminDao.enterDesigner(memberId);
+		return result;
+	}
 
 }

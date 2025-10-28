@@ -1,12 +1,20 @@
 package kr.co.iei.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.iei.interior.model.dto.InteriorDTO;
+import kr.co.iei.interior.model.service.InteriorService;
 import kr.co.iei.member.model.dto.LoginMemberDTO;
 import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.member.model.service.MemberService;
 import kr.co.iei.util.EmailSender;
+import kr.co.iei.util.FileUtil;
 import kr.co.iei.util.JwtUtils;
 
 @CrossOrigin("*")
@@ -33,6 +45,12 @@ public class MemberController {
 	private JwtUtils Jwt;
 	@Autowired
 	private EmailSender mailSender;
+	@Autowired
+	private InteriorService interiorService;
+	@Autowired
+	private FileUtil fileUtil;
+	@Value("${file.root}")
+	private String root;
 	
 	@PostMapping
 	public ResponseEntity<Integer> insertMember(@RequestBody MemberDTO member){
@@ -135,4 +153,30 @@ public class MemberController {
 	    int result = memberService.resetPw(member);
 	    return ResponseEntity.ok(result);
 	}
+	@GetMapping("/payments/{memberId}")
+	public ResponseEntity<List<InteriorDTO>> getPayments(@PathVariable String memberId) {
+	    List<InteriorDTO> list = interiorService.selectPaymentsByMemberId(memberId);
+	    return ResponseEntity.ok(list);
+	}
+	
+	@PostMapping(value="/profile/{memberId}")
+	public ResponseEntity<String> uploadProfile(
+	        @PathVariable String memberId,
+	        @RequestParam("file") MultipartFile file) {
+
+	    // 저장 경로
+	    String savePath = root + "/memberProfile/";
+	    File folder = new File(savePath);
+	    if (!folder.exists()) folder.mkdirs(); // 디렉토리 없으면 생성
+
+	    // 파일 저장
+	    String filename = fileUtil.upload(savePath, file);
+
+	    // DB에 파일명 업데이트
+	    memberService.updateProfile(memberId, filename);
+
+	    return ResponseEntity.ok(filename);
+	}
+
+
 }

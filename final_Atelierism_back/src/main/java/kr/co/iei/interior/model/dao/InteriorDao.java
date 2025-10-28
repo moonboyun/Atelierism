@@ -1,5 +1,7 @@
 package kr.co.iei.interior.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.interior.model.dto.InteriorDTO;
@@ -16,5 +18,8 @@ public interface InteriorDao {
 	int deleteInterior(int interiorNo);
 
 	int updateInterior(InteriorDTO interior);
+
+	List<InteriorDTO> selectPaymentsByMemberId(String memberId);
+
 
 }

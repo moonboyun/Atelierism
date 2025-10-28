@@ -6,14 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-@Alias(value = "applicant")
-public class ApplicantDTO {
+@Alias(value = "applicantAward")
+public class ApplicantAwardDTO {
 	private String memberId;
-	private String memberName;
-	private String memberPhone;
-	private int designerEnter;
-	private int designerCareer;
+	private String designerAwardsDete;
+	private String designerAwards;
 }
