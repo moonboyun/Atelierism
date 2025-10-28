@@ -69,6 +69,12 @@ public class DesignerController {
         DesignerDetailDTO designer = designerService.selectOneDesigner(memberId);
         return ResponseEntity.ok(designer);
     }
+	
+	@GetMapping(value="/board")
+	public ResponseEntity<List> selectDesignerBoard(){
+		List list = designerService.selectDesignerBoard();
+		return ResponseEntity.ok(list);
+	}
 
 	
 }

@@ -80,5 +80,10 @@ public class DesignerService {
         }
         return dto;
     }
+
+	public List selectDesignerBoard() {
+		List list = designerDao.selectDesignerBoard();
+		return list;
+	}
     
 }
