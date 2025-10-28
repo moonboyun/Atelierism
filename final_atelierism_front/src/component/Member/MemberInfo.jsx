@@ -192,12 +192,9 @@ const MemberInfo = () => {
             <button type="button" onClick={deleteMember}>
               회원 탈퇴
             </button>
-            <button
-              type="button"
-              style={{ marginLeft: "30px", backgroundColor: "#8aa996" }}
-            >
+            <Link to="/designer/designerInfoFrm" className="de-designerInfoFrm">
               디자이너 신청
-            </button>
+            </Link>
           </div>
         </form>
       )}
