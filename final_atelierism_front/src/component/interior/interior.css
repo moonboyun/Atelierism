@@ -647,6 +647,7 @@ label .payI-checked {
   color: #fff;
   font-size: 24px;
   font-weight: 600;
+  transition: 0.2s;
 }
 .payI-price-box > button:last-child {
   width: 60px;
@@ -658,4 +659,37 @@ label .payI-checked {
   font-weight: 400;
   padding: 0;
   cursor: pointer;
+}
+.payI-price-box > .payI-pat-btn:hover {
+  background-color: var(--btnHover);
+  transition: 0.2s;
+}
+.payI-save-btn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.payI-save-btn > button {
+  border: none;
+  width: 215px;
+  height: 49px;
+  font-size: 24px;
+  font-weight: 500;
+  border-radius: 8px;
+  color: #fff;
+  transition: 0.2s;
+}
+.payI-save-btn > button:last-child {
+  background-color: var(--main1);
+}
+.payI-save-btn > button:first-child {
+  background-color: var(--gray5);
+}
+.payI-save-btn > button:last-child:hover {
+  background-color: var(--btnHover);
+  transition: 0.2s;
+}
+.payI-save-btn > button:first-child:hover {
+  background-color: var(--gray4);
+  transition: 0.2s;
 }
