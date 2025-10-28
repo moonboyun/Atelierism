@@ -28,7 +28,7 @@ const Header = (props) => {
               <Link to="#">회사소개</Link>
             </li>
             <li>
-              <Link to="#">작품보기</Link>
+              <Link to="/board/designer">작품보기</Link>
             </li>
             <li>
               <Link to="/board/review">고객후기</Link>
