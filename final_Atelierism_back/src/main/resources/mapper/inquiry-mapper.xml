@@ -31,4 +31,13 @@
 					from inquiry_board_tbl order by inquiry_board_no asc)b)
 		where rnum between #{start} and #{end}
 	</select>
+	
+	<select id="selectOneBoard" resultType="inquiry">
+		select * from inquiry_board_tbl where inquiry_board_no = #{inquiryBoardNo}
+	</select>
+	
+	<update id="updateAdminComment">
+		update inquiry_board_tbl set admin_comment = #{adminComment}
+		where inquiry_board_no = #{inquiryBoardNo}
+	</update>
 </mapper>

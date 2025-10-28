@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Alias(value = "applicant")
-public class ApplicantDTO {
+@Alias(value = "applicantCareer")
+public class ApplicantCareerDTO {
+	private int careerNo;
 	private String memberId;
-	private String memberName;
-	private String memberPhone;
-	private int designerEnter;
-	private int designerCareer;
+	private String designerCareerSy;    
+	private String designerCareerEy;    
+	private String designerCareerCom;
 }

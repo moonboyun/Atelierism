@@ -4,7 +4,6 @@ import PageNaviGation from "../utils/PageNavigation";
 import { Link } from "react-router-dom";
 
 const AdminList = (props) => {
-  console.log("aaa", props.data);
   const data = props.data; //처음에 data로만 선언
   const backServer = import.meta.env.VITE_BACK_SERVER;
   const [memOrder, setMemOrder] = useState(null); //state에 처음에는 null 세팅
@@ -16,7 +15,6 @@ const AdminList = (props) => {
   const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
   //값을 가져오는 axios
   useEffect(() => {
-    console.log(memOrder);
     /*처음에 돌아가는 useEffect에서는 state가 null이니까 return으로 돌아가지 않음*/
     if (memOrder === null) {
       return;
@@ -29,7 +27,6 @@ const AdminList = (props) => {
         }/admin?reqPage=${reqPqge}&memOrder=${memOrder}`
       )
       .then((res) => {
-        console.log(res);
         setPi(res.data.pi);
         setListData(res.data.reqList);
       })
