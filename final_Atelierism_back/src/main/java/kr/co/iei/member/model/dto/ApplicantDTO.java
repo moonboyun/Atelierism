@@ -16,5 +16,4 @@ public class ApplicantDTO {
 	private String memberPhone;
 	private int designerEnter;
 	private int designerCareer;
-	
 }
