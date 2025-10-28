@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.iei.admin.model.dao.AdminDao;
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.board.model.dao.ReviewBoardDao;
+import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.util.PageInfo;
 import kr.co.iei.util.PageInfoUtils;
 
@@ -82,5 +84,18 @@ public class AdminService {
 			return null;
 		}
 	}//selectBoardList
+
+	
+	public Map selectApplicantDetailList(String memberId) {
+		List applicantDetail = adminDao.selectApplicantDetail(memberId);
+		List applicantAward = adminDao.selectApplicantAward(memberId);
+		List applicantCareer = adminDao.selectApplicantCareer(memberId);
+		System.out.println(applicantDetail);
+		Map<String, Object> detail = new HashMap<String, Object>();
+		detail.put("applicantDetail", applicantDetail);
+		detail.put("applicantAward", applicantAward);
+		detail.put("applicantCareer", applicantCareer);
+		return detail;
+	}
 
 }

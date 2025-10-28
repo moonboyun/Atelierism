@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.admin.model.dto.PriceListDto;
+import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.util.PageInfo;
 
 @Mapper
@@ -28,5 +29,12 @@ public interface AdminDao {
 	List selectApplicantList(Map<String, Object> orderMap);
 
 	int applicantTotalCount(String memOrder);
+
+	List selectApplicantDetail(String memberId);
+
+	List selectApplicantAward(String memberId);
+
+	List selectApplicantCareer(String memberId);
+	
 
 }
