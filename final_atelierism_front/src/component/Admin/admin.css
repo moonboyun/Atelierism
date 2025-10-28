@@ -129,19 +129,25 @@
   width: 120px;
   font-size: 20px;
   padding: 5px;
+  text-align: center;
+}
+.detail-award > table th:first-child {
   text-align: left;
+}
+.detail-award > table > tr > #award-title {
+  width: 250px;
 }
 .detail-award > table td {
   font-size: 18px;
   padding: 5px;
 }
-.detail-award > table td:nth-child(2) {
+/*.detail-award > table td:nth-child(2) {
   width: 100px;
   text-align: left;
 }
 .detail-award > table td:nth-child(3) {
   width: 250px;
-}
+}*/
 /*------------------------detail-payment--------------------------*/
 .detail-payment {
   border-top: 1px solid var(--gray3);
