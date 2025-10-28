@@ -30,15 +30,18 @@
   </delete>
   <select id="selectPaymentsByMemberId" resultType="interior">
   SELECT 
-        INTERIOR_NO,
-        INTERIOR_DESIGNER,
-        INTERIOR_CUSTOMER,
-        INTERIOR_WHY,
-        INTERIOR_PRICE,
-        INTERIOR_PAYMENT_DATE
-    		FROM INTERIOR_TBL
-    		WHERE INTERIOR_CUSTOMER = #{memberId}
-      		AND INTERIOR_PAYMENT_CHECK = 1
-    		ORDER BY INTERIOR_PAYMENT_DATE DESC
+        i.INTERIOR_NO,
+        i.INTERIOR_DESIGNER,
+        i.INTERIOR_CUSTOMER,
+        i.INTERIOR_WHY,
+        i.INTERIOR_PRICE,
+        i.INTERIOR_PAYMENT_DATE,
+        d.DESIGNER_CHAT
+  FROM INTERIOR_TBL i
+  LEFT JOIN DESIGNER_TBL d
+         ON i.INTERIOR_DESIGNER = d.MEMBER_ID
+  WHERE i.INTERIOR_CUSTOMER = #{memberId}
+    AND i.INTERIOR_PAYMENT_CHECK = 1
+  ORDER BY i.INTERIOR_PAYMENT_DATE DESC
     </select>
 </mapper>
