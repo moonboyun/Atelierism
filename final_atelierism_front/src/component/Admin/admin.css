@@ -104,6 +104,10 @@
   font-size: 18px;
   padding: 5px;
 }
+.detail-career > table > tr > #cartitle {
+  font-size: 20px;
+  text-align: center;
+}
 .detail-career > table > tr > td:nth-child(2) {
   width: 170px;
   text-align: left;
