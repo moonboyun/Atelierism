@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ import kr.co.iei.designer.model.dto.DesignerApplyRequestDTO;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.designer.model.dto.DesignerDetailDTO;
 import kr.co.iei.designer.model.dto.DesignerIntroDTO;
+import kr.co.iei.designer.model.dto.DesignerStatusDetailDTO;
 import kr.co.iei.designer.model.dto.MemberDesignerDTO;
 import kr.co.iei.designer.model.service.DesignerService;
 import kr.co.iei.member.model.service.MemberService;
@@ -66,7 +68,6 @@ public class DesignerController {
             requestData.getCareerList(),
             requestData.getAwardList()
         );
-
         return ResponseEntity.ok(result);
     }
 	
@@ -101,5 +102,27 @@ public class DesignerController {
         header.add(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE); 
         return ResponseEntity.ok().headers(header).body(resource);
 	}
+	
+	@GetMapping("/status/{designerId}")
+    public ResponseEntity<Map> selectStatusList(@PathVariable String designerId, @RequestParam int reqPage) {
+        Map map = designerService.selectStatusList(designerId, reqPage);
+        return ResponseEntity.ok(map);
+    }
+	
+	@GetMapping("/status/detail/{interiorNo}")
+    public ResponseEntity<DesignerStatusDetailDTO> selectStatusDetail(@PathVariable int interiorNo) {
+        DesignerStatusDetailDTO detail = designerService.selectStatusDetail(interiorNo);
+        return ResponseEntity.ok(detail);
+    }
+	
+	@PatchMapping(value="/status/detail")
+    public ResponseEntity<Integer> updateStatus(@RequestBody Map<String, Object> payload) {
+        int interiorNo = (Integer) payload.get("interiorNo");
+        String interiorMemo = (String) payload.get("interiorMemo");
+        int interiorStatus = (Integer) payload.get("interiorStatus");
+
+        int result = designerService.updateStatus(interiorNo, interiorMemo, interiorStatus);
+        return ResponseEntity.ok(result);
+    }
 	
 }
