@@ -26,7 +26,7 @@ import Intro from "./component/designer/Intro";
 import InquiryWriter from "./component/board/InquiryWriter";
 import AdminSalesStatus from "./component/Admin/AdminSalesStatus";
 import AdminMain from "./component/Admin/AdminMain";
-import DesignerMypage from "./component/designer/designerMypage";
+import DesignerMypage from "./component/designer/DesignerMypage";
 import DesignerInfo from "./component/designer/DesignerInfo";
 import DesignerInfoFrm from "./component/designer/DesignerInfoFrm";
 import DesignerDetail from "./component/designer/DesignerDetail";
