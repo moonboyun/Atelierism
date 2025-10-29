@@ -778,29 +778,36 @@ const PayInfo = (props) => {
     interior.interiorStudy === updateInterior.interiorStudy &&
     interior.interiorRange === updateInterior.interiorRange &&
     interior.interiorWhy === updateInterior.interiorWhy &&
-    // 💡 '다른 이유' 타입 비교 추가
-    (interior.interiorWhyType || "") ===
-      (updateInterior.interiorWhyType || "") &&
     interior.interiorPrice === updateInterior.interiorPrice;
   const delUpdate = () => {
     setUpdateInterior(interior);
   };
   const updateInter = () => {
-    axios
-      .patch(`${import.meta.env.VITE_BACK_SERVER}/interior`, updateInterior)
-      .then((res) => {
-        Swal.fire({
-          title: "저장 완료!",
-          text: "장바구니 저장 완료되었습니다.",
-          icon: "success",
-          confirmButtonText: "닫기",
-          confirmButtonColor: " #8aa996",
-        });
-        setUpdateInterior({});
-      })
-      .catch((err) => {
-        console.log(err);
+    if (updateInterior.interiorWhy === "") {
+      Swal.fire({
+        title: "인테리어 이유 확인",
+        text: "인테리어 이유를 작성해주세요.",
+        icon: "warning",
+        confirmButtonText: "닫기",
+        confirmButtonColor: " #8aa996",
       });
+    } else {
+      axios
+        .patch(`${import.meta.env.VITE_BACK_SERVER}/interior`, updateInterior)
+        .then((res) => {
+          Swal.fire({
+            title: "저장 완료!",
+            text: "장바구니 저장 완료되었습니다.",
+            icon: "success",
+            confirmButtonText: "닫기",
+            confirmButtonColor: " #8aa996",
+          });
+          setUpdateInterior({});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   const payConsentCheck = (e) => {
     setPayConsent(e.target.checked);
