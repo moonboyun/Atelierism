@@ -464,6 +464,7 @@
 .de-page-title {
   font-size: 22px;
   font-weight: 700;
+  text-align: center;
   margin: 6px 0 22px;
   color: #2c2c2c;
 }
