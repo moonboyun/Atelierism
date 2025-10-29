@@ -11,7 +11,7 @@ const AdminList = (props) => {
   // a1: 신청자 대기만, a2: 신청자 반려만, a3: 신청자 수락만
   // d1: 최근 3개월, d2: 최근 6개월, d3: 역대최고매출
   const [listData, setListData] = useState([]); //회원들의 리스트
-  const [reqPqge, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
+  const [reqPage, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
   const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
   //값을 가져오는 axios
   useEffect(() => {
@@ -24,7 +24,7 @@ const AdminList = (props) => {
       .get(
         `${
           import.meta.env.VITE_BACK_SERVER
-        }/admin?reqPage=${reqPqge}&memOrder=${memOrder}`
+        }/admin?reqPage=${reqPage}&memOrder=${memOrder}`
       )
       .then((res) => {
         setPi(res.data.pi);
@@ -36,7 +36,7 @@ const AdminList = (props) => {
     return () => {
       console.log("언마운트");
     };
-  }, [reqPqge, memOrder]);
+  }, [reqPage, memOrder]);
   useEffect(() => {
     /*위에서 안 돌고 내려오면 이 useEffect가 돌아감, 여기서 setMemOrder가 돌아가서 위에 useEffect가 다시 돌아감*/
     setMemOrder(data);
@@ -170,7 +170,7 @@ const AdminList = (props) => {
       {/* 페이징 */}
       <div className="board-paging-wrap">
         {pi !== null && (
-          <PageNaviGation pi={pi} reqPqge={reqPqge} setReqPage={setReqPage} />
+          <PageNaviGation pi={pi} reqPage={reqPage} setReqPage={setReqPage} />
         )}
       </div>
     </div>
