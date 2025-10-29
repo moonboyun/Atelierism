@@ -276,9 +276,7 @@ const RecoverId = () => {
         </div>
 
         <div className="sb-recover-id-btn">
-          <button type="submit" disabled={mailCode !== null}>
-            아이디 찾기
-          </button>
+          <button type="submit">아이디 찾기</button>
         </div>
       </form>
 
