@@ -1,8 +1,8 @@
-/* material-icons 기본 폰트 크기/라인하이트를 페이지네이션 안에서만 무효화 */
+/* material-icons 기본 폰트 크기 무효화 */
 .pagination .material-icons {
-  font-size: 0 !important;
-  line-height: 0 !important;
-  padding: 0 !important;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
 }
 .pagination > li {
   display: flex;
@@ -20,24 +20,23 @@
 /* 공통 버튼 박스(숫자/아이콘) */
 .pagination .pg-item {
   box-sizing: border-box;
-  width: 24px; /* 원하는 너비 */
-  height: 24px; /* 원하는 높이 */
+  width: 24px;
+  height: 24px;
   padding: 0;
   border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px; /* 숫자 크기(텍스트) */
+  font-size: 16px;
   line-height: 1;
   font-weight: 500;
-  color: #fff;
+  background: #f3f5f4;
+  color: #333333;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.15s ease, color 0.15s ease,
-    transform 0.05s ease;
 }
 .pagination .material-icons svg {
-  font-size: 26px; /* 아이콘 크기 */
+  font-size: 22px;
   width: 1em;
   height: 1em;
 }
@@ -56,8 +55,8 @@
 
 /* MUI 아이콘 크기 정돈 (양쪽 화살표) */
 .pg-item svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
 }
 
 /* 아이콘 호버 시 살짝 강조 */
