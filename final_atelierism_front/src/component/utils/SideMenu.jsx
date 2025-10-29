@@ -92,7 +92,7 @@ const SideMenu = (props) => {
                 className="profile-edit-btn"
                 style={{
                   border: "none",
-                  fontSize: "18px",
+                  fontSize: "16px",
                   backgroundColor: "#fff",
                   cursor: "pointer",
                 }}
