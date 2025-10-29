@@ -44,7 +44,7 @@ const BoardInquiry = () => {
   const [def, setDef] = useState(1); // 1: FAQ, 2: 1:1 문의
   const [openIdx, setOpenIdx] = useState(null); // 현재 열려있는 질문 인덱스(없으면 null)
   const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
-  const [reqPqge, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
+  const [reqPage, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
   const [inquiryList, setInquiryList] = useState([]);
   const [memberId, setMemberId] = useRecoilState(loginIdState);
 
@@ -61,7 +61,7 @@ const BoardInquiry = () => {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_BACK_SERVER}/board/inquiry?reqPage=${reqPqge}`
+        `${import.meta.env.VITE_BACK_SERVER}/board/inquiry?reqPage=${reqPage}`
       )
       .then((res) => {
         setInquiryList(res.data.inquiryList);
@@ -70,7 +70,7 @@ const BoardInquiry = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [reqPqge]);
+  }, [reqPage]);
 
   const InteriorApp = () => {
     if (memberId == "") {
@@ -218,7 +218,7 @@ const BoardInquiry = () => {
         </div>
         <div className="board-paging-wrap">
           {pi !== null && (
-            <PageNaviGation pi={pi} reqPqge={reqPqge} setReqPage={setReqPage} />
+            <PageNaviGation pi={pi} reqPage={reqPage} setReqPage={setReqPage} />
           )}
         </div>
       </section>

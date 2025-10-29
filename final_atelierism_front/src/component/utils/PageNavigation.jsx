@@ -2,6 +2,7 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import "./pageNavigation.css";
 const PageNaviGation = (props) => {
   const pi = props.pi;
   const reqPage = props.reqPage;
@@ -13,7 +14,7 @@ const PageNaviGation = (props) => {
   arr.push(
     <li key="first-page">
       <span
-        className="material-icons page-item"
+        className="material-icons pg-item"
         onClick={() => {
           setReqPage(1);
         }}
@@ -27,7 +28,7 @@ const PageNaviGation = (props) => {
   arr.push(
     <li key="prev-page">
       <span
-        className="material-icons page-item"
+        className="material-icons pg-item"
         onClick={() => {
           //reqPage가 1이 아닐때만 -1 작동
           if (reqPage !== 1) {
@@ -46,7 +47,7 @@ const PageNaviGation = (props) => {
     arr.push(
       <li key={"page-" + i}>
         <span
-          className={pageNo === reqPage ? "page-item active-page" : "page-item"}
+          className={pageNo === reqPage ? "pg-item at-page" : "pg-item"}
           onClick={(e) => {
             //클릭한 텍스트의 변수 값
             const pageNumber = e.target.innerText;
@@ -66,7 +67,7 @@ const PageNaviGation = (props) => {
   arr.push(
     <li key="next-page">
       <span
-        className="material-icons page-item"
+        className="material-icons pg-item"
         onClick={() => {
           if (reqPage !== pi.totalPage) {
             setReqPage(reqPage + 1);
@@ -81,7 +82,7 @@ const PageNaviGation = (props) => {
   arr.push(
     <li key="last-page">
       <span
-        className="material-icons page-item"
+        className="material-icons pg-item"
         onClick={() => {
           setReqPage(pi.totalPage);
         }}
