@@ -109,6 +109,7 @@
             m.member_id
         from member_tbl m
         right join designer_tbl d on m.member_id = d.member_id
+        where m.designer_enter = 2
         order by m.member_name desc
     )
     where rownum &lt; 7
