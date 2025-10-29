@@ -18,6 +18,7 @@ const InteriorDesigner = (props) => {
     memberIntroduce: "",
   });
   const loginId = useRecoilValue(loginIdState);
+  const onClose = props.onClose;
 
   useEffect(() => {
     if (checkedDesigner.memberId) {
@@ -58,6 +59,7 @@ const InteriorDesigner = (props) => {
             memberList={memberList}
             setCheckedDesigner={setCheckedDesigner}
             checkedDesigner={checkedDesigner}
+            onClose={onClose}
           />
         </div>
       </div>
@@ -103,6 +105,7 @@ const ChoiceDesigner = (props) => {
   const designerList = props.designerList;
   const memberList = props.memberList;
   const [moreDesigner, setMoreDesigner] = useState(3);
+  const onClose = props.onClose;
   return (
     <div className="interD-choice-items">
       {designerList.slice(0, moreDesigner).map((designer, index) => {
@@ -117,6 +120,7 @@ const ChoiceDesigner = (props) => {
             member={matchedMember}
             setCheckedDesigner={props.setCheckedDesigner}
             checkedDesigner={props.checkedDesigner}
+            onClose={onClose}
           />
         );
       })}
@@ -138,6 +142,7 @@ const DesignerItem = (props) => {
   const member = props.member;
   const setCheckedDesigner = props.setCheckedDesigner;
   const checkedDesigner = props.checkedDesigner;
+  const onClose = props.onClose;
   const designerInfo = () => {
     setCheckedDesigner({
       memberThumb: member.memberThumb || null, // 썸네일 이미지가 있으면 사용
@@ -175,7 +180,14 @@ const DesignerItem = (props) => {
           <div>한줄 소개 | {designer.designerIntroduce}</div>
         </div>
         <div className="interD-introduction">
-          <Link to="#">디자이너 소개 보러가기</Link>
+          <Link
+            to={`/designer/detail/${designer.memberId}`}
+            onClick={() => {
+              onClose();
+            }}
+          >
+            디자이너 소개 보러가기
+          </Link>
           <ArrowForwardIos />
         </div>
       </div>
