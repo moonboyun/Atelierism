@@ -85,7 +85,11 @@ const MemberUpdate = () => {
             icon: "success",
           });
         }
-        navigate("/member/mypage");
+        if (member.memberType === 2) {
+          navigate("/designer/mypage");
+        } else if (member.memberType === 3) {
+          navigate("/member/mypage");
+        }
       })
       .catch((err) => {
         console.log(err);
