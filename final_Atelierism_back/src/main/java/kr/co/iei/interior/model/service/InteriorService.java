@@ -1,5 +1,7 @@
 package kr.co.iei.interior.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,5 +35,15 @@ public class InteriorService {
 	public int deleteInterior(int interiorNo) {
 		int result = interiorDao.deleteInterior(interiorNo);
 		return result;
+	}
+
+	@Transactional
+	public int updateInterior(InteriorDTO interior) {
+		int result = interiorDao.updateInterior(interior);
+		return result;
+	}
+	public List<InteriorDTO> selectPaymentsByMemberId(String memberId) {
+		List<InteriorDTO> list = interiorDao.selectPaymentsByMemberId(memberId);
+		return list;
 	}
 }

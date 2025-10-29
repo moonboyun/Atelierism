@@ -37,4 +37,9 @@
 	    set member_pw = #{memberPw}
 	    where member_id = #{memberId}
 	</update>
+	<update id="updateProfile">
+    UPDATE member_tbl
+    SET member_thumb = #{memberThumb}
+    WHERE member_id = #{memberId}
+</update>
 </mapper>
