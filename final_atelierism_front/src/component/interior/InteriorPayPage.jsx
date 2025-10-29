@@ -822,7 +822,7 @@ const PayInfo = (props) => {
     }));
   };
   const payInterior = () => {
-    console.log(updateInterior.interiorPaymentCharge);
+    localStorage.setItem("interiorDesigner", updateInterior.interiorDesigner);
     if (!payConsent) {
       Swal.fire({
         title: "동의 확인",
@@ -863,6 +863,7 @@ const PayInfo = (props) => {
                 )
                 .then((res) => {
                   navigate("/interior/paySuccess");
+                  setIsInterior(false);
                 })
                 .catch((err) => {
                   console.log(err);
