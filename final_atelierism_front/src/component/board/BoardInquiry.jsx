@@ -217,7 +217,7 @@ const BoardInquiry = () => {
           )}
         </div>
         <div className="board-paging-wrap">
-          {pi !== null && (
+          {def === 2 && pi !== null && (
             <PageNaviGation pi={pi} reqPage={reqPage} setReqPage={setReqPage} />
           )}
         </div>
