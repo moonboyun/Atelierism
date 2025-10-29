@@ -586,3 +586,168 @@
     width: 100%;
   }
 }
+
+/*    DesignerStatus     */
+
+.de-status-wrap {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.de-status-content {
+  display: flex;
+  gap: 30px;
+}
+
+.de-status-side-menu {
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.de-status-main {
+  flex-grow: 1;
+}
+
+.de-status-title-box {
+  background-color: #f5f3f0;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.de-status-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.de-status-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.de-status-table th,
+.de-status-table td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.de-status-table th {
+  background-color: #f9f9f9;
+  font-weight: 500;
+}
+
+.de-status-pagination-wrap {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+.de-status-clickable-row {
+  cursor: pointer;
+}
+.de-status-clickable-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* =============== 작업 현황 상세 페이지(DesignerStatusDetail) =============== */
+.de-status-detail-form-wrap {
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+.de-status-detail-form-content {
+  width: 100%;
+  max-width: 800px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.de-status-detail-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.de-status-detail-form-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.de-status-detail-form-table th,
+.de-status-detail-form-table td {
+  padding: 15px 0;
+  vertical-align: middle;
+}
+.de-status-detail-form-table th {
+  width: 120px;
+  background-color: #fafafa;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px;
+}
+.de-status-detail-form-table td {
+  padding-left: 20px;
+}
+.de-status-detail-form-table input,
+.de-status-detail-form-table select,
+.de-status-detail-form-table textarea {
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+  background-color: transparent;
+}
+.de-status-detail-form-table input[readOnly] {
+  color: #777;
+}
+.de-status-detail-form-table select {
+  appearance: none; /* 기본 화살표 제거 */
+  background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")
+    no-repeat right 10px center/1em;
+  padding-right: 30px;
+}
+.de-status-detail-form-table textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.de-status-detail-form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+.de-status-detail-form-buttons button,
+.de-status-detail-form-buttons .btn-review {
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-submit {
+  background-color: #8aa996;
+  color: white;
+  border-color: #8aa996;
+}
+.btn-cancel {
+  background-color: #e0e0e0;
+  color: #555;
+  border-color: #e0e0e0;
+}
+.btn-review {
+  background-color: #c2a68c;
+  color: white;
+  border-color: #c2a68c;
+}
