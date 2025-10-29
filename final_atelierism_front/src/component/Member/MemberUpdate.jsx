@@ -18,7 +18,10 @@ const MemberUpdate = () => {
   //const [authChecked, setAuthChecked] = useState(false); //기존 비밀번호가 제대로 입력됐는지 체크
   const [menus, setMenus] = useState([
     //SideMenu에 전송할 state
-    { url: "/member/mypage", text: "마이페이지" },
+    {
+      url: memberType === 2 ? "/designer/mypage" : "/member/mypage",
+      text: "마이페이지",
+    },
     { url: "/member/update", text: "정보 수정" },
     { url: "/member/payment", text: "결제 내역" },
   ]);
