@@ -218,66 +218,6 @@
   font-size: 12px;
 }
 
-/* ===== 페이징 ===== */
-.review-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px; /* 버튼 사이 간격 */
-  padding: 36px 0 40px; /* 위아래 여백 */
-}
-
-/* 기본 버튼(숫자/화살표 공통) */
-.review-pagination .page-btn {
-  min-width: 36px; /* 정사각 느낌 */
-  height: 36px;
-  padding: 0 14px; /* 숫자 2자리 대비 */
-  border: 1px solid #dfe3e8;
-  background: #fff;
-  border-radius: 10px; /* 캡처처럼 둥근 사각 */
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* 호버 효과(활성 아닌 버튼) */
-.review-pagination .page-btn:not(.active):not(:disabled):hover {
-  background: #f7f9fb;
-  border-color: #c9d4dd;
-  transform: translateY(-1px);
-}
-
-/* 활성 페이지(초록 배경, 흰 글씨) */
-.review-pagination .page-btn.active {
-  background: #8aa996;
-  border-color: #8aa996;
-  color: #fff;
-}
-
-/* 비활성(이전/다음 못 갈 때) */
-.review-pagination .page-btn:disabled {
-  opacity: 0.4;
-  cursor: default;
-  transform: none;
-}
-
-/* 화살표 버튼은 테두리 연해 보이게(선택) */
-.review-pagination .page-btn:first-child,
-.review-pagination .page-btn:last-child {
-  border-color: #e7ebef;
-  font-size: 22px; /* « » 가독성 */
-  font-weight: 500;
-}
-
-/* 숫자 버튼만 살짝 더 굵게(선택) */
-.review-pagination .page-btn:not(:first-child):not(:last-child) {
-  font-weight: 700;
-}
-
 .review-header .btn-primary.sm {
   font-size: 16px; /* 글자 키움 */
   font-weight: 600;
@@ -667,17 +607,6 @@
   flex-direction: column;
   overflow: hidden;
   animation: popIn 0.16s ease-out;
-}
-
-@keyframes popIn {
-  from {
-    transform: scale(0.98);
-    opacity: 0.6;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 /* 상단 헤더 */
