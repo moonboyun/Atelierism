@@ -1,9 +1,17 @@
 package kr.co.iei.designer.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +44,9 @@ public class DesignerController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Value("${file.root}")
+	private String root;
+	
 	@GetMapping
 	public ResponseEntity<MemberDesignerDTO> selectDesignerList(){
 		MemberDesignerDTO list = new MemberDesignerDTO();
@@ -49,7 +60,8 @@ public class DesignerController {
 	
 	@PostMapping("/apply")
     public ResponseEntity<Integer> applyDesigner(@RequestBody DesignerApplyRequestDTO requestData) {
-        int result = designerService.applyDesigner(
+        System.out.println(requestData);
+		int result = designerService.applyDesigner(
             requestData.getDesignerInfo(),
             requestData.getCareerList(),
             requestData.getAwardList()
@@ -75,6 +87,19 @@ public class DesignerController {
 		List list = designerService.selectDesignerBoard();
 		return ResponseEntity.ok(list);
 	}
-
+	
+	@GetMapping(value="/profile/{filename}")
+    public ResponseEntity<Resource> getProfileImage(@PathVariable String filename) throws IOException {
+        String path = root + "/memberProfile/" + filename;
+        File file = new File(path);
+        
+        if (!file.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+        Resource resource = new InputStreamResource(new FileInputStream(file));
+        HttpHeaders header = new HttpHeaders();
+        header.add(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE); 
+        return ResponseEntity.ok().headers(header).body(resource);
+	}
 	
 }
