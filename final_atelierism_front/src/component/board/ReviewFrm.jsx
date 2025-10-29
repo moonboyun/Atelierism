@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 
 const ReviewFrm = (props) => {
-  // 상위(ReviewWriter)에서 내려준 상태/세터 꺼내기
   const boardTitle = props.boardTitle;
   const setBoardTitle = props.setBoardTitle;
   const oneLine = props.oneLine;
@@ -11,21 +10,21 @@ const ReviewFrm = (props) => {
   const thumbnail = props.thumbnail;
   const setThumbnail = props.setThumbnail;
   const [memberId, setMemberId] = useRecoilState(loginIdState);
-  const [showThumb, setShowThumb] = useState(null); // 썸네일 미리보기용 DataURL
-  const thumbRef = useRef(null); // 숨은 파일 input 접근 ref
+  const [showThumb, setShowThumb] = useState(null);
+  const thumbRef = useRef(null);
 
   // 썸네일 선택 시 미리보기로 표시
   const changeThumbnail = (e) => {
-    const files = e.target.files; // 선택된 파일 리스트
+    const files = e.target.files;
     if (!files || files.length === 0) {
-      setThumbnail(null); // 상위 상태 초기화
-      setShowThumb(null); // 미리보기 제거
+      setThumbnail(null);
+      setShowThumb(null);
       return;
     }
     setThumbnail(files[0]); // 상위 상태에 파일 저장
-    const reader = new FileReader(); // 파일→DataURL 변환 객체
-    reader.readAsDataURL(files[0]); // 변환 시작
-    reader.onloadend = () => setShowThumb(reader.result); // 변환 끝 → 미리보기 갱신
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onloadend = () => setShowThumb(reader.result);
   };
 
   return (
@@ -40,7 +39,7 @@ const ReviewFrm = (props) => {
           aria-label="thumbnail-uploader"
         >
           {showThumb ? (
-            <img src={showThumb} alt="thumbnail"></img>
+            <img src={showThumb}></img>
           ) : (
             <div className="thumb-placeholder">이미지 추가</div>
           )}
@@ -64,12 +63,12 @@ const ReviewFrm = (props) => {
               <td>
                 <div className="input-item">
                   <input
-                    type="text" // 텍스트 입력
-                    id="boardTitle" // 라벨 연결 id
-                    name="boardTitle" // 폼 이름
-                    value={boardTitle} // 현재 값
-                    onChange={(e) => setBoardTitle(e.target.value)} // 변경 반영
-                    placeholder="제목을 입력해주세요." // 안내 텍스트
+                    type="text"
+                    id="boardTitle"
+                    name="boardTitle"
+                    value={boardTitle}
+                    onChange={(e) => setBoardTitle(e.target.value)}
+                    placeholder="제목을 입력해주세요."
                   />
                 </div>
               </td>
@@ -89,12 +88,12 @@ const ReviewFrm = (props) => {
               <td>
                 <div className="input-item">
                   <input
-                    type="text" // 텍스트 입력
-                    id="oneLine" // 라벨 연결 id
-                    name="oneLine" // 폼 이름
-                    value={oneLine} // 현재 값
-                    onChange={(e) => setOneLine(e.target.value)} // 변경 반영
-                    placeholder="한줄 요약을 입력해주세요." // 안내 텍스트
+                    type="text"
+                    id="oneLine"
+                    name="oneLine"
+                    value={oneLine}
+                    onChange={(e) => setOneLine(e.target.value)}
+                    placeholder="한줄 요약을 입력해주세요."
                   />
                 </div>
               </td>
