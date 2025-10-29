@@ -14,15 +14,23 @@ const AdminMypage = () => {
     { url: "/admin/designerList", text: "디자이너 리스트" },
     { url: "/admin/memberList", text: "회원 리스트" },
   ]);
+  const today = new Date();
+  const toMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
   const [mypageList, setMypageList] = useState(null);
   const [applicantList, setApplicantList] = useState(null);
+  const [topDesignerList, setTopDesignerList] = useState(null);
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACK_SERVER}/admin/myPageList`)
+      .get(
+        `${
+          import.meta.env.VITE_BACK_SERVER
+        }/admin/myPageList?toMonth=${toMonth}`
+      )
       .then((res) => {
         console.log(res);
         setMypageList(res.data);
         setApplicantList(res.data.applicantList);
+        setTopDesignerList(res.data.topDesignerList);
       })
       .catch((err) => {
         console.log(err);
@@ -68,40 +76,21 @@ const AdminMypage = () => {
               <table className="admin-designer-table" border={1}>
                 <tr>
                   <th>디자이너 이름</th>
-                  <th> 입점일</th>
+                  <th>연락처</th>
                   <th>이번달 매출액</th>
                   <th>매출성적</th>
                 </tr>
-                <tr>
-                  <td>김민지</td>
-                  <td>21/04/12</td>
-                  <td>41,000,000원</td>
-                  <td>1등</td>
-                </tr>
-                <tr>
-                  <td>김민지</td>
-                  <td>21/04/12</td>
-                  <td>41,000,000원</td>
-                  <td>2등</td>
-                </tr>
-                <tr>
-                  <td>김민지</td>
-                  <td>21/04/12</td>
-                  <td>41,000,000원</td>
-                  <td>3등</td>
-                </tr>
-                <tr>
-                  <td>김민지</td>
-                  <td>21/04/12</td>
-                  <td>41,000,000원</td>
-                  <td>4등</td>
-                </tr>
-                <tr>
-                  <td>김민지</td>
-                  <td>21/04/12</td>
-                  <td>41,000,000원</td>
-                  <td>5등</td>
-                </tr>
+                {topDesignerList != null &&
+                  topDesignerList.map((topDesigner, i) => {
+                    return (
+                      <tr>
+                        <td>{topDesigner.memberName}</td>
+                        <td>{topDesigner.memberPhone}</td>
+                        <td>{topDesigner.totalPrice}원</td>
+                        <td>{i + 1}등</td>
+                      </tr>
+                    );
+                  })}
               </table>
             </div>
           </section>

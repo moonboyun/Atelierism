@@ -114,10 +114,12 @@ public class AdminService {
 		return result;
 	}
 
-	public Map myPageList() {
+	public Map myPageList(String toMonth) {
 		Map<String, Object> myPageList = new HashMap<String, Object>();
 		List applicantList = adminDao.applicantList();
+		List topDesignerList = adminDao.topDesigner(toMonth);
 		myPageList.put("applicantList", applicantList);
+		myPageList.put("topDesignerList", topDesignerList);
 		return myPageList;
 	}
 
