@@ -16,6 +16,7 @@
   		#{interiorWhy},
   		#{interiorPrice},
   		0,
+  		null,
   		null
   	)
   </insert>
@@ -72,6 +73,13 @@
     ORDER BY i.INTERIOR_PAYMENT_DATE DESC
   </if>
 </select>
+<update id="payUpdateInterior">
+	update interior_tbl set 
+		interior_payment_check=1, 
+		interior_payment_date = to_char(sysdate,'yyyy-mm-dd'), 
+		interior_payment_charge = #{interiorPaymentCharge}
+	where interior_no = #{interiorNo}
+</update>
 
 
 </mapper>
