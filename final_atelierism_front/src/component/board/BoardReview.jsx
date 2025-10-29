@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import "./board.css";
 import axios from "axios";
@@ -7,13 +7,11 @@ import { isLoginState, loginIdState } from "../utils/RecoilData";
 import PageNaviGation from "../utils/PageNavigation";
 import CloseIcon from "@mui/icons-material/Close";
 import Swal from "sweetalert2";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { memberTypeState } from "../utils/RecoilData";
 
 const BoardReview = () => {
   const [boardList, setBoardList] = useState([]);
-  const [reqPqge, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
+  const [reqPage, setReqPage] = useState(1); // 요청할 페이지 번호(기본값1)
   const [pi, setPi] = useState(null); // 페이징 된 번호 응답상태
   const isLogin = useRecoilValue(isLoginState);
   const [memberId, setMemberId] = useRecoilState(loginIdState);
@@ -27,12 +25,10 @@ const BoardReview = () => {
     setSelectedBoard(board);
   };
 
-  const [heart, setHeart] = useState(0);
-
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_BACK_SERVER}/board/review?reqPage=${reqPqge}`
+        `${import.meta.env.VITE_BACK_SERVER}/board/review?reqPage=${reqPage}`
       )
       .then((res) => {
         setBoardList(res.data.boardList);
@@ -41,11 +37,10 @@ const BoardReview = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [reqPqge]);
+  }, [reqPage]);
 
   const toDate = (s) => {
     if (!s) return new Date(0);
-    // 동일 포맷이라면 new Date(s)로도 됨. (yyyy-mm-dd)
     return new Date(s);
   };
 
@@ -110,14 +105,10 @@ const BoardReview = () => {
             >
               <option value="latest">최신순</option>
               <option value="oldest">오래된순</option>
-              <option value="popular" disabled>
-                인기순
-              </option>
             </select>
           </div>
         </div>
         {/* 카드 그리드 */}
-        {/* 정렬된 배열로 렌더링 */}
         <div className="review-grid">
           {sortedBoards.map((board, i) => (
             <BoardItem key={"board-" + i} board={board} onClick={openModal} />
@@ -137,7 +128,7 @@ const BoardReview = () => {
         {/* 페이징 */}
         <div className="board-paging-wrap">
           {pi !== null && (
-            <PageNaviGation pi={pi} reqPqge={reqPqge} setReqPage={setReqPage} />
+            <PageNaviGation pi={pi} reqPage={reqPage} setReqPage={setReqPage} />
           )}
         </div>
       </section>
@@ -186,9 +177,11 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
       title: "게시글 삭제",
       text: "게시글을 삭제하시겠습니까?",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
+      cancelButtonText: "닫기",
       confirmButtonText: "삭제하기",
-      cancelButtonText: "취소",
+      confirmButtonColor: " #8aa996",
     }).then((select) => {
       if (select.isConfirmed) {
         console.log("삭제");
@@ -201,8 +194,15 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
           .then((res) => {
             console.log(res);
             if (res.data === 1) {
-              onClose();
-              return alert("게시글이 삭제되었습니다.");
+              Swal.fire({
+                title: "게시글 삭제",
+                text: "게시글 삭제 완료",
+                icon: "success",
+                confirmButtonText: "확인",
+                confirmButtonColor: " #8aa996",
+              }).then(() => {
+                onClose();
+              });
             }
           })
           .catch((err) => {
@@ -211,8 +211,6 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
       }
     });
   };
-
-  const heartOn = () => {};
   return (
     <section className="review-modal">
       <div className="modal-wrap">
@@ -242,9 +240,6 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
           </div>
         </div>
         <div className="user-data">
-          <div className="side-div">
-            <FavoriteBorderIcon className="heart-icon" onClick={heartOn} />
-          </div>
           <div className="writer-oneline-div">
             <span className="user-writer">{board.reviewBoardWriter}</span>
             <span className="user-oneline">{board.reviewBoardOneline}</span>
