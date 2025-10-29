@@ -15,7 +15,8 @@
   margin-top: 5px;
 }
 .text-box > span {
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 600;
   margin-right: 10px;
 }
 /*-------------------------menu-list-----------------------------*/
