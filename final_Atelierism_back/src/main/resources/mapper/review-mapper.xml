@@ -37,7 +37,23 @@
 	<delete id="deleteBoard">
 		delete from review_board_tbl where review_board_no = #{reviewBoardNo}
 	</delete>
-	<!--
-	<select id="selectReviewList" resultType=""></select> 
-	 -->
+
+	<select id="selectReviewList" resultType="reviewBoardMain">
+		select 
+			r.review_board_title,
+			r.review_board_thumbnail,
+			r.review_board_no,
+			r.review_board_title,
+			r.review_board_oneline,
+			r.review_board_content,
+			r.review_board_date, 
+			m.member_name, 
+			r.review_board_writer 
+		from review_board_tbl r 
+		left join member_tbl m 
+		on m.member_id = r.REVIEW_BOARD_WRITER
+		where rownum &lt; 7
+		order by r.review_board_no desc
+	</select> 
+
 </mapper>

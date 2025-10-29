@@ -5,9 +5,7 @@ import axios from "axios";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { isLoginState, loginIdState } from "../utils/RecoilData";
 import PageNaviGation from "../utils/PageNavigation";
-import CloseIcon from "@mui/icons-material/Close";
-import Swal from "sweetalert2";
-import { memberTypeState } from "../utils/RecoilData";
+import ReviewModalApp from "./ReviewModalApp";
 
 const BoardReview = () => {
   const [boardList, setBoardList] = useState([]);
@@ -162,110 +160,6 @@ const BoardItem = (props) => {
         </div>
       </article>
     </div>
-  );
-};
-
-const ReviewModalApp = ({ onClose, board, memberId }) => {
-  // Esc로 닫기
-  useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-  const deleteButton = () => {
-    Swal.fire({
-      title: "게시글 삭제",
-      text: "게시글을 삭제하시겠습니까?",
-      icon: "warning",
-      reverseButtons: true,
-      showCancelButton: true,
-      cancelButtonText: "닫기",
-      confirmButtonText: "삭제하기",
-      confirmButtonColor: " #8aa996",
-    }).then((select) => {
-      if (select.isConfirmed) {
-        console.log("삭제");
-        axios
-          .delete(
-            `${import.meta.env.VITE_BACK_SERVER}/board/review/${
-              board.reviewBoardNo
-            }`
-          )
-          .then((res) => {
-            console.log(res);
-            if (res.data === 1) {
-              Swal.fire({
-                title: "게시글 삭제",
-                text: "게시글 삭제 완료",
-                icon: "success",
-                confirmButtonText: "확인",
-                confirmButtonColor: " #8aa996",
-              }).then(() => {
-                onClose();
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    });
-  };
-  return (
-    <section className="review-modal">
-      <div className="modal-wrap">
-        <div className="modal-page-title">
-          <span className="close-icon" onClick={onClose}>
-            <CloseIcon />
-          </span>
-          <h3>리뷰 상세보기</h3>
-        </div>
-        <div className="modal-page-content">
-          <div className="user-main-title">
-            <span className="user-title">{board.reviewBoardTitle}</span>
-          </div>
-          <div className="user-main-date">
-            <span className="user-date">{board.reviewBoardDate}</span>
-          </div>
-          <div className="user-thumbnail">
-            <img
-              src={
-                board.reviewBoardThumbnail !== null
-                  ? `${
-                      import.meta.env.VITE_BACK_SERVER
-                    }/board/review/thumbnail/${board.reviewBoardThumbnail}`
-                  : "/image/default_image.png"
-              }
-            />
-          </div>
-        </div>
-        <div className="user-data">
-          <div className="writer-oneline-div">
-            <span className="user-writer">{board.reviewBoardWriter}</span>
-            <span className="user-oneline">{board.reviewBoardOneline}</span>
-          </div>
-        </div>
-        <div
-          className="board-content-wrap"
-          dangerouslySetInnerHTML={{ __html: board.reviewBoardContent }}
-        ></div>
-        {memberId === board.reviewBoardWriter ||
-        useRecoilValue(memberTypeState) === 1 ? (
-          <div className="button-box">
-            <div className="button">
-              <button type="button" className="delete" onClick={deleteButton}>
-                삭제
-              </button>
-            </div>
-          </div>
-        ) : null}
-      </div>
-      <div
-        className="modal-backdrop"
-        onClick={onClose}
-        style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)" }}
-      />
-    </section>
   );
 };
 

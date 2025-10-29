@@ -779,9 +779,11 @@
 
 /* 작성자 / 날짜 */
 .user-main-title {
+  width: 650px;
+  margin: 0 auto;
   text-align: center;
   overflow: hidden;
-  margin: 15px;
+  margin-top: 15px;
 }
 .user-main-title .user-title {
   float: left;
@@ -790,9 +792,11 @@
   color: #333333;
 }
 .user-main-date {
+  width: 650px;
+  margin: 0 auto;
   text-align: center;
   overflow: hidden;
-  margin: 15px;
+  margin-bottom: 15px;
 }
 .user-main-date .user-date {
   float: right;
@@ -807,13 +811,15 @@
 .modal-page-content .user-thumbnail img {
   width: 650px;
   height: 650px;
+  object-fit: cover;
 }
 
 /* 작성자 / 하트 / 한줄평 */
 .user-data {
-  margin-left: 25px;
+  width: 650px;
+  margin: 0 auto;
   margin-top: 10px;
-  margin-bottom: 55px;
+  margin-bottom: 20px;
 }
 .user-data .side-div .heart-icon {
   width: 28px;
@@ -821,14 +827,21 @@
   padding-left: 12px;
 }
 .user-data .writer-oneline-div {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   overflow: hidden;
+}
+.board-content-wrap {
+  min-height: 100px;
+  width: 650px;
+  margin: 0 auto;
+  text-align: left;
 }
 .user-data .writer-oneline-div .user-writer {
   float: left;
   font-size: 18px;
   color: #333333;
-  padding-left: 12px;
   font-weight: bolder;
 }
 .user-data .writer-oneline-div .user-oneline {

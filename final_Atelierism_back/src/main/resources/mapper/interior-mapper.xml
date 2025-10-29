@@ -45,27 +45,33 @@
   </update>
 
   <select id="selectPaymentsByMemberId" resultType="interior">
-  SELECT DISTINCT
-        i.INTERIOR_NO,
-        i.INTERIOR_DESIGNER,
-        i.INTERIOR_CUSTOMER,
-        i.INTERIOR_LIVING,
-        i.INTERIOR_KITCHEN,
-        i.INTERIOR_BED,
-        i.INTERIOR_ONEROOM,
-        i.INTERIOR_KIDROOM,
-        i.INTERIOR_STUDY,
-        i.INTERIOR_RANGE,
-        i.INTERIOR_WHY,
-        i.INTERIOR_PRICE,
-        i.INTERIOR_PAYMENT_DATE,
-        d.DESIGNER_CHAT
+  SELECT 
+       i.INTERIOR_NO,
+       i.INTERIOR_DESIGNER,
+       i.INTERIOR_CUSTOMER,
+       i.INTERIOR_LIVING,
+       i.INTERIOR_KITCHEN,
+       i.INTERIOR_BED,
+       i.INTERIOR_ONEROOM,
+       i.INTERIOR_KIDROOM,
+       i.INTERIOR_STUDY,
+       i.INTERIOR_RANGE,
+       i.INTERIOR_WHY,
+       i.INTERIOR_PRICE,
+       i.INTERIOR_PAYMENT_DATE,
+       d.DESIGNER_CHAT
   FROM INTERIOR_TBL i
   LEFT JOIN DESIGNER_TBL d
          ON i.INTERIOR_DESIGNER = d.MEMBER_ID
   WHERE i.INTERIOR_CUSTOMER = #{memberId}
     AND i.INTERIOR_PAYMENT_CHECK = 1
-  ORDER BY i.INTERIOR_PAYMENT_DATE DESC
-    </select>
+  <if test="sort == 'asc'">
+    ORDER BY i.INTERIOR_PAYMENT_DATE ASC
+  </if>
+  <if test="sort == 'desc'">
+    ORDER BY i.INTERIOR_PAYMENT_DATE DESC
+  </if>
+</select>
+
 
 </mapper>

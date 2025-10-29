@@ -44,8 +44,10 @@ const Intro = () => {
                 <img
                   src={
                     designer.memberThumb
-                      ? `${backServer}/member/profile/${designer.memberThumb}`
-                      : "/image/default_image.png"
+                      ? `${backServer}/designer/profile/${designer.memberThumb}`
+                      : `${
+                          import.meta.env.VITE_BACK_SERVER
+                        }/memberProfile/default_image.png`
                   }
                   alt={`${designer.memberName} 디자이너 프로필`}
                 />

@@ -18,7 +18,10 @@ const MemberUpdate = () => {
   //const [authChecked, setAuthChecked] = useState(false); //기존 비밀번호가 제대로 입력됐는지 체크
   const [menus, setMenus] = useState([
     //SideMenu에 전송할 state
-    { url: "/member/mypage", text: "마이페이지" },
+    {
+      url: memberType === 2 ? "/designer/mypage" : "/member/mypage",
+      text: "마이페이지",
+    },
     { url: "/member/update", text: "정보 수정" },
     { url: "/member/payment", text: "결제 내역" },
   ]);
@@ -70,12 +73,15 @@ const MemberUpdate = () => {
   }, [memberId]);
   const navigate = useNavigate();
   const update = () => {
-    const updatedMember = {
-      ...member,
-    };
+    const updatedMember = { ...member };
+
+    // 새 비밀번호가 입력되었을 때만 memberPw 필드 추가
     if (memberNewPw.trim() !== "") {
       updatedMember.memberPw = memberNewPw;
+    } else {
+      delete updatedMember.memberPw; // 없애기
     }
+
     axios
       .patch(`${backServer}/member`, updatedMember)
       .then((res) => {
@@ -85,7 +91,11 @@ const MemberUpdate = () => {
             icon: "success",
           });
         }
-        navigate("/member/mypage");
+        if (member.memberType === 2) {
+          navigate("/designer/mypage");
+        } else if (member.memberType === 3) {
+          navigate("/member/mypage");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -485,7 +495,17 @@ const MemberUpdate = () => {
           </table>
           <div className="update-btn">
             <button type="button">
-              <Link to="/member/mypage">취소하기</Link>
+              <Link
+                to={
+                  member.memberType === 3
+                    ? "/member/mypage"
+                    : member.memberType === 2
+                    ? "/designer/mypage"
+                    : ""
+                }
+              >
+                취소하기
+              </Link>
             </button>
             <button type="submit">수정하기</button>
           </div>

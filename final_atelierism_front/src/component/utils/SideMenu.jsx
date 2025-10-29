@@ -12,7 +12,7 @@ const SideMenu = (props) => {
   const [memberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
   const fileInputRef = useRef(null); // 파일 업로드 input 참조
-  const [profileChanged, setProfileChanged] = useState(false); // ✅ 추가됨
+  const [profileChanged, setProfileChanged] = useState(false);
 
   // 회원 정보 불러오기
   useEffect(() => {
@@ -23,7 +23,7 @@ const SideMenu = (props) => {
       .catch((err) => console.error("회원 정보 불러오기 실패:", err));
   }, [memberId]);
 
-  // ✅ 프로필 변경 후 자동 렌더링 (새로 불러오기)
+  // 프로필 변경 후 자동 렌더링 (새로 불러오기)
   useEffect(() => {
     if (!profileChanged) return;
     axios
@@ -57,7 +57,7 @@ const SideMenu = (props) => {
         ...prev,
         memberThumb: res.data.memberThumb, // 새 이미지 반영
       }));
-      setProfileChanged(true); // ✅ useEffect 트리거
+      setProfileChanged(true); // useEffect 트리거
     } catch (err) {
       console.error("프로필 업로드 실패:", err);
       alert("프로필 업로드에 실패했습니다.");
@@ -69,13 +69,13 @@ const SideMenu = (props) => {
       <div className="image-box">
         <img
           src={
-            member?.memberThumb
+            member?.memberThumb &&
+            member.memberThumb !== "null" &&
+            member.memberThumb !== ""
               ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
                   member.memberThumb
-                }?t=${Date.now()}` // ✅ 캐시 방지
-              : `${
-                  import.meta.env.VITE_BACK_SERVER
-                }/memberProfile/default_image.png`
+                }?t=${Date.now()}` //캐시 방지
+              : `${import.meta.env.BASE_URL}image/default_image.png`
           }
           width={"165px"}
           height={"165px"}
@@ -92,7 +92,7 @@ const SideMenu = (props) => {
                 className="profile-edit-btn"
                 style={{
                   border: "none",
-                  fontSize: "18px",
+                  fontSize: "16px",
                   backgroundColor: "#fff",
                   cursor: "pointer",
                 }}
