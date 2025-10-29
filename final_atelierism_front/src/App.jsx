@@ -29,6 +29,7 @@ import AdminMain from "./component/Admin/AdminMain";
 import DesignerMypage from "./component/designer/designerMypage";
 import DesignerInfo from "./component/designer/DesignerInfo";
 import DesignerInfoFrm from "./component/designer/DesignerInfoFrm";
+import DesignerDetail from "./component/designer/DesignerDetail";
 import axios from "axios";
 import { useEffect } from "react";
 import InteriorPayPage from "./component/interior/InteriorPayPage";
@@ -106,6 +107,10 @@ function App() {
           <Route
             path="/designer/designerInfoFrm"
             element={<DesignerInfoFrm />}
+          />
+          <Route
+            path="/designer/detail/:memberId"
+            element={<DesignerDetail />}
           />
           {/*----------------------interior---------------------*/}
           <Route path="/interior/payPage" element={<InteriorPayPage />} />

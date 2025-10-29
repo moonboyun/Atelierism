@@ -22,4 +22,6 @@ public interface ReviewBoardDao {
 
 	int deleteBoard(int reviewBoardNo);
 
+	List selectReviewList();
+
 }// ReviewBoardDao

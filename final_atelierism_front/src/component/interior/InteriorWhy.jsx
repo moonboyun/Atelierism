@@ -3,7 +3,11 @@ const InteriorWhy = (props) => {
   const setInterior = props.setInterior;
   const whyCheck = (e) => {
     const value = e.target.value;
-    const newInterior = { ...interior, interiorWhy: value };
+    const newInterior = {
+      ...interior,
+      interiorWhy: value,
+      interiorWhyType: "",
+    };
     setInterior(newInterior);
   };
   return (
@@ -146,18 +150,24 @@ const InteriorWhy = (props) => {
               id="interiorWhy"
               name="interiorWhy3"
               value={"다른 이유가 있어요.(기타)"}
-              onClick={whyCheck}
+              onClick={(e) => {
+                setInterior((prev) => ({
+                  ...prev,
+                  interiorWhyType: e.target.value,
+                  interiorWhy: "다른 이유가 있어요.(기타)",
+                }));
+              }}
               style={{ display: "none" }}
             ></input>
             <div
               className={
-                interior.interiorWhy !== "다른 이유가 있어요.(기타)"
+                interior.interiorWhyType !== "다른 이유가 있어요.(기타)"
                   ? "interW-check-box"
                   : "interW-check-box inter-checked"
               }
             >
               <div className="interW-info-box">
-                {interior.interiorWhy === "다른 이유가 있어요.(기타)" ? (
+                {interior.interiorWhyType === "다른 이유가 있어요.(기타)" ? (
                   <span className="material-symbols-outlined inter-checked-icon">
                     check
                   </span>
