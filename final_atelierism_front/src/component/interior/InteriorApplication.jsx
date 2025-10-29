@@ -96,7 +96,7 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <InteriorDesigner setInterior={setInterior} />;
+        return <InteriorDesigner setInterior={setInterior} onClose={onClose} />;
       case 2:
         return <InteriorSpace setInterior={setInterior} interior={interior} />;
       case 3:
