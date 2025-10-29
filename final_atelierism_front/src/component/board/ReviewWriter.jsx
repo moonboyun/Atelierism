@@ -37,7 +37,7 @@ const ReviewWriter = () => {
         return;
       }
       axios
-        .post(`${import.meta.env.VITE_BACK_SERVER}/board`, form, {
+        .post(`${import.meta.env.VITE_BACK_SERVER}/board/review`, form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
