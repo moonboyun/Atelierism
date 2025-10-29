@@ -16,15 +16,26 @@ const MemberUpdate = () => {
   const [memberNewPwRe, setmemberNewPwRe] = useState("");
   const [isAuth, setIsAuth] = useState(false); //현재 비밀번호 입력용
   //const [authChecked, setAuthChecked] = useState(false); //기존 비밀번호가 제대로 입력됐는지 체크
-  const [menus, setMenus] = useState([
-    //SideMenu에 전송할 state
-    {
-      url: memberType === 2 ? "/designer/mypage" : "/member/mypage",
-      text: "마이페이지",
-    },
-    { url: "/member/update", text: "정보 수정" },
-    { url: "/member/payment", text: "결제 내역" },
-  ]);
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    if (memberType === 2) {
+      // 디자이너가 들어온 경우
+      setMenus([
+        { url: "/designer/mypage", text: "마이페이지" },
+        { url: "/member/update", text: "정보 수정" },
+        { url: "/designer/designerInfo", text: "디자이너 정보" },
+        { url: "/designer/status", text: "작업 현황" },
+      ]);
+    } else {
+      // 일반 회원인 경우
+      setMenus([
+        { url: "/member/mypage", text: "마이페이지" },
+        { url: "/member/update", text: "정보 수정" },
+        { url: "/member/payment", text: "결제 내역" },
+      ]);
+    }
+  }, [memberType]);
   const formatPhoneNumber = (value) => {
     // 문자열 안에 숫자가 아닌 문자들을 모두 제거하는 로직
     //-> /\D/g : 숫자가 아닌 문자(\D) 전체(g) 찾기

@@ -22,24 +22,21 @@ const Payment = () => {
     if (!memberId) return;
 
     axios
-      .get(
-        `${
-          import.meta.env.VITE_BACK_SERVER
-        }/member/payments/${memberId}?sort=${sortOrder}`
-      )
-      .then((res) => setPayments(res.data))
+      .get(`${import.meta.env.VITE_BACK_SERVER}/member/payments/${memberId}`)
+      .then((res) => {
+        // 📌 프론트에서 정렬 처리
+        const sorted = [...res.data].sort((a, b) => {
+          const dateA = new Date(a.interiorPaymentDate);
+          const dateB = new Date(b.interiorPaymentDate);
+          return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
+        });
+        setPayments(sorted);
+      })
       .catch((err) => console.error(err));
-  }, [memberId, sortOrder]);
+  }, [memberId, sortOrder]); // sortOrder 변경 시에도 다시 정렬
 
-  // 최신순/오래된순에 따라 slice 처리
-  const visiblePayments =
-    sortOrder === "desc"
-      ? payments.slice(0, visibleCount) // 최신순: 앞에서부터
-      : payments.slice(-visibleCount); // 오래된순: 뒤에서부터
-
-  // 오래된순이면 화면 상단부터 나오도록 reverse
-  const displayPayments =
-    sortOrder === "asc" ? [...visiblePayments].reverse() : visiblePayments;
+  // 화면에 보여줄 개수만큼 자르기
+  const visiblePayments = payments.slice(0, visibleCount);
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 6);
@@ -68,10 +65,10 @@ const Payment = () => {
             </select>
           </div>
 
-          {displayPayments.length > 0 ? (
+          {payments.length > 0 ? (
             <>
               <div className="payment-list">
-                {displayPayments.map((item) => (
+                {visiblePayments.map((item) => (
                   <div className="sb-content" key={item.interiorNo}>
                     <p
                       style={{

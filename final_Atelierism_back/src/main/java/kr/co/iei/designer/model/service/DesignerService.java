@@ -15,6 +15,7 @@ import kr.co.iei.designer.model.dto.DesignerApplyRequestDTO;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.designer.model.dto.DesignerDetailDTO;
 import kr.co.iei.designer.model.dto.DesignerIntroDTO;
+import kr.co.iei.designer.model.dto.DesignerStatusDetailDTO;
 import kr.co.iei.util.PageInfo;
 import kr.co.iei.util.PageInfoUtils;
 
@@ -85,5 +86,31 @@ public class DesignerService {
 		List list = designerDao.selectDesignerBoard();
 		return list;
 	}
+	
+	public Map selectStatusList(String designerId, int reqPage) {
+        int numPerPage = 10;   
+        int pageNaviSize = 5;
+        int totalCount = designerDao.statusTotalCount(designerId);
+        PageInfo pi = pageInfoUtil.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+
+        List statusList = designerDao.selectStatusList(pi, designerId);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("statusList", statusList);
+        map.put("pi", pi);
+        return map;
+    }
+	
+	public DesignerStatusDetailDTO selectStatusDetail(int interiorNo) {
+        return designerDao.selectStatusDetail(interiorNo);
+    }
     
+	@Transactional
+    public int updateStatus(int interiorNo, String interiorMemo, int interiorStatus) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("interiorNo", interiorNo);
+        params.put("interiorMemo", interiorMemo);
+        params.put("interiorStatus", interiorStatus);
+        return designerDao.updateStatus(params);
+    }
 }

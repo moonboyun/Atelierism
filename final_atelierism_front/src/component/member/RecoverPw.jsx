@@ -141,6 +141,10 @@ const RecoverPw = () => {
       return;
     }
 
+    if (authMsg !== "인증 완료") {
+      Swal.fire("이메일 인증", "이메일 인증을 완료해주세요.", "warning");
+      return;
+    }
     axios
       .patch(`${backServer}/member/resetPw`, {
         memberId,

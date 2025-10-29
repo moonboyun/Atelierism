@@ -113,6 +113,65 @@
         order by m.member_name desc
     )
     where rownum &lt; 7
-    <!-- <, >은 예약어라서 xml에서 사용 불가능 &lt; 사용 -->
 	</select>
+	
+	<select id="statusTotalCount" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM interior_tbl i
+        JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
+        WHERE i.interior_designer = #{designerId}
+    </select>
+    <select id="selectStatusList" resultType="designerStatus">
+        SELECT * FROM (
+            SELECT ROWNUM AS RNUM, N.* FROM (
+                SELECT
+                    i.interior_customer,
+                    i.interior_living,
+                    i.interior_kitchen,
+                    i.interior_bed,
+                    i.interior_oneroom,
+                    i.interior_kidroom,
+                    i.interior_study,
+                    i.interior_why,
+                    i.interior_payment_date,
+                    d.interior_no,
+                    d.interior_status
+                FROM interior_tbl i
+                JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
+                WHERE i.interior_designer = #{designerId}
+                ORDER BY i.interior_payment_date DESC
+            ) N
+        )
+        WHERE RNUM BETWEEN #{pi.start} AND #{pi.end}
+    </select>
+    
+    <select id="selectStatusDetail" parameterType="int" resultType="designerStatusDetail">
+        SELECT
+            i.interior_why,
+            i.interior_payment_date,
+            i.interior_price,
+            i.interior_living,
+	        i.interior_kitchen,
+	        i.interior_bed,
+	        i.interior_oneroom,
+	        i.interior_kidroom,
+	        i.interior_study,
+            d.interior_no,
+            d.interior_memo,
+            d.interior_status,
+            m.member_name AS customer_name
+        FROM interior_tbl i
+        JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
+        JOIN member_tbl m ON (i.interior_customer = m.member_id)
+        WHERE i.interior_no = #{interiorNo}
+    </select>
+    
+    <update id="updateStatus" parameterType="map">
+        UPDATE designer_board_tbl
+        SET
+            interior_memo = #{interiorMemo},
+            interior_status = #{interiorStatus}
+        WHERE
+            interior_no = #{interiorNo}
+    </update>
 </mapper>

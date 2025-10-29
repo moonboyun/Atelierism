@@ -48,6 +48,7 @@ const DesignerMypage = () => {
       showCancelButton: true,
       confirmButtonText: "탈퇴하기",
       cancelButtonText: "취소",
+      reverseButtons: true,
     }).then((res1) => {
       if (!res1.isConfirmed) return;
 

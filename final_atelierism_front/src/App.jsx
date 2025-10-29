@@ -30,11 +30,13 @@ import DesignerMypage from "./component/designer/DesignerMypage";
 import DesignerInfo from "./component/designer/DesignerInfo";
 import DesignerInfoFrm from "./component/designer/DesignerInfoFrm";
 import DesignerDetail from "./component/designer/DesignerDetail";
+import DesignerStatus from "./component/designer/DesignerStatus";
 import axios from "axios";
 import { useEffect } from "react";
 import InteriorPayPage from "./component/interior/InteriorPayPage";
 import InquiryView from "./component/board/InquiryView";
 import DesignerWriter from "./component/board/DesignerWriter";
+import DesignerStatusDetail from "./component/designer/DesignerStatusDetail";
 
 function App() {
   const [memberId, setMemberId] = useRecoilState(loginIdState); //회원 아이디를 저장하고 있는 state
@@ -111,6 +113,11 @@ function App() {
           <Route
             path="/designer/detail/:memberId"
             element={<DesignerDetail />}
+          />
+          <Route path="/designer/status" element={<DesignerStatus />} />
+          <Route
+            path="/designer/status/detail/:interiorNo"
+            element={<DesignerStatusDetail />}
           />
           {/*----------------------interior---------------------*/}
           <Route path="/interior/payPage" element={<InteriorPayPage />} />

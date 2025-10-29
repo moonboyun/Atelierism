@@ -4,6 +4,7 @@ import { isInteriorState, loginIdState } from "../utils/RecoilData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Clear } from "@mui/icons-material";
 
 const InteriorPayPage = () => {
   const backServer = import.meta.env.VITE_BACK_SERVER;
@@ -93,6 +94,7 @@ const InteriorPayPage = () => {
               setIsInterior={setIsInterior}
               updateInterior={updateInterior}
               setUpdateInterior={setUpdateInterior}
+              member={member}
             />
           </div>
         </div>
@@ -730,6 +732,7 @@ const PayInfo = (props) => {
   const setIsInterior = props.setIsInterior;
   const updateInterior = props.updateInterior;
   const setUpdateInterior = props.setUpdateInterior;
+  const member = props.member;
   const [payConsent, setPayConsent] = useState(false);
   const navigate = useNavigate();
   const delInterior = () => {
@@ -822,10 +825,34 @@ const PayInfo = (props) => {
         confirmButtonColor: " #8aa996",
       });
     } else {
-      console.log("결제 api 실행");
+      const date = new Date();
+      const dateString = `${date.getFullYear()}${
+        date.getMonth() + 1
+      }${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+      const price = updateInterior.interiorPrice;
+      console.log(price);
+      IMP.init("imp74277302");
+
+      IMP.request_pay(
+        {
+          channelKey: "channel-key-94e5c742-56b4-4403-b569-63b9c4d7cfcb",
+          pay_method: "card",
+          merchant_uid: "order_no_" + dateString, // 상점에서 생성한 고유 주문번호
+          name: "주문명:결제테스트",
+          amount: price,
+          buyer_email: member.memberEmail,
+          buyer_name: member.memberName,
+          buyer_tel: member.memberPhone,
+          buyer_addr: member.memberAddr,
+          buyer_postcode: member.memberAddrdetail,
+        },
+        function (rsp) {
+          console.log(rsp);
+        }
+      );
     }
   };
-  console.log(payConsent);
+
   return (
     <div className="payI-info-box">
       <div className="payI-title">결제</div>
@@ -866,4 +893,5 @@ const PayInfo = (props) => {
     </div>
   );
 };
+
 export default InteriorPayPage;
