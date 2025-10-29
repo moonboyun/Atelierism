@@ -56,6 +56,8 @@ public class AdminService {
 			totalCount = adminDao.memberTotalCount();
 		} else if(memOrder.equals("a1")||memOrder.equals("a2")||memOrder.equals("a3")) {
 			totalCount = adminDao.applicantTotalCount(memOrder);
+		} else if(memOrder.equals("d1")||memOrder.equals("d2")||memOrder.equals("d3")) {
+			totalCount = adminDao.designerTotalCount(memOrder);
 		}
 		PageInfo pi = pageInfoUtils.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);//ok
 		//pi랑 정렬기준을 둘 다 줘야하기때문에 Map이라는 객체로 묶어서 보냄
@@ -80,7 +82,11 @@ public class AdminService {
 			map.put("pi", pi);
 			return map;
 		}else {
-			return null;
+			List reqList = adminDao.selectDesignerList(orderMap);
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("reqList", reqList);
+			map.put("pi", pi);
+			return map;
 		}
 	}//selectBoardList
 
@@ -102,9 +108,17 @@ public class AdminService {
 		return result;
 	}
 
+	@Transactional
 	public int enterDesigner(String memberId) {
 		int result = adminDao.enterDesigner(memberId);
 		return result;
+	}
+
+	public Map myPageList() {
+		Map<String, Object> myPageList = new HashMap<String, Object>();
+		List applicantList = adminDao.applicantList();
+		myPageList.put("applicantList", applicantList);
+		return myPageList;
 	}
 
 }

@@ -62,6 +62,10 @@
 		</if>
 	</select>
 	
+	<select id="designerTotalCount" resultType="int">
+		select count(*) from member_tbl where member_type = 2
+	</select>
+	
 	<select id="selectMemberList" resultType="member">
     SELECT * FROM (
         SELECT rownum AS rnum, b.*
@@ -89,9 +93,13 @@
 	SELECT * FROM (
         SELECT rownum AS rnum, b.*
         FROM (
-            select m.designer_enter, m.member_phone, m.member_name, d.DESIGNER_CAREER , m.member_id
-		from member_tbl m left join designer_tbl d on
-		m.member_id = d.member_id
+        	select m.designer_enter,
+					m.member_phone,
+					m.member_name,
+					d.DESIGNER_CAREER ,
+					m.member_id
+			from member_tbl m left join designer_tbl d on
+			m.member_id = d.member_id
 		<if test="memOrder == 'a1'">
 			where m.designer_enter = 0 and m.member_type = 3 and d.designer_career is not null
 			ORDER BY member_name DESC
@@ -106,6 +114,10 @@
     )
     WHERE rnum BETWEEN #{start} AND #{end}
 </select>
+
+<!-- <select id="selectDesignerList" resultType="">
+	
+</select> -->
 
 <select id="selectApplicantDetail" resultType="applicantDetail">
 	select m.member_id, m.member_thumb, m.member_name, d.designer_career, d.designer_age, m.member_email, m.member_phone, m.member_addr, d.designer_graduation_date,
@@ -135,6 +147,15 @@
 </update>
 
 <update id="enterDesigner">
-	update member_tbl set designer_enter = 1 where member_id = #{memberId}
+	update member_tbl set member_type = 2, designer_enter = 1 where member_id = #{memberId}
 </update>
+
+<select id="applicantList" resultType="member">
+	select m.member_name, m.designer_enter
+		from member_tbl m left join designer_tbl d
+		on m.member_id = d.member_id
+	where d.designer_career is not null and m.member_type = 3 and rownum &lt; 7
+	and m.designer_enter = 0
+	order by 1 desc
+</select>
 </mapper>

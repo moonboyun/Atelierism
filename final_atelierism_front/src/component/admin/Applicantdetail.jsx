@@ -54,7 +54,7 @@ const Applicantdetail = () => {
                 icon: "info",
                 confirmButtonColor: " #8aa996",
               }).then(() => {
-                navigate("/mypage");
+                navigate("/admin/applicantList");
               });
             }
           })
@@ -91,7 +91,7 @@ const Applicantdetail = () => {
                 icon: "info",
                 confirmButtonColor: " #8aa996",
               }).then(() => {
-                navigate("/mypage");
+                navigate("/admin/applicantList");
               });
             }
           })
