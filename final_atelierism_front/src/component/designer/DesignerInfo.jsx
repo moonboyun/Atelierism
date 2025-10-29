@@ -10,7 +10,7 @@ const DesignerInfo = () => {
 
   const menus = [
     { url: "/designer/mypage", text: "마이페이지" },
-    { url: "/designer/update", text: "정보 수정" },
+    { url: "/member/update", text: "정보 수정" },
     { url: "/designer/designerInfo", text: "디자이너 정보" },
     { url: "/designer/status", text: "작업 현황" },
   ];
