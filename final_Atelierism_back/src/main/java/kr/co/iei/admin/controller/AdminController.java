@@ -69,6 +69,13 @@ public class AdminController {
 	@PatchMapping(value = "enter")
 	public ResponseEntity<Integer> enterDesigner(@RequestParam String memberId){
 		int result = adminService.enterDesigner(memberId);
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(result);
 	}
+	
+	@GetMapping(value = "/myPageList")
+	public ResponseEntity<Map> myPageList(){
+		Map myPageList = adminService.myPageList();
+		return ResponseEntity.ok(myPageList);
+	}
+	
 }
