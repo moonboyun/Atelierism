@@ -149,6 +149,13 @@
         SELECT
             i.interior_why,
             i.interior_payment_date,
+            i.interior_price,
+            i.interior_living,
+	        i.interior_kitchen,
+	        i.interior_bed,
+	        i.interior_oneroom,
+	        i.interior_kidroom,
+	        i.interior_study,
             d.interior_no,
             d.interior_memo,
             d.interior_status,
