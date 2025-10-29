@@ -8,8 +8,8 @@ import axios from "axios";
 const Payment = () => {
   const memberId = useRecoilValue(loginIdState);
   const [payments, setPayments] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState("거실"); // 기본 선택
-  const [visibleCount, setVisibleCount] = useState(6); // 한 페이지에 보여줄 카드 수
+  const [visibleCount, setVisibleCount] = useState(6); // 한 번에 보여줄 카드 수
+  const [sortOrder, setSortOrder] = useState("desc"); // 최신순 기본
 
   const menus = [
     { url: "/member/mypage", text: "마이페이지" },
@@ -17,34 +17,32 @@ const Payment = () => {
     { url: "/member/payment", text: "결제 내역" },
   ];
 
-  const roomOptions = [
-    { label: "거실", key: "interiorLiving" },
-    { label: "주방", key: "interiorKitchen" },
-    { label: "침실", key: "interiorBed" },
-    { label: "원룸", key: "interiorOneroom" },
-    { label: "아이방", key: "interiorKidroom" },
-    { label: "서재", key: "interiorStudy" },
-  ];
-
+  // 결제 내역 불러오기
   useEffect(() => {
     if (!memberId) return;
 
     axios
-      .get(`${import.meta.env.VITE_BACK_SERVER}/member/payments/${memberId}`)
+      .get(
+        `${
+          import.meta.env.VITE_BACK_SERVER
+        }/member/payments/${memberId}?sort=${sortOrder}`
+      )
       .then((res) => setPayments(res.data))
       .catch((err) => console.error(err));
-  }, [memberId]);
+  }, [memberId, sortOrder]);
 
-  const selectedRoomKey = roomOptions.find(
-    (room) => room.label === selectedRoom
-  )?.key;
+  // 최신순/오래된순에 따라 slice 처리
+  const visiblePayments =
+    sortOrder === "desc"
+      ? payments.slice(0, visibleCount) // 최신순: 앞에서부터
+      : payments.slice(-visibleCount); // 오래된순: 뒤에서부터
 
-  const filteredPayments = payments.filter((item) => item[selectedRoomKey]);
-
-  const visiblePayments = filteredPayments.slice(0, visibleCount);
+  // 오래된순이면 화면 상단부터 나오도록 reverse
+  const displayPayments =
+    sortOrder === "asc" ? [...visiblePayments].reverse() : visiblePayments;
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6); // 6개씩 추가
+    setVisibleCount((prev) => prev + 6);
   };
 
   return (
@@ -57,46 +55,48 @@ const Payment = () => {
 
         <div className="sb-main-content">
           <div className="room-select" style={{ marginLeft: "10px" }}>
-            <label>방 선택: </label>
+            <label>정렬 기준: </label>
             <select
-              value={selectedRoom}
+              value={sortOrder}
               onChange={(e) => {
-                setSelectedRoom(e.target.value);
-                setVisibleCount(6); // 방 변경 시 처음 6개만 보여주기
+                setSortOrder(e.target.value);
+                setVisibleCount(6); // 정렬 변경 시 처음 6개만 보여주기
               }}
             >
-              {roomOptions.map((room) => (
-                <option key={room.key} value={room.label}>
-                  {room.label}
-                </option>
-              ))}
+              <option value="desc">최신순</option>
+              <option value="asc">오래된 순</option>
             </select>
           </div>
 
-          {visiblePayments.length > 0 ? (
+          {displayPayments.length > 0 ? (
             <>
               <div className="payment-list">
-                {visiblePayments.map((item) => (
+                {displayPayments.map((item) => (
                   <div className="sb-content" key={item.interiorNo}>
-                    <h3>{selectedRoom}</h3>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "18px",
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      결제일: {item.interiorPaymentDate}
+                    </p>
                     <div className="img">
-                      <img
-                        src="/image/default_img2.png"
-                        alt={`${selectedRoom} 이미지`}
-                      />
+                      <img src="/image/default_img2.png" alt="결제 이미지" />
                     </div>
                     <div className="payment-info">
                       <p>디자이너 이름: {item.interiorDesigner}</p>
                       <p>인테리어 이유: {item.interiorWhy}</p>
                       <p>가격: {item.interiorPrice.toLocaleString()}원</p>
                       <p>디자이너 채팅: {item.designerChat}</p>
-                      <p>결제일: {item.interiorPaymentDate}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {visibleCount < filteredPayments.length && (
+              {visibleCount < payments.length && (
                 <div className="load-more-wrap">
                   <button className="load-more" onClick={handleLoadMore}>
                     더보기
@@ -108,7 +108,7 @@ const Payment = () => {
             <p
               style={{ textAlign: "center", marginTop: "20px", width: "900px" }}
             >
-              선택한 방의 인테리어 결제 내역이 없습니다.
+              결제 내역이 없습니다.
             </p>
           )}
         </div>
