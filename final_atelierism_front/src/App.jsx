@@ -8,7 +8,7 @@ import Agreement from "./component/member/Agreement";
 import Applicantdetail from "./component/Admin/Applicantdetail";
 import MemberInfo from "./component/member/MemberInfo";
 import MemberUpdate from "./component/member/MemberUpdate";
-import Payment from "./component/Member/Payment";
+import Payment from "./component/member/Payment";
 import RecoverId from "./component/Member/RecoverId";
 import ReviewWriter from "./component/board/ReviewWriter";
 import BoardReview from "./component/board/BoardReview";

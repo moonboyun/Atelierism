@@ -69,12 +69,12 @@ const Main = () => {
     axios
       .get(`${import.meta.env.VITE_BACK_SERVER}/board/review/main`)
       .then((res) => {
-        console.log(res);
+        setReviewList(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <section className="section">
@@ -161,26 +161,32 @@ const Main = () => {
               </a>
             </div>
             <div className="com-board-items">
-              {designerBoard.map((desiger, index) => {
+              {designerBoard.map((designer, index) => {
+                const memberId = designer.memberId;
                 return (
-                  <div className="com-board-item" key={"desinger-" + index}>
+                  <div
+                    className="com-board-item"
+                    key={"desinger-" + index}
+                    onClick={() => {
+                      navigate(`/designer/detail/${memberId}`);
+                    }}
+                  >
                     <div className="com-board-img-box">
-                      {desiger.memberThumb === null ? (
+                      {designer.memberThumb === null ? (
                         <img src="/image/designer-default.jpg" />
                       ) : (
                         <img
                           src={`${
                             import.meta.env.VITE_BACK_SERVER
-                          }/memberProfile/${desiger.memberThumb}`}
+                          }/memberProfile/${designer.memberThumb}`}
                         />
                       )}
                     </div>
                     <div className="com-board-info">
                       <div className="com-board-info-top">
-                        <p>{desiger.memberName}</p>
+                        <p>{designer.memberName}</p>
                       </div>
-                      <p>{desiger.designerIntroduce}</p>
-                      {console.log(desiger)}
+                      <p>{designer.designerIntroduce}</p>
                     </div>
                   </div>
                 );
@@ -209,78 +215,33 @@ const Main = () => {
               </a>
             </div>
             <div className="com-board-items">
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/customer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <p>이OO</p>
-                  <p>
-                    이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
-                    같아요!
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/customer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <p>이OO</p>
-                  <p>
-                    이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
-                    같아요!
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/customer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <p>이OO</p>
-                  <p>
-                    이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
-                    같아요!
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/customer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <p>이OO</p>
-                  <p>
-                    이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
-                    같아요!
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/customer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <p>이OO</p>
-                  <p>
-                    이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
-                    같아요!
-                  </p>
-                </div>
-              </div>
-              <div className="com-board-item">
-                <div className="com-board-img-box">
-                  <img src="/image/customer-default.jpg" />
-                </div>
-                <div className="com-board-info">
-                  <p>이OO</p>
-                  <p>
-                    이OO님한테 인테리어 맡겼는데 너무 좋아요.. 제 집이 아닌것
-                    같아요!
-                  </p>
-                </div>
-              </div>
+              {reviewList.map((review, index) => {
+                return (
+                  <div className="com-board-item" key={"review-" + index}>
+                    <div className="com-board-img-box">
+                      {review.reviewBoardThumbnail === null ? (
+                        <img src="/image/customer-default.jpg" />
+                      ) : (
+                        <img
+                          src={`${
+                            import.meta.env.VITE_BACK_SERVER
+                          }/board/review/thumbnail/${
+                            review.reviewBoardThumbnail
+                          }`}
+                        />
+                      )}
+                    </div>
+                    <div className="com-board-info">
+                      <div className="main-review-board-info">
+                        <p>{review.memberName}</p>
+                        <p>{review.reviewBoardDate}</p>
+                      </div>
+                      <p>{review.reviewBoardTitle}</p>
+                    </div>
+                    {console.log(review)}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
