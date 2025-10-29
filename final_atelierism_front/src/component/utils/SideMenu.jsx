@@ -12,6 +12,7 @@ const SideMenu = (props) => {
   const [memberType] = useRecoilState(memberTypeState);
   const [member, setMember] = useState(null);
   const fileInputRef = useRef(null); // 파일 업로드 input 참조
+  const [profileChanged, setProfileChanged] = useState(false); // ✅ 추가됨
 
   // 회원 정보 불러오기
   useEffect(() => {
@@ -21,6 +22,16 @@ const SideMenu = (props) => {
       .then((res) => setMember(res.data))
       .catch((err) => console.error("회원 정보 불러오기 실패:", err));
   }, [memberId]);
+
+  // ✅ 프로필 변경 후 자동 렌더링 (새로 불러오기)
+  useEffect(() => {
+    if (!profileChanged) return;
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/member/${memberId}`)
+      .then((res) => setMember(res.data))
+      .catch((err) => console.error("프로필 재불러오기 실패:", err))
+      .finally(() => setProfileChanged(false));
+  }, [profileChanged, memberId]);
 
   // 프로필 수정 버튼 클릭 → 파일 선택창 열기
   const handleProfileClick = () => {
@@ -46,6 +57,7 @@ const SideMenu = (props) => {
         ...prev,
         memberThumb: res.data.memberThumb, // 새 이미지 반영
       }));
+      setProfileChanged(true); // ✅ useEffect 트리거
     } catch (err) {
       console.error("프로필 업로드 실패:", err);
       alert("프로필 업로드에 실패했습니다.");
@@ -60,7 +72,7 @@ const SideMenu = (props) => {
             member?.memberThumb
               ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
                   member.memberThumb
-                }`
+                }?t=${Date.now()}` // ✅ 캐시 방지
               : `${
                   import.meta.env.VITE_BACK_SERVER
                 }/memberProfile/default_image.png`
