@@ -120,6 +120,11 @@ const MemberJoin = () => {
       pwRegMsgRef.current.classList.contains("valid")
     ) {
       setMember({ ...member, memberAddr: memberAddr.address });
+      if (authColor !== "#F67272") {
+        Swal.fire("이메일 인증을 완료해주세요");
+        return;
+      }
+
       axios
         .post(`${backServer}/member`, member)
         .then((res) => {
