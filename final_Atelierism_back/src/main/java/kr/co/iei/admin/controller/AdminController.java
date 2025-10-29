@@ -73,8 +73,8 @@ public class AdminController {
 	}
 	
 	@GetMapping(value = "/myPageList")
-	public ResponseEntity<Map> myPageList(){
-		Map myPageList = adminService.myPageList();
+	public ResponseEntity<Map> myPageList(@RequestParam String toMonth){
+		Map myPageList = adminService.myPageList(toMonth);
 		return ResponseEntity.ok(myPageList);
 	}
 	
