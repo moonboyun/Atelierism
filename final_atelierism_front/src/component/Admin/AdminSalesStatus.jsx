@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const AdminSalesStatus = () => {
+  const today = new Date();
+  const toMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
   const backServer = import.meta.env.VITE_BACK_SERVER;
   const navigate = useNavigate();
   const [priceModal, setPriceModal] = useState(false);
@@ -18,7 +20,7 @@ const AdminSalesStatus = () => {
   const [priceList, setPriceList] = useState(null);
   useEffect(() => {
     axios
-      .get(`${backServer}/admin/list`)
+      .get(`${backServer}/admin/list?toMonth=${toMonth}`)
       .then((res) => {
         setPriceList(res.data);
       })

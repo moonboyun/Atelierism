@@ -30,7 +30,7 @@ public class AdminController {
 	private ReviewBoardService rbService;
 	
 	@GetMapping(value = "/list")
-	public ResponseEntity<PriceListDto> selectPriceList() {
+	public ResponseEntity<PriceListDto> selectPriceList(@RequestParam String toMonth) {
 		PriceListDto  pl = adminService.priceListSelect();
 		return ResponseEntity.ok(pl);
 	};
