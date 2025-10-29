@@ -163,7 +163,13 @@ const Main = () => {
             <div className="com-board-items">
               {designerBoard.map((desiger, index) => {
                 return (
-                  <div className="com-board-item" key={"desinger-" + index}>
+                  <div
+                    className="com-board-item"
+                    key={"desinger-" + index}
+                    onClick={() => {
+                      navigate(`/desinger/detail/${desiger.memberId}`);
+                    }}
+                  >
                     <div className="com-board-img-box">
                       {desiger.memberThumb === null ? (
                         <img src="/image/designer-default.jpg" />
