@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { loginIdState, memberTypeState } from "../utils/RecoilData";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "./designer-mypage.css";
+import "./designer.css";
 
 const DesignerMypage = () => {
   const [designerId, setDesignerId] = useRecoilState(loginIdState);

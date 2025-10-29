@@ -45,6 +45,8 @@ public interface AdminDao {
 	List selectDesignerList(Map<String, Object> orderMap);
 
 	List applicantList();
+
+	List topDesigner(String toMonth);
 	
 
 }

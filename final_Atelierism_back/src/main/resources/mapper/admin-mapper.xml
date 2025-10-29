@@ -158,4 +158,16 @@
 	and m.designer_enter = 0
 	order by 1 desc
 </select>
+
+<select id="topDesigner" resultType="topDesigner">
+with select_month as(
+    select to_char(add_months(sysdate,-1*(level-1)),'yyyy-mm') mon from dual connect by level &lt;= 6
+)
+select mon, sum(nvl(interior_price,0)) as total_price,interior_designer, m.member_name, m.MEMBER_PHONE from select_month
+left join (select * from interior_tbl) on (mon = substr(interior_payment_date,1,7))
+left join member_tbl m on interior_designer = member_id
+where mon = #{toMonth} and rownum &lt; 6
+group by (mon,interior_designer,m.member_name,m.member_phone)
+order by 2 desc
+</select>
 </mapper>
