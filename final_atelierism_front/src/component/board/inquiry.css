@@ -131,6 +131,7 @@
 }
 
 /* ========== 1:1 문의 보드 프레임 ========== */
+
 .qna-box {
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -389,6 +390,147 @@
   background: #f7f7f7;
 }
 
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+/* ===================== 1:1 문의 테이블 ===================== */
+.qna-box {
+  background: #fff;
+  border: 1px solid #e5e8eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: 18px;
+}
+
+/* 상단 타이틀 영역 간격만 유지 */
+.qna-head {
+  margin-bottom: 12px;
+}
+
+/* 기존 dashed 박스 스타일 제거하고 테이블 컨테이너화 */
+.qna-box .qna-empty {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* 테이블 기본 */
+.qna-box .table-wrap {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* 헤더 */
+.qna-box .table-wrap thead th {
+  background: #f7faf8; /* 스샷 같은 연한 초록그레이 */
+  color: #6b7280;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-align: left;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e8eb;
+}
+
+/* 본문 행 */
+.qna-box .table-wrap tbody tr {
+  border-bottom: 1px solid #eef1f2; /* 줄 구분선 */
+}
+.qna-box .table-wrap tbody tr:last-child {
+  border-bottom: 0; /* 마지막 줄은 라인 제거 */
+}
+
+/* 본문 셀 */
+.qna-box .table-wrap tbody td {
+  padding: 18px 20px;
+  font-size: 14px;
+  color: #2b2b2b;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* 컬럼 정렬(스크린샷처럼) */
+.qna-box .table-wrap tbody td:nth-child(1) {
+  /* 번호 */
+  text-align: center;
+}
+.qna-box .table-wrap tbody td:nth-child(2) {
+  /* 작성자 */
+  text-align: left;
+}
+.qna-box .table-wrap tbody td:nth-child(3) {
+  /* 제목(넓게) */
+  text-align: left;
+}
+.qna-box .table-wrap tbody td:nth-child(4) {
+  /* 상태 배지 */
+  text-align: center;
+}
+.qna-box .table-wrap tbody td:nth-child(5) {
+  /* 작성일 */
+  text-align: right;
+  color: #6b7280;
+}
+.qna-box .table-wrap tbody td:nth-child(6) {
+  /* 잠금아이콘 */
+  text-align: center;
+}
+
+/* 행 호버 효과 */
+.qna-box .table-wrap tbody tr:hover {
+  background: #fafcfb;
+}
+
+/* 상태 배지: 코드 변경 없이 4번째 칸을 '배지'처럼 보이게 */
+.qna-box .table-wrap tbody td:nth-child(4) {
+  /* 대기/완료 공통 배지 스타일 */
+  padding: 0; /* 배지 모양을 위해 0으로 */
+}
+.qna-box .table-wrap tbody td:nth-child(4) > * {
+  /* 내부 텍스트/요소(현재는 텍스트 노드라 td에 직접 적용) */
+}
+
+/* 텍스트만 있을 때도 배지처럼 보이게 td 자체를 배지화 */
+.qna-box .table-wrap tbody td:nth-child(4) {
+  display: inline-block;
+  min-width: 74px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1.5px solid #9ec3ae !important; /* ‘대기’ 느낌의 연초록 외곽선 */
+  color: #2e6b4e !important;
+  background: #f2f8f4 !important;
+}
+
+/* ‘완료’는 기존 inline background-color가 들어오므로, 그 경우를 강화 */
+.qna-box .table-wrap tbody td:nth-child(4)[style*="background-color"] {
+  background: #8aa996 !important; /* 완성된 초록 배경 */
+  color: #fff !important;
+  border-color: #8aa996 !important;
+}
+
+/* 둥근 카드 모서리 시각 보정(헤더/푸터 라인 겹침 방지) */
+.qna-box .table-wrap thead tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+.qna-box .table-wrap thead tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
+.qna-box .table-wrap tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.qna-box .table-wrap tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+
 /*=============== InquiryView =================*/
 /* ===== 공통 토큰 ===== */
 :root {
@@ -615,4 +757,12 @@
   min-width: 120px;
   height: 40px;
   border-radius: 8px;
+}
+
+.content {
+  margin-bottom: 0;
+}
+
+.section.faq-section {
+  margin-top: 50px; /* 위에서 50px 떨어뜨림 */
 }

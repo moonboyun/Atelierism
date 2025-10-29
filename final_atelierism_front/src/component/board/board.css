@@ -479,102 +479,13 @@
   text-decoration: none; /* 링크 밑줄 제거 */
 }
 
-.board-paging-wrap {
-  width: 100%;
-  margin: 36px 0 60px;
+.section.board-content-wrap {
+  margin-top: 50px;
 }
-
-.board-paging-wrap .pagination {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 36px; /* 숫자/화살표 사이 간격 */
-  padding: 0;
-}
-
-/* 각 아이템 공통 */
-.board-paging-wrap .pagination li {
-  display: flex;
-}
-
-.board-paging-wrap .page-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  line-height: 1;
-  font-weight: 500;
-  font-size: 40px; /* 숫자 크기 (캡처 느낌) */
-  color: #111;
-  transition: transform 0.15s ease, color 0.15s ease,
-    background-color 0.15s ease;
-  padding: 6px 10px; /* 숫자 기본 여백 */
-  border-radius: 10px;
-}
-
-/* 현재 페이지 (초록 박스) */
-.board-paging-wrap .active-page {
-  background: var(--main1);
-  color: #fff;
-  font-weight: 700;
-  min-width: 64px; /* 정사각 느낌 */
-  height: 64px;
-  padding: 0;
-  border-radius: 12px;
-}
-
-/* 호버 효과: 살짝 떠오르고 색상 약간 진하게 */
-.board-paging-wrap .page-item:not(.active-page):hover {
-  color: #000;
-  transform: translateY(-2px);
-}
-
-/* <<, <, >, >> 아이콘(머티리얼 아이콘 텍스트) */
-.board-paging-wrap .material-icons.page-item {
-  font-size: 40px; /* 아이콘 크기 */
-  min-width: auto;
-  height: auto;
-  padding: 0;
-  color: #111;
-}
-.board-paging-wrap .material-icons.page-item:hover {
-  color: var(--main1);
-  transform: translateY(-2px);
-}
-
-.board-paging-wrap {
-  width: 100%;
-  margin: 28px 0 44px; /* 위아래 여백도 살짝 축소 */
-}
-
-.board-paging-wrap .pagination {
-  gap: 24px; /* 아이템 간 간격 축소 */
-}
-
-/* 숫자 버튼 공통 */
-.board-paging-wrap .page-item {
-  font-size: 28px; /* 숫자 크기 ↓ */
-  padding: 4px 8px; /* 내부 여백 ↓ */
-  border-radius: 8px;
-  transform: none;
-}
-
-/* 현재 페이지(초록 박스) */
-.board-paging-wrap .active-page {
-  min-width: 48px; /* 정사각 느낌 유지하며 ↓ */
-  height: 48px;
-  border-radius: 10px;
-}
-
-/* 화살표 아이콘(MUI SVG) 크기 ↓ */
-.board-paging-wrap .MuiSvgIcon-root {
-  font-size: 28px; /* << < > >> */
-}
-
-/* 호버 효과도 살짝만 */
-.board-paging-wrap .page-item:not(.active-page):hover {
-  transform: translateY(-1px);
+.board-frm .board-info-wrap .tbl th {
+  text-align: center; /* 가로 가운데 */
+  vertical-align: middle; /* 세로 가운데 */
+  white-space: nowrap; /* 제목이 길어도 줄바꿈 방지 */
 }
 
 /* ========== Modal (BoardReview in-page overlay) ========== */
@@ -710,6 +621,11 @@
 .content-text {
   color: var(--gray3);
 }
+
+section .board-content-wrap {
+  margin-top: 50px;
+}
+
 /*===================================================*/
 
 /* ===== Review Modal ===== */
@@ -814,7 +730,7 @@
   object-fit: cover;
 }
 
-/* 작성자 / 하트 / 한줄평 */
+/* 작성자 / 한줄평 */
 .user-data {
   width: 650px;
   margin: 0 auto;
@@ -833,7 +749,6 @@
   overflow: hidden;
 }
 .board-content-wrap {
-  min-height: 100px;
   width: 650px;
   margin: 0 auto;
   text-align: left;
