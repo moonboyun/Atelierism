@@ -7,6 +7,9 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReviewModalApp from "../board/ReviewModalApp";
+import { useRecoilValue } from "recoil";
+import { loginIdState } from "../utils/RecoilData";
 
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -53,6 +56,20 @@ const Main = () => {
   const [designerBoard, setDesignerBoard] = useState([]); //디자이너 소개 게시물 리스트
   const [reviewList, setReviewList] = useState([]);
   const navigate = useNavigate();
+
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [reviewModal, setReviewModal] = useState(false);
+  const memberId = useRecoilValue(loginIdState);
+
+  const openReviewModal = (review) => {
+    setSelectedReview(review);
+    setReviewModal(true);
+  };
+
+  const closeReviewModal = () => {
+    setSelectedReview(null);
+    setReviewModal(false);
+  };
 
   useEffect(() => {
     axios
@@ -217,7 +234,11 @@ const Main = () => {
             <div className="com-board-items">
               {reviewList.map((review, index) => {
                 return (
-                  <div className="com-board-item" key={"review-" + index}>
+                  <div
+                    className="com-board-item"
+                    key={"review-" + index}
+                    onClick={() => openReviewModal(review)}
+                  >
                     <div className="com-board-img-box">
                       {review.reviewBoardThumbnail === null ? (
                         <img src="/image/customer-default.jpg" />
@@ -238,10 +259,16 @@ const Main = () => {
                       </div>
                       <p>{review.reviewBoardTitle}</p>
                     </div>
-                    {console.log(review)}
                   </div>
                 );
               })}
+              {reviewModal && selectedReview && (
+                <ReviewModalApp
+                  board={selectedReview}
+                  memberId={memberId}
+                  onClose={closeReviewModal}
+                />
+              )}
             </div>
           </div>
         </div>
