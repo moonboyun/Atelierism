@@ -39,6 +39,12 @@ public interface AdminDao {
 	int refusalDesigner(String memberId);
 
 	int enterDesigner(String memberId);
+
+	int designerTotalCount(String memOrder);
+
+	List selectDesignerList(Map<String, Object> orderMap);
+
+	List applicantList();
 	
 
 }
