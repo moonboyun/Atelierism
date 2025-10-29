@@ -53,12 +53,25 @@ const DesignerStatusDetail = () => {
       });
   };
 
-  // DTO의 공간 데이터를 화면에 표시할 문자열로 변환하는 함수 (이미지에는 없지만 필요)
+  // DTO의 공간 데이터를 화면에 표시할 문자열로 변환하는 함수
   const getSpaceString = (item) => {
+    // detail 객체가 null일 경우를 대비한 안전장치
+    if (!item) return "";
+
     const spaces = [];
     if (item.interiorLiving === 1) spaces.push("거실");
-    // ... (나머지 공간들도 필요하다면 추가)
-    return spaces.join(", ") || "전체"; // 비어있을 경우 '전체'
+    if (item.interiorKitchen === 1) spaces.push("부엌");
+    if (item.interiorBed === 1) spaces.push("침실");
+    if (item.interiorOneroom === 1) spaces.push("원룸");
+    if (item.interiorKidroom === 1) spaces.push("아이방");
+    if (item.interiorStudy === 1) spaces.push("서재");
+
+    // 만약 선택된 공간이 없다면 '정보 없음' 또는 다른 기본값을 반환할 수 있습니다.
+    if (spaces.length === 0) {
+      return "정보 없음";
+    }
+
+    return spaces.join(", ");
   };
 
   if (detail === null) {
@@ -75,19 +88,22 @@ const DesignerStatusDetail = () => {
             <tr>
               <th>고객명</th>
               <td>
+                {console.log(detail)}
                 <input type="text" value={detail.customerName} readOnly />
               </td>
             </tr>
             <tr>
               <th>공간</th>
               <td>
-                <input type="text" value={"거실"} readOnly />
+                {/* getSpaceString 함수에 detail 객체를 전달하여 결과를 value로 사용 */}
+                <input type="text" value={getSpaceString(detail)} readOnly />
               </td>
             </tr>
             <tr>
               <th>디자인 범위</th>
               <td>
-                <input type="text" value={"전체"} readOnly />
+                {/* 디자인 범위도 동일하게 처리 */}
+                <input type="text" value={getSpaceString(detail)} readOnly />
               </td>
             </tr>
             <tr>
@@ -144,7 +160,12 @@ const DesignerStatusDetail = () => {
           </button>
           {/* interiorStatus가 1(진행완료)일 때만 '리뷰쓰기' 버튼 표시 */}
           {interiorStatus == 1 && (
-            <Link to="/board/designer/write" className="btn-review">
+            // Link의 'to' prop에 객체 형태로 state를 추가
+            <Link
+              to="/board/designer/write"
+              className="btn-review"
+              state={{ detail: detail }} // 'detail'이라는 이름으로 detail 객체를 전달
+            >
               리뷰쓰기
             </Link>
           )}
