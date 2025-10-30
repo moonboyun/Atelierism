@@ -124,5 +124,11 @@ public class DesignerController {
         int result = designerService.updateStatus(interiorNo, interiorMemo, interiorStatus);
         return ResponseEntity.ok(result);
     }
+	@GetMapping(value="/{designerId}")
+	public ResponseEntity<String> serarchDesignerLink(@PathVariable String designerId){
+		String designerLink = designerService.searchDesignerLink(designerId);
+		
+		return ResponseEntity.ok(designerLink);
+	}
 	
 }

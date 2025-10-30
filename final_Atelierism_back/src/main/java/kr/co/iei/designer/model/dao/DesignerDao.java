@@ -39,4 +39,6 @@ public interface DesignerDao {
     DesignerStatusDetailDTO selectStatusDetail(int interiorNo);
     
     int updateStatus(Map<String, Object> params);
+
+	String searchDesignerLink(String designerId);
 }

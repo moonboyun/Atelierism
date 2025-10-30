@@ -113,4 +113,9 @@ public class DesignerService {
         params.put("interiorStatus", interiorStatus);
         return designerDao.updateStatus(params);
     }
+
+	public String searchDesignerLink(String designerId) {
+		String designerLink = designerDao.searchDesignerLink(designerId);
+		return designerLink;
+	}
 }
