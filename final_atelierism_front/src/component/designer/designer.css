@@ -800,6 +800,7 @@
   flex: 0 0 240px;
   max-width: 240px;
   width: 240px;
+  margin-top: 30px;
 }
 
 .de-info-panel {
@@ -816,6 +817,7 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 16px;
+  margin-left: 70px;
 }
 .de-info-tbl th {
   width: 160px;
@@ -842,6 +844,7 @@
   min-height: 28px;
   margin: 6px 0;
   position: relative;
+  width: 60%;
 }
 
 .de-line::after {
@@ -863,7 +866,7 @@
 }
 .de-value {
   color: #2f2f2f;
-  font-size: 15px;
+  font-size: 18px;
 }
 .de-tilde {
   color: #8b8680;
