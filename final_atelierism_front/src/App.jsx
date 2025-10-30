@@ -102,7 +102,10 @@ function App() {
             path="/board/inquiry/view/:inquiryBoardNo"
             element={<InquiryView />}
           />
-          <Route path="/board/designer/writer" element={<DesignerWriter />} />
+          <Route
+            path="/board/designer/writer/:interiorNo"
+            element={<DesignerWriter />}
+          />
           {/*----------------------designer---------------------*/}
           <Route path="/designer/intro" element={<Intro />} />
           <Route path="/designer/mypage" element={<DesignerMypage />} />

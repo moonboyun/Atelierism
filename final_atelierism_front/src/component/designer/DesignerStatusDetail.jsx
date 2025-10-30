@@ -162,9 +162,8 @@ const DesignerStatusDetail = () => {
           {interiorStatus == 1 && (
             // Link의 'to' prop에 객체 형태로 state를 추가
             <Link
-              to="/board/designer/write"
+              to={"/board/designer/writer" + detail.interiorNo}
               className="btn-review"
-              state={{ detail: detail }} // 'detail'이라는 이름으로 detail 객체를 전달
             >
               리뷰쓰기
             </Link>
