@@ -60,10 +60,13 @@
        i.INTERIOR_WHY,
        i.INTERIOR_PRICE,
        i.INTERIOR_PAYMENT_DATE,
-       d.DESIGNER_CHAT
+       d.DESIGNER_CHAT,
+       m.MEMBER_NAME AS interiorDesignerName
   FROM INTERIOR_TBL i
   LEFT JOIN DESIGNER_TBL d
          ON i.INTERIOR_DESIGNER = d.MEMBER_ID
+  LEFT JOIN MEMBER_TBL m
+         ON i.INTERIOR_DESIGNER = m.MEMBER_ID 
   WHERE i.INTERIOR_CUSTOMER = #{memberId}
     AND i.INTERIOR_PAYMENT_CHECK = 1
   <if test="sort == 'asc'">
@@ -73,6 +76,7 @@
     ORDER BY i.INTERIOR_PAYMENT_DATE DESC
   </if>
 </select>
+
 <update id="payUpdateInterior">
 	update interior_tbl set 
 		interior_payment_check=1, 

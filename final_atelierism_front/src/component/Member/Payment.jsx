@@ -84,7 +84,7 @@ const Payment = () => {
                       <img src="/image/default_img2.png" alt="결제 이미지" />
                     </div>
                     <div className="payment-info">
-                      <p>디자이너 이름: {item.interiorDesigner}</p>
+                      <p>디자이너 이름: {item.interiorDesignerName}</p>
                       <p>인테리어 이유: {item.interiorWhy}</p>
                       <p>가격: {item.interiorPrice.toLocaleString()}원</p>
                       <p>디자이너 채팅: {item.designerChat}</p>

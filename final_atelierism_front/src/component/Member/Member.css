@@ -429,7 +429,9 @@
   margin-bottom: 15px;
   font-size: 18px;
 }
-
+.payment-wrap > .payment-content-wrap > .side-menu {
+  margin-top: 50px;
+}
 .payment-info > p:first-child {
   width: 100%;
   text-align: center;
