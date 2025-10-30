@@ -30,7 +30,6 @@ const DesignerDetail = () => {
 
   return (
     <div className="de-detail-wrap">
-      {/* --- 헤더 부분 --- */}
       <div className="de-detail-header">
         <div className="de-detail-profile-img">
           <img
@@ -54,7 +53,6 @@ const DesignerDetail = () => {
         </div>
       </div>
 
-      {/* --- 콘텐츠 부분 --- */}
       <div className="de-detail-content">
         {/* 기본 정보 */}
         <div className="de-detail-section">
