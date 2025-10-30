@@ -362,7 +362,7 @@
   background-color: #879b90;
 }
 
-/*         DesignerDetail          */
+/*-----------디자이너 소개 상세보기(DesignerDetail)-----------*/
 
 .de-detail-wrap {
   max-width: 900px;
@@ -452,7 +452,7 @@
   color: #333;
 }
 
-/*-------DesignerMypage-------*/
+/*-------디자이너 마이페이지(DesignerMypage)-------*/
 
 .de-mypage-wrap {
   width: 100%;
@@ -588,7 +588,7 @@
   }
 }
 
-/*    DesignerStatus     */
+/*-----------마이페이지 작업현황(DesignerStatus)-------------*/
 
 .de-status-wrap {
   max-width: 1200px;
@@ -654,7 +654,8 @@
   background-color: #f5f5f5;
 }
 
-/* =============== 작업 현황 상세 페이지(DesignerStatusDetail) =============== */
+/* =============== 마이페이지 작업 현황 상세 페이지(DesignerStatusDetail) =============== */
+
 .de-status-detail-form-wrap {
   width: 100%;
   padding: 40px 0;
@@ -711,14 +712,22 @@
   color: #777;
 }
 .de-status-detail-form-table select {
-  appearance: none; /* 기본 화살표 제거 */
+  appearance: none;
   background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")
     no-repeat right 10px center/1em;
   padding-right: 30px;
 }
 .de-status-detail-form-table textarea {
-  min-height: 100px;
-  resize: vertical;
+  min-height: 150px;
+  height: 150px;
+  resize: none;
+  overflow-y: auto;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 15px;
 }
 .de-status-detail-form-buttons {
   display: flex;
@@ -751,4 +760,138 @@
   background-color: #c2a68c;
   color: white;
   border-color: #c2a68c;
+}
+
+/*-----------마이페이지 디자이너 정보(DesignerInfo)--------------*/
+
+.de-info-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 24px 20px 40px;
+}
+
+.de-info-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 18px;
+  color: #2c2c2c;
+}
+
+.de-info-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.de-side-menu {
+  flex: 0 0 240px;
+  max-width: 240px;
+  width: 240px;
+}
+
+.de-info-panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #eae7e2;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  padding: 28px 32px;
+}
+
+.de-info-tbl {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 16px;
+}
+.de-info-tbl th {
+  width: 160px;
+  background: #f3f1ee;
+  color: #444;
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 6px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.de-info-tbl td {
+  padding-left: 26px;
+  vertical-align: top;
+  position: relative;
+}
+
+.de-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 28px;
+  margin: 6px 0;
+  position: relative;
+}
+
+.de-line::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #e1ddd7;
+  margin-top: 4px;
+}
+
+.de-info-tbl td > .de-line:not(:last-child)::after {
+  display: none;
+}
+
+.de-sub {
+  color: #8b8680;
+  font-size: 14px;
+}
+.de-value {
+  color: #2f2f2f;
+  font-size: 15px;
+}
+.de-tilde {
+  color: #8b8680;
+  margin: 0 2px;
+}
+.de-dot {
+  width: 20px;
+}
+
+.de-link {
+  color: #2f6bb3;
+  text-decoration: none;
+}
+.de-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .de-info-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .de-side-menu {
+    width: 100%;
+    max-width: 100%;
+  }
+  .de-info-panel {
+    padding: 20px;
+  }
+  .de-info-tbl {
+    border-spacing: 0 12px;
+  }
+  .de-info-tbl th {
+    width: 120px;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  .de-info-tbl td {
+    padding-left: 16px;
+  }
 }
