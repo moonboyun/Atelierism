@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import confetti from "canvas-confetti";
 
 const InteriorPaySuccess = () => {
   const designerId = localStorage.getItem("interiorDesigner");
@@ -22,6 +23,43 @@ const InteriorPaySuccess = () => {
         console.log(err);
       });
   }, []);
+
+  // 🎉 폭죽 효과 함수
+  const handleConfetti = () => {
+    const duration = 1500;
+    const animationEnd = Date.now() + duration;
+
+    const base = {
+      particleCount: 100,
+      spread: 100,
+      startVelocity: 45,
+      colors: ["#8aa996", "#f3d250"],
+    };
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) return clearInterval(interval);
+
+      const particleCount = 50 * (timeLeft / duration);
+      confetti({
+        ...base,
+        particleCount,
+        origin: { x: 0.1, y: Math.random() - 0.2 },
+        angle: 60, // 오른쪽 위로 쏨
+      });
+
+      confetti({
+        ...base,
+        particleCount,
+        origin: { x: 0.9, y: Math.random() - 0.2 },
+        angle: 120, // 왼쪽 위로 쏨
+      });
+    }, 250);
+  };
+  useEffect(() => {
+    handleConfetti();
+  }, []);
+
   return (
     <section className="section">
       <div className="payP-main-content">
@@ -34,9 +72,9 @@ const InteriorPaySuccess = () => {
               </div>
             </div>
             <div className="suc-link-box">
-              <Link to={designerLink}>
+              <Link to={`https://${designerLink}`}>
                 <span class="material-symbols-outlined">alternate_email</span>
-                {designerLink}카카오 프로필 링크
+                {designerLink}
               </Link>
             </div>
             <div>

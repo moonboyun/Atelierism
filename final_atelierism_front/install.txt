@@ -49,3 +49,6 @@ npm install react-modal
 npm install react-modal @types/react-modal
 확인 : 이설항, 문보윤
 -------------------------------------------
+2025-10-3014:20 이설항
+npm install react-canvas-confetti
+확인 :
