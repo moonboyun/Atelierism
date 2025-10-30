@@ -63,7 +63,7 @@
 	</select>
 	
 	<select id="designerTotalCount" resultType="int">
-		select count(*) from member_tbl where member_type = 2
+		select count(*) from member_tbl where member_type = 2 and designer_enter = 1
 	</select>
 	
 	<select id="selectMemberList" resultType="member">
@@ -115,9 +115,42 @@
     WHERE rnum BETWEEN #{start} AND #{end}
 </select>
 
-<!-- <select id="selectDesignerList" resultType="">
-	
-</select> -->
+<select id="selectDesignerList" resultType="designerList">
+	SELECT * FROM (
+        SELECT rownum AS rnum, b.*
+        FROM (
+        <if test="memOrder == 'd1'">
+        	<![CDATA[ 
+        		select member_id, member_name, member_phone, sum(nvl(interior_price,0)) as total_price
+				from member_tbl
+					left join (select * from INTERIOR_TBL where INTERIOR_PAYMENT_DATE between to_char(add_months(sysdate,-3) ,'yyyy-mm-dd') and to_char(sysdate,'yyyy-mm-dd')) on (member_id = interior_designer)
+				where member_type=2 and member_tbl.DESIGNER_ENTER = 1
+				group by(member_id, member_name, member_phone)
+				order by 4 desc
+			]]>
+        </if>
+        <if test="memOrder == 'd2'">
+        	<![CDATA[
+        		select member_id, member_name, member_phone, sum(nvl(interior_price,0)) as total_price
+				from member_tbl
+					left join (select * from INTERIOR_TBL where INTERIOR_PAYMENT_DATE between to_char(add_months(sysdate,-6) ,'yyyy-mm-dd') and to_char(sysdate,'yyyy-mm-dd')) on (member_id = interior_designer)
+				where member_type=2 and member_tbl.DESIGNER_ENTER = 1
+				group by(member_id, member_name, member_phone)
+				order by 4 desc
+        	]]>
+        </if>
+        <if test="memOrder == 'd3'">
+        	select member_id, member_name, member_phone, sum(nvl(interior_price,0)) as total_price
+			from member_tbl
+				left join interior_tbl on (member_id = interior_designer)
+			where member_type=2 and member_tbl.DESIGNER_ENTER = 1
+			group by(member_id, member_name, member_phone)
+			order by 4 desc
+        </if>
+       ) b     
+    )
+    WHERE rnum BETWEEN #{start} AND #{end}
+</select>
 
 <select id="selectApplicantDetail" resultType="applicantDetail">
 	select m.member_id, m.member_thumb, m.member_name, d.designer_career, d.designer_age, m.member_email, m.member_phone, m.member_addr, d.designer_graduation_date,
@@ -166,7 +199,7 @@ with select_month as(
 select mon, sum(nvl(interior_price,0)) as total_price,interior_designer, m.member_name, m.MEMBER_PHONE from select_month
 left join (select * from interior_tbl) on (mon = substr(interior_payment_date,1,7))
 left join member_tbl m on interior_designer = member_id
-where mon = #{toMonth} and rownum &lt; 6
+where mon = #{toMonth1} and rownum &lt; 6
 group by (mon,interior_designer,m.member_name,m.member_phone)
 order by 2 desc
 </select>

@@ -46,7 +46,7 @@ public interface AdminDao {
 
 	List applicantList();
 
-	List topDesigner(String toMonth);
+	List topDesigner(Map<String, Object> month);
 	
 
 }

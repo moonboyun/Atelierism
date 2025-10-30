@@ -1,5 +1,7 @@
 package kr.co.iei.admin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class AdminController {
 	private ReviewBoardService rbService;
 	
 	@GetMapping(value = "/list")
-	public ResponseEntity<PriceListDto> selectPriceList() {
+	public ResponseEntity<PriceListDto> selectPriceList(@RequestParam String toMonth) {
 		PriceListDto  pl = adminService.priceListSelect();
 		return ResponseEntity.ok(pl);
 	};
@@ -74,7 +76,11 @@ public class AdminController {
 	
 	@GetMapping(value = "/myPageList")
 	public ResponseEntity<Map> myPageList(@RequestParam String toMonth){
-		Map myPageList = adminService.myPageList(toMonth);
+		System.out.println(toMonth+"-%");
+		Map<String, Object> month = new HashMap<String, Object>();
+		month.put("toMonth1", toMonth);//이번달 매출조회용
+		month.put("toMonth2", toMonth+"-%");//이달의 가입자용
+		Map myPageList = adminService.myPageList(month);
 		return ResponseEntity.ok(myPageList);
 	}
 	
