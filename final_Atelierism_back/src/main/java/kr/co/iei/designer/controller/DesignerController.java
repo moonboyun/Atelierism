@@ -60,7 +60,7 @@ public class DesignerController {
 		return ResponseEntity.ok(list);
 	}
 	
-	@PostMapping("/apply")
+	@PostMapping(value="/apply")
     public ResponseEntity<Integer> applyDesigner(@RequestBody DesignerApplyRequestDTO requestData) {
         System.out.println(requestData);
 		int result = designerService.applyDesigner(
@@ -77,7 +77,7 @@ public class DesignerController {
 		return ResponseEntity.ok(map);
 	}
 	
-	@GetMapping("/detail/{memberId}")
+	@GetMapping(value="/detail/{memberId}")
     public ResponseEntity<DesignerDetailDTO> selectOneDesigner(@PathVariable String memberId) {
         DesignerDetailDTO designer = designerService.selectOneDesigner(memberId);
         return ResponseEntity.ok(designer);
@@ -103,13 +103,13 @@ public class DesignerController {
         return ResponseEntity.ok().headers(header).body(resource);
 	}
 	
-	@GetMapping("/status/{designerId}")
+	@GetMapping(value="/status/{designerId}")
     public ResponseEntity<Map> selectStatusList(@PathVariable String designerId, @RequestParam int reqPage) {
         Map map = designerService.selectStatusList(designerId, reqPage);
         return ResponseEntity.ok(map);
     }
 	
-	@GetMapping("/status/detail/{interiorNo}")
+	@GetMapping(value="/status/detail/{interiorNo}")
     public ResponseEntity<DesignerStatusDetailDTO> selectStatusDetail(@PathVariable int interiorNo) {
         DesignerStatusDetailDTO detail = designerService.selectStatusDetail(interiorNo);
         return ResponseEntity.ok(detail);
