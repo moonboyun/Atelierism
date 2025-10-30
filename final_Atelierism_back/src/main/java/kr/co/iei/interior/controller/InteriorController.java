@@ -73,5 +73,10 @@ public class InteriorController {
 		int result = interiorService.updateInterior(interior);
 		return ResponseEntity.ok(result);
 	}
+	@PatchMapping(value="/pay")
+	public ResponseEntity<Integer> payUpdate(@RequestBody InteriorDTO interior){
+		int result = interiorService.payUpdateInterior(interior);
+		return ResponseEntity.ok(result);
+	}
 
 }

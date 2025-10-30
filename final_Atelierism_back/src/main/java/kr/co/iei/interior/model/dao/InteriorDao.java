@@ -21,5 +21,7 @@ public interface InteriorDao {
 
 	List<InteriorDTO> selectPaymentsByMemberId(String memberId);
 
+	int payUpdateInterior(InteriorDTO interior);
+
 
 }

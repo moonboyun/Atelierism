@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./boardDesigner.css";
 import PageNaviGation from "../utils/PageNavigation";
@@ -12,11 +12,29 @@ const BoardDesigner = () => {
   const [reqPage, setReqPage] = useState(1);
   const [pi, setPi] = useState(null);
   const [memberId, setMemberId] = useRecoilState(loginIdState);
-
   const navigate = useNavigate();
   const viewButton = () => {
     navigate("/board/designer/view");
   };
+
+  const [designerData, setDesignerData] = useState(null);
+  const params = useParams();
+  const interiorNo = params.interiorNo;
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          import.meta.env.VITE_BACK_SERVER
+        }/board/designer/review? interiorNo=${interiorNo}`
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   useEffect(() => {
     axios
       .get(

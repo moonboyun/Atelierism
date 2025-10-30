@@ -1,10 +1,11 @@
-//src / components / ReviewModalApp.jsx;
+// src / components / ReviewModalApp.jsx;
 import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRecoilValue } from "recoil";
 import { memberTypeState } from "../utils/RecoilData";
+import "./board.css";
 
 const ReviewModalApp = ({ onClose, board, memberId }) => {
   const memberType = useRecoilValue(memberTypeState);
