@@ -37,7 +37,7 @@ const DesignerDetail = () => {
             src={
               designer.memberThumb
                 ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
-                    member.memberThumb
+                    designer.memberThumb
                   }?t=${Date.now()}`
                 : `${import.meta.env.BASE_URL}image/default_image.png`
             }
