@@ -23,6 +23,8 @@ public class DesignerDetailDTO {
     private String designerPortfolio;
     private String designerChat;
     private String designerIntroduce;
+    private String designerBank;
+    private String designerAccount;
 
     private List<CareerDetailDTO> careerList;
 

@@ -5,6 +5,7 @@ import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
+
 const MemberJoin = () => {
   const [member, setMember] = useState({
     memberId: "",
@@ -17,38 +18,27 @@ const MemberJoin = () => {
   });
 
   const formatPhoneNumber = (value) => {
-    // 숫자만 추출
     value = value.replace(/\D/g, "");
-
-    if (value.length < 4) return value; // 3자리 이하
-
+    if (value.length < 4) return value;
     if (value.length < 8) {
-      // 4~7자리 (010-1234)
       return value.slice(0, 3) + "-" + value.slice(3);
     }
-
-    // 8자리 이상 (010-1234-5678)
     return (
       value.slice(0, 3) + "-" + value.slice(3, 7) + "-" + value.slice(7, 11)
     );
   };
+
   const inputMemberData = (e) => {
     const name = e.target.name;
     let value = e.target.value;
 
     if (name === "memberPhone") {
-      // 숫자만 추출
       value = value.replace(/\D/g, "");
-
-      // 3자리마다 '-' 삽입
       value = formatPhoneNumber(value, 3, "-");
-
-      // 마지막에 '-'가 붙으면 제거 (ex: 010-)
       if (value.endsWith("-")) {
         value = value.slice(0, -1);
       }
     }
-
     const newMember = { ...member, [name]: value };
     setMember(newMember);
   };
@@ -75,15 +65,14 @@ const MemberJoin = () => {
       setIdCheck(2);
     }
   };
-  const [memberPwRe, setMemberPwRe] = useState("");
 
+  const [memberPwRe, setMemberPwRe] = useState("");
   const pwRegMsgRef = useRef(null);
+
   const checkPwReg = () => {
     pwRegMsgRef.current.classList.remove("valid", "invalid");
-
     const pwReg =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-
     if (!pwReg.test(member.memberPw)) {
       pwRegMsgRef.current.classList.add("invalid");
       pwRegMsgRef.current.innerText =
@@ -97,9 +86,7 @@ const MemberJoin = () => {
   const pwMatchMsgRef = useRef(null);
   const checkPw = () => {
     pwMatchMsgRef.current.classList.remove("valid", "invalid");
-
     if (memberPwRe === "") return;
-
     if (member.memberPw === memberPwRe) {
       pwMatchMsgRef.current.classList.add("valid");
       pwMatchMsgRef.current.innerText = "비밀번호가 일치합니다.";
@@ -108,7 +95,10 @@ const MemberJoin = () => {
       pwMatchMsgRef.current.innerText = "비밀번호가 일치하지 않습니다.";
     }
   };
+
   const navigate = useNavigate();
+
+  // 회원가입 함수 수정
   const joinMember = () => {
     if (
       member.memberName !== "" &&
@@ -119,20 +109,26 @@ const MemberJoin = () => {
       idCheck === 1 &&
       pwRegMsgRef.current.classList.contains("valid")
     ) {
-      // 이메일 인증 완료 여부 확인
       if (authColor !== "#40C79C") {
         Swal.fire("이메일 인증을 완료해주세요");
         return;
       }
 
-      // 주소가 최신으로 반영된 상태로 회원 정보 구성
       const sendMember = { ...member, memberAddr: memberAddr.address };
 
       axios
         .post(`${backServer}/member`, sendMember)
         .then((res) => {
           if (res.data === 1) {
-            navigate("/");
+            // 회원가입 성공 시 alert 띄우기
+            Swal.fire({
+              title: "회원가입 완료 🎉",
+              text: "회원가입이 성공적으로 완료되었습니다!",
+              icon: "success",
+              confirmButtonText: "확인",
+            }).then(() => {
+              navigate("/"); // 확인 누르면 메인으로 이동
+            });
           }
         })
         .catch((err) => {
@@ -149,37 +145,27 @@ const MemberJoin = () => {
     zonecode: "",
     address: "",
   });
-  const openModal = () => {
-    setIsModal(true);
-  };
-  const closeModal = () => {
-    setIsModal(false);
-  };
+
+  const openModal = () => setIsModal(true);
+  const closeModal = () => setIsModal(false);
+
   const onComplete = (data) => {
-    setMemberAddr({
-      zonecode: data.zonecode,
-      address: data.address,
-    });
+    setMemberAddr({ zonecode: data.zonecode, address: data.address });
     closeModal();
     setMember({ ...member, memberAddr: data.address });
   };
 
-  const [email, setEmail] = useState("");
   const [mailCode, setMailCode] = useState(null);
   const [inputCode, setInputCode] = useState("");
   const [authMsg, setAuthMsg] = useState("");
   const [authColor, setAuthColor] = useState("black");
   const [isAuthVisible, setIsAuthVisible] = useState(false);
-  const [time, setTime] = useState(180); // 3분 = 180초
+  const [time, setTime] = useState(180);
   const intervalRef = useRef(null);
-  const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
   useEffect(() => {
     if (!isAuthVisible) return;
-
-    // 기존 타이머 정리
     clearInterval(intervalRef.current);
-
     intervalRef.current = setInterval(() => {
       setTime((prev) => {
         if (prev <= 1) {
@@ -192,14 +178,13 @@ const MemberJoin = () => {
         return prev - 1;
       });
     }, 1000);
-
     return () => clearInterval(intervalRef.current);
   }, [isAuthVisible]);
 
   const sendCode = async () => {
     try {
-      clearInterval(intervalRef.current); // 기존 타이머 중지
-      setTime(180); // 3분 초기화
+      clearInterval(intervalRef.current);
+      setTime(180);
       setIsAuthVisible(true);
       setAuthMsg("");
       const res = await axios.get(

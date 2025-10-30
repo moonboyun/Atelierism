@@ -20,9 +20,10 @@ public interface DesignerDao {
 	List selectAllDesigner();
 
 	int insertDesigner(DesignerDTO designerInfo);
-    int insertCareerList(List<CareerDetailDTO> careerList);
-    int insertAwardList(List<AwardsCareerDTO> awardList);
-//    int updateMemberTypeToDesigner(String memberId);
+	int insertCareerDetail(CareerDetailDTO career);
+    int insertAward(AwardsCareerDTO award);
+//    int insertCareerList(List<CareerDetailDTO> careerList);
+//    int insertAwardList(List<AwardsCareerDTO> awardList);
     
     List<DesignerIntroDTO> selectDesignerList(PageInfo pi);
     int totalCount();
@@ -39,4 +40,6 @@ public interface DesignerDao {
     DesignerStatusDetailDTO selectStatusDetail(int interiorNo);
     
     int updateStatus(Map<String, Object> params);
+
+	String searchDesignerLink(String designerId);
 }
