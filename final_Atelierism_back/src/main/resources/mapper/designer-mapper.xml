@@ -67,21 +67,23 @@
 	
 	<!-- 디자이너 1명 기본 정보 조회 -->
 	<select id="selectOneDesigner" parameterType="string" resultType="designerDetailDTO">
-        SELECT
-            d.member_id,
-            m.member_name,
-            m.member_thumb,
-            d.designer_career,
-            d.designer_age,
-            d.designer_graduation_date,
-            d.designer_graduation,
-            d.designer_portfolio,
-            d.designer_chat,
-            d.designer_introduce
-        FROM designer_tbl d
-        JOIN member_tbl m ON (d.member_id = m.member_id)
-        WHERE d.member_id = #{memberId}
-    </select>
+	    SELECT
+	        d.member_id,
+	        m.member_name,
+	        m.member_thumb,
+	        d.designer_career,
+	        d.designer_age,
+	        d.designer_graduation_date,
+	        d.designer_graduation,
+	        d.designer_bank,
+	        d.designer_account,
+	        d.designer_portfolio,
+	        d.designer_chat,
+	        d.designer_introduce
+	    FROM designer_tbl d
+	    JOIN member_tbl m ON (d.member_id = m.member_id)
+	    WHERE d.member_id = #{memberId}
+	</select>
     <!-- 디자이너 1명 모든 경력사항 조회 -->
     <select id="selectDesignerCareers" parameterType="string" resultType="career">
         SELECT * FROM designer_career_detail_tbl WHERE member_id = #{memberId}
