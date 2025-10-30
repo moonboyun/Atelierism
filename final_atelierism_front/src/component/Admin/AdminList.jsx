@@ -27,6 +27,7 @@ const AdminList = (props) => {
         }/admin?reqPage=${reqPage}&memOrder=${memOrder}`
       )
       .then((res) => {
+        console.log(res);
         setPi(res.data.pi);
         setListData(res.data.reqList);
       })
@@ -133,16 +134,17 @@ const AdminList = (props) => {
               {listData.map((list, i) => {
                 return (
                   <tr key={"listData-" + i}>
-                    <td>{list.memberId}</td>
                     <td>{list.memberName}</td>
                     <td>{list.memberPhone}</td>
-                    {list.memberType === 3 && <td>일반회원</td>}
+                    <td>{list.totalPrice}원</td>
+                    <td>{pi.start + i}등</td>
                   </tr>
                 );
               })}
             </tbody>
           ) : (
             <tbody>
+              {console.log(listData)}
               {listData.map((list, i) => {
                 return (
                   <tr key={"listData-" + i}>
