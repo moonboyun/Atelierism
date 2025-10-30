@@ -119,20 +119,28 @@ const MemberJoin = () => {
       idCheck === 1 &&
       pwRegMsgRef.current.classList.contains("valid")
     ) {
-      setMember({ ...member, memberAddr: memberAddr.address });
-      if (authColor !== "#F67272") {
+      // 이메일 인증 완료 여부 확인
+      if (authColor !== "#40C79C") {
         Swal.fire("이메일 인증을 완료해주세요");
         return;
       }
 
+      // 주소가 최신으로 반영된 상태로 회원 정보 구성
+      const sendMember = { ...member, memberAddr: memberAddr.address };
+
       axios
-        .post(`${backServer}/member`, member)
+        .post(`${backServer}/member`, sendMember)
         .then((res) => {
           if (res.data === 1) {
             navigate("/");
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.error(err);
+          Swal.fire("회원가입 중 오류가 발생했습니다.");
+        });
+    } else {
+      Swal.fire("모든 필수 정보를 입력해주세요.");
     }
   };
 
