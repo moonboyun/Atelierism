@@ -455,10 +455,13 @@
 /*-------디자이너 마이페이지(DesignerMypage)-------*/
 
 .de-mypage-wrap {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 1440px;
   padding: 24px 12px 40px;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 .de-page-title {
@@ -467,25 +470,30 @@
   text-align: center;
   margin: 6px 0 22px;
   color: #2c2c2c;
+  margin-bottom: 30px;
 }
 
 .de-mypage-content {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 36px;
   background: #fff;
   border: 1px solid #eae7e2;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   padding: 28px 32px;
+  width: 80%;
+  margin: 0 auto;
+  height: 600px;
 }
 
 .de-mypage-content > .de-side-menu {
   flex: 0 0 240px !important;
   max-width: 240px !important;
   width: 240px !important;
-  margin: 0 !important;
   align-self: flex-start;
+  margin-left: 50px;
+  margin-top: 30px;
 }
 
 .de-mypage-content > .de-mypage-form {
@@ -523,7 +531,7 @@
 }
 
 .de-mypage-tbl input[type="text"] {
-  width: 520px;
+  width: 60%;
   max-width: 100%;
   border: none;
   background: transparent;
@@ -531,6 +539,7 @@
   color: #2f2f2f;
   border-bottom: 2px solid #e1ddd7;
   outline: none;
+  font-size: 18px;
 }
 
 .de-mypage-tbl tr:last-child td input[type="text"] {
@@ -538,18 +547,19 @@
 }
 
 .de-secession-btn {
-  display: flex;
-  justify-content: flex-end;
+  width: 100%;
   margin-top: 8px;
+  margin-left: 200px;
 }
 
 .de-secession-btn button {
-  background: #e36b5e;
+  background: #5b8f6e;
   color: #fff;
   border: none;
   border-radius: 6px;
   padding: 10px 14px;
   cursor: pointer;
+  margin: 0 auto;
   transition: opacity 0.15s ease, transform 0.05s ease;
 }
 
