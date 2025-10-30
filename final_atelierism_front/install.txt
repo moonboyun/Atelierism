@@ -51,4 +51,4 @@ npm install react-modal @types/react-modal
 -------------------------------------------
 2025-10-3014:20 이설항
 npm install react-canvas-confetti
-확인 :
+확인 :조성빈

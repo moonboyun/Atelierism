@@ -37,11 +37,6 @@
         )
     </insert>
 
-    <!-- 회원의 등급을 '디자이너(2)'로 업데이트
-    <update id="updateMemberTypeToDesigner" parameterType="string">
-        UPDATE member_tbl SET member_type = 2 WHERE member_id = #{memberId}
-    </update>
-    -->
     <select id="totalCount" resultType="int">
 	    SELECT COUNT(*)
 	    FROM designer_tbl d
@@ -67,21 +62,23 @@
 	
 	<!-- 디자이너 1명 기본 정보 조회 -->
 	<select id="selectOneDesigner" parameterType="string" resultType="designerDetailDTO">
-        SELECT
-            d.member_id,
-            m.member_name,
-            m.member_thumb,
-            d.designer_career,
-            d.designer_age,
-            d.designer_graduation_date,
-            d.designer_graduation,
-            d.designer_portfolio,
-            d.designer_chat,
-            d.designer_introduce
-        FROM designer_tbl d
-        JOIN member_tbl m ON (d.member_id = m.member_id)
-        WHERE d.member_id = #{memberId}
-    </select>
+	    SELECT
+	        d.member_id,
+	        m.member_name,
+	        m.member_thumb,
+	        d.designer_career,
+	        d.designer_age,
+	        d.designer_graduation_date,
+	        d.designer_graduation,
+	        d.designer_bank,
+	        d.designer_account,
+	        d.designer_portfolio,
+	        d.designer_chat,
+	        d.designer_introduce
+	    FROM designer_tbl d
+	    JOIN member_tbl m ON (d.member_id = m.member_id)
+	    WHERE d.member_id = #{memberId}
+	</select>
     <!-- 디자이너 1명 모든 경력사항 조회 -->
     <select id="selectDesignerCareers" parameterType="string" resultType="career">
         SELECT * FROM designer_career_detail_tbl WHERE member_id = #{memberId}
@@ -118,6 +115,7 @@
             SELECT ROWNUM AS RNUM, N.* FROM (
                 SELECT
                     i.interior_customer,
+                    m.member_name AS customer_name,
                     i.interior_living,
                     i.interior_kitchen,
                     i.interior_bed,
@@ -130,6 +128,7 @@
                     d.interior_status
                 FROM interior_tbl i
                 JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
+                JOIN member_tbl m ON (i.interior_customer = m.member_id)
                 WHERE i.interior_designer = #{designerId}
                 ORDER BY i.interior_payment_date DESC
             ) N

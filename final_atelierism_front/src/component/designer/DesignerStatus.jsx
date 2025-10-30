@@ -81,7 +81,7 @@ const DesignerStatus = () => {
                     navigate(`/designer/status/detail/${item.interiorNo}`);
                   }}
                 >
-                  <td>{item.interiorCustomer}</td>
+                  <td>{item.customerName}</td>
                   <td>{getSpaceString(item)}</td>
                   <td>{getSpaceString(item)}</td>
                   <td>{item.interiorWhy}</td>

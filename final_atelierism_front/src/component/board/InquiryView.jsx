@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { memberTypeState } from "../utils/RecoilData";
 import axios from "axios";
 import "./inquiry.css";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 
 const InquiryView = () => {
   const params = useParams();
@@ -60,20 +61,20 @@ const InquiryView = () => {
   };
   return (
     <section className="section-view-page">
-      <div className="head-title">
-        <h3>Qna</h3>
-      </div>
       {inquiry && (
         <div className="inquiry-view-wrap">
           {/* 비밀번호 입력 */}
           {inquiry.inquiryBoardOption === 2 && memberType !== 1 && !unlocked ? (
             <div className="secret-gate">
-              <p>비밀글입니다. 비밀번호를 입력하세요.</p>
+              <p>
+                <VpnKeyIcon />
+                비밀글입니다. 비밀번호를 입력하세요.
+              </p>
               <input
                 type="password"
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
-                placeholder="비밀번호"
+                placeholder="비밀번호를 입력해주세요"
               />
               <button
                 type="button"
