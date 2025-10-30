@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 @Data
 @Alias(value="reviewBoardMain")
 public class ReviewBoardMainDTO {
+	private int reviewBoardNo;
 	private String reviewBoardTitle;
-	private String reviewBoardThumbnail;
 	private String reviewBoardWriter;
+	private String reviewBoardOneline;
+	private String reviewBoardContent;
+	private String reviewBoardThumbnail;
 	private String memberName;
 	private String reviewBoardDate;
 }

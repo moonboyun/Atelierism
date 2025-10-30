@@ -46,4 +46,9 @@ public class InteriorService {
 		List<InteriorDTO> list = interiorDao.selectPaymentsByMemberId(memberId);
 		return list;
 	}
+	@Transactional
+	public int payUpdateInterior(InteriorDTO interior) {
+		int result = interiorDao.payUpdateInterior(interior);
+		return result;
+	}
 }

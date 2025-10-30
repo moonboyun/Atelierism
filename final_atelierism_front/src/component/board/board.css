@@ -218,66 +218,6 @@
   font-size: 12px;
 }
 
-/* ===== 페이징 ===== */
-.review-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px; /* 버튼 사이 간격 */
-  padding: 36px 0 40px; /* 위아래 여백 */
-}
-
-/* 기본 버튼(숫자/화살표 공통) */
-.review-pagination .page-btn {
-  min-width: 36px; /* 정사각 느낌 */
-  height: 36px;
-  padding: 0 14px; /* 숫자 2자리 대비 */
-  border: 1px solid #dfe3e8;
-  background: #fff;
-  border-radius: 10px; /* 캡처처럼 둥근 사각 */
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* 호버 효과(활성 아닌 버튼) */
-.review-pagination .page-btn:not(.active):not(:disabled):hover {
-  background: #f7f9fb;
-  border-color: #c9d4dd;
-  transform: translateY(-1px);
-}
-
-/* 활성 페이지(초록 배경, 흰 글씨) */
-.review-pagination .page-btn.active {
-  background: #8aa996;
-  border-color: #8aa996;
-  color: #fff;
-}
-
-/* 비활성(이전/다음 못 갈 때) */
-.review-pagination .page-btn:disabled {
-  opacity: 0.4;
-  cursor: default;
-  transform: none;
-}
-
-/* 화살표 버튼은 테두리 연해 보이게(선택) */
-.review-pagination .page-btn:first-child,
-.review-pagination .page-btn:last-child {
-  border-color: #e7ebef;
-  font-size: 22px; /* « » 가독성 */
-  font-weight: 500;
-}
-
-/* 숫자 버튼만 살짝 더 굵게(선택) */
-.review-pagination .page-btn:not(:first-child):not(:last-child) {
-  font-weight: 700;
-}
-
 .review-header .btn-primary.sm {
   font-size: 16px; /* 글자 키움 */
   font-weight: 600;
@@ -539,102 +479,13 @@
   text-decoration: none; /* 링크 밑줄 제거 */
 }
 
-.board-paging-wrap {
-  width: 100%;
-  margin: 36px 0 60px;
+.section.board-content-wrap {
+  margin-top: 50px;
 }
-
-.board-paging-wrap .pagination {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 36px; /* 숫자/화살표 사이 간격 */
-  padding: 0;
-}
-
-/* 각 아이템 공통 */
-.board-paging-wrap .pagination li {
-  display: flex;
-}
-
-.board-paging-wrap .page-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  line-height: 1;
-  font-weight: 500;
-  font-size: 40px; /* 숫자 크기 (캡처 느낌) */
-  color: #111;
-  transition: transform 0.15s ease, color 0.15s ease,
-    background-color 0.15s ease;
-  padding: 6px 10px; /* 숫자 기본 여백 */
-  border-radius: 10px;
-}
-
-/* 현재 페이지 (초록 박스) */
-.board-paging-wrap .active-page {
-  background: var(--main1);
-  color: #fff;
-  font-weight: 700;
-  min-width: 64px; /* 정사각 느낌 */
-  height: 64px;
-  padding: 0;
-  border-radius: 12px;
-}
-
-/* 호버 효과: 살짝 떠오르고 색상 약간 진하게 */
-.board-paging-wrap .page-item:not(.active-page):hover {
-  color: #000;
-  transform: translateY(-2px);
-}
-
-/* <<, <, >, >> 아이콘(머티리얼 아이콘 텍스트) */
-.board-paging-wrap .material-icons.page-item {
-  font-size: 40px; /* 아이콘 크기 */
-  min-width: auto;
-  height: auto;
-  padding: 0;
-  color: #111;
-}
-.board-paging-wrap .material-icons.page-item:hover {
-  color: var(--main1);
-  transform: translateY(-2px);
-}
-
-.board-paging-wrap {
-  width: 100%;
-  margin: 28px 0 44px; /* 위아래 여백도 살짝 축소 */
-}
-
-.board-paging-wrap .pagination {
-  gap: 24px; /* 아이템 간 간격 축소 */
-}
-
-/* 숫자 버튼 공통 */
-.board-paging-wrap .page-item {
-  font-size: 28px; /* 숫자 크기 ↓ */
-  padding: 4px 8px; /* 내부 여백 ↓ */
-  border-radius: 8px;
-  transform: none;
-}
-
-/* 현재 페이지(초록 박스) */
-.board-paging-wrap .active-page {
-  min-width: 48px; /* 정사각 느낌 유지하며 ↓ */
-  height: 48px;
-  border-radius: 10px;
-}
-
-/* 화살표 아이콘(MUI SVG) 크기 ↓ */
-.board-paging-wrap .MuiSvgIcon-root {
-  font-size: 28px; /* << < > >> */
-}
-
-/* 호버 효과도 살짝만 */
-.board-paging-wrap .page-item:not(.active-page):hover {
-  transform: translateY(-1px);
+.board-frm .board-info-wrap .tbl th {
+  text-align: center; /* 가로 가운데 */
+  vertical-align: middle; /* 세로 가운데 */
+  white-space: nowrap; /* 제목이 길어도 줄바꿈 방지 */
 }
 
 /* ========== Modal (BoardReview in-page overlay) ========== */
@@ -667,17 +518,6 @@
   flex-direction: column;
   overflow: hidden;
   animation: popIn 0.16s ease-out;
-}
-
-@keyframes popIn {
-  from {
-    transform: scale(0.98);
-    opacity: 0.6;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 /* 상단 헤더 */
@@ -781,6 +621,11 @@
 .content-text {
   color: var(--gray3);
 }
+
+section .board-content-wrap {
+  margin-top: 50px;
+}
+
 /*===================================================*/
 
 /* ===== Review Modal ===== */
@@ -850,9 +695,11 @@
 
 /* 작성자 / 날짜 */
 .user-main-title {
+  width: 650px;
+  margin: 0 auto;
   text-align: center;
   overflow: hidden;
-  margin: 15px;
+  margin-top: 15px;
 }
 .user-main-title .user-title {
   float: left;
@@ -861,9 +708,11 @@
   color: #333333;
 }
 .user-main-date {
+  width: 650px;
+  margin: 0 auto;
   text-align: center;
   overflow: hidden;
-  margin: 15px;
+  margin-bottom: 15px;
 }
 .user-main-date .user-date {
   float: right;
@@ -878,13 +727,15 @@
 .modal-page-content .user-thumbnail img {
   width: 650px;
   height: 650px;
+  object-fit: cover;
 }
 
-/* 작성자 / 하트 / 한줄평 */
+/* 작성자 / 한줄평 */
 .user-data {
-  margin-left: 25px;
+  width: 650px;
+  margin: 0 auto;
   margin-top: 10px;
-  margin-bottom: 55px;
+  margin-bottom: 20px;
 }
 .user-data .side-div .heart-icon {
   width: 28px;
@@ -892,14 +743,20 @@
   padding-left: 12px;
 }
 .user-data .writer-oneline-div {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   overflow: hidden;
+}
+.board-content-wrap {
+  width: 650px;
+  margin: 0 auto;
+  text-align: left;
 }
 .user-data .writer-oneline-div .user-writer {
   float: left;
   font-size: 18px;
   color: #333333;
-  padding-left: 12px;
   font-weight: bolder;
 }
 .user-data .writer-oneline-div .user-oneline {

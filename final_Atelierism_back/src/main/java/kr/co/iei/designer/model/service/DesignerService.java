@@ -15,6 +15,7 @@ import kr.co.iei.designer.model.dto.DesignerApplyRequestDTO;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.designer.model.dto.DesignerDetailDTO;
 import kr.co.iei.designer.model.dto.DesignerIntroDTO;
+import kr.co.iei.designer.model.dto.DesignerStatusDetailDTO;
 import kr.co.iei.util.PageInfo;
 import kr.co.iei.util.PageInfoUtils;
 
@@ -48,22 +49,23 @@ public class DesignerService {
     @Transactional
     public int applyDesigner(DesignerDTO designerInfo, List<CareerDetailDTO> careerList, List<AwardsCareerDTO> awardList) {
         
-        designerDao.insertDesigner(designerInfo);
+    	designerDao.insertDesigner(designerInfo);
 
-        if (careerList != null && !careerList.isEmpty()) {
+    	if (careerList != null && !careerList.isEmpty()) {
             for (CareerDetailDTO career : careerList) {
                 career.setMemberId(designerInfo.getMemberId());
+                designerDao.insertCareerDetail(career); 
             }
-            designerDao.insertCareerList(careerList);
         }
 
-        if (awardList != null && !awardList.isEmpty()) {
+    	if (awardList != null && !awardList.isEmpty()) {
             for (AwardsCareerDTO award : awardList) {
+                // 각 award 객체에 memberId를 세팅
                 award.setMemberId(designerInfo.getMemberId());
+                // DAO를 통해 한 줄씩 INSERT
+                designerDao.insertAward(award);
             }
-            designerDao.insertAwardList(awardList);
         }
-//        designerDao.updateMemberTypeToDesigner(designerInfo.getMemberId());
         return 1;
         
     }
@@ -85,5 +87,36 @@ public class DesignerService {
 		List list = designerDao.selectDesignerBoard();
 		return list;
 	}
+	
+	public Map selectStatusList(String designerId, int reqPage) {
+        int numPerPage = 10;   
+        int pageNaviSize = 5;
+        int totalCount = designerDao.statusTotalCount(designerId);
+        PageInfo pi = pageInfoUtil.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+
+        List statusList = designerDao.selectStatusList(pi, designerId);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("statusList", statusList);
+        map.put("pi", pi);
+        return map;
+    }
+	
+	public DesignerStatusDetailDTO selectStatusDetail(int interiorNo) {
+        return designerDao.selectStatusDetail(interiorNo);
+    }
     
+	@Transactional
+    public int updateStatus(int interiorNo, String interiorMemo, int interiorStatus) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("interiorNo", interiorNo);
+        params.put("interiorMemo", interiorMemo);
+        params.put("interiorStatus", interiorStatus);
+        return designerDao.updateStatus(params);
+    }
+
+	public String searchDesignerLink(String designerId) {
+		String designerLink = designerDao.searchDesignerLink(designerId);
+		return designerLink;
+	}
 }

@@ -33,6 +33,7 @@ const ReviewWriter = () => {
           text: "제목과 내용을 입력해주세요.",
           icon: "warning",
           confirmButtonText: "확인",
+          confirmButtonColor: " #8aa996",
         });
         return;
       }
@@ -85,11 +86,7 @@ const ReviewWriter = () => {
           <Link to="/board/review" className="btn-primary lg cancel">
             취소
           </Link>
-          <button
-            type="button" // form submit 방지
-            className="btn-primary lg" // 기본 스타일 클래스(프로젝트 CSS 사용)
-            onClick={upload} // 지금은 알림만
-          >
+          <button type="button" className="btn-primary lg" onClick={upload}>
             등록하기
           </button>
         </div>

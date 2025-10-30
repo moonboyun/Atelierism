@@ -4,6 +4,7 @@ import { isInteriorState, loginIdState } from "../utils/RecoilData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Clear } from "@mui/icons-material";
 
 const InteriorPayPage = () => {
   const backServer = import.meta.env.VITE_BACK_SERVER;
@@ -69,8 +70,6 @@ const InteriorPayPage = () => {
         console.log(err);
       });
   }, []);
-  console.log("interior : ", interior);
-  console.log("updateInterior : ", updateInterior);
   return (
     <section className="section">
       <div className="payP-main-content">
@@ -80,6 +79,7 @@ const InteriorPayPage = () => {
             updateInterior={updateInterior}
             setUpdateInterior={setUpdateInterior}
             price={price}
+            interior={interior}
           />
           <div className="payP-Designer-pay-box">
             <DesignerInfo
@@ -93,6 +93,8 @@ const InteriorPayPage = () => {
               setIsInterior={setIsInterior}
               updateInterior={updateInterior}
               setUpdateInterior={setUpdateInterior}
+              member={member}
+              price={price}
             />
           </div>
         </div>
@@ -104,6 +106,7 @@ const OrderInfo = (props) => {
   const member = props.member;
   const updateInterior = props.updateInterior;
   const setUpdateInterior = props.setUpdateInterior;
+  const interior = props.interior;
   const price = props.price;
   const spacePlus = (e) => {
     const button = e.currentTarget; // 클릭된 버튼 자체
@@ -167,6 +170,33 @@ const OrderInfo = (props) => {
     updateInterior.interiorKidroom,
     updateInterior.interiorStudy,
     price,
+  ]);
+
+  useEffect(() => {
+    if (
+      updateInterior.interiorLiving === 0 &&
+      updateInterior.interiorKitchen === 0 &&
+      updateInterior.interiorBed === 0 &&
+      updateInterior.interiorOneroom === 0 &&
+      updateInterior.interiorKidroom === 0 &&
+      updateInterior.interiorStudy === 0
+    ) {
+      Swal.fire({
+        title: "인테리어 공간 선택",
+        text: "인테리어 공간을 하나 이상 선택해야 합니다.",
+        icon: "error",
+        confirmButtonText: "닫기",
+        confirmButtonColor: " #8aa996",
+      });
+      setUpdateInterior(interior);
+    }
+  }, [
+    updateInterior.interiorLiving,
+    updateInterior.interiorKitchen,
+    updateInterior.interiorBed,
+    updateInterior.interiorOneroom,
+    updateInterior.interiorKidroom,
+    updateInterior.interiorStudy,
   ]);
 
   return (
@@ -730,6 +760,8 @@ const PayInfo = (props) => {
   const setIsInterior = props.setIsInterior;
   const updateInterior = props.updateInterior;
   const setUpdateInterior = props.setUpdateInterior;
+  const member = props.member;
+  const price = props.price;
   const [payConsent, setPayConsent] = useState(false);
   const navigate = useNavigate();
   const delInterior = () => {
@@ -811,8 +843,13 @@ const PayInfo = (props) => {
   };
   const payConsentCheck = (e) => {
     setPayConsent(e.target.checked);
+    setUpdateInterior((prev) => ({
+      ...prev,
+      interiorPaymentCharge: price.priceCharge,
+    }));
   };
   const payInterior = () => {
+    localStorage.setItem("interiorDesigner", updateInterior.interiorDesigner);
     if (!payConsent) {
       Swal.fire({
         title: "동의 확인",
@@ -822,10 +859,51 @@ const PayInfo = (props) => {
         confirmButtonColor: " #8aa996",
       });
     } else {
-      console.log("결제 api 실행");
+      const date = new Date();
+      const dateString = `${date.getFullYear()}${
+        date.getMonth() + 1
+      }${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+      const payPrice = updateInterior.interiorPrice;
+
+      IMP.init("imp74277302");
+
+      IMP.request_pay(
+        {
+          channelKey: "channel-key-38d3f6c8-eb1d-4273-82ef-72063f9fbefc",
+          pay_method: "card",
+          merchant_uid: "order_no_" + dateString, //상점에서 생성한 고유 주문번호
+          name: "인테리어 견적 주문서",
+          amount: payPrice,
+          buyer_email: member.memberEmail,
+          buyer_name: member.memberName,
+          buyer_tel: member.memberPhone,
+          buyer_addr: member.memberAddr,
+          buyer_postcode: member.memberAddrdetail,
+        },
+        function (rsp) {
+          if (rsp.success) {
+            if (updateInterior.interiorPaymentCharge !== 0) {
+              axios
+                .patch(
+                  `${import.meta.env.VITE_BACK_SERVER}/interior/pay`,
+                  updateInterior
+                )
+                .then((res) => {
+                  navigate("/interior/paySuccess");
+                  setIsInterior(false);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          } else {
+            console.log(rsp.error_msg);
+          }
+        }
+      );
     }
   };
-  console.log(payConsent);
+
   return (
     <div className="payI-info-box">
       <div className="payI-title">결제</div>
@@ -866,4 +944,5 @@ const PayInfo = (props) => {
     </div>
   );
 };
+
 export default InteriorPayPage;

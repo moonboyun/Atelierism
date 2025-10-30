@@ -42,6 +42,10 @@
 		select 
 			r.review_board_title,
 			r.review_board_thumbnail,
+			r.review_board_no,
+			r.review_board_title,
+			r.review_board_oneline,
+			r.review_board_content,
 			r.review_board_date, 
 			m.member_name, 
 			r.review_board_writer 
@@ -49,7 +53,7 @@
 		left join member_tbl m 
 		on m.member_id = r.REVIEW_BOARD_WRITER
 		where rownum &lt; 7
-		order by r.review_board_date desc
+		order by r.review_board_no desc
 	</select> 
 
 </mapper>

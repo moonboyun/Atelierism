@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import PersonIcon from "@mui/icons-material/Person";
+import SchoolIcon from "@mui/icons-material/School";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 
 const DesignerDetail = () => {
   const params = useParams();
@@ -31,18 +35,20 @@ const DesignerDetail = () => {
           <img
             src={
               designer.memberThumb
-                ? `${backServer}/member/profile/${designer.memberThumb}`
-                : "/image/default_image.png"
+                ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+                    designer.memberThumb
+                  }?t=${Date.now()}`
+                : `${import.meta.env.BASE_URL}image/default_image.png`
             }
-            alt={`${designer.memberName} 프로필`}
+            alt={`${designer.memberName} 디자이너 프로필`}
           />
         </div>
         <div className="de-detail-profile-info">
           <h1 className="de-detail-name">{designer.memberName}</h1>
           <p className="de-detail-introduce">{designer.designerIntroduce}</p>
           <div className="de-detail-tags">
-            <span>경력 {designer.designerCareer}년</span>
-            <span>나이 {designer.designerAge}세</span>
+            <span>#경력 {designer.designerCareer}년</span>
+            <span>#나이 {designer.designerAge}세</span>
           </div>
         </div>
       </div>
@@ -50,7 +56,9 @@ const DesignerDetail = () => {
       <div className="de-detail-content">
         {/* 기본 정보 */}
         <div className="de-detail-section">
-          <h2 className="de-detail-section-title">기본 정보</h2>
+          <h2 className="de-detail-section-title">
+            <PersonIcon /> 기본 정보
+          </h2>
           <div className="de-info-grid">
             <p>
               <strong>학력:</strong> {designer.designerGraduation} (
@@ -81,7 +89,9 @@ const DesignerDetail = () => {
 
         {/* 경력 사항 */}
         <div className="de-detail-section">
-          <h2 className="de-detail-section-title">경력 사항</h2>
+          <h2 className="de-detail-section-title">
+            <WorkHistoryIcon /> 경력 사항
+          </h2>
           <ul className="de-history-list">
             {designer.careerList.map((career, index) => (
               <li key={`career-${index}`}>
@@ -98,7 +108,9 @@ const DesignerDetail = () => {
 
         {/* 수상 내역 */}
         <div className="de-detail-section">
-          <h2 className="de-detail-section-title">수상 내역</h2>
+          <h2 className="de-detail-section-title">
+            <EmojiEventsIcon /> 수상 내역
+          </h2>
           <ul className="de-history-list">
             {designer.awardList.map((award, index) => (
               <li key={`award-${index}`}>
