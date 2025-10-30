@@ -96,9 +96,7 @@ const MemberLogin = () => {
           </div>
         </div>
         <div className="login-button">
-          <button type="submit" className="btn-primary lg">
-            로그인
-          </button>
+          <button type="submit">로그인</button>
         </div>
         <div className="member-link-box">
           <Link to="/member/agree">회원가입</Link>
