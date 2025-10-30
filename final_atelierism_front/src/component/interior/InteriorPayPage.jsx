@@ -70,8 +70,6 @@ const InteriorPayPage = () => {
         console.log(err);
       });
   }, []);
-  console.log("interior : ", interior);
-  console.log("updateInterior : ", updateInterior);
   return (
     <section className="section">
       <div className="payP-main-content">
@@ -81,6 +79,7 @@ const InteriorPayPage = () => {
             updateInterior={updateInterior}
             setUpdateInterior={setUpdateInterior}
             price={price}
+            interior={interior}
           />
           <div className="payP-Designer-pay-box">
             <DesignerInfo
@@ -107,6 +106,7 @@ const OrderInfo = (props) => {
   const member = props.member;
   const updateInterior = props.updateInterior;
   const setUpdateInterior = props.setUpdateInterior;
+  const interior = props.interior;
   const price = props.price;
   const spacePlus = (e) => {
     const button = e.currentTarget; // 클릭된 버튼 자체
@@ -170,6 +170,33 @@ const OrderInfo = (props) => {
     updateInterior.interiorKidroom,
     updateInterior.interiorStudy,
     price,
+  ]);
+
+  useEffect(() => {
+    if (
+      updateInterior.interiorLiving === 0 &&
+      updateInterior.interiorKitchen === 0 &&
+      updateInterior.interiorBed === 0 &&
+      updateInterior.interiorOneroom === 0 &&
+      updateInterior.interiorKidroom === 0 &&
+      updateInterior.interiorStudy === 0
+    ) {
+      Swal.fire({
+        title: "인테리어 공간 선택",
+        text: "인테리어 공간을 하나 이상 선택해야 합니다.",
+        icon: "error",
+        confirmButtonText: "닫기",
+        confirmButtonColor: " #8aa996",
+      });
+      setUpdateInterior(interior);
+    }
+  }, [
+    updateInterior.interiorLiving,
+    updateInterior.interiorKitchen,
+    updateInterior.interiorBed,
+    updateInterior.interiorOneroom,
+    updateInterior.interiorKidroom,
+    updateInterior.interiorStudy,
   ]);
 
   return (

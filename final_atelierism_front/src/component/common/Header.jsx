@@ -45,7 +45,7 @@ const Header = (props) => {
         <div className="sub-menu">
           <ul>
             <li>
-              <Link to="#">소개글</Link>
+              <Link to="/company">회사 소개</Link>
             </li>
             <li>
               <Link to="/designer/intro">디자이너 소개</Link>
