@@ -148,9 +148,9 @@ const BoardInquiry = () => {
           ) : (
             <div className="qna-box">
               <div className="qna-head">
-                <div>1:1 문의 게시판</div>
+                <div>Qna</div>
                 {memberId && (
-                  <Link to="/board/inquiry/writer" className="btn-primary sm">
+                  <Link to="/board/inquiry/writer" className="btn-primary lg">
                     글 작성
                   </Link>
                 )}
@@ -158,13 +158,13 @@ const BoardInquiry = () => {
               <div className="qna-empty">
                 <table className="table-wrap">
                   <thead>
-                    <tr>
+                    <tr style={{ borderBottom: "2px solid var(--main1)" }}>
                       <th style={{ width: "5%" }}>번호</th>
                       <th style={{ width: "20%" }}>작성자</th>
-                      <th style={{ width: "45%" }}>제목</th>
+                      <th style={{ width: "40%" }}>제목</th>
                       <th style={{ width: "10%" }}>상태</th>
                       <th style={{ width: "15%" }}>작성일</th>
-                      <th style={{ width: "10%" }}>공개/비공개</th>
+                      <th style={{ width: "15%" }}>공개/비공개</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -183,18 +183,34 @@ const BoardInquiry = () => {
                           <td>{inquiry.inquiryBoardWriter}</td>
                           <td>{inquiry.inquiryBoardTitle}</td>
                           {inquiry.adminComment === null ? (
-                            <td style={{ border: "1px solid #333333" }}>
-                              답변대기
+                            <td>
+                              <div
+                                style={{
+                                  padding: "10px 0px",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                <span>답변대기</span>
+                              </div>
                             </td>
                           ) : (
-                            <td
-                              style={{
-                                border: "1px solid #333333",
-                                backgroundColor: "#8AA996",
-                                color: "#fff",
-                              }}
-                            >
-                              답변완료
+                            <td>
+                              <div
+                                style={{
+                                  padding: "10px 0px",
+
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    color: "#8aa996",
+                                    fontWeight: "900",
+                                  }}
+                                >
+                                  답변완료
+                                </span>
+                              </div>
                             </td>
                           )}
                           <td>{inquiry.inquiryBoardDate}</td>
