@@ -30,7 +30,7 @@
   font-size: 16px;
   line-height: 1;
   font-weight: 500;
-  background: #f3f5f4;
+  background-color: #f3f5f4;
   color: #333333;
   cursor: pointer;
   user-select: none;
@@ -40,17 +40,18 @@
   width: 1em;
   height: 1em;
 }
-/* 호버 */
-.pg-item:hover {
-  background-color: #f3f5f4;
-}
-
-/* 활성 페이지(스샷의 초록 배경) */
-.at-page {
+/* 활성 페이지(유지) */
+.pagination .pg-item.at-page {
   background-color: #7fa08e;
   color: #fff;
   font-weight: 700;
   border-radius: 8px;
+}
+
+/* 활성일 때 호버해도 색 안 변하게 */
+.pagination .pg-item.at-page:hover {
+  background-color: #7fa08e;
+  color: #fff;
 }
 
 /* MUI 아이콘 크기 정돈 (양쪽 화살표) */
@@ -62,4 +63,25 @@
 /* 아이콘 호버 시 살짝 강조 */
 .pg-item:hover svg {
   transform: translateY(-0.5px);
+}
+
+/* 1) 아이콘 버튼은 배경 투명 고정 */
+.pagination .material-icons.pg-item {
+  background-color: transparent; /* 기본 배경 제거 */
+}
+.pagination .material-icons.pg-item:hover {
+  background-color: transparent; /* 호버 시도 배경 제거 */
+}
+
+/* 2) 숫자 버튼만 배경 적용 (material-icons가 아닌 경우만) */
+.pagination .pg-item:not(.material-icons) {
+  background-color: #f3f5f4;
+}
+
+/* 활성 색도 "숫자 버튼"에만 적용되도록 안전하게 */
+.pagination .pg-item.at-page:not(.material-icons) {
+  background-color: #7fa08e;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
 }

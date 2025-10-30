@@ -27,5 +27,6 @@
         			from designer_review_tbl order by designer_review_no desc ) b )
     	where rnum between #{start} and #{end}
 	</select>
+	
 
 </mapper>
