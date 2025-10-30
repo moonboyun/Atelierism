@@ -174,4 +174,7 @@
         WHERE
             interior_no = #{interiorNo}
     </update>
+    <select id="searchDesignerLink" resultType="String">
+    	select designer_chat from designer_tbl where member_id=#{desingerId}
+    </select>
 </mapper>
