@@ -29,6 +29,7 @@ const BoardDesigner = () => {
       )
       .then((res) => {
         console.log(res);
+        setDesignerData(res.data);
       })
       .catch((err) => {
         console.log(err);
