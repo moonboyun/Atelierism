@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Alias(value="designerStatus")
 public class DesignerStatusDTO {
     private String interiorCustomer; 
+    private String customerName;
     private int interiorLiving;
     private int interiorKitchen;
     private int interiorBed;
