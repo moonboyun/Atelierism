@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import SideMenu from "../utils/SideMenu";
-import "./designer-info.css";
+import axios from "axios";
+import "./designer.css";
 
 const DesignerInfo = () => {
   const designerId = useRecoilValue(loginIdState);
   const [info, setInfo] = useState(null);
+  const backServer = import.meta.env.VITE_BACK_SERVER;
 
   const menus = [
     { url: "/designer/mypage", text: "마이페이지" },
@@ -16,29 +18,21 @@ const DesignerInfo = () => {
   ];
 
   useEffect(() => {
-    setInfo({
-      careerYears: "6년 이상",
-      careers: [
-        { start: "2020.02", end: "2021.02", company: "디자인랩" },
-        { start: "2021.03", end: "2023.01", company: "아트컴퍼니" },
-        { start: "2023.02", end: "현재", company: "크리에이티브하우스" },
-      ],
-      graduationDate: "2020.02",
-      graduation: "아무 대학교 시각디자인학과 학사",
-      awards: [
-        { date: "2020.02", title: "서울 디자인 공모전 입상" },
-        { date: "2021.06", title: "UX 챌린지 우수상" },
-        { date: "2022.09", title: "K-Design Awards 대상" },
-      ],
-      bank: "우리은행",
-      account: "1111-2222-3333-44",
-      portfolio: "http://www.portfolio-example.com",
-      chat: "https://open.kakao.com/user01",
-      introduce: "감각적인 디자인으로 만족을 드립니다 :)",
-    });
+    if (designerId) {
+      axios
+        .get(`${backServer}/designer/detail/${designerId}`)
+        .then((res) => {
+          setInfo(res.data);
+        })
+        .catch((err) => {
+          console.error("디자이너 정보 로딩 실패:", err);
+        });
+    }
   }, [designerId]);
 
-  if (!info) return null;
+  if (info === null) {
+    return <div>로딩중...</div>;
+  }
 
   return (
     <div className="de-info-page">
@@ -56,7 +50,7 @@ const DesignerInfo = () => {
                 <th>경력(년)</th>
                 <td>
                   <div className="de-line">
-                    <span className="de-value">{info.careerYears}</span>
+                    <span className="de-value">{info.designerCareer}년</span>
                   </div>
                 </td>
               </tr>
@@ -64,13 +58,13 @@ const DesignerInfo = () => {
               <tr>
                 <th>경력(상세)</th>
                 <td>
-                  {info.careers.map((c, i) => (
+                  {info.careerList.map((c, i) => (
                     <div className="de-line" key={`career-${i}`}>
-                      <span className="de-sub">{c.start}</span>
+                      <span className="de-sub">{c.designerCareerSy}</span>
                       <span className="de-tilde">~</span>
-                      <span className="de-sub">{c.end}</span>
+                      <span className="de-sub">{c.designerCareerEy}</span>
                       <span className="de-dot" />
-                      <span className="de-value">{c.company}</span>
+                      <span className="de-value">{c.designerCareerCom}</span>
                     </div>
                   ))}
                 </td>
@@ -80,9 +74,11 @@ const DesignerInfo = () => {
                 <th>학력</th>
                 <td>
                   <div className="de-line">
-                    <span className="de-sub">{info.graduationDate}</span>
+                    <span className="de-sub">
+                      {info.designerGraduationDate}
+                    </span>
                     <span className="de-dot" />
-                    <span className="de-value">{info.graduation}</span>
+                    <span className="de-value">{info.designerGraduation}</span>
                   </div>
                 </td>
               </tr>
@@ -90,11 +86,11 @@ const DesignerInfo = () => {
               <tr>
                 <th>수상내역</th>
                 <td>
-                  {info.awards.map((a, i) => (
+                  {info.awardList.map((a, i) => (
                     <div className="de-line" key={`award-${i}`}>
-                      <span className="de-sub">{a.date}</span>
+                      <span className="de-sub">{a.designerAwardsDete}</span>
                       <span className="de-dot" />
-                      <span className="de-value">{a.title}</span>
+                      <span className="de-value">{a.designerAwards}</span>
                     </div>
                   ))}
                 </td>
@@ -104,7 +100,7 @@ const DesignerInfo = () => {
                 <th>은행명</th>
                 <td>
                   <div className="de-line">
-                    <span className="de-value">{info.bank}</span>
+                    <span className="de-value">{info.designerBank}</span>
                   </div>
                 </td>
               </tr>
@@ -113,7 +109,7 @@ const DesignerInfo = () => {
                 <th>계좌번호</th>
                 <td>
                   <div className="de-line">
-                    <span className="de-value">{info.account}</span>
+                    <span className="de-value">{info.designerAccount}</span>
                   </div>
                 </td>
               </tr>
@@ -124,11 +120,11 @@ const DesignerInfo = () => {
                   <div className="de-line">
                     <a
                       className="de-link"
-                      href={info.portfolio}
+                      href={info.designerPortfolio}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {info.portfolio}
+                      {info.designerPortfolio}
                     </a>
                   </div>
                 </td>
@@ -140,11 +136,11 @@ const DesignerInfo = () => {
                   <div className="de-line">
                     <a
                       className="de-link"
-                      href={info.chat}
+                      href={info.designerChat}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {info.chat}
+                      {info.designerChat}
                     </a>
                   </div>
                 </td>
@@ -154,7 +150,7 @@ const DesignerInfo = () => {
                 <th>한줄 소개</th>
                 <td>
                   <div className="de-line">
-                    <span className="de-value">{info.introduce}</span>
+                    <span className="de-value">{info.designerIntroduce}</span>
                   </div>
                 </td>
               </tr>
