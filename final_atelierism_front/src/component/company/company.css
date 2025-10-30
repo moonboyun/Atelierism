@@ -1,0 +1,74 @@
+.company-main-title {
+  margin-top: 80px;
+  font-size: 50px;
+  color: var(--main2);
+  font-weight: 700;
+  margin-bottom: 120px;
+}
+.company-service-box {
+  display: flex;
+  justify-content: center;
+  gap: 125px;
+  margin-bottom: 250px;
+}
+.company-row {
+  flex-direction: row-reverse;
+}
+.company-column {
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 150px;
+}
+.company-column > img {
+  width: 900px;
+  height: 380px;
+}
+.company-service-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.company-service-title {
+  font-size: 30px;
+  font-weight: 600;
+}
+.company-service-sub-title {
+  font-size: 20px;
+  color: var(--gray4);
+  font-weight: 600;
+  padding: 10px 0px;
+  text-align: left;
+}
+.company-service-info {
+  width: 730px;
+  height: 480px;
+  display: flex;
+  align-items: flex-end;
+  border-left: 1px solid var(--gray1);
+}
+.company-service-info > .company-text {
+  width: 680px;
+  text-align: left;
+  font-size: 22px;
+  margin-left: 30px;
+}
+.company-column > .company-service-info-box {
+  align-items: center;
+}
+.company-column .company-service-sub-title {
+  text-align: center;
+  padding-bottom: 40px;
+}
+.company-column .company-service-info {
+  border: none;
+  border-top: 1px solid var(--gray1);
+  height: 300px;
+  width: 900px;
+}
+.company-column .company-text {
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
