@@ -25,5 +25,6 @@ public class InteriorDTO {
 	private int interiorPrice;
 	private int interiorPaymentCheck;
 	private String interiorPaymentDate;
+	private int interiorPaymentCharge;
 	private String designerChat;
 }

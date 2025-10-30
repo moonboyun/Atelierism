@@ -95,6 +95,7 @@ const InteriorPayPage = () => {
               updateInterior={updateInterior}
               setUpdateInterior={setUpdateInterior}
               member={member}
+              price={price}
             />
           </div>
         </div>
@@ -733,6 +734,7 @@ const PayInfo = (props) => {
   const updateInterior = props.updateInterior;
   const setUpdateInterior = props.setUpdateInterior;
   const member = props.member;
+  const price = props.price;
   const [payConsent, setPayConsent] = useState(false);
   const navigate = useNavigate();
   const delInterior = () => {
@@ -814,8 +816,13 @@ const PayInfo = (props) => {
   };
   const payConsentCheck = (e) => {
     setPayConsent(e.target.checked);
+    setUpdateInterior((prev) => ({
+      ...prev,
+      interiorPaymentCharge: price.priceCharge,
+    }));
   };
   const payInterior = () => {
+    localStorage.setItem("interiorDesigner", updateInterior.interiorDesigner);
     if (!payConsent) {
       Swal.fire({
         title: "동의 확인",
@@ -829,17 +836,17 @@ const PayInfo = (props) => {
       const dateString = `${date.getFullYear()}${
         date.getMonth() + 1
       }${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
-      const price = updateInterior.interiorPrice;
-      console.log(price);
+      const payPrice = updateInterior.interiorPrice;
+
       IMP.init("imp74277302");
 
       IMP.request_pay(
         {
-          channelKey: "channel-key-94e5c742-56b4-4403-b569-63b9c4d7cfcb",
+          channelKey: "channel-key-38d3f6c8-eb1d-4273-82ef-72063f9fbefc",
           pay_method: "card",
-          merchant_uid: "order_no_" + dateString, // 상점에서 생성한 고유 주문번호
-          name: "주문명:결제테스트",
-          amount: price,
+          merchant_uid: "order_no_" + dateString, //상점에서 생성한 고유 주문번호
+          name: "인테리어 견적 주문서",
+          amount: payPrice,
           buyer_email: member.memberEmail,
           buyer_name: member.memberName,
           buyer_tel: member.memberPhone,
@@ -847,7 +854,24 @@ const PayInfo = (props) => {
           buyer_postcode: member.memberAddrdetail,
         },
         function (rsp) {
-          console.log(rsp);
+          if (rsp.success) {
+            if (updateInterior.interiorPaymentCharge !== 0) {
+              axios
+                .patch(
+                  `${import.meta.env.VITE_BACK_SERVER}/interior/pay`,
+                  updateInterior
+                )
+                .then((res) => {
+                  navigate("/interior/paySuccess");
+                  setIsInterior(false);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          } else {
+            console.log(rsp.error_msg);
+          }
         }
       );
     }
