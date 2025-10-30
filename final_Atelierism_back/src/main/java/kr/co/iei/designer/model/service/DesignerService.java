@@ -49,22 +49,23 @@ public class DesignerService {
     @Transactional
     public int applyDesigner(DesignerDTO designerInfo, List<CareerDetailDTO> careerList, List<AwardsCareerDTO> awardList) {
         
-        designerDao.insertDesigner(designerInfo);
+    	designerDao.insertDesigner(designerInfo);
 
-        if (careerList != null && !careerList.isEmpty()) {
+    	if (careerList != null && !careerList.isEmpty()) {
             for (CareerDetailDTO career : careerList) {
                 career.setMemberId(designerInfo.getMemberId());
+                designerDao.insertCareerDetail(career); 
             }
-            designerDao.insertCareerList(careerList);
         }
 
-        if (awardList != null && !awardList.isEmpty()) {
+    	if (awardList != null && !awardList.isEmpty()) {
             for (AwardsCareerDTO award : awardList) {
+                // 각 award 객체에 memberId를 세팅
                 award.setMemberId(designerInfo.getMemberId());
+                // DAO를 통해 한 줄씩 INSERT
+                designerDao.insertAward(award);
             }
-            designerDao.insertAwardList(awardList);
         }
-//        designerDao.updateMemberTypeToDesigner(designerInfo.getMemberId());
         return 1;
         
     }
