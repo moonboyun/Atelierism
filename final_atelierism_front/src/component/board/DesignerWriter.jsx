@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DesignerFrm from "./DesignerFrm";
 import TextEditor from "../utils/TextEditor";
 import axios from "axios";
@@ -21,28 +21,22 @@ const DesignerWriter = () => {
 
   const navigate = useNavigate();
   const [designerData, setDesignerData] = useState(null);
-  const params = useParams();
-  const interiorNo = params.interiorNo;
+  const { interiorNo } = useParams();
   useEffect(() => {
     axios
       .get(
         `${
           import.meta.env.VITE_BACK_SERVER
-        }/board/designer/review? interiorNo=${interiorNo}`
+        }/board/designer/writer? interiorNo=${interiorNo}`
       )
       .then((res) => {
         console.log(res);
-        setDesignerData(res.data);
+        setDesignerData(res.data.designerData);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
-  const clickSponser = (sponser) => {
-    setInteriorNo(String(sponser.interiorNo));
-    setInteriorCustomer(String(sponser.customerId));
-  };
+  }, [interiorNo]);
 
   return (
     <div className="board-wrap">

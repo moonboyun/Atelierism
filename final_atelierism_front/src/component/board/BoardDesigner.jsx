@@ -16,26 +16,6 @@ const BoardDesigner = () => {
   const viewButton = () => {
     navigate("/board/designer/view");
   };
-
-  const [designerData, setDesignerData] = useState(null);
-  const params = useParams();
-  const interiorNo = params.interiorNo;
-  useEffect(() => {
-    axios
-      .get(
-        `${
-          import.meta.env.VITE_BACK_SERVER
-        }/board/designer/review? interiorNo=${interiorNo}`
-      )
-      .then((res) => {
-        console.log(res);
-        setDesignerData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   useEffect(() => {
     axios
       .get(
