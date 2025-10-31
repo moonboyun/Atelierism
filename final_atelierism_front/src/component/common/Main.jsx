@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReviewModalApp from "../board/ReviewModalApp";
 import { useRecoilValue } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
@@ -156,9 +156,9 @@ const Main = () => {
             별도의 추가 비용 없이, 처음 안내해드린 금액 그대로 인테리어를
             완성해드립니다.
           </p>
-          <a>
+          <Link to={"/company"}>
             회사 소개 페이지로 <ArrowForwardIos className="arrow-icon" />
-          </a>
+          </Link>
         </div>
 
         <div className="com-board">

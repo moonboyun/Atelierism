@@ -26,7 +26,6 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
     interiorPayment: 0,
   });
   const [priceList, setPriceList] = useState({});
-  console.log(interior);
   const [step, setStep] = useState(1); // 현재 단계
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -113,7 +112,6 @@ const InteriorApplication = ({ onClose, ani, setAni, setIsInterior }) => {
       axios
         .post(`${import.meta.env.VITE_BACK_SERVER}/interior`, interior)
         .then((res) => {
-          console.log(res);
           Swal.fire({
             title: "설문 완료!",
             text: "설문 조사가 저장되었습니다!",

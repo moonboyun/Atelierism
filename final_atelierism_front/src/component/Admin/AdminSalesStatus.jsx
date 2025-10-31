@@ -7,18 +7,19 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const AdminSalesStatus = () => {
+  const today = new Date();
+  const toMonth = `${today.getFullYear()}-${today.getMonth() + 1}`;
   const backServer = import.meta.env.VITE_BACK_SERVER;
   const navigate = useNavigate();
   const [priceModal, setPriceModal] = useState(false);
-  const [chartOrder, setChartOrder] = useState(1); //1: 6개월, 2: 3개월, 3: 년단위
+  const [chartOrder, setChartOrder] = useState(2); //1: 3개월, 2: 6개월, 3: 년단위
   const priceUpdate = () => {
     setPriceModal(true);
   };
-  const chartSet = () => {};
   const [priceList, setPriceList] = useState(null);
   useEffect(() => {
     axios
-      .get(`${backServer}/admin/list`)
+      .get(`${backServer}/admin/list?toMonth=${toMonth}`)
       .then((res) => {
         setPriceList(res.data);
       })
@@ -38,13 +39,34 @@ const AdminSalesStatus = () => {
                 <AdminChart data={chartOrder} />
               </div>
               <div className="sales-btn-zone">
-                <button type="button" id="month-3" onClick={chartSet}>
+                <button
+                  type="button"
+                  id="month-3"
+                  className={chartOrder === 1 ? "inclick" : ""}
+                  onClick={() => {
+                    setChartOrder(1);
+                  }}
+                >
                   3개월
                 </button>
-                <button type="button" id="month-6">
+                <button
+                  type="button"
+                  id="month-6"
+                  className={chartOrder === 2 ? "inclick" : ""}
+                  onClick={() => {
+                    setChartOrder(2);
+                  }}
+                >
                   6개월
                 </button>
-                <button type="button" id="year-by-year" className="inclick">
+                <button
+                  type="button"
+                  id="year-by-year"
+                  className={chartOrder === 3 ? "inclick" : ""}
+                  onClick={() => {
+                    setChartOrder(3);
+                  }}
+                >
                   12개월
                 </button>
               </div>

@@ -18,22 +18,26 @@ const DesignerWriter = () => {
   const [interiorPrice, setInteriorPrice] = useState();
   const [sponserList, setSponserList] = useState([]);
   const [customerId, setCustomerId] = useState("");
-  const [interiorNo, setInteriorNo] = useState();
 
   const navigate = useNavigate();
-
+  const [designerData, setDesignerData] = useState(null);
+  const params = useParams();
+  const interiorNo = params.interiorNo;
   useEffect(() => {
-    if (!interiorNo) return;
     axios
-      .get(`${import.meta.env.VITE_BACK_SERVER}/interior/${interiorNo}`)
+      .get(
+        `${
+          import.meta.env.VITE_BACK_SERVER
+        }/board/designer/review? interiorNo=${interiorNo}`
+      )
       .then((res) => {
-        setInteriorPrice(res.data.interiorPrice);
-        setInteriorKategorie(res.data.interiorKategorie);
+        console.log(res);
+        setDesignerData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [interiorNo]);
+  }, []);
 
   const clickSponser = (sponser) => {
     setInteriorNo(String(sponser.interiorNo));

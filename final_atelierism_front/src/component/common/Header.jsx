@@ -96,13 +96,11 @@ const HeaderLink = () => {
     axios
       .get(`${import.meta.env.VITE_BACK_SERVER}/interior/${memberId}`)
       .then((res) => {
-        console.log(res.data);
         if (res.data !== 0) {
           setIsInterior(true);
         }
       });
   }, [memberId]);
-  console.log(isInterior);
   const payPage = () => {
     navigate("/interior/payPage");
   };
