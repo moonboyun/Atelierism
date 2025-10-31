@@ -884,3 +884,179 @@
   overflow-wrap: anywhere;
   display: block;
 }
+
+/*==============================WriterCss==============================================*/
+.inquiry-writer-wrap .page-title {
+  margin-top: 75px;
+  margin-bottom: 60px;
+}
+.page-title h3 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #8aa996;
+}
+.inquiry-card {
+  box-shadow: 0px 0px 10px 0 rgba(138, 169, 150, 0.6);
+  margin-bottom: 100px;
+}
+
+.inquiry-tbl th {
+  font-weight: 700;
+  font-size: 18px;
+  color: #7f9b8a;
+}
+.inquiry-tbl th label {
+  font-weight: 700;
+  font-size: 18px;
+  color: #7f9b8a;
+}
+.inquiry-tbl th .red {
+  color: red;
+}
+
+/* 에디터 박스 자체 */
+.content-box {
+  margin-top: 30px;
+}
+/* 툴바/컨테이너 테두리와 라운드(선택사항: 당신의 톤에 맞게) */
+.content-box .ql-toolbar.ql-snow {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.content-box .ql-editor {
+  min-height: 300px;
+  padding: 12px 14px;
+}
+
+/* 게시글 상세 페이지 삭제/수정 버튼 */
+.btn-zone {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.btn.ghost {
+  background-color: #fff;
+  border: 1px solid #7fa08e;
+  color: #7fa08e;
+}
+.btn.danger {
+  background-color: #8aa996;
+}
+.btn.danger:hover {
+  background-color: #7a9582;
+  color: #fff;
+}
+
+/* 관리자 답변 카드 */
+/* ===== 관리자 답변 카드 ===== */
+.admin-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow, 0 6px 20px rgba(0, 0, 0, 0.06));
+  padding: 16px 18px;
+}
+
+/* 헤더: 타이틀 왼쪽, 배지 오른쪽 */
+.admin-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line, #e5e7eb);
+  padding-bottom: 12px;
+}
+
+/* 타이틀(아이콘 + 텍스트) */
+.admin-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent, #2f2f2f);
+  font-weight: 700;
+  font-size: 16px;
+}
+.admin-title-icon {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+/* 배지: 답변완료 */
+.admin-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+.admin-badge.success {
+  background-color: #e7f3ec; /* 연한 그린 */
+  color: #2c6e55; /* 딥 그린 */
+  border: 1px solid #cfe6d9;
+}
+
+/* 바디 */
+.admin-card__body {
+  padding-top: 6px;
+}
+
+/* 입력 폼 레이아웃 */
+.admin-reply-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.admin-input {
+  flex: 1 1 auto;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 8px;
+  outline: none;
+}
+.admin-input:focus {
+  border-color: #8aa996; /* 사이트 톤에 맞춘 포커스 */
+  box-shadow: 0 0 0 3px rgba(138, 169, 150, 0.15);
+}
+
+/* 답변 보기 */
+.admin-reply-view {
+  display: grid;
+  gap: 6px;
+}
+.admin-comment {
+  color: var(--text, #222);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.admin-comment-date {
+  text-align: right;
+  color: var(--muted, #6b7280);
+  font-size: 12px;
+}
+
+/* 카드 자체 크기 고정 */
+.admin-comment-div .admin-comment-section {
+  width: 850px;
+  height: 350px;
+  overflow: hidden;
+}
+
+/* 관리자 답변 카드: 높이 자동으로 */
+.section-view-page .admin-comment-div .admin-comment-section {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  width: 100%;
+  max-width: 850px;
+}
+
+/* 내부 스크롤 강제했던 규칙도 해제 */
+.section-view-page .admin-comment-section > .admin-comment-div {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
