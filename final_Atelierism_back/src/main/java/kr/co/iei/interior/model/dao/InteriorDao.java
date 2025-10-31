@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.iei.interior.model.dto.InteriorDTO;
+import kr.co.iei.interior.model.dto.InteriorDetailDTO;
 
 @Mapper
 public interface InteriorDao {
@@ -22,6 +23,8 @@ public interface InteriorDao {
 	List<InteriorDTO> selectPaymentsByMemberId(String memberId);
 
 	int payUpdateInterior(InteriorDTO interior);
+
+	int insertSpacePrice(InteriorDetailDTO spacePrice);
 
 
 }
