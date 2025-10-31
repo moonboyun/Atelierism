@@ -5,6 +5,7 @@ import { loginIdState } from "../utils/RecoilData";
 import SideMenu from "../utils/SideMenu";
 import PageNavigation from "../utils/PageNavigation";
 import { useNavigate } from "react-router-dom";
+import DesignerChart from "./DesignerChart";
 import "./designer.css";
 
 const DesignerStatus = () => {
@@ -15,6 +16,9 @@ const DesignerStatus = () => {
   const [statusList, setStatusList] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pi, setPi] = useState(null);
+  const [chartData, setChartData] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const [menus] = useState([
     { url: "/designer/mypage", text: "마이페이지" },
@@ -26,7 +30,9 @@ const DesignerStatus = () => {
   useEffect(() => {
     if (designerId) {
       axios
-        .get(`${backServer}/designer/status/${designerId}?reqPage=${reqPage}`)
+        .get(
+          `${backServer}/designer/status/${designerId}?reqPage=${reqPage}&keyword=${searchKeyword}`
+        )
         .then((res) => {
           setStatusList(res.data.statusList);
           setPi(res.data.pi);
@@ -34,10 +40,18 @@ const DesignerStatus = () => {
         .catch((err) => {
           console.error("작업 현황 로딩 실패:", err);
         });
-    }
-  }, [designerId, reqPage]);
 
-  // DTO의 공간 데이터를 화면에 표시할 문자열로 변환하는 함수
+      axios.get(`${backServer}/designer/chart/${designerId}`).then((res) => {
+        setChartData(res.data);
+      });
+    }
+  }, [designerId, reqPage, searchKeyword]);
+
+  const handleSearch = () => {
+    setReqPage(1);
+    setSearchKeyword(keyword);
+  };
+
   const getSpaceString = (item) => {
     const spaces = [];
     if (item.interiorLiving === 1) spaces.push("거실");
@@ -56,52 +70,84 @@ const DesignerStatus = () => {
           <SideMenu menus={menus} />
         </section>
 
-        <section className="de-status-main">
-          <div className="de-status-title-box">
-            <h2 className="de-status-title">작업 진행 현황</h2>
-          </div>
-
-          <table className="de-status-table">
-            <thead>
-              <tr>
-                <th>고객명</th>
-                <th>공간</th>
-                <th>디자인 범위</th>
-                <th>디자인 이유</th>
-                <th>결제일</th>
-                <th>진행상황</th>
-              </tr>
-            </thead>
-            <tbody>
-              {statusList.map((item) => (
-                <tr
-                  key={item.interiorNo}
-                  className="de-status-clickable-row"
-                  onClick={() => {
-                    navigate(`/designer/status/detail/${item.interiorNo}`);
-                  }}
-                >
-                  <td>{item.customerName}</td>
-                  <td>{getSpaceString(item)}</td>
-                  <td>{getSpaceString(item)}</td>
-                  <td>{item.interiorWhy}</td>
-                  <td>{item.interiorPaymentDate}</td>
-                  <td>{item.interiorStatus === 0 ? "작업중" : "완료"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div className="board-paging-wrap">
-            {pi && (
-              <PageNavigation
-                pi={pi}
-                reqPage={reqPage}
-                setReqPage={setReqPage}
-              />
+        <div className="de-status-main-content">
+          <div className="de-status-chart-wrap">
+            {chartData.length > 0 ? (
+              <DesignerChart chartData={chartData} />
+            ) : (
+              <p>차트 데이터를 불러오는 중이거나, 데이터가 없습니다.</p>
             )}
           </div>
-        </section>
+
+          <section className="de-status-main">
+            <div className="de-status-title-box">
+              <h2 className="de-status-title">작업 진행 현황</h2>
+            </div>
+
+            <div className="de-status-search-box">
+              <input
+                type="text"
+                className="de-status-search-input"
+                placeholder="고객명으로 검색"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
+              />
+              <button
+                type="button"
+                className="de-status-search-btn"
+                onClick={handleSearch}
+              >
+                검색
+              </button>
+            </div>
+
+            <table className="de-status-table">
+              <thead>
+                <tr>
+                  <th>고객명</th>
+                  <th>공간</th>
+                  <th>디자인 범위</th>
+                  <th>디자인 이유</th>
+                  <th>결제일</th>
+                  <th>진행상황</th>
+                </tr>
+              </thead>
+              <tbody>
+                {statusList.map((item) => (
+                  <tr
+                    key={item.interiorNo}
+                    className="de-status-clickable-row"
+                    onClick={() => {
+                      navigate(`/designer/status/detail/${item.interiorNo}`);
+                    }}
+                  >
+                    <td>{item.customerName}</td>
+                    <td>{getSpaceString(item)}</td>
+                    <td>{getSpaceString(item)}</td>
+                    <td>{item.interiorWhy}</td>
+                    <td>{item.interiorPaymentDate}</td>
+                    <td>{item.interiorStatus === 0 ? "작업중" : "완료"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="board-paging-wrap">
+              {pi && (
+                <PageNavigation
+                  pi={pi}
+                  reqPage={reqPage}
+                  setReqPage={setReqPage}
+                />
+              )}
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );
