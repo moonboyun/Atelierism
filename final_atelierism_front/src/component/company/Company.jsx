@@ -1,13 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./company.css";
 import axios from "axios";
 
 const Company = () => {
+  const [price, setPrice] = useState({});
+  const [slide, setSlide] = useState(0); // 슬라이드 위치
+  const [maxSlide, setMaxSlide] = useState(0); // 최대 슬라이드 한계
+
+  useEffect(() => {
+    const cardCount = 6; // 현재 카드 개수
+    const visibleWidth = 1920; // 보여지는 영역 너비 (px)
+    const cardWidth = 1060; // 카드 이미지 + 패딩
+    const gap = 60;
+    const totalCardWidth = cardWidth + gap;
+    const max = -(totalCardWidth * cardCount - visibleWidth);
+    setMaxSlide(max);
+  }, []);
+
+  useEffect(() => {
+    console.log("slide:", slide, "maxSlide:", maxSlide);
+  }, [slide, maxSlide]);
+
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACK_SERVER}/admin/list`)
+      .get(`${import.meta.env.VITE_BACK_SERVER}/admin/price`)
       .then((res) => {
-        console.log(res);
+        setPrice(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +134,90 @@ const Company = () => {
           </div>
         </div>
       </div>
-      <img src="/image/company-banner.png" />
+      <img className="company-banner" src="/image/company-banner.png" />
+      <div className="company-price-box">
+        <div className="company-service-title">정찰제, 신뢰를 디자인하다.</div>
+        <div className="company-text">
+          Atelierism은 '합리적인 고정가'를 통해 디자인의 가치를 명확하게
+          전합니다.
+        </div>
+        <div
+          className="company-price-card-wrap"
+          style={{
+            transform: `translateX(${slide}px)`,
+            transition: "transform 0.6s ease", // 부드럽게 이동
+          }}
+          onClick={(e) => {
+            const clickX = e.clientX; // 클릭한 x좌표
+            const screenCenter = window.innerWidth / 2; // 화면 중앙
+
+            if (clickX > screenCenter) {
+              // 👉 오른쪽 클릭 시
+              setSlide((prev) =>
+                prev - 1000 < maxSlide ? maxSlide : prev - 1000
+              );
+            } else {
+              // 👈 왼쪽 클릭 시
+              setSlide((prev) => (prev + 1000 > 0 ? 0 : prev + 1000));
+            }
+          }}
+        >
+          {[
+            {
+              img: "/image/company-living.png",
+              title: "거실",
+              desc: "가장 많은 시간을 보내는 공간, 가장 따듯하게 완성합니다.",
+              price: price.priceLiving,
+            },
+            {
+              img: "/image/company-kitchen.png",
+              title: "부엌",
+              desc: "기능과 동선, 감각이 공존하는 공간의 미학.",
+              price: price.priceKitchen,
+            },
+            {
+              img: "/image/company-bed.png",
+              title: "안방",
+              desc: "휴식과 안정감을 담은 프라이빗한 공간.",
+              price: price.priceBed,
+            },
+            {
+              img: "/image/company-oneroom.png",
+              title: "원룸",
+              desc: "감각적인 일상 속, 나를 위한 작은 안식처.",
+              price: price.priceOneroom,
+            },
+            {
+              img: "/image/company-kidroom.png",
+              title: "아이방",
+              desc: "성장과 상상이 함께 자라는 공간.",
+              price: price.priceKidroom,
+            },
+            {
+              img: "/image/company-study.png",
+              title: "서재",
+              desc: "집중과 영감이 머무는 조용한 공간.",
+              price: price.priceStudy,
+            },
+          ].map((item, idx) => (
+            <div key={idx} className="company-price-card">
+              <img src={item.img} alt={item.title} />
+              <div className="comapny-price-info">
+                <div className="company-space">
+                  <div className="company-service-title">{item.title}</div>
+                  <div className="company-text">{item.desc}</div>
+                </div>
+                <div className="company-price-wrap">
+                  <div className="company-price">
+                    {Number(item.price).toLocaleString()}
+                  </div>
+                  <div>원</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
