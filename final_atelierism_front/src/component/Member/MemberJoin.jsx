@@ -453,9 +453,7 @@ const MemberJoin = () => {
           </div>
         </div>
         <div className="join-button">
-          <button type="submit" className="btn-primary lg">
-            회원가입
-          </button>
+          <button type="submit">회원가입</button>
         </div>
       </form>
     </section>
