@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.iei.admin.model.dto.AdminMonthSalesStatus;
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.member.model.dto.MemberDTO;
 import kr.co.iei.util.PageInfo;
@@ -46,7 +47,11 @@ public interface AdminDao {
 
 	List applicantList();
 
-	List topDesigner(Map<String, Object> month);
+	List topDesigner(String toMonth);
+
+	AdminMonthSalesStatus selectMonthList(Map<String, Object> month);
+
+	AdminMonthSalesStatus selectSiteSubscriber(Map<String, Object> month);
 	
 
 }

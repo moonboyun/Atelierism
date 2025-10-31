@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.iei.admin.model.dao.AdminDao;
+import kr.co.iei.admin.model.dto.AdminMonthSalesStatus;
 import kr.co.iei.admin.model.dto.PriceListDto;
 import kr.co.iei.board.model.dao.ReviewBoardDao;
 import kr.co.iei.member.model.dto.MemberDTO;
@@ -24,6 +25,27 @@ public class AdminService {
 	@Autowired
 	private PageInfoUtils pageInfoUtils;
 
+	public Map selectSalesStateList(Map month) {
+		Map<String, Object> salesStateList = new HashMap<String, Object>();
+		AdminMonthSalesStatus salesStatus = adminDao.selectMonthList(month);
+		AdminMonthSalesStatus subscriberMonth = adminDao.selectSiteSubscriber(month);
+		PriceListDto pl = adminDao.priceListSelect();
+		salesStateList.put("salesStatus", salesStatus);
+		salesStateList.put("subscriberMonth", subscriberMonth);
+		salesStateList.put("pl", pl);
+		return salesStateList;
+	}
+	
+	public Map myPageList(String toMonth) {
+		Map<String, Object> myPageList = new HashMap<String, Object>();
+		List applicantList = adminDao.applicantList();//신청자리스트
+		List topDesignerList = adminDao.topDesigner(toMonth);//이달의 디자이너 top5
+		myPageList.put("applicantList", applicantList);
+		myPageList.put("topDesignerList", topDesignerList);
+		return myPageList;
+	}
+	
+	
 	public PriceListDto priceListSelect() {
 		PriceListDto pl = adminDao.priceListSelect();
 		return pl;
@@ -114,14 +136,6 @@ public class AdminService {
 		return result;
 	}
 
-	public Map myPageList(Map<String, Object> month) {
-		Map<String, Object> myPageList = new HashMap<String, Object>();
-		List applicantList = adminDao.applicantList();//신청자리스트
-		List topDesignerList = adminDao.topDesigner(month);//이달의 디자이너 top5
-		
-		myPageList.put("applicantList", applicantList);
-		myPageList.put("topDesignerList", topDesignerList);
-		return myPageList;
-	}
+	
 
 }

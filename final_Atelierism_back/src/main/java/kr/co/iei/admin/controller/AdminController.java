@@ -32,10 +32,19 @@ public class AdminController {
 	private ReviewBoardService rbService;
 	
 	@GetMapping(value = "/list")
-	public ResponseEntity<PriceListDto> selectPriceList(@RequestParam String toMonth) {
-		PriceListDto  pl = adminService.priceListSelect();
-		return ResponseEntity.ok(pl);
+	public ResponseEntity<Map> selectPriceList(@RequestParam String toMonth) {
+		Map<String, Object> month = new HashMap<String, Object>();
+		month.put("toMonth1", toMonth);//이번달 디자이너 순위용
+		month.put("toMonth2", toMonth+"-%");//이달의 가입자용
+		Map salesStateList = adminService.selectSalesStateList(month);
+		return ResponseEntity.ok(salesStateList);
 	};
+	
+	@GetMapping(value = "/myPageList")
+	public ResponseEntity<Map> myPageList(@RequestParam String toMonth){
+		Map myPageList = adminService.myPageList(toMonth);
+		return ResponseEntity.ok(myPageList);
+	}
 	
 	@PatchMapping
 	public ResponseEntity<Integer> updatePriceList(@RequestBody PriceListDto priceList){
@@ -74,14 +83,6 @@ public class AdminController {
 		return ResponseEntity.ok(result);
 	}
 	
-	@GetMapping(value = "/myPageList")
-	public ResponseEntity<Map> myPageList(@RequestParam String toMonth){
-		System.out.println(toMonth+"-%");
-		Map<String, Object> month = new HashMap<String, Object>();
-		month.put("toMonth1", toMonth);//이번달 매출조회용
-		month.put("toMonth2", toMonth+"-%");//이달의 가입자용
-		Map myPageList = adminService.myPageList(month);
-		return ResponseEntity.ok(myPageList);
-	}
+	
 	
 }
