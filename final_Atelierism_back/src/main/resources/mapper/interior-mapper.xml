@@ -84,6 +84,14 @@
 		interior_payment_charge = #{interiorPaymentCharge}
 	where interior_no = #{interiorNo}
 </update>
-
+<insert id="insertSpacePrice">
+	insert into interior_detail_tbl values(
+		payment_seq.nextval,
+		#{interiorNo},
+		#{spaceName},
+		#{spaceCount},
+		#{spacePrice}
+	)
+</insert>
 
 </mapper>

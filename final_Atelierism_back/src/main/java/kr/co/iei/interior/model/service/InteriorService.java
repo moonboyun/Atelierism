@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.iei.interior.model.dao.InteriorDao;
 import kr.co.iei.interior.model.dto.InteriorDTO;
+import kr.co.iei.interior.model.dto.InteriorDetailDTO;
 
 @Service
 public class InteriorService {
@@ -49,6 +50,11 @@ public class InteriorService {
 	@Transactional
 	public int payUpdateInterior(InteriorDTO interior) {
 		int result = interiorDao.payUpdateInterior(interior);
+		return result;
+	}
+	@Transactional
+	public int insertSpacePrice(InteriorDetailDTO spacePrice) {
+		int result = interiorDao.insertSpacePrice(spacePrice);
 		return result;
 	}
 }
