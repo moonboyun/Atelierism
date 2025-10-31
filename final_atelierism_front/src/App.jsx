@@ -31,12 +31,13 @@ import DesignerInfo from "./component/designer/DesignerInfo";
 import DesignerInfoFrm from "./component/designer/DesignerInfoFrm";
 import DesignerDetail from "./component/designer/DesignerDetail";
 import DesignerStatus from "./component/designer/DesignerStatus";
+import DesignerStatusDetail from "./component/designer/DesignerStatusDetail";
+import DesignerInfoUpdate from "./component/designer/DesignerInfoUpdate";
 import axios from "axios";
 import { useEffect } from "react";
 import InteriorPayPage from "./component/interior/InteriorPayPage";
 import InquiryView from "./component/board/InquiryView";
 import DesignerWriter from "./component/board/DesignerWriter";
-import DesignerStatusDetail from "./component/designer/DesignerStatusDetail";
 import InteriorPaySuccess from "./component/interior/InteriorPaySuccess";
 import Company from "./component/company/Company";
 
@@ -123,6 +124,10 @@ function App() {
           <Route
             path="/designer/status/detail/:interiorNo"
             element={<DesignerStatusDetail />}
+          />
+          <Route
+            path="/designer/info/update"
+            element={<DesignerInfoUpdate />}
           />
           {/*----------------------interior---------------------*/}
           <Route path="/interior/payPage" element={<InteriorPayPage />} />
