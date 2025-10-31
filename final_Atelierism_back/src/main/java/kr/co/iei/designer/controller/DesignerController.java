@@ -68,8 +68,8 @@ public class DesignerController {
     }
 	
 	@GetMapping(value="/list")
-	public ResponseEntity<Map> selectList(@RequestParam int reqPage){
-		Map map = designerService.selectAllDesigner(reqPage);
+	public ResponseEntity<Map> selectList(@RequestParam int reqPage, @RequestParam(required = false, defaultValue = "") String loginMemberId){
+		Map map = designerService.selectDesignerList(reqPage, loginMemberId);
 		return ResponseEntity.ok(map);
 	}
 	

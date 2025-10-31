@@ -24,7 +24,7 @@ public interface DesignerDao {
 	int insertCareerDetail(CareerDetailDTO career);
     int insertAward(AwardsCareerDTO award);
     
-    List<DesignerIntroDTO> selectDesignerList(PageInfo pi);
+    List<DesignerIntroDTO> selectDesignerList(Map<String, Object> params);
     int totalCount();
     
     DesignerDetailDTO selectOneDesigner(String memberId);

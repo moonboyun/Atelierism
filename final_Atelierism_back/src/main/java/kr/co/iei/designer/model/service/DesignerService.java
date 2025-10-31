@@ -31,15 +31,21 @@ public class DesignerService {
 		return list;
 	}
 	
-	public Map selectAllDesigner(int reqPage) {
-        int numPerPage = 6;   // 한 페이지당 게시물 수 
-		int pageNaviSize = 5; // 페이지 네비게이션 길이
+	public Map selectDesignerList(int reqPage, String loginMemberId) {
+        int numPerPage = 6;
+		int pageNaviSize = 5;
 		int totalCount = designerDao.totalCount();
 		PageInfo pi = pageInfoUtil.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
 		
-        List designerList = designerDao.selectDesignerList(pi);
+        // 1. DAO에 전달할 파라미터들을 담을 '서류 가방(Map)'을 만듭니다.
+        Map<String, Object> params = new HashMap<>();
+        params.put("pi", pi);
+        params.put("loginMemberId", loginMemberId);
 		
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        // 2. 모든 정보가 담긴 Map 하나만 DAO에 전달합니다.
+        List designerList = designerDao.selectDesignerList(params);
+		
+        HashMap<String, Object> map = new HashMap<>();
 		map.put("designerList", designerList);
 		map.put("pi", pi);
 		return map;
