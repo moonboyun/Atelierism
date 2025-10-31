@@ -399,7 +399,7 @@
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  height: 450px; /* 모든 카드 높이 동일 */
+  height: 500px; /* 모든 카드 높이 동일 */
 }
 .sb-main-content {
   width: 1400px;
@@ -419,11 +419,14 @@
   margin-top: 20px;
 }
 .sb-content > .img > img {
-  width: 100%;
+  width: 200px;
   height: 200px; /* 이미지 높이 통일 */
   object-fit: cover;
+  margin-bottom: 20px;
 }
-
+.payment-info {
+  text-align: center;
+}
 .payment-info > p {
   font-weight: 600;
   margin-bottom: 15px;
