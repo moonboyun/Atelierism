@@ -222,4 +222,23 @@ order by 2 desc
 	from member_tbl
 	where enroll_date like #{toMonth2}
 </select>
+
+<select id="chartSelect" resultType="chart">
+	with select_month as(
+    select to_char(add_months(sysdate,-1*(level-1)),'yyyy-mm') mon
+    	<if test="chartOrder == 1">
+    	from dual connect by level &lt;= 3
+    	</if>
+    	<if test="chartOrder == 2">
+    	from dual connect by level &lt;= 6
+    	</if>
+    	<if test="chartOrder == 3">
+    	from dual connect by level &lt;= 12
+    	</if>
+    	)
+		select mon, sum(nvl(interior_price,0)) as price_of_month from select_month
+			left join (select * from interior_tbl) on (mon = substr(interior_payment_date,1,7))
+			group by (mon)                                                  
+			order by 1
+</select>
 </mapper>

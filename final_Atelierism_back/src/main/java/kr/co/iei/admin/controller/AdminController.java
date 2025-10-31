@@ -65,7 +65,7 @@ public class AdminController {
 		return ResponseEntity.ok(map);
 	};
 	
-	@GetMapping(value = "detail")
+	@GetMapping(value = "/detail")
 	public ResponseEntity<Map> selectApplicantDetailList(@RequestParam String memberId){
 		Map detail = adminService.selectApplicantDetailList(memberId);
 		return ResponseEntity.ok(detail);
@@ -77,12 +77,16 @@ public class AdminController {
 		return ResponseEntity.ok(result);
 	}
 	
-	@PatchMapping(value = "enter")
+	@PatchMapping(value = "/enter")
 	public ResponseEntity<Integer> enterDesigner(@RequestParam String memberId){
 		int result = adminService.enterDesigner(memberId);
 		return ResponseEntity.ok(result);
 	}
 	
-	
-	
+	@GetMapping(value = "/chart")
+	public ResponseEntity<List> chartSelect(@RequestParam int chartOrder){
+		List chartData = adminService.chartSelect(chartOrder);
+		System.out.println(chartData);
+		return ResponseEntity.ok(chartData);
+	}
 }

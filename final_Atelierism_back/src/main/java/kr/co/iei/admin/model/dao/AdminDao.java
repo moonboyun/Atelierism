@@ -52,6 +52,8 @@ public interface AdminDao {
 	AdminMonthSalesStatus selectMonthList(Map<String, Object> month);
 
 	AdminMonthSalesStatus selectSiteSubscriber(Map<String, Object> month);
+
+	List chartSelect(int chartOrder);
 	
 
 }

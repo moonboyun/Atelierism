@@ -136,6 +136,12 @@ public class AdminService {
 		return result;
 	}
 
+	public List chartSelect(int chartOrder) {
+		System.out.println(chartOrder);
+		List chartData = adminDao.chartSelect(chartOrder);
+		return chartData;
+	}
+
 	
 
 }
