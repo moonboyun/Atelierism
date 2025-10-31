@@ -521,11 +521,12 @@
 }
 
 .de-secession-btn button {
-  background: #5b8f6e;
+  background-color: #c0c0c0;
+  border: 1px solid #c0c0c0;
   color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 14px;
+  border-radius: 8px;
+  width: 150px;
+  height: 40px;
   cursor: pointer;
   margin: 0 auto;
   transition: opacity 0.15s ease, transform 0.05s ease;
