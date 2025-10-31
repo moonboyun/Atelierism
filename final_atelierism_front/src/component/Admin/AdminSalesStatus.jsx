@@ -16,12 +16,15 @@ const AdminSalesStatus = () => {
   const priceUpdate = () => {
     setPriceModal(true);
   };
-  const [priceList, setPriceList] = useState(null);
+  const [priceList, setPriceList] = useState(null); //가격표
+  const [monthTotal, setMonthTotal] = useState(null); //이달의 통계
   useEffect(() => {
     axios
       .get(`${backServer}/admin/list?toMonth=${toMonth}`)
       .then((res) => {
-        setPriceList(res.data);
+        console.log(res);
+        setPriceList(res.data.pl);
+        setMonthTotal(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -73,28 +76,30 @@ const AdminSalesStatus = () => {
             </div>
             <div className="site-total">
               <h2>사이트 토탈</h2>
-              <div className="total-table">
-                <table border={1}>
-                  <tbody>
-                    <tr>
-                      <th>이달의 총 매출</th>
-                      <td>1235412원</td>
-                    </tr>
-                    <tr>
-                      <th>이달의 가입자</th>
-                      <td>000명</td>
-                    </tr>
-                    <tr>
-                      <th>순매출</th>
-                      <td>1235412원</td>
-                    </tr>
-                    <tr>
-                      <th>디자이너 매출</th>
-                      <td>1235412원</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {monthTotal != null && (
+                <div className="total-table">
+                  <table border={1}>
+                    <tbody>
+                      <tr>
+                        <th>이달의 총 매출</th>
+                        <td>{monthTotal.salesStatus.totalOfMonth}원</td>
+                      </tr>
+                      <tr>
+                        <th>이달의 가입자</th>
+                        <td>{monthTotal.subscriberMonth.siteSubscriber}명</td>
+                      </tr>
+                      <tr>
+                        <th>순매출</th>
+                        <td>{monthTotal.salesStatus.siteRevenue}원</td>
+                      </tr>
+                      <tr>
+                        <th>디자이너 매출</th>
+                        <td>{monthTotal.salesStatus.designerMonth}원</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
           <div className="admin-sales-status-content-bottom">
@@ -221,7 +226,6 @@ const PriceUpdateModal = ({ onClose, priceList, setPriceList, backServer }) => {
         //그리고 newList에 복사해서 넣음
       }
     }
-    console.log(newList);
     {
       /*정상적인 값만 가지고 있는 newList를 axios에 전달*/
     }
