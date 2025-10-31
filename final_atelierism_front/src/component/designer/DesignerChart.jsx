@@ -49,7 +49,7 @@ const DesignerChart = (props) => {
       y: {
         beginAtZero: true,
         ticks: {
-          stepSize: 10,
+          stepSize: 5,
           callback: function (value) {
             return value + "건";
           },

@@ -7,33 +7,21 @@
 	
     <insert id="insertDesigner" parameterType="designer">
         INSERT INTO designer_tbl VALUES (
-            #{memberId},
-            #{designerCareer},
-            #{designerGraduationDate},
-            #{designerGraduation},
-            #{designerBank},
-            #{designerAccount},
-            #{designerPortfolio},
-            #{designerChat},
-            #{designerIntroduce},
-            #{designerAge}
+            #{memberId}, #{designerCareer}, #{designerGraduationDate}, #{designerGraduation},
+            #{designerBank}, #{designerAccount}, #{designerPortfolio}, #{designerChat},
+            #{designerIntroduce}, #{designerAge}
         )
     </insert>
+    
     <insert id="insertCareerDetail" parameterType="career">
         INSERT INTO designer_career_detail_tbl VALUES (
-            career_seq.NEXTVAL,
-            #{memberId},
-            #{designerCareerSy},
-            #{designerCareerEy},
-            #{designerCareerCom}
+            career_seq.NEXTVAL, #{memberId}, #{designerCareerSy}, #{designerCareerEy}, #{designerCareerCom}
         )
     </insert>
+    
     <insert id="insertAward" parameterType="awards">
         INSERT INTO designer_awards_career_tbl VALUES (
-            awards_seq.NEXTVAL,
-            #{memberId},
-            #{designerAwardsDete},
-            #{designerAwards}
+            awards_seq.NEXTVAL, #{memberId}, #{designerAwardsDete}, #{designerAwards}
         )
     </insert>
 
@@ -43,95 +31,74 @@
 	    JOIN member_tbl m ON (d.member_id = m.member_id)
 	    WHERE m.member_type = 2
 	</select>
-    <select id="selectDesignerList" parameterType="pageInfo" resultType="designerIntro">
+    
+    <select id="selectDesignerList" parameterType="map" resultType="designerIntro">
 	    SELECT * FROM (
 	        SELECT ROWNUM AS RNUM, N.* FROM (
 	            SELECT
-	                d.member_id,
-	                m.member_name,
-	                m.member_thumb,
-	                d.designer_introduce
+	                d.member_id, m.member_name, m.member_thumb, d.designer_introduce,
+                    (SELECT COUNT(*) FROM designer_like_tbl WHERE designer_id = d.member_id) AS designer_like,
+                    (SELECT COUNT(*) FROM designer_like_tbl WHERE designer_id = d.member_id AND member_id = #{loginMemberId}) AS is_liked
 	            FROM designer_tbl d
 	            JOIN member_tbl m ON (d.member_id = m.member_id)
 	            WHERE m.member_type = 2
-	            ORDER BY m.member_id DESC
+	            ORDER BY designer_like DESC, d.member_id DESC
 	        ) N
 	    )
-	    WHERE RNUM BETWEEN #{start} AND #{end}
+	    WHERE RNUM BETWEEN #{pi.start} AND #{pi.end}
 	</select>
 	
-	<!-- 디자이너 1명 기본 정보 조회 -->
 	<select id="selectOneDesigner" parameterType="string" resultType="designerDetailDTO">
 	    SELECT
-	        d.member_id,
-	        m.member_name,
-	        m.member_thumb,
-	        d.designer_career,
-	        d.designer_age,
-	        d.designer_graduation_date,
-	        d.designer_graduation,
-	        d.designer_bank,
-	        d.designer_account,
-	        d.designer_portfolio,
-	        d.designer_chat,
-	        d.designer_introduce
+	        d.member_id, m.member_name, m.member_thumb, d.designer_career, d.designer_age,
+	        d.designer_graduation_date, d.designer_graduation, d.designer_bank, d.designer_account,
+	        d.designer_portfolio, d.designer_chat, d.designer_introduce
 	    FROM designer_tbl d
 	    JOIN member_tbl m ON (d.member_id = m.member_id)
 	    WHERE d.member_id = #{memberId}
 	</select>
-    <!-- 디자이너 1명 모든 경력사항 조회 -->
+    
     <select id="selectDesignerCareers" parameterType="string" resultType="career">
         SELECT * FROM designer_career_detail_tbl WHERE member_id = #{memberId}
     </select>
-    <!-- 디자이너 1명 모든 수상내역 조회 -->
+    
     <select id="selectDesignerAwards" parameterType="string" resultType="awards">
         SELECT * FROM designer_awards_career_tbl WHERE member_id = #{memberId}
     </select>
     
 	<select id="selectDesignerBoard" resultType="designerIntro">
-    select *
-    from (
-        select 
-            d.designer_introduce, 
-            m.member_name, 
-            m.member_thumb, 
-            m.member_id
-        from member_tbl m
-        right join designer_tbl d on m.member_id = d.member_id
-        where m.designer_enter = 2
-        order by m.member_name desc
-    )
-    where rownum &lt; 7
+	    select * from (
+	        select d.designer_introduce, m.member_name, m.member_thumb, m.member_id
+	        from member_tbl m
+	        right join designer_tbl d on m.member_id = d.member_id
+	        where m.designer_enter = 2
+	        order by m.member_name desc
+	    )
+	    where rownum &lt; 7
 	</select>
 	
-	<select id="statusTotalCount" resultType="int">
+	<select id="statusTotalCount" parameterType="map" resultType="int">
         SELECT COUNT(*)
         FROM interior_tbl i
-        JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
-        JOIN member_tbl m ON (i.interior_customer = m.member_id)
-        WHERE i.interior_designer = #{designerId}
-        <if test="keyword != null and keyword != ''">
-            AND m.member_name LIKE '%' || #{keyword} || '%'
-        </if>
+	    JOIN member_tbl m ON (i.interior_customer = m.member_id)
+	    WHERE i.interior_designer = #{designerId}
+	    <if test="keyword != null and keyword != ''">
+	        AND m.member_name LIKE '%' || #{keyword} || '%'
+	    </if>
     </select>
-    <select id="selectStatusList" resultType="designerStatus">
+    
+    <select id="selectStatusList" parameterType="map" resultType="designerStatus">
         SELECT * FROM (
             SELECT ROWNUM AS RNUM, N.* FROM (
                 SELECT
                     i.interior_customer,
                     m.member_name AS customer_name,
-                    i.interior_living,
-                    i.interior_kitchen,
-                    i.interior_bed,
-                    i.interior_oneroom,
-                    i.interior_kidroom,
-                    i.interior_study,
-                    i.interior_why,
-                    i.interior_payment_date,
-                    d.interior_no,
-                    d.interior_status
+                    i.interior_living, i.interior_kitchen, i.interior_bed,
+                    i.interior_oneroom, i.interior_kidroom, i.interior_study,
+                    i.interior_why, i.interior_payment_date, i.interior_no,
+                    NVL(d.interior_status, 0) AS interior_status
                 FROM interior_tbl i
-                JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
+                LEFT JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
                 JOIN member_tbl m ON (i.interior_customer = m.member_id)
                 WHERE i.interior_designer = #{designerId}
                 <if test="keyword != null and keyword != ''">
@@ -145,18 +112,10 @@
     
     <select id="selectStatusDetail" parameterType="int" resultType="designerStatusDetail">
         SELECT
-            i.interior_why,
-            i.interior_payment_date,
-            i.interior_price,
-            i.interior_living,
-	        i.interior_kitchen,
-	        i.interior_bed,
-	        i.interior_oneroom,
-	        i.interior_kidroom,
-	        i.interior_study,
-            d.interior_no,
-            d.interior_memo,
-            d.interior_status,
+            i.interior_why, i.interior_payment_date, i.interior_price,
+            i.interior_living, i.interior_kitchen, i.interior_bed,
+	        i.interior_oneroom, i.interior_kidroom, i.interior_study,
+            d.interior_no, d.interior_memo, d.interior_status,
             m.member_name AS customer_name
         FROM interior_tbl i
         JOIN designer_board_tbl d ON (i.interior_no = d.interior_no)
@@ -166,37 +125,29 @@
     
     <update id="updateStatus" parameterType="map">
         UPDATE designer_board_tbl
-        SET
-            interior_memo = #{interiorMemo},
-            interior_status = #{interiorStatus}
-        WHERE
-            interior_no = #{interiorNo}
+        SET interior_memo = #{interiorMemo}, interior_status = #{interiorStatus}
+        WHERE interior_no = #{interiorNo}
     </update>
+    
     <select id="searchDesignerLink" resultType="String">
-    	select designer_chat from designer_tbl where member_id=#{desingerId}
+    	select designer_chat from designer_tbl where member_id=#{designerId}
     </select>
     
-    <!-- 1. 디자이너 기본 정보 업데이트 -->
     <update id="updateDesigner" parameterType="designer">
         UPDATE designer_tbl
         SET
-            designer_career = #{designerCareer},
-            designer_age = #{designerAge},
-            designer_graduation_date = #{designerGraduationDate},
-            designer_graduation = #{designerGraduation},
-            designer_bank = #{designerBank},
-            designer_account = #{designerAccount},
-            designer_portfolio = #{designerPortfolio},
-            designer_chat = #{designerChat},
+            designer_career = #{designerCareer}, designer_age = #{designerAge},
+            designer_graduation_date = #{designerGraduationDate}, designer_graduation = #{designerGraduation},
+            designer_bank = #{designerBank}, designer_account = #{designerAccount},
+            designer_portfolio = #{designerPortfolio}, designer_chat = #{designerChat},
             designer_introduce = #{designerIntroduce}
-        WHERE
-            member_id = #{memberId}
+        WHERE member_id = #{memberId}
     </update>
-    <!-- 2. 특정 디자이너의 모든 경력사항 삭제 -->
+    
     <delete id="deleteDesignerCareers" parameterType="string">
         DELETE FROM designer_career_detail_tbl WHERE member_id = #{memberId}
     </delete>
-    <!-- 3. 특정 디자이너의 모든 수상내역 삭제 -->
+    
     <delete id="deleteDesignerAwards" parameterType="string">
         DELETE FROM designer_awards_career_tbl WHERE member_id = #{memberId}
     </delete>
@@ -207,17 +158,12 @@
 	        COUNT(*) AS totalCount,
 	        SUM(CASE WHEN d.interior_status = 1 THEN 1 ELSE 0 END) AS completedCount,
 	        SUM(CASE WHEN d.interior_status = 0 THEN 1 ELSE 0 END) AS ongoingCount
-	    FROM
-	        interior_tbl i
-	    JOIN
-	        designer_board_tbl d ON i.interior_no = d.interior_no
-	    WHERE
-	        i.interior_designer = #{designerId}
-	        AND TO_DATE(i.interior_payment_date, 'YYYY-MM-DD') >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -5)
-	    GROUP BY
-	        TO_CHAR(TO_DATE(i.interior_payment_date, 'YYYY-MM-DD'), 'YYYY-MM')
-	    ORDER BY
-	        month
+	    FROM interior_tbl i
+	    JOIN designer_board_tbl d ON i.interior_no = d.interior_no
+	    WHERE i.interior_designer = #{designerId}
+	      AND TO_DATE(i.interior_payment_date, 'YYYY-MM-DD') >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -5)
+	    GROUP BY TO_CHAR(TO_DATE(i.interior_payment_date, 'YYYY-MM-DD'), 'YYYY-MM')
+	    ORDER BY month
 	</select>
 
 </mapper>
