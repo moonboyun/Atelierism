@@ -104,8 +104,8 @@ public class DesignerController {
 	}
 	
 	@GetMapping(value="/status/{designerId}")
-    public ResponseEntity<Map> selectStatusList(@PathVariable String designerId, @RequestParam int reqPage) {
-        Map map = designerService.selectStatusList(designerId, reqPage);
+    public ResponseEntity<Map> selectStatusList(@PathVariable String designerId, @RequestParam int reqPage, @RequestParam(required = false) String keyword) {
+        Map map = designerService.selectStatusList(designerId, reqPage, keyword);
         return ResponseEntity.ok(map);
     }
 	
@@ -115,7 +115,7 @@ public class DesignerController {
         return ResponseEntity.ok(detail);
     }
 	
-	@PatchMapping(value="/status/detail")
+	@PostMapping(value="/status/detail/update") 
     public ResponseEntity<Integer> updateStatus(@RequestBody Map<String, Object> payload) {
         int interiorNo = (Integer) payload.get("interiorNo");
         String interiorMemo = (String) payload.get("interiorMemo");
@@ -130,5 +130,15 @@ public class DesignerController {
 		
 		return ResponseEntity.ok(designerLink);
 	}
+	
+	@PostMapping(value="/info/update") 
+    public ResponseEntity<Integer> updateDesignerInfo(@RequestBody DesignerApplyRequestDTO requestData) {
+        int result = designerService.updateDesignerInfo(
+            requestData.getDesignerInfo(),
+            requestData.getCareerList(),
+            requestData.getAwardList()
+        );
+        return ResponseEntity.ok(result);
+    }
 	
 }

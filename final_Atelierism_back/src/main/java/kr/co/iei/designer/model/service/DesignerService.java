@@ -88,13 +88,18 @@ public class DesignerService {
 		return list;
 	}
 	
-	public Map selectStatusList(String designerId, int reqPage) {
+	public Map selectStatusList(String designerId, int reqPage, String keyword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("designerId", designerId);
+        params.put("keyword", keyword);
+
         int numPerPage = 10;   
         int pageNaviSize = 5;
-        int totalCount = designerDao.statusTotalCount(designerId);
+        int totalCount = designerDao.statusTotalCount(params);
         PageInfo pi = pageInfoUtil.getPageInfo(reqPage, numPerPage, pageNaviSize, totalCount);
+        params.put("pi", pi);
 
-        List statusList = designerDao.selectStatusList(pi, designerId);
+        List statusList = designerDao.selectStatusList(params);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("statusList", statusList);
@@ -119,4 +124,29 @@ public class DesignerService {
 		String designerLink = designerDao.searchDesignerLink(designerId);
 		return designerLink;
 	}
+	
+	@Transactional
+    public int updateDesignerInfo(DesignerDTO designerInfo, List<CareerDetailDTO> careerList, List<AwardsCareerDTO> awardList) {
+        String memberId = designerInfo.getMemberId();
+
+        int result = designerDao.updateDesigner(designerInfo);
+        
+        designerDao.deleteDesignerCareers(memberId);
+        designerDao.deleteDesignerAwards(memberId);
+        
+        if (careerList != null && !careerList.isEmpty()) {
+            for (CareerDetailDTO career : careerList) {
+                career.setMemberId(memberId);
+                designerDao.insertCareerDetail(career); 
+            }
+        }
+        
+    	if (awardList != null && !awardList.isEmpty()) {
+            for (AwardsCareerDTO award : awardList) {
+                award.setMemberId(memberId);
+                designerDao.insertAward(award);
+            }
+        }
+        return result;
+    }
 }

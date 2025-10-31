@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import kr.co.iei.designer.model.dto.AwardsCareerDTO;
 import kr.co.iei.designer.model.dto.CareerDetailDTO;
@@ -22,8 +23,6 @@ public interface DesignerDao {
 	int insertDesigner(DesignerDTO designerInfo);
 	int insertCareerDetail(CareerDetailDTO career);
     int insertAward(AwardsCareerDTO award);
-//    int insertCareerList(List<CareerDetailDTO> careerList);
-//    int insertAwardList(List<AwardsCareerDTO> awardList);
     
     List<DesignerIntroDTO> selectDesignerList(PageInfo pi);
     int totalCount();
@@ -34,12 +33,16 @@ public interface DesignerDao {
 
 	List selectDesignerBoard();
 	
-	int statusTotalCount(String designerId);
-    List<DesignerStatusDTO> selectStatusList(PageInfo pi, String designerId);
+	int statusTotalCount(Map<String, Object> params);
+    List<DesignerStatusDTO> selectStatusList(Map<String, Object> params);
     
     DesignerStatusDetailDTO selectStatusDetail(int interiorNo);
     
     int updateStatus(Map<String, Object> params);
 
 	String searchDesignerLink(String designerId);
+	
+    int updateDesigner(DesignerDTO designerInfo);
+    int deleteDesignerCareers(String memberId);
+    int deleteDesignerAwards(String memberId);
 }
