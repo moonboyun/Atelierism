@@ -4,7 +4,7 @@ import { isInteriorState, loginIdState } from "../utils/RecoilData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Clear } from "@mui/icons-material";
+import { Clear, Kitchen } from "@mui/icons-material";
 
 const InteriorPayPage = () => {
   const backServer = import.meta.env.VITE_BACK_SERVER;
@@ -14,6 +14,7 @@ const InteriorPayPage = () => {
   const [interior, setInterior] = useState({}); //db에 저장된 인테리어 정보
   const [updateInterior, setUpdateInterior] = useState({}); //db에 업데이트할 인테리어 정보
   const [price, setPrice] = useState({}); //현재 정찰제 가격표
+  const [spacePrice, setSpacePrice] = useState({});
   const [designerList, setDesignerList] = useState([]); //디자이너 리스트
   const [memberList, setMemberList] = useState([]); //디자이너의 회원 정보 리스트
   useEffect(() => {
@@ -80,6 +81,8 @@ const InteriorPayPage = () => {
             setUpdateInterior={setUpdateInterior}
             price={price}
             interior={interior}
+            spacePrice={spacePrice}
+            setSpacePrice={setSpacePrice}
           />
           <div className="payP-Designer-pay-box">
             <DesignerInfo
@@ -95,6 +98,7 @@ const InteriorPayPage = () => {
               setUpdateInterior={setUpdateInterior}
               member={member}
               price={price}
+              spacePrice={spacePrice}
             />
           </div>
         </div>
@@ -108,6 +112,8 @@ const OrderInfo = (props) => {
   const setUpdateInterior = props.setUpdateInterior;
   const interior = props.interior;
   const price = props.price;
+  const spacePrice = props.spacePrice;
+  const setSpacePrice = props.setSpacePrice;
   const spacePlus = (e) => {
     const button = e.currentTarget; // 클릭된 버튼 자체
     const value = Number(button.value);
@@ -153,13 +159,24 @@ const OrderInfo = (props) => {
   useEffect(() => {
     if (!updateInterior || !price) return;
 
-    const total =
-      (price.priceLiving || 0) * (updateInterior.interiorLiving || 0) +
-      (price.priceKitchen || 0) * (updateInterior.interiorKitchen || 0) +
-      (price.priceBed || 0) * (updateInterior.interiorBed || 0) +
-      (price.priceOneroom || 0) * (updateInterior.interiorOneroom || 0) +
-      (price.priceKidroom || 0) * (updateInterior.interiorKidroom || 0) +
-      (price.priceStudy || 0) * (updateInterior.interiorStudy || 0);
+    const newSpacePrice = {
+      living: (price.priceLiving || 0) * (updateInterior.interiorLiving || 0),
+      kitchen:
+        (price.priceKitchen || 0) * (updateInterior.interiorKitchen || 0),
+      bed: (price.priceBed || 0) * (updateInterior.interiorBed || 0),
+      oneroom:
+        (price.priceOneroom || 0) * (updateInterior.interiorOneroom || 0),
+      kidroom:
+        (price.priceKidroom || 0) * (updateInterior.interiorKidroom || 0),
+      study: (price.priceStudy || 0) * (updateInterior.interiorStudy || 0),
+    };
+
+    setSpacePrice(newSpacePrice);
+
+    const total = Object.values(newSpacePrice).reduce(
+      (sum, val) => sum + val,
+      0
+    );
 
     setUpdateInterior((prev) => ({ ...prev, interiorPrice: total }));
   }, [
@@ -198,6 +215,9 @@ const OrderInfo = (props) => {
     updateInterior.interiorKidroom,
     updateInterior.interiorStudy,
   ]);
+
+  console.log("spacePrice", spacePrice);
+  console.log("updateInteriorPrice", updateInterior.interiorPrice);
 
   return (
     <div className="orderI-info-box">
@@ -762,6 +782,7 @@ const PayInfo = (props) => {
   const setUpdateInterior = props.setUpdateInterior;
   const member = props.member;
   const price = props.price;
+  const spacePrice = props.spacePrice;
   const [payConsent, setPayConsent] = useState(false);
   const navigate = useNavigate();
   const delInterior = () => {
@@ -903,6 +924,19 @@ const PayInfo = (props) => {
       );
     }
   };
+  const spaceTest = () => {
+    axios
+      .post(`${import.meta.env.VITE_BACK_SERVER}/interior/spacePrice`, {
+        interior: updateInterior,
+        spacePrice: spacePrice,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="payI-info-box">
@@ -939,6 +973,7 @@ const PayInfo = (props) => {
             </div>
           )}
           <button onClick={delInterior}>삭제하기</button>
+          <button onClick={spaceTest}>가격 insert 테스트</button>
         </div>
       </div>
     </div>
