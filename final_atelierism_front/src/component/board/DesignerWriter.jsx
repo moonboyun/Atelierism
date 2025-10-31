@@ -22,16 +22,17 @@ const DesignerWriter = () => {
   const navigate = useNavigate();
   const [designerData, setDesignerData] = useState(null);
   const { interiorNo } = useParams();
+  console.log(interiorNo);
   useEffect(() => {
     axios
       .get(
         `${
           import.meta.env.VITE_BACK_SERVER
-        }/board/designer/writer? interiorNo=${interiorNo}`
+        }/board/designer/writer/${interiorNo}`
       )
       .then((res) => {
-        console.log(res);
-        setDesignerData(res.data.designerData);
+        console.log("interiorNo : " + res);
+        setDesignerData(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -40,63 +41,7 @@ const DesignerWriter = () => {
 
   return (
     <div className="board-wrap">
-      <section className="section-designer-writer">
-        <div className="page-title">
-          <h3 className="title-text">게시글 작성</h3>
-        </div>
-        <section className="sponser-list-section">
-          <div className="sponser-list-box">
-            <h3>고객 리스트</h3>
-            {sponserList.map((sponser, i) => {
-              return (
-                <div key={"sponser-" + i} sponser={sponser}>
-                  <span
-                    className="sponser-list"
-                    onClick={() => clickSponser(sponser)}
-                  >
-                    {sponser.customerId}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-        <div className="data-content-box">
-          <DesignerFrm
-            designerReviewTitle={designerReviewTitle}
-            setDesignerReviewTitle={setDesignerReviewTitle}
-            interiorCustomer={interiorCustomer}
-            setInteriorCustomer={setInteriorCustomer}
-            oneText={oneText}
-            setOneText={setOneText}
-            beforeImg={beforeImg}
-            setBeforeImg={setBeforeImg}
-            afterImg={afterImg}
-            setAfterImg={setAfterImg}
-            interiorKategorie={interiorKategorie}
-            setInteriorKategorie={setInteriorKategorie}
-            interiorPrice={interiorPrice}
-            setInteriorPrice={setInteriorPrice}
-          />
-        </div>
-        {/* Content(TextEditor) */}
-        <div className="board-content-wrap">
-          <TextEditor
-            data={designerReviewContent}
-            setData={setDesignerReviewContent}
-            base="/board/designer/review"
-          />
-        </div>
-        {/* 하단 버튼 영역 */}
-        <div className="button-zone">
-          <Link to="/board/designer/review" className="btn-primary lg cancel">
-            취소
-          </Link>
-          <button type="button" className="btn-primary lg" onClick={upload}>
-            등록하기
-          </button>
-        </div>
-      </section>
+      <section className="section-designer-writer"></section>
     </div>
   );
 };

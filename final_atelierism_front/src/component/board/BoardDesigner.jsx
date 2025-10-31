@@ -45,11 +45,6 @@ const BoardDesigner = () => {
       </section>
       {/* 게시판 컨텐츠 */}
       <section className="main-content-section">
-        <div className="post-box">
-          <Link to="/board/designer/writer" className="btn-primary lg">
-            글 작성
-          </Link>
-        </div>
         {designerBoardList.map((designer, i) => {
           return (
             <div key={"designer-" + i} className="card-box">
