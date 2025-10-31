@@ -44,7 +44,9 @@ const Payment = () => {
 
   return (
     <section className="payment-wrap">
-      <div className="page-title">결제 내역</div>
+      <div className="page-title" style={{ fontSize: "22px" }}>
+        결제 내역
+      </div>
       <div className="payment-content-wrap">
         <section className="side-menu">
           <SideMenu menus={menus} />
@@ -52,7 +54,9 @@ const Payment = () => {
 
         <div className="sb-main-content">
           <div className="room-select" style={{ marginLeft: "10px" }}>
-            <label>정렬 기준: </label>
+            <label style={{ fontSize: "18px", fontWeight: "bold" }}>
+              정렬 기준:{" "}
+            </label>
             <select
               value={sortOrder}
               onChange={(e) => {
@@ -81,7 +85,7 @@ const Payment = () => {
                       결제일: {item.interiorPaymentDate}
                     </p>
                     <div className="img">
-                      <img src="/image/default_img2.png" alt="결제 이미지" />
+                      <img src="/image/image.thumbnail.png" alt="결제 이미지" />
                     </div>
                     <div className="payment-info">
                       <p>디자이너 이름: {item.interiorDesignerName}</p>

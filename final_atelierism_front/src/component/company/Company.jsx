@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import "./company.css";
+import axios from "axios";
 
 const Company = () => {
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACK_SERVER}/admin/list`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <section className="section">
       <img src="/image/company-main.png" />

@@ -199,8 +199,27 @@ with select_month as(
 select mon, sum(nvl(interior_price,0)) as total_price,interior_designer, m.member_name, m.MEMBER_PHONE from select_month
 left join (select * from interior_tbl) on (mon = substr(interior_payment_date,1,7))
 left join member_tbl m on interior_designer = member_id
-where mon = #{toMonth1} and rownum &lt; 6
+where mon = #{toMonth} and rownum &lt; 6
 group by (mon,interior_designer,m.member_name,m.member_phone)
 order by 2 desc
+</select>
+
+<select id="selectMonthList" resultType="monthList">
+	select sum(total_price) as total_of_month, sum(designer_charge) as designer_month, sum(company_charge) as site_revenue from (
+		select sum(nvl(interior_price,0)) as total_price ,interior_designer as id, m.member_name as name, 
+    		sum(nvl(interior_price,0) * (1 - interior_payment_charge/100)) as designer_charge ,
+    		sum(nvl(interior_price,0) * interior_payment_charge/100) as company_charge, i.INTERIOR_PAYMENT_DATE    
+    	from interior_tbl i
+			left join member_tbl m on interior_designer = member_id
+		where i.INTERIOR_PAYMENT_DATE like #{toMonth2}
+			group by (interior_designer,m.member_name, i.INTERIOR_PAYMENT_DATE)
+			order by 2 desc
+	)
+</select>
+
+<select id="selectSiteSubscriber" resultType="monthList">
+	select count(enroll_date) as site_subscriber
+	from member_tbl
+	where enroll_date like #{toMonth2}
 </select>
 </mapper>
