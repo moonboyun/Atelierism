@@ -200,4 +200,24 @@
     <delete id="deleteDesignerAwards" parameterType="string">
         DELETE FROM designer_awards_career_tbl WHERE member_id = #{memberId}
     </delete>
+    
+    <select id="selectChartData" parameterType="string" resultType="designerChart">
+	    SELECT
+	        TO_CHAR(TO_DATE(i.interior_payment_date, 'YYYY-MM-DD'), 'YYYY-MM') AS month,
+	        COUNT(*) AS totalCount,
+	        SUM(CASE WHEN d.interior_status = 1 THEN 1 ELSE 0 END) AS completedCount,
+	        SUM(CASE WHEN d.interior_status = 0 THEN 1 ELSE 0 END) AS ongoingCount
+	    FROM
+	        interior_tbl i
+	    JOIN
+	        designer_board_tbl d ON i.interior_no = d.interior_no
+	    WHERE
+	        i.interior_designer = #{designerId}
+	        AND TO_DATE(i.interior_payment_date, 'YYYY-MM-DD') >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -5)
+	    GROUP BY
+	        TO_CHAR(TO_DATE(i.interior_payment_date, 'YYYY-MM-DD'), 'YYYY-MM')
+	    ORDER BY
+	        month
+	</select>
+
 </mapper>
