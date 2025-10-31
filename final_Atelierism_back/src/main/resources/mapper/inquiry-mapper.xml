@@ -7,7 +7,7 @@
 	
 	<insert id="insertBoard">
 		insert into inquiry_board_tbl values
-		(#{inquiryBoardNo}, #{inquiryBoardTitle}, #{inquiryBoardWriter}, #{inquiryBoardContent}, #{inquiryBoardOption}, #{inquiryBoardStatus}, #{adminComment}, #{inquiryPassword}, to_char(sysdate, 'yyyy-mm-dd'))
+		(#{inquiryBoardNo}, #{inquiryBoardTitle}, #{inquiryBoardWriter}, #{inquiryBoardContent}, #{inquiryBoardOption}, #{inquiryBoardStatus}, #{adminComment}, #{inquiryPassword}, to_char(sysdate, 'yyyy-mm-dd'), null)
 	</insert>
 	
 	<select id="totalCount" resultType="int">
@@ -26,6 +26,7 @@
 						inquiry_board_option,
 						inquiry_board_status,
 						admin_comment,
+						admin_comment_date as admin_comment_date,
 						inquiry_password,
 						inquiry_board_date
 					from inquiry_board_tbl order by inquiry_board_no asc)b)
@@ -37,7 +38,13 @@
 	</select>
 	
 	<update id="updateAdminComment">
-		update inquiry_board_tbl set admin_comment = #{adminComment}
-		where inquiry_board_no = #{inquiryBoardNo}
+  		update inquiry_board_tbl
+     		set admin_comment = #{adminComment},
+         	admin_comment_date = to_char(sysdate, 'yyyy-mm-dd')
+   		where inquiry_board_no = #{inquiryBoardNo}
 	</update>
+
+	<delete id="deleteInquiryBoard">
+  		delete from inquiry_board_tbl where inquiry_board_no = #{inquiryBoardNo}
+	</delete>
 </mapper>

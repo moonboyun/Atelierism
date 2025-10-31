@@ -58,5 +58,10 @@ public class InquiryBoardService {
 		return view;
 	}
 	
+	@Transactional
+	public int deleteInquiryBoard(int inquiryBoardNo) {
+	    return inquiryBoardDao.deleteInquiryBoard(inquiryBoardNo);
+	}
+	
 	
 }// InquiryBoardService

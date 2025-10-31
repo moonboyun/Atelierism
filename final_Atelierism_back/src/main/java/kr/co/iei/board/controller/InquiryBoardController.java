@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +65,13 @@ public class InquiryBoardController {
 	public ResponseEntity<Integer> updateAdminCommnet(@ModelAttribute InquiryBoardDTO comment){
 		int result = inquiryBoardService.updateAdminComment(comment);
 		return ResponseEntity.ok(result);
+	}
+	
+	// 게시글 삭제
+	@DeleteMapping("/{inquiryBoardNo}")
+	public ResponseEntity<Integer> deleteInquiryBoard(@PathVariable int inquiryBoardNo) {
+	    int result = inquiryBoardService.deleteInquiryBoard(inquiryBoardNo);
+	    return ResponseEntity.ok(result);
 	}
 	
 	
