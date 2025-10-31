@@ -13,6 +13,7 @@ const AdminSalesStatus = () => {
   const navigate = useNavigate();
   const [priceModal, setPriceModal] = useState(false);
   const [chartOrder, setChartOrder] = useState(2); //1: 3개월, 2: 6개월, 3: 년단위
+  const [chartData, setChartData] = useState(null);
   const priceUpdate = () => {
     setPriceModal(true);
   };
@@ -31,6 +32,7 @@ const AdminSalesStatus = () => {
       });
   }, []);
 
+  console.log("order", chartOrder);
   return (
     <div className="admin-sales-status-allwrap">
       <div className="admin-sales-status-wrap">
@@ -39,7 +41,11 @@ const AdminSalesStatus = () => {
             <div className="sales-chart">
               <h2>매출 그래프</h2>
               <div className="chart-zone">
-                <AdminChart data={chartOrder} />
+                <AdminChart
+                  data={chartOrder}
+                  chartData={chartData}
+                  setChartData={setChartData}
+                />
               </div>
               <div className="sales-btn-zone">
                 <button
@@ -48,6 +54,7 @@ const AdminSalesStatus = () => {
                   className={chartOrder === 1 ? "inclick" : ""}
                   onClick={() => {
                     setChartOrder(1);
+                    setChartData(null);
                   }}
                 >
                   3개월
@@ -58,6 +65,7 @@ const AdminSalesStatus = () => {
                   className={chartOrder === 2 ? "inclick" : ""}
                   onClick={() => {
                     setChartOrder(2);
+                    setChartData(null);
                   }}
                 >
                   6개월
@@ -68,6 +76,7 @@ const AdminSalesStatus = () => {
                   className={chartOrder === 3 ? "inclick" : ""}
                   onClick={() => {
                     setChartOrder(3);
+                    setChartData(null);
                   }}
                 >
                   12개월
