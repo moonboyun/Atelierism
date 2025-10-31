@@ -27,7 +27,6 @@ const AdminMypage = () => {
         }/admin/myPageList?toMonth=${toMonth}`
       )
       .then((res) => {
-        console.log(res);
         setMypageList(res.data);
         setApplicantList(res.data.applicantList);
         setTopDesignerList(res.data.topDesignerList);
