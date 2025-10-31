@@ -521,11 +521,12 @@
 }
 
 .de-secession-btn button {
-  background: #5b8f6e;
+  background-color: #c0c0c0;
+  border: 1px solid #c0c0c0;
   color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 14px;
+  border-radius: 8px;
+  width: 150px;
+  height: 40px;
   cursor: pointer;
   margin: 0 auto;
   transition: opacity 0.15s ease, transform 0.05s ease;
@@ -568,9 +569,18 @@
 
 /*-----------마이페이지 작업현황(DesignerStatus)-------------*/
 
+.de-status-chart-wrap {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  background-color: #fff;
+}
+
 .de-status-search-box {
   display: flex;
-  justify-content: flex-start; /* 왼쪽 정렬 */
+  justify-content: flex-start;
   margin-bottom: 20px;
   gap: 10px;
 }
@@ -594,6 +604,7 @@
 
 .de-status-search-btn:hover {
   background-color: var(--btnHover);
+  font-weight: 800;
 }
 
 .de-status-wrap {
@@ -612,8 +623,11 @@
   flex-shrink: 0;
 }
 
-.de-status-main {
+.de-status-main-content {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .de-status-title-box {
@@ -634,6 +648,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
+  table-layout: fixed;
 }
 
 .de-status-table th,
@@ -641,6 +656,26 @@
   padding: 12px 8px;
   text-align: center;
   border-bottom: 1px solid #e0e0e0;
+  word-break: break-all;
+}
+
+.de-status-table th:nth-child(1) {
+  width: 10%;
+}
+.de-status-table th:nth-child(2) {
+  width: 25%;
+}
+.de-status-table th:nth-child(3) {
+  width: 25%;
+}
+.de-status-table th:nth-child(4) {
+  width: 20%;
+}
+.de-status-table th:nth-child(5) {
+  width: 10%;
+}
+.de-status-table th:nth-child(6) {
+  width: 10%;
 }
 
 .de-status-table th {

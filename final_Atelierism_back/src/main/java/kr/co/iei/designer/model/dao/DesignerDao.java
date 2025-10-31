@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import kr.co.iei.designer.model.dto.AwardsCareerDTO;
 import kr.co.iei.designer.model.dto.CareerDetailDTO;
+import kr.co.iei.designer.model.dto.DesignerChartDTO;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.designer.model.dto.DesignerDetailDTO;
 import kr.co.iei.designer.model.dto.DesignerIntroDTO;
@@ -45,4 +45,6 @@ public interface DesignerDao {
     int updateDesigner(DesignerDTO designerInfo);
     int deleteDesignerCareers(String memberId);
     int deleteDesignerAwards(String memberId);
+    
+    List<DesignerChartDTO> selectChartData(String designerId);
 }

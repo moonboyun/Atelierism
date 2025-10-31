@@ -11,10 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.iei.designer.model.dao.DesignerDao;
 import kr.co.iei.designer.model.dto.AwardsCareerDTO;
 import kr.co.iei.designer.model.dto.CareerDetailDTO;
-import kr.co.iei.designer.model.dto.DesignerApplyRequestDTO;
+import kr.co.iei.designer.model.dto.DesignerChartDTO;
 import kr.co.iei.designer.model.dto.DesignerDTO;
 import kr.co.iei.designer.model.dto.DesignerDetailDTO;
-import kr.co.iei.designer.model.dto.DesignerIntroDTO;
 import kr.co.iei.designer.model.dto.DesignerStatusDetailDTO;
 import kr.co.iei.util.PageInfo;
 import kr.co.iei.util.PageInfoUtils;
@@ -89,7 +88,7 @@ public class DesignerService {
 	}
 	
 	public Map selectStatusList(String designerId, int reqPage, String keyword) {
-        Map<String, Object> params = new HashMap<>();
+		Map<String, Object> params = new HashMap<>();
         params.put("designerId", designerId);
         params.put("keyword", keyword);
 
@@ -148,5 +147,9 @@ public class DesignerService {
             }
         }
         return result;
+    }
+	
+	public List<DesignerChartDTO> selectChartData(String designerId) {
+        return designerDao.selectChartData(designerId);
     }
 }
