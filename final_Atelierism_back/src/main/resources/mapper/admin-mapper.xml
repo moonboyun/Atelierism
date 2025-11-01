@@ -205,7 +205,8 @@ order by 2 desc
 </select>
 
 <select id="selectMonthList" resultType="monthList">
-	select sum(total_price) as total_of_month, sum(designer_charge) as designer_month, sum(company_charge) as site_revenue from (
+	select nvl(sum(total_price),0) as total_of_month, nvl(sum(designer_charge),0) as designer_month, nvl(sum(company_charge),0) as site_revenue
+	from (
 		select sum(nvl(interior_price,0)) as total_price ,interior_designer as id, m.member_name as name, 
     		sum(nvl(interior_price,0) * (1 - interior_payment_charge/100)) as designer_charge ,
     		sum(nvl(interior_price,0) * interior_payment_charge/100) as company_charge, i.INTERIOR_PAYMENT_DATE    
