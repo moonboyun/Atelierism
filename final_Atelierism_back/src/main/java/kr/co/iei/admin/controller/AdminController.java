@@ -37,6 +37,7 @@ public class AdminController {
 		month.put("toMonth1", toMonth);//이번달 디자이너 순위용
 		month.put("toMonth2", toMonth+"-%");//이달의 가입자용
 		Map salesStateList = adminService.selectSalesStateList(month);
+		System.out.println(salesStateList);
 		return ResponseEntity.ok(salesStateList);
 	};
 	
