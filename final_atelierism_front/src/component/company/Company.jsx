@@ -31,6 +31,13 @@ const Company = () => {
         console.log(err);
       });
   }, []);
+
+  //페이지 이동 시 맨 위로 유지하는 기능
+  useEffect(() =>
+	window.scrollTo(0, 0)
+   	, [])
+
+
   return (
     <section className="section">
       <img src="/image/company-main.png" />
