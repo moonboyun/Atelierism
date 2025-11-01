@@ -202,11 +202,16 @@ label {
   font-family: logo;
   font-size: 40px;
 }
-.foo-info-box > span:first-child {
+.foo-info-box > a:first-child {
   margin-left: 0;
 }
-.foo-info-box > span {
+.foo-info-box > a {
   margin: 0px 10px;
+  transition: 0.2s;
+}
+.foo-info-box > a:hover{
+  color: var(--btnHover);
+  transition: 0.2s;
 }
 .foo-tbl {
   margin-top: 30px;
@@ -244,6 +249,40 @@ section.section {
   background-color: #fff;
 }
 /*-----------------------------content-box---------------------------------------*/
+.top-btn-container {
+  position: fixed;
+  width: 100%;
+  bottom: 13%;
+  right: 3%;
+  z-index: 1000;
+}
+
+.top-btn{
+  position: absolute;
+  border: 0;
+  background:rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.top-btn:hover{
+  background-color: rgba(138, 169, 150, 0.6);
+  transition: 0.3s;
+}
+
+.top-btn:focus{ 	
+  border: none;
+  outline:none;
+  }
+.top-btn > span{
+  font-size: 40px;
+  color: #fff;
+}
+
 .slider-container {
   width: 100%;
   overflow: hidden;
