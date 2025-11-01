@@ -267,7 +267,32 @@
 .admin-chart-content {
   border: 1px solid var(--gray3);
   width: 450px;
-  height: 300px;
+  height: 250px;
+}
+/*-------------------------sales-btn-zone------------------------------*/
+.main-chart > .sales-btn-zone {
+  margin-top: 5px;
+  text-align: right;
+}
+.main-chart > .sales-btn-zone button {
+  width: 60px;
+  height: 30px;
+  border: 1px solid var(--gray3);
+  border-radius: 3px;
+  background-color: #fff;
+}
+.main-chart > .sales-btn-zone button:hover {
+  cursor: pointer;
+}
+.main-chart > #month-3 {
+  margin-right: 5px;
+}
+.main-chart > #month-6 {
+  margin-right: 5px;
+}
+.main-chart > .sales-btn-zone .inclick {
+  color: var(--main1);
+  border: 2px solid var(--main1);
 }
 /*----------------------------------applicant-list > h2--------------------------------*/
 .applicant-list > h2 {
