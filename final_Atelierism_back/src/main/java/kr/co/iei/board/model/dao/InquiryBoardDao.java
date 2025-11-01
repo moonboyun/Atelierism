@@ -21,5 +21,7 @@ public interface InquiryBoardDao {
 	int updateAdminComment(InquiryBoardDTO comment);
 
 	InquiryBoardDTO selectOneBoard(int inquiryBoardNo);
+	
+	int deleteInquiryBoard(int inquiryBoardNo);
 
 }// InquiryBoardDao

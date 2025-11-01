@@ -16,26 +16,6 @@ const BoardDesigner = () => {
   const viewButton = () => {
     navigate("/board/designer/view");
   };
-
-  const [designerData, setDesignerData] = useState(null);
-  const params = useParams();
-  const interiorNo = params.interiorNo;
-  useEffect(() => {
-    axios
-      .get(
-        `${
-          import.meta.env.VITE_BACK_SERVER
-        }/board/designer/review? interiorNo=${interiorNo}`
-      )
-      .then((res) => {
-        console.log(res);
-        setDesignerData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   useEffect(() => {
     axios
       .get(
@@ -65,11 +45,6 @@ const BoardDesigner = () => {
       </section>
       {/* 게시판 컨텐츠 */}
       <section className="main-content-section">
-        <div className="post-box">
-          <Link to="/board/designer/writer" className="btn-primary lg">
-            글 작성
-          </Link>
-        </div>
         {designerBoardList.map((designer, i) => {
           return (
             <div key={"designer-" + i} className="card-box">

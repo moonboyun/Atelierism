@@ -52,6 +52,12 @@ public class AdminController {
 		return ResponseEntity.ok(result);
 	};
 	
+	@GetMapping(value="/price")
+	public ResponseEntity<PriceListDto> selectPrice(){
+		PriceListDto price = adminService.priceListSelect();
+		return ResponseEntity.ok(price);
+	}
+	
 	/*@GetMapping(value = "adminList")//제일 처음 리스트 들고 올 코드//일단은 안 씀
 	public ResponseEntity<List> selectAdminList(@RequestParam String pageList){
 		List adminListData = adminService.selectAdminList(pageList);

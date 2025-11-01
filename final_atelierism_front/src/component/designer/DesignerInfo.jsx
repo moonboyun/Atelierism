@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import SideMenu from "../utils/SideMenu";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./designer.css";
 
 const DesignerInfo = () => {
@@ -51,6 +52,15 @@ const DesignerInfo = () => {
                 <td>
                   <div className="de-line">
                     <span className="de-value">{info.designerCareer}년</span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <th>나이</th>
+                <td>
+                  <div className="de-line">
+                    <span className="de-value">{info.designerAge}세</span>
                   </div>
                 </td>
               </tr>
@@ -156,6 +166,12 @@ const DesignerInfo = () => {
               </tr>
             </tbody>
           </table>
+
+          <div className="de-info-buttons">
+            <Link to="/designer/info/update" className="de-info-btn-update">
+              수정하기
+            </Link>
+          </div>
         </section>
       </div>
     </div>

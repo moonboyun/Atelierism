@@ -15,21 +15,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.iei.designer.model.dto.AwardsCareerDTO;
-import kr.co.iei.designer.model.dto.CareerDetailDTO;
 import kr.co.iei.designer.model.dto.DesignerApplyRequestDTO;
-import kr.co.iei.designer.model.dto.DesignerDTO;
+import kr.co.iei.designer.model.dto.DesignerChartDTO;
 import kr.co.iei.designer.model.dto.DesignerDetailDTO;
-import kr.co.iei.designer.model.dto.DesignerIntroDTO;
+
 import kr.co.iei.designer.model.dto.DesignerStatusDetailDTO;
 import kr.co.iei.designer.model.dto.MemberDesignerDTO;
 import kr.co.iei.designer.model.service.DesignerService;
@@ -72,8 +68,8 @@ public class DesignerController {
     }
 	
 	@GetMapping(value="/list")
-	public ResponseEntity<Map> selectList(@RequestParam int reqPage){
-		Map map = designerService.selectAllDesigner(reqPage);
+	public ResponseEntity<Map> selectList(@RequestParam int reqPage, @RequestParam(required = false, defaultValue = "") String loginMemberId){
+		Map map = designerService.selectDesignerList(reqPage, loginMemberId);
 		return ResponseEntity.ok(map);
 	}
 	
@@ -104,8 +100,8 @@ public class DesignerController {
 	}
 	
 	@GetMapping(value="/status/{designerId}")
-    public ResponseEntity<Map> selectStatusList(@PathVariable String designerId, @RequestParam int reqPage) {
-        Map map = designerService.selectStatusList(designerId, reqPage);
+    public ResponseEntity<Map> selectStatusList(@PathVariable String designerId, @RequestParam int reqPage, @RequestParam(required = false) String keyword) {
+        Map map = designerService.selectStatusList(designerId, reqPage, keyword);
         return ResponseEntity.ok(map);
     }
 	
@@ -115,7 +111,7 @@ public class DesignerController {
         return ResponseEntity.ok(detail);
     }
 	
-	@PatchMapping(value="/status/detail")
+	@PostMapping(value="/status/detail/update") 
     public ResponseEntity<Integer> updateStatus(@RequestBody Map<String, Object> payload) {
         int interiorNo = (Integer) payload.get("interiorNo");
         String interiorMemo = (String) payload.get("interiorMemo");
@@ -131,4 +127,19 @@ public class DesignerController {
 		return ResponseEntity.ok(designerLink);
 	}
 	
+	@PostMapping(value="/info/update") 
+    public ResponseEntity<Integer> updateDesignerInfo(@RequestBody DesignerApplyRequestDTO requestData) {
+        int result = designerService.updateDesignerInfo(
+            requestData.getDesignerInfo(),
+            requestData.getCareerList(),
+            requestData.getAwardList()
+        );
+        return ResponseEntity.ok(result);
+    }
+	
+	@GetMapping("/chart/{designerId}")
+    public ResponseEntity<List<DesignerChartDTO>> selectChartData(@PathVariable String designerId) {
+        List<DesignerChartDTO> chartData = designerService.selectChartData(designerId);
+        return ResponseEntity.ok(chartData);
+    }
 }

@@ -6,6 +6,7 @@ import InquiryFrm from "./InquiryFrm";
 import "./inquiry.css";
 import axios from "axios";
 import TextEditor from "../utils/TextEditor";
+import Swal from "sweetalert2";
 
 const InquiryWriter = () => {
   const [memberId, setMemberId] = useRecoilState(loginIdState);
@@ -35,8 +36,12 @@ const InquiryWriter = () => {
         .then((res) => {
           console.log(res);
           if (res.data > 0) {
+            Swal.fire({
+              title: "게시글 등록",
+              text: "게시글이 등록되었습니다.",
+              icon: "success",
+            });
             navigate("/board/inquiry");
-            return alert("게시글이 등록되었습니다.");
           }
         })
         .catch((err) => {
@@ -56,7 +61,9 @@ const InquiryWriter = () => {
 
   return (
     <section className="section inquiry-writer-wrap">
-      <div className="page-title">1:1 문의</div>
+      <div className="page-title">
+        <h3>1:1 문의 작성</h3>
+      </div>
       <div className="inquiry-card">
         {/* 폼은 컴포넌트로 분리 */}
         <InquiryFrm

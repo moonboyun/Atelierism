@@ -22,7 +22,9 @@ const InquiryFrm = (props) => {
 
           <tr>
             <th>
-              <label htmlFor={boardTitle}>TITLE *</label>
+              <label htmlFor={boardTitle}>
+                TITLE <span className="red">*</span>
+              </label>
             </th>
             <td>
               <input
@@ -64,15 +66,26 @@ const InquiryFrm = (props) => {
           {option === 2 && (
             <tr>
               <th>
-                <label htmlFor={inquiryPassword}>PASSWORD *</label>
+                <label htmlFor={inquiryPassword}>
+                  PASSWORD <span className="red">*</span>
+                </label>
               </th>
               <td>
                 <input
-                  id={inquiryPassword}
                   type="password"
-                  placeholder="게시글 비밀번호를 입력해주세요"
+                  placeholder="숫자 4자리만 입력해주세요"
                   value={inquiryPassword}
-                  onChange={(e) => setInquiryPassword(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    const reg = /^\d{0,4}$/;
+                    if (!reg.test(value)) {
+                      alert("비밀번호는 숫자 4자리까지만 가능합니다!");
+                      return;
+                    }
+                    setInquiryPassword(value);
+                  }}
+                  inputMode="numeric"
+                  maxLength={4}
                 />
               </td>
             </tr>

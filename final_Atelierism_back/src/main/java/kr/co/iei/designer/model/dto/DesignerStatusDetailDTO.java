@@ -27,6 +27,4 @@ public class DesignerStatusDetailDTO {
     private int interiorOneroom;
     private int interiorKidroom;
     private int interiorStudy;
-    
-    //
 }

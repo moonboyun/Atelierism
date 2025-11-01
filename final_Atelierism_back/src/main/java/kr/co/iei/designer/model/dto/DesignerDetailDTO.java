@@ -27,7 +27,6 @@ public class DesignerDetailDTO {
     private String designerAccount;
 
     private List<CareerDetailDTO> careerList;
-
     private List<AwardsCareerDTO> awardList;
 }
 

@@ -308,9 +308,7 @@ const RecoverPw = () => {
         </div>
 
         <div className="recovery-btn">
-          <button type="submit" className="btn-primary lg">
-            비밀번호 재설정
-          </button>
+          <button type="submit">비밀번호 재설정</button>
         </div>
       </form>
     </section>
