@@ -32,7 +32,7 @@ const InteriorRange = (props) => {
               }
             >
               <div className="interR-info-box">
-                <img src="/image/default_img2.png" />
+                <img src="/image/interior-range3.png" />
                 <div className="interR-text-box">
                   <span>공간을</span>
                   <span className="interR-point-text">
@@ -60,7 +60,7 @@ const InteriorRange = (props) => {
               }
             >
               <div className="interR-info-box">
-                <img src="/image/default_img2.png" />
+                <img src="/image/interior-range2.png" />
                 <div className="interR-text-box">
                   <span className="interR-point-text">몇가지 가구를 유지</span>
                   <span>하고 꾸미고 싶어요.</span>
@@ -85,7 +85,7 @@ const InteriorRange = (props) => {
               }
             >
               <div className="interR-info-box">
-                <img src="/image/default_img2.png" />
+                <img src="/image/interior-range1.png" />
                 <div className="interR-text-box">
                   <span className="interR-point-text">가구는 다 유지</span>
                   <span>하고 배치와 소품 위주로 제안 받고 싶어요.</span>
