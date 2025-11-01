@@ -594,6 +594,27 @@ label .payI-checked {
   border-radius: 8px;
   font-size: 18px;
 }
+
+.selected-designer-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  margin-top: 20px;
+  border: 1px solid var(--btnHover);
+  border-radius: 8px;
+  background-color: rgba(138, 169, 150, 0.1);
+}
+.selected-designer-box  span{
+  color: var(--btnHover);
+}
+
+.selected-designer-box img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
 /*----------------------------payPage-designer-check------------------------------------*/
 .payI-info-box {
   position: sticky;
