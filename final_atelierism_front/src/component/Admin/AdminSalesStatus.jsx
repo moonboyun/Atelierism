@@ -91,7 +91,6 @@ const AdminSalesStatus = () => {
                     <tbody>
                       <tr>
                         <th>이달의 총 매출</th>
-                        {monthTotal.salesStatus.totalOfMonth}
                         <td>{monthTotal.salesStatus.totalOfMonth}원</td>
                       </tr>
                       <tr>
