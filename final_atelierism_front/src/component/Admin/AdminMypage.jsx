@@ -19,6 +19,8 @@ const AdminMypage = () => {
   const [mypageList, setMypageList] = useState(null);
   const [applicantList, setApplicantList] = useState(null);
   const [topDesignerList, setTopDesignerList] = useState(null);
+  const [chartOrder, setChartOrder] = useState(2); //1: 3개월, 2: 6개월, 3: 년단위
+  const [chartData, setChartData] = useState(null);
   useEffect(() => {
     axios
       .get(
@@ -44,7 +46,46 @@ const AdminMypage = () => {
               <div className="main-chart">
                 <h2>매출 현황</h2>
                 <div className="admin-chart-content">
-                  <AdminChart />
+                  <AdminChart
+                    data={chartOrder}
+                    chartData={chartData}
+                    setChartData={setChartData}
+                  />
+                </div>
+                <div className="sales-btn-zone">
+                  <button
+                    type="button"
+                    id="month-3"
+                    className={chartOrder === 1 ? "inclick" : ""}
+                    onClick={() => {
+                      setChartOrder(1);
+                      setChartData(null);
+                    }}
+                  >
+                    3개월
+                  </button>
+                  <button
+                    type="button"
+                    id="month-6"
+                    className={chartOrder === 2 ? "inclick" : ""}
+                    onClick={() => {
+                      setChartOrder(2);
+                      setChartData(null);
+                    }}
+                  >
+                    6개월
+                  </button>
+                  <button
+                    type="button"
+                    id="year-by-year"
+                    className={chartOrder === 3 ? "inclick" : ""}
+                    onClick={() => {
+                      setChartOrder(3);
+                      setChartData(null);
+                    }}
+                  >
+                    12개월
+                  </button>
                 </div>
               </div>
               <div className="applicant-list">
@@ -79,6 +120,27 @@ const AdminMypage = () => {
                   <th>이번달 매출액</th>
                   <th>매출성적</th>
                 </tr>
+                {/*
+                {topDesignerList != null && topDesignerList.totalPrice === 0 ? (
+                  topDesignerList.map((topDesigner, i) => {
+                    return (
+                      <tr>
+                        <td>{topDesigner.memberName}</td>
+                        <td>{topDesigner.memberPhone}</td>
+                        <td>{topDesigner.totalPrice}원</td>
+                        <td>{i + 1}등</td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td style={{ textAlign: "left" }}>없음</td>
+                    <td></td>
+                  </tr>
+                )}
+                */}
                 {topDesignerList != null &&
                   topDesignerList.map((topDesigner, i) => {
                     return (
