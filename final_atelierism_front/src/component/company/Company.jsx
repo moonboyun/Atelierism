@@ -47,7 +47,7 @@ const Company = () => {
 
 
   return (
-    <section className="section">
+    <section className="section" style={{overflowX: "hidden"}}>
       <img src="/image/company-main.png" />
       <div className="main-content">
         <div className="company-main-title">
