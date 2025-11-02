@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 .member-link-box > a:first-child {
-  padding-right: 70px;
+  margin-right: 70px;
 }
 .member-link-box > a:last-child {
   padding-left: 10px;
