@@ -76,6 +76,7 @@ const MemberLogin = () => {
               placeholder="아이디를 입력하세요"
               value={member.memberId}
               onChange={inputMemberData}
+              autocomplete="off"
             />
           </div>
         </div>
@@ -92,6 +93,7 @@ const MemberLogin = () => {
               placeholder="비밀번호를 입력하세요"
               value={member.memberPw}
               onChange={inputMemberData}
+              autocomplete="off"
             />
           </div>
         </div>
