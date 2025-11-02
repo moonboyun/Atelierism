@@ -241,6 +241,7 @@ const MemberJoin = () => {
               onBlur={checkId}
               placeholder="아이디를 입력해주세요"
               required
+              autocomplete="off"
             ></input>
             <p
               className={
@@ -275,6 +276,7 @@ const MemberJoin = () => {
               onBlur={checkPwReg}
               placeholder="비밀번호를 입력해주세요"
               required
+              autocomplete="off"
             ></input>
             <p className="input-msg" ref={pwRegMsgRef}></p>
           </div>
@@ -295,6 +297,7 @@ const MemberJoin = () => {
               }}
               onBlur={checkPw}
               required
+              autocomplete="off"
             ></input>
             <p className="input-msg" ref={pwMatchMsgRef}></p>
           </div>
@@ -312,6 +315,7 @@ const MemberJoin = () => {
               onChange={inputMemberData}
               placeholder="이름을 입력해주세요"
               required
+              autocomplete="off"
             ></input>
           </div>
         </div>
@@ -328,6 +332,7 @@ const MemberJoin = () => {
               onChange={inputMemberData}
               placeholder="전화번호를 입력해주세요"
               required
+              autocomplete="off"
             ></input>
           </div>
         </div>
@@ -346,6 +351,7 @@ const MemberJoin = () => {
                   onChange={inputMemberData}
                   placeholder="이메일을 입력해주세요"
                   required
+                  autocomplete="off"
                 />
                 <button type="button" onClick={sendCode}>
                   인증코드 전송
@@ -361,6 +367,7 @@ const MemberJoin = () => {
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value)}
                   style={{ float: "left" }}
+                  autocomplete="off"
                 />
                 {time > 0 && (
                   <p
@@ -378,6 +385,7 @@ const MemberJoin = () => {
                   type="button"
                   onClick={verifyCode}
                   style={{ cursor: "pointer" }}
+                  autocomplete="off"
                 >
                   인증하기
                 </button>
@@ -407,6 +415,7 @@ const MemberJoin = () => {
               value={memberAddr.address}
               onChange={inputMemberData}
               placeholder="주소를 입력해주세요"
+              autocomplete="off"
             ></input>
             <button type="button" onClick={openModal}>
               우편번호 조회
@@ -449,6 +458,7 @@ const MemberJoin = () => {
               onChange={inputMemberData}
               placeholder="상세주소를 입력해주세요"
               required
+              autocomplete="off"
             ></input>
           </div>
         </div>
