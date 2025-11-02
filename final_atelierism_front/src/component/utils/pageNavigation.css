@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(16px, 3vw, 48px);
+  gap: clamp(16px, 10px, 48px);
   padding: 16px 0;
   margin: 0;
 }
@@ -75,13 +75,18 @@
 
 /* 2) 숫자 버튼만 배경 적용 (material-icons가 아닌 경우만) */
 .pagination .pg-item:not(.material-icons) {
-  background-color: #f3f5f4;
+  background-color: #fff;
+  padding: 15px;
+}
+.pagination .pg-item:not(.material-icons):hover{
+  background-color: var(--main4);
 }
 
 /* 활성 색도 "숫자 버튼"에만 적용되도록 안전하게 */
 .pagination .pg-item.at-page:not(.material-icons) {
   background-color: #7fa08e;
+  padding: 15px;
   color: #fff;
   font-weight: 700;
-  border-radius: 8px;
+  border-radius: 5px;
 }

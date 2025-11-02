@@ -54,7 +54,7 @@ const Company = () => {
           Atelierism | 공간을 예술로 만드는, 가장 정직한 선택.
         </div>
         <div className="company-service-box">
-          <img src="/image/company-service1.png" />
+          <img src="/image/company-service1.png"/>
           <div className="company-service-info-box">
             <div>
               <div className="company-service-title">
@@ -232,6 +232,7 @@ const Company = () => {
             </div>
           ))}
         </div>
+        <div className="company-price-text">모든 가격은 부가세 포함이며, 디자인 컨설팅·시공까지 일괄 제공됩니다.</div>
       </div>
       <div className="top-btn-container">
         <button
