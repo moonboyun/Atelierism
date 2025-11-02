@@ -173,7 +173,9 @@ const DesignerInfoUpdate = () => {
                     className="de-info-update-btn-remove"
                     onClick={() => removeCareerRow(index)}
                   >
-                    삭제
+                    <span class="material-symbols-outlined">
+                      delete
+                    </span>
                   </button>
                 )}
               </div>
@@ -233,7 +235,9 @@ const DesignerInfoUpdate = () => {
                     className="de-info-update-btn-remove"
                     onClick={() => removeAwardRow(index)}
                   >
-                    삭제
+                    <span class="material-symbols-outlined">
+                      delete
+                    </span>
                   </button>
                 )}
               </div>
