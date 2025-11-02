@@ -192,7 +192,7 @@ const Company = () => {
             },
             {
               img: "/image/company-bed.png",
-              title: "안방",
+              title: "침실",
               desc: "휴식과 안정감을 담은 프라이빗한 공간.",
               price: price.priceBed,
             },

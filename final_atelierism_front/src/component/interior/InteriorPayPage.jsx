@@ -272,7 +272,7 @@ const OrderInfo = (props) => {
         >
           <div className="orderI-group-box">
             <span className="material-symbols-outlined">bed</span>
-            <span>안방</span>
+            <span>침실</span>
           </div>
           <div className="orderI-group-box">
             <button name="interiorBed" value={1} onClick={spaceMinus}>
@@ -438,7 +438,7 @@ const OrderInfo = (props) => {
                 onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
-              <span>안방</span>
+              <span>침실</span>
             </div>
           </label>
         </div>
