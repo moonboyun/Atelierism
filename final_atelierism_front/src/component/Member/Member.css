@@ -112,7 +112,7 @@
 }
 .join-wrap .input-wrap > .input-item > input {
   width: 60%;
-  font-size: 15px;
+  font-size: 18px;
 }
 .join-wrap > .page-title {
   font-size: 24px;
@@ -152,6 +152,7 @@
 .join-button {
   text-align: center;
   margin: 0 auto;
+  margin-top: 20px;
 }
 .join-button > button {
   cursor: pointer;
@@ -163,6 +164,11 @@
   font-size: 24px;
   width: 20%;
   margin-bottom: 50px;
+  transition: 0.2s;
+}
+.join-button > button:hover{
+  background-color: var(--btnHover);
+  transition: 0.2s;
 }
 .join-button > button > a {
   color: #fff;
