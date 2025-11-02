@@ -20,19 +20,30 @@
 
 .input-title {
   float: left;
-  margin-right: 30px;
+  margin-right: 20px;
   width: 90px;
-  text-align: right;
+  text-align: center;
   font-size: 20px;
   font-weight: bold;
   line-height: 60px;
 }
 .input-item > input {
+  padding-bottom: 5px;
   padding-top: 15px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
   width: 300px;
   font-size: 18px;
+  padding-left: 10px;
+}
+.input-item > input:focus{
+  border-bottom: 2px solid var(--main1);
+}
+.valid{
+  color: var(--success);
+}
+.invalid{
+  color: var(--fail);
 }
 .login-button {
   display: flex;
@@ -41,20 +52,27 @@
   text-align: center;
 }
 .login-button > button {
-  width: 50%;
+  width: 360px;
   background-color: #8aa996;
   border: 1px solid #8aa996;
   border-radius: 15px;
   padding: 10px;
   font-size: 20px;
   color: #fff;
+  transition: 0.2s;
   cursor: pointer;
+}
+.login-button > button:hover{
+  background-color: var(--btnHover);
+  transition: 0.2s;
 }
 
 .member-link-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
   width: 100%;
   margin: 0 auto;
-  text-align: center;
   margin-top: 10px;
 }
 .member-link-box > a {
