@@ -330,6 +330,9 @@
 .de-detail-profile-img {
   width: 100%;
   height: 100%;
+  display: flex;
+  gap: 40px;
+  align-items: center;
   object-fit: cover;
 }
 .de-detail-profile-img img {

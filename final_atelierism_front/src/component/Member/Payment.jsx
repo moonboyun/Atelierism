@@ -96,11 +96,15 @@ const Payment = () => {
                       </p>
                       <div className="img">
                         <img
-                          src="/image/image.thumbnail.png"
+                          src="/image/pay-img.png"
                           alt="결제 이미지"
+                          style={{ borderRadius: "8px" }}
                         />
                       </div>
-                      <div className="payment-info" style={{ width: "100%" }}>
+                      <div
+                        className="payment-info"
+                        style={{ width: "100%", paddingBottom: "10px" }}
+                      >
                         <p>디자이너 이름: {item.interiorDesignerName}</p>
                         <p>인테리어 이유: {item.interiorWhy}</p>
                         <p>가격: {item.interiorPrice.toLocaleString()}원</p>

@@ -55,7 +55,6 @@ public class MemberController {
 	@PostMapping
 	public ResponseEntity<Integer> insertMember(@RequestBody MemberDTO member){
 		int result = memberService.insertMember(member);
-		System.out.println("컨트롤러 결과 : "+result);
 		return ResponseEntity.ok(result);
 	}
 	@GetMapping(value="/exists")

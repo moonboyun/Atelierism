@@ -209,7 +209,7 @@ label {
   margin: 0px 10px;
   transition: 0.2s;
 }
-.foo-info-box > a:hover{
+.foo-info-box > a:hover {
   color: var(--btnHover);
   transition: 0.2s;
 }
@@ -257,10 +257,10 @@ section.section {
   z-index: 1000;
 }
 
-.top-btn{
+.top-btn {
   position: absolute;
   border: 0;
-  background:rgba(0, 0, 0, 0.3);
+  background: rgba(190, 190, 190, 0.6);
   border-radius: 100px;
   padding: 10px;
   position: absolute;
@@ -269,16 +269,16 @@ section.section {
   cursor: pointer;
   transition: 0.3s;
 }
-.top-btn:hover{
+.top-btn:hover {
   background-color: rgba(138, 169, 150, 0.6);
   transition: 0.3s;
 }
 
-.top-btn:focus{ 	
+.top-btn:focus {
   border: none;
-  outline:none;
-  }
-.top-btn > span{
+  outline: none;
+}
+.top-btn > span {
   font-size: 40px;
   color: #fff;
 }
