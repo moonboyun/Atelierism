@@ -72,7 +72,7 @@ const InteriorPaySuccess = () => {
               </div>
             </div>
             <div className="suc-link-box">
-              <Link to={`https://${designerLink}`}>
+              <Link to={`${designerLink}`}>
                 <span class="material-symbols-outlined">alternate_email</span>
                 {designerLink}
               </Link>
