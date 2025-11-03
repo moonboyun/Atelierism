@@ -40,6 +40,8 @@ import InquiryView from "./component/board/InquiryView";
 import DesignerWriter from "./component/board/DesignerWriter";
 import InteriorPaySuccess from "./component/interior/InteriorPaySuccess";
 import Company from "./component/company/Company";
+import InquiryUpdate from "./component/board/InquiryUpdate";
+import DesignerView from "./component/board/DesignerView";
 
 function App() {
   const [memberId, setMemberId] = useRecoilState(loginIdState); //회원 아이디를 저장하고 있는 state
@@ -107,6 +109,14 @@ function App() {
           <Route
             path="/board/designer/writer/:interiorNo"
             element={<DesignerWriter />}
+          />
+          <Route
+            path="/board/inquiry/update/:inquiryBoardNo"
+            element={<InquiryUpdate />}
+          />
+          <Route
+            path="/board/designer/view/:designerReviewNo"
+            element={<DesignerView />}
           />
           {/*----------------------designer---------------------*/}
           <Route path="/designer/intro" element={<Intro />} />
