@@ -19,12 +19,14 @@ const AdminSalesStatus = () => {
   };
   const [priceList, setPriceList] = useState(null); //가격표
   const [monthTotal, setMonthTotal] = useState(null); //이달의 통계
+  const [spaceTotal, setSpaceTotal] = useState(null); //공간별 매충
   useEffect(() => {
     axios
       .get(`${backServer}/admin/list?toMonth=${toMonth}`)
       .then((res) => {
         console.log(res);
         setPriceList(res.data.pl);
+        setSpaceTotal(res.data.spaceTotal);
         setMonthTotal(res.data);
       })
       .catch((err) => {
@@ -98,7 +100,7 @@ const AdminSalesStatus = () => {
                         <td>{monthTotal.subscriberMonth.siteSubscriber}명</td>
                       </tr>
                       <tr>
-                        <th>순매출</th>
+                        <th>사이트 순 매출</th>
                         <td>{monthTotal.salesStatus.siteRevenue}원</td>
                       </tr>
                       <tr>
@@ -114,42 +116,44 @@ const AdminSalesStatus = () => {
           <div className="admin-sales-status-content-bottom">
             <div className="space-sales">
               <h2>이달의 공간별 매출</h2>
-              <div className="space-sales-table">
-                <table border={1}>
-                  <thead>
-                    <tr>
-                      <th>공간명</th>
-                      <th>월매출</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>원룸</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>거실</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>부엌</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>아이방</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>안방</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>서재</td>
-                      <td>0000000000원</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {spaceTotal != null && (
+                <div className="space-sales-table">
+                  <table border={1}>
+                    <thead>
+                      <tr>
+                        <th>공간명</th>
+                        <th>월매출</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>원룸</td>
+                        <td>{spaceTotal[3].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>거실</td>
+                        <td>{spaceTotal[4].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>부엌</td>
+                        <td>{spaceTotal[2].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>아이방</td>
+                        <td>{spaceTotal[5].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>안방</td>
+                        <td>{spaceTotal[1].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>서재</td>
+                        <td>{spaceTotal[0].totalOfSpace}원</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
             {/*-------가격표-------------*/}
             {priceList !== null && (
