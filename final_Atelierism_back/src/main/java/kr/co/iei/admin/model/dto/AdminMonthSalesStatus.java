@@ -15,4 +15,6 @@ public class AdminMonthSalesStatus {
 	private int designerMonth;
 	private int siteRevenue;
 	private int siteSubscriber;
+	private String spaceName;
+	private int totalOfSpace;
 }

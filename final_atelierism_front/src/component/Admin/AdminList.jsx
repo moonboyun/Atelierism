@@ -27,7 +27,6 @@ const AdminList = (props) => {
         }/admin?reqPage=${reqPage}&memOrder=${memOrder}`
       )
       .then((res) => {
-        console.log(res);
         setPi(res.data.pi);
         setListData(res.data.reqList);
       })

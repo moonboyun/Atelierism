@@ -15,7 +15,6 @@ const AdminChart = (props) => {
     axios
       .get(`${import.meta.env.VITE_BACK_SERVER}/admin/chart?chartOrder=${prop}`)
       .then((res) => {
-        console.log(res);
         setChartData(res.data);
       })
       .catch((err) => {
