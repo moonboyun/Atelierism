@@ -605,7 +605,7 @@ label .payI-checked {
   border-radius: 8px;
   background-color: rgba(138, 169, 150, 0.1);
 }
-.selected-designer-box  span{
+.selected-designer-box span {
   color: var(--btnHover);
 }
 
@@ -741,7 +741,6 @@ label .payI-checked {
   font-size: 20px;
 }
 .suc-link-box {
-  width: 500px;
   margin: 0 auto;
   box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, 0.3);
   border-radius: 100px;

@@ -4,6 +4,7 @@ import SideMenu from "../utils/SideMenu";
 import { useRecoilValue } from "recoil";
 import { loginIdState } from "../utils/RecoilData";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Payment = () => {
   const memberId = useRecoilValue(loginIdState);
@@ -108,7 +109,12 @@ const Payment = () => {
                         <p>디자이너 이름: {item.interiorDesignerName}</p>
                         <p>인테리어 이유: {item.interiorWhy}</p>
                         <p>가격: {item.interiorPrice.toLocaleString()}원</p>
-                        <p>디자이너 채팅: {item.designerChat}</p>
+                        <p>
+                          디자이너 채팅:{" "}
+                          <a href={`${item.designerChat}`} target="_blank">
+                            {item.designerChat}
+                          </a>
+                        </p>
                         <div>
                           <p style={{ fontWeight: "600", fontSize: "17px" }}>
                             인테리어 공간:{" "}
