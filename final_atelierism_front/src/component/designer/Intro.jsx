@@ -46,7 +46,7 @@ const Intro = () => {
                   src={
                     designer.memberThumb
                       ? `${backServer}/designer/profile/${designer.memberThumb}`
-                      : "/image/default_img.png"
+                      : `${backServer}/designer/profile/default_image.png`
                   }
                   alt={`${designer.memberName} 디자이너 프로필`}
                 />
