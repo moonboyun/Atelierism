@@ -47,4 +47,12 @@
 	<delete id="deleteInquiryBoard">
   		delete from inquiry_board_tbl where inquiry_board_no = #{inquiryBoardNo}
 	</delete>
+	
+	<update id="updateInquiry">
+    	update inquiry_board_tbl
+    		set 
+        	inquiry_board_title = #{inquiryBoardTitle},
+        	inquiry_board_content = #{inquiryBoardContent}
+    	where inquiry_board_no = #{inquiryBoardNo}
+	</update>
 </mapper>

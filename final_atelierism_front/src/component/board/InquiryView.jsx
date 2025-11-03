@@ -159,7 +159,15 @@ const InquiryView = () => {
               {memberType === 1 || inquiry.inquiryBoardWriter === memberId ? (
                 <div className="btn-zone">
                   {/* 수정 버튼 */}
-                  <button type="button" className="btn ghost">
+                  <button
+                    type="button"
+                    className="btn ghost"
+                    onClick={() =>
+                      navigate(
+                        `/board/inquiry/update/${inquiry.inquiryBoardNo}`
+                      )
+                    }
+                  >
                     수정
                   </button>
 
@@ -179,8 +187,8 @@ const InquiryView = () => {
                 <div className="admin-comment-div">
                   <section className="admin-comment-section">
                     <div className="admin-card">
-                      <div className="admin-card__head">
-                        <div className="admin-card__title">
+                      <div className="admin-card-head">
+                        <div className="admin-card-title">
                           <AdminPanelSettingsIcon className="admin-title-icon" />
                           <span>관리자 답변</span>
                         </div>
@@ -191,7 +199,7 @@ const InquiryView = () => {
                         )}
                       </div>
 
-                      <div className="admin-card__body">
+                      <div className="admin-card-body">
                         {memberType === 1 && !inquiry.adminComment ? (
                           <div className="admin-reply-form">
                             <input

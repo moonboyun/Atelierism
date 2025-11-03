@@ -63,5 +63,11 @@ public class InquiryBoardService {
 	    return inquiryBoardDao.deleteInquiryBoard(inquiryBoardNo);
 	}
 	
+	@Transactional
+	public int updateInquiry(InquiryBoardDTO board) {
+	    int result = inquiryBoardDao.updateInquiry(board);
+	    return result;
+	}
+	
 	
 }// InquiryBoardService

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +74,19 @@ public class InquiryBoardController {
 	    int result = inquiryBoardService.deleteInquiryBoard(inquiryBoardNo);
 	    return ResponseEntity.ok(result);
 	}
+	
+	// 게시글 수정
+	@PatchMapping
+	public ResponseEntity<Integer> updateInquiry(@ModelAttribute InquiryBoardDTO board) {
+	    if (board.getInquiryBoardNo() == 0 ||
+	        board.getInquiryBoardTitle() == null || board.getInquiryBoardTitle().trim().isEmpty() ||
+	        board.getInquiryBoardContent() == null || board.getInquiryBoardContent().trim().isEmpty()) {
+	        return ResponseEntity.ok(0);
+	    }
+	    int result = inquiryBoardService.updateInquiry(board);
+	    return ResponseEntity.ok(result);
+	}
+	
 	
 	
 	

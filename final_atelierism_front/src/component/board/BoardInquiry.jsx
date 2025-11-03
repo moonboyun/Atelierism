@@ -113,7 +113,7 @@ const BoardInquiry = () => {
       {/* 배경이미지 */}
       <div className="review-hero">
         <div className="hero-inner">
-          <img className="title-img" src="/image/image (review).png" />
+          <img className="title-img" src="/image/inquiry_img.png" />
           <h1 className="hero-title">FAQ & QnA</h1>
         </div>
       </div>
@@ -241,7 +241,7 @@ const BoardInquiry = () => {
       {/* 하단 배경 이미지 */}
       <div className="bottom-img-box">
         <div className="hero-inner">
-          <img className="bottom-img" src="/image/image (review).png" />
+          <img className="bottom-img" src="/image/inquiry_board_img(2).png" />
           <h1 className="hero-bottom">Atelierism</h1>
           <h3>
             Atelierism은 여러분의 집과 공간을 위한 최고의 인테리어 디자인을 위해

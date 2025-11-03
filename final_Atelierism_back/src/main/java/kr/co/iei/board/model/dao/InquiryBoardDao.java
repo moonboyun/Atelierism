@@ -24,4 +24,5 @@ public interface InquiryBoardDao {
 	
 	int deleteInquiryBoard(int inquiryBoardNo);
 
+	int updateInquiry(InquiryBoardDTO board);
 }// InquiryBoardDao
