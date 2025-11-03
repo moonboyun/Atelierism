@@ -1,32 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.iei.board.model.dao.DesignerBoardDao">
-	<select id="totalCount" resultType="int">
-		select count(*) from designer_review_tbl
+
+  <select id="totalCount" resultType="int">
+    select count(*) from designer_review_tbl
+  </select>
+
+  <select id="selectDesignerBoardList" resultType="designerBoard">
+select
+          designer_review_no   as designerReviewNo,
+          interior_no          as interiorNo,
+          designer_review_title as designerReviewTitle,
+          designer_review_writer as designerReviewWriter,
+          interior_customer     as interiorCustomer,
+          interior_price        as interiorPrice,
+          one_text              as oneText,
+          category_csv          as categoryCsv,
+          designer_review_content as designerReviewContent,
+          before_img            as beforeImg,
+          after_img             as afterImg,
+          designer_review_date  as designerReviewDate,
+          m.member_thumb
+        from designer_review_tbl d
+        left join member_tbl m on d.designer_review_writer = m.member_id
+        order by designer_review_no desc
+  </select>
+
+  <select id="getDesignerReviewNo" resultType="int">
+    select designer_review_seq.nextval from dual
+  </select>
+
+	<insert id="insertBoard">
+ 	 	insert into designer_review_tbl values (
+    		#{designerReviewNo},
+    		#{interiorNo},
+    		#{designerReviewTitle},
+    		#{designerReviewWriter},
+    		#{interiorCustomer},
+    		#{interiorPrice},
+    		#{oneText},
+    		#{categoryCsv},
+    		#{designerReviewContent},
+    		#{beforeImg},
+    		#{afterImg},
+    	to_char(sysdate, 'yyyy-mm-dd')
+  		)
+	</insert>
+	
+	<select id="selectOneBoard" resultType="designerBoard">
+		select *
+			from designer_review_tbl d
+			left join member_tbl m on d.designer_review_writer = m.member_id
+		where d.designer_review_no = #{designerReviewNo}
 	</select>
 	
-	<select id="selectDesignerBoardList" resultType="designerReview">
-		select * from 
-			(select rownum as rnum, b. *
-      			from 
-      				(select
-          				designer_review_no,
-          				interior_no,
-          				designer_review_title,
-          				designer_review_writer,
-          				interior_customer,
-          				interior_payment_check,
-          				interior_price,
-          				one_text,
-          				interior_kategorie,
-          				designer_review_content,
-          				before_img,
-          				after_img,
-          				designer_thumbnail,
-          				designer_review_date
-        			from designer_review_tbl order by designer_review_no desc ) b )
-    	where rnum between #{start} and #{end}
-	</select>
-	
+	<delete id="deleteBoard">
+		delete from designer_review_tbl where designer_review_no = #{designerReviewNo}
+	</delete>
 
 </mapper>

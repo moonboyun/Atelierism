@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { loginIdState } from "../utils/RecoilData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isLoginState, loginIdState } from "../utils/RecoilData";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./boardDesigner.css";
@@ -11,11 +11,10 @@ const BoardDesigner = () => {
   const [designerBoardList, setDesignerBoardList] = useState([]);
   const [reqPage, setReqPage] = useState(1);
   const [pi, setPi] = useState(null);
-  const [memberId, setMemberId] = useRecoilState(loginIdState);
+  const [designerReviewWriter, setDesignerReviewWriter] =
+    useRecoilState(loginIdState);
+  const isLogin = useRecoilValue(isLoginState);
   const navigate = useNavigate();
-  const viewButton = () => {
-    navigate("/board/designer/view");
-  };
   useEffect(() => {
     axios
       .get(
@@ -30,11 +29,15 @@ const BoardDesigner = () => {
       });
   }, [reqPage]);
   return (
-    <div className="board-wrap">
+    <div className="board-wrap-content">
       {/* 상단 이미지 */}
       <section className="image-section">
         <div className="image-div">
-          <img className="title-img" src="/image/image (review).png" />
+          <img
+            className="title-img"
+            src="/image/designer_board_img.png"
+            style={{ width: "1920px", height: "450px" }}
+          />
           <h3 className="img-text">Interior Idea</h3>
           <p className="img-text">
             Atelierism은 인테리어를 고민중이지만 시공은 부담스러운 분들을 위한
@@ -50,22 +53,58 @@ const BoardDesigner = () => {
             <div key={"designer-" + i} className="card-box">
               {/* Before */}
               <div className="before-img-box">
-                <img src={designer.beforeImg} />
+                <img
+                  src={
+                    designer.beforeImg !== null
+                      ? `${
+                          import.meta.env.VITE_BACK_SERVER
+                        }/board/designerReview/before/${designer.beforeImg}`
+                      : "/image/default_image.png"
+                  }
+                ></img>
               </div>
               <div className="center-box">
                 <span className="title">Same space, different feeling</span>
                 <span className="text">Before & After</span>
-                <span className="thumbnail">{designer.designerThumbnail}</span>
+                <span
+                  className="thumbnail"
+                  style={{ width: "30px", height: "30px" }}
+                >
+                  <img
+                    src={
+                      designer.memberThumb !== null
+                        ? `${
+                            import.meta.env.VITE_BACK_SERVER
+                          }/board/designerReview/before/${designer.memberThumb}`
+                        : "/image/default_image.png"
+                    }
+                  ></img>
+                </span>
                 <span className="writer">{designer.designerReviewWriter}</span>
-                <span className="one-text">{designer.designerOneText}</span>
+                <span className="one-text">{designer.oneText}</span>
                 <span className="date">{designer.designerReviewDate}</span>
-                <button className="view-btn" onClick={viewButton}>
+                <button
+                  className="view-btn"
+                  onClick={() => {
+                    navigate(
+                      `/board/designer/view/${designer.designerReviewNo}`
+                    );
+                  }}
+                >
                   자세히 보러가기 <ArrowForwardIcon />
                 </button>
               </div>
               {/* After */}
               <div className="after-box">
-                <img src={designer.afterImg} />
+                <img
+                  src={
+                    designer.afterImg !== null
+                      ? `${
+                          import.meta.env.VITE_BACK_SERVER
+                        }/board/designerReview/after/${designer.afterImg}`
+                      : "/image/default_image.png"
+                  }
+                ></img>
               </div>
             </div>
           );

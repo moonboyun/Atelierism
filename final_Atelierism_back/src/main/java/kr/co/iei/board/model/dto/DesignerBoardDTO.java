@@ -9,20 +9,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Alias(value="designerReview")
+@Alias(value="designerBoard")
 public class DesignerBoardDTO {
 	private int designerReviewNo;
 	private int interiorNo;
 	private String designerReviewTitle;
 	private String designerReviewWriter;
 	private String interiorCustomer;
-	private int interiorPaymentCheck;
 	private int interiorPrice;
+	private String categoryCsv;
 	private String oneText;
-	private int interiorKategorie;
 	private String designerReviewContent;
 	private String beforeImg;
 	private String afterImg;
-	private String designerThumbnail;
 	private String designerReviewDate;
+	private String memberThumb;
 }                                                                          
+
+                                              
