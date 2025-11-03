@@ -25,14 +25,17 @@ public class AdminService {
 	@Autowired
 	private PageInfoUtils pageInfoUtils;
 
-	public Map selectSalesStateList(Map month) {
+	public Map selectSalesStateList(String monthDate) {
 		Map<String, Object> salesStateList = new HashMap<String, Object>();
-		AdminMonthSalesStatus salesStatus = adminDao.selectMonthList(month);
-		AdminMonthSalesStatus subscriberMonth = adminDao.selectSiteSubscriber(month);
+		AdminMonthSalesStatus salesStatus = adminDao.selectMonthList();
+		AdminMonthSalesStatus subscriberMonth = adminDao.selectSiteSubscriber(monthDate);
+		List spaceTotal = adminDao.selectTotalOfSpace();
 		PriceListDto pl = adminDao.priceListSelect();
 		salesStateList.put("salesStatus", salesStatus);
 		salesStateList.put("subscriberMonth", subscriberMonth);
 		salesStateList.put("pl", pl);
+		salesStateList.put("spaceTotal", spaceTotal);
+		System.out.println(spaceTotal);
 		return salesStateList;
 	}
 	
