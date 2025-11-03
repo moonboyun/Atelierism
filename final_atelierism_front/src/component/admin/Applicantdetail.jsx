@@ -18,6 +18,7 @@ const Applicantdetail = () => {
         `${import.meta.env.VITE_BACK_SERVER}/admin/detail?memberId=${memberId}`
       )
       .then((res) => {
+        console.log("이거", res);
         setMemberAward(res.data.applicantAward);
         setMemberCareer(res.data.applicantCareer);
         setMemberPropfile(res.data.applicantDetail[0]);
@@ -46,7 +47,6 @@ const Applicantdetail = () => {
             }/admin/refusal?memberId=${memberId}`
           )
           .then((res) => {
-            console.log(res);
             if (res.data === 1) {
               Swal.fire({
                 title: "완료",
@@ -245,8 +245,15 @@ const Applicantdetail = () => {
                     <th>
                       <h3>포트폴리오</h3>
                     </th>
-                    {memberProfile.designerProfolio != null ? (
-                      <td>{memberProfile.designerProfolio}</td>
+                    {memberProfile.designerPortfolio != null ? (
+                      <td>
+                        <a
+                          href={memberProfile.designerPortfolio}
+                          target="_blank"
+                        >
+                          {memberProfile.designerPortfolio}
+                        </a>
+                      </td>
                     ) : (
                       ""
                     )}
@@ -260,7 +267,11 @@ const Applicantdetail = () => {
                       <h3>카카오톡 링크</h3>
                     </th>
                     {memberProfile.designerChat != null ? (
-                      <td>{memberProfile.designerChat}</td>
+                      <td>
+                        <a href={memberProfile.designerChat} target="_blank">
+                          {memberProfile.designerChat}
+                        </a>
+                      </td>
                     ) : (
                       ""
                     )}
