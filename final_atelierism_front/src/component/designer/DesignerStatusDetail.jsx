@@ -14,6 +14,7 @@ const DesignerStatusDetail = () => {
 
   const [interiorStatus, setInteriorStatus] = useState(0);
   const [interiorMemo, setInteriorMemo] = useState("");
+  const [range, setRange] = useState("");
 
   useEffect(() => {
     axios
@@ -21,7 +22,7 @@ const DesignerStatusDetail = () => {
       .then((res) => {
         setDetail(res.data);
         setInteriorStatus(res.data.interiorStatus);
-        setInteriorMemo(res.data.interiorMemo);
+        setInteriorMemo(res.data.interiorMemo || "");
       })
       .catch((err) => {
         console.error("작업 상세 정보 로딩 실패:", err);
@@ -66,6 +67,18 @@ const DesignerStatusDetail = () => {
 
     return spaces.join(", ");
   };
+  useEffect(() => {
+    if (!detail || detail.interiorRange == null) return;
+    if (detail.interiorRange === 1) {
+      setRange("공간을 완전히 새롭게 꾸미고 싶어요.");
+    }
+    if (detail.interiorRange === 2) {
+      setRange("몇가지 가구를 유지하고 꾸미고 싶어요.");
+    }
+    if (detail.interiorRange === 3) {
+      setRange("가구는 다 유지하고 배치와 소품 위주로 제안 받고 싶어요.");
+    }
+  }, [detail]);
 
   if (detail === null) {
     return <div>로딩중...</div>;
@@ -94,7 +107,7 @@ const DesignerStatusDetail = () => {
             <tr>
               <th>디자인 범위</th>
               <td>
-                <input type="text" value={getSpaceString(detail)} readOnly />
+                <input type="text" value={range} readOnly />
               </td>
             </tr>
             <tr>

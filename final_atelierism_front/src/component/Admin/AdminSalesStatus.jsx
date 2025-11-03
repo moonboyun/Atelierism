@@ -13,17 +13,20 @@ const AdminSalesStatus = () => {
   const navigate = useNavigate();
   const [priceModal, setPriceModal] = useState(false);
   const [chartOrder, setChartOrder] = useState(2); //1: 3개월, 2: 6개월, 3: 년단위
+  const [chartData, setChartData] = useState(null);
   const priceUpdate = () => {
     setPriceModal(true);
   };
   const [priceList, setPriceList] = useState(null); //가격표
   const [monthTotal, setMonthTotal] = useState(null); //이달의 통계
+  const [spaceTotal, setSpaceTotal] = useState(null); //공간별 매충
   useEffect(() => {
     axios
       .get(`${backServer}/admin/list?toMonth=${toMonth}`)
       .then((res) => {
         console.log(res);
         setPriceList(res.data.pl);
+        setSpaceTotal(res.data.spaceTotal);
         setMonthTotal(res.data);
       })
       .catch((err) => {
@@ -31,6 +34,7 @@ const AdminSalesStatus = () => {
       });
   }, []);
 
+  console.log("order", chartOrder);
   return (
     <div className="admin-sales-status-allwrap">
       <div className="admin-sales-status-wrap">
@@ -39,7 +43,11 @@ const AdminSalesStatus = () => {
             <div className="sales-chart">
               <h2>매출 그래프</h2>
               <div className="chart-zone">
-                <AdminChart data={chartOrder} />
+                <AdminChart
+                  data={chartOrder}
+                  chartData={chartData}
+                  setChartData={setChartData}
+                />
               </div>
               <div className="sales-btn-zone">
                 <button
@@ -48,6 +56,7 @@ const AdminSalesStatus = () => {
                   className={chartOrder === 1 ? "inclick" : ""}
                   onClick={() => {
                     setChartOrder(1);
+                    setChartData(null);
                   }}
                 >
                   3개월
@@ -58,6 +67,7 @@ const AdminSalesStatus = () => {
                   className={chartOrder === 2 ? "inclick" : ""}
                   onClick={() => {
                     setChartOrder(2);
+                    setChartData(null);
                   }}
                 >
                   6개월
@@ -68,6 +78,7 @@ const AdminSalesStatus = () => {
                   className={chartOrder === 3 ? "inclick" : ""}
                   onClick={() => {
                     setChartOrder(3);
+                    setChartData(null);
                   }}
                 >
                   12개월
@@ -89,7 +100,7 @@ const AdminSalesStatus = () => {
                         <td>{monthTotal.subscriberMonth.siteSubscriber}명</td>
                       </tr>
                       <tr>
-                        <th>순매출</th>
+                        <th>사이트 순 매출</th>
                         <td>{monthTotal.salesStatus.siteRevenue}원</td>
                       </tr>
                       <tr>
@@ -105,42 +116,44 @@ const AdminSalesStatus = () => {
           <div className="admin-sales-status-content-bottom">
             <div className="space-sales">
               <h2>이달의 공간별 매출</h2>
-              <div className="space-sales-table">
-                <table border={1}>
-                  <thead>
-                    <tr>
-                      <th>공간명</th>
-                      <th>월매출</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>원룸</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>거실</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>부엌</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>아이방</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>안방</td>
-                      <td>0000000000원</td>
-                    </tr>
-                    <tr>
-                      <td>서재</td>
-                      <td>0000000000원</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {spaceTotal != null && (
+                <div className="space-sales-table">
+                  <table border={1}>
+                    <thead>
+                      <tr>
+                        <th>공간명</th>
+                        <th>월매출</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>원룸</td>
+                        <td>{spaceTotal[3].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>거실</td>
+                        <td>{spaceTotal[4].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>부엌</td>
+                        <td>{spaceTotal[2].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>아이방</td>
+                        <td>{spaceTotal[5].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>안방</td>
+                        <td>{spaceTotal[1].totalOfSpace}원</td>
+                      </tr>
+                      <tr>
+                        <td>서재</td>
+                        <td>{spaceTotal[0].totalOfSpace}원</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
             {/*-------가격표-------------*/}
             {priceList !== null && (

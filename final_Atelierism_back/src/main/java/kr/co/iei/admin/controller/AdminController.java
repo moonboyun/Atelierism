@@ -33,10 +33,8 @@ public class AdminController {
 	
 	@GetMapping(value = "/list")
 	public ResponseEntity<Map> selectPriceList(@RequestParam String toMonth) {
-		Map<String, Object> month = new HashMap<String, Object>();
-		month.put("toMonth1", toMonth);//이번달 디자이너 순위용
-		month.put("toMonth2", toMonth+"-%");//이달의 가입자용
-		Map salesStateList = adminService.selectSalesStateList(month);
+		String monthDate = toMonth+"-%";
+		Map salesStateList = adminService.selectSalesStateList(monthDate);
 		return ResponseEntity.ok(salesStateList);
 	};
 	
@@ -71,7 +69,7 @@ public class AdminController {
 		return ResponseEntity.ok(map);
 	};
 	
-	@GetMapping(value = "detail")
+	@GetMapping(value = "/detail")
 	public ResponseEntity<Map> selectApplicantDetailList(@RequestParam String memberId){
 		Map detail = adminService.selectApplicantDetailList(memberId);
 		return ResponseEntity.ok(detail);
@@ -83,12 +81,16 @@ public class AdminController {
 		return ResponseEntity.ok(result);
 	}
 	
-	@PatchMapping(value = "enter")
+	@PatchMapping(value = "/enter")
 	public ResponseEntity<Integer> enterDesigner(@RequestParam String memberId){
 		int result = adminService.enterDesigner(memberId);
 		return ResponseEntity.ok(result);
 	}
 	
-	
-	
+	@GetMapping(value = "/chart")
+	public ResponseEntity<List> chartSelect(@RequestParam int chartOrder){
+		List chartData = adminService.chartSelect(chartOrder);
+		System.out.println(chartData);
+		return ResponseEntity.ok(chartData);
+	}
 }

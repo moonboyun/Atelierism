@@ -25,14 +25,17 @@ public class AdminService {
 	@Autowired
 	private PageInfoUtils pageInfoUtils;
 
-	public Map selectSalesStateList(Map month) {
+	public Map selectSalesStateList(String monthDate) {
 		Map<String, Object> salesStateList = new HashMap<String, Object>();
-		AdminMonthSalesStatus salesStatus = adminDao.selectMonthList(month);
-		AdminMonthSalesStatus subscriberMonth = adminDao.selectSiteSubscriber(month);
+		AdminMonthSalesStatus salesStatus = adminDao.selectMonthList();
+		AdminMonthSalesStatus subscriberMonth = adminDao.selectSiteSubscriber(monthDate);
+		List spaceTotal = adminDao.selectTotalOfSpace();
 		PriceListDto pl = adminDao.priceListSelect();
 		salesStateList.put("salesStatus", salesStatus);
 		salesStateList.put("subscriberMonth", subscriberMonth);
 		salesStateList.put("pl", pl);
+		salesStateList.put("spaceTotal", spaceTotal);
+		System.out.println(spaceTotal);
 		return salesStateList;
 	}
 	
@@ -134,6 +137,12 @@ public class AdminService {
 	public int enterDesigner(String memberId) {
 		int result = adminDao.enterDesigner(memberId);
 		return result;
+	}
+
+	public List chartSelect(int chartOrder) {
+		System.out.println(chartOrder);
+		List chartData = adminDao.chartSelect(chartOrder);
+		return chartData;
 	}
 
 	

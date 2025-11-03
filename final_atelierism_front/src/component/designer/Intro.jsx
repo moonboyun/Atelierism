@@ -18,7 +18,6 @@ const Intro = () => {
       .get(`${backServer}/designer/list?reqPage=${reqPage}`)
       .then((res) => {
         setDesignerList(res.data.designerList);
-
         setPi(res.data.pi);
       })
       .catch((err) => {
@@ -45,13 +44,12 @@ const Intro = () => {
                   src={
                     designer.memberThumb
                       ? `${backServer}/designer/profile/${designer.memberThumb}`
-                      : `${
-                          import.meta.env.VITE_BACK_SERVER
-                        }/memberProfile/default_image.png`
+                      : `${backServer}/designer/profile/default_image.png`
                   }
                   alt={`${designer.memberName} 디자이너 프로필`}
                 />
               </div>
+
               <div className="de-card-bottom">
                 <p className="de-designer-name">{designer.memberName}</p>
                 <h3 className="de-card-title">{designer.designerIntroduce}</h3>
@@ -66,14 +64,6 @@ const Intro = () => {
           <PageNavigation pi={pi} reqPage={reqPage} setReqPage={setReqPage} />
         )}
       </div>
-
-      {/* <div className="de-write-btn-wrap">
-        {isLogin && (
-          <Link to="/board/write" className="de-write-btn">
-            글쓰기
-          </Link>
-        )}
-      </div> */}
     </div>
   );
 };

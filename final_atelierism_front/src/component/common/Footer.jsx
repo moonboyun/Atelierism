@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="footer">
       <div>
         <p>Atelierism</p>
         <div className="foo-info-box">
-          <span>서비스약관</span>
-          <span>개인정보정책</span>
-          <span>회사소개</span>
-          <span>채용정보</span>
-          <span>디자이너 제휴신청</span>
+          <Link to="#">서비스약관</Link>
+          <Link to="#">개인정보정책</Link>
+          <Link to="/company">회사소개</Link>
+          <Link to="#">채용정보</Link>
+          <Link to="#">디자이너 제휴신청</Link>
         </div>
         <div className="foo-atelierism-info">
           <table className="foo-tbl">

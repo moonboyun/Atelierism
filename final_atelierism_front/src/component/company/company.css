@@ -157,3 +157,9 @@
 .company-price-wrap > div:last-child {
   font-size: 18px;
 }
+.company-price-text{
+  margin: 10px 0px;
+  color: var(--gray4);
+  font-size: 20px;
+  padding-bottom: 30px;
+}

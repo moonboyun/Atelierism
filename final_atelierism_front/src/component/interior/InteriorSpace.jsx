@@ -80,7 +80,7 @@ const InteriorSpace = (props) => {
             >
               <div className="interS-info-box">
                 <span className="material-symbols-outlined">bed</span>
-                <div>안방</div>
+                <div>침실</div>
               </div>
             </div>
           </label>

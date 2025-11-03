@@ -32,22 +32,23 @@
 	    WHERE m.member_type = 2
 	</select>
     
-    <select id="selectDesignerList" parameterType="map" resultType="designerIntro">
+    <select id="selectDesignerList" parameterType="pageInfo" resultType="designerIntro">
 	    SELECT * FROM (
 	        SELECT ROWNUM AS RNUM, N.* FROM (
 	            SELECT
-	                d.member_id, m.member_name, m.member_thumb, d.designer_introduce,
-                    (SELECT COUNT(*) FROM designer_like_tbl WHERE designer_id = d.member_id) AS designer_like,
-                    (SELECT COUNT(*) FROM designer_like_tbl WHERE designer_id = d.member_id AND member_id = #{loginMemberId}) AS is_liked
+	                d.member_id,
+	                m.member_name,
+	                m.member_thumb,
+	                d.designer_introduce
 	            FROM designer_tbl d
 	            JOIN member_tbl m ON (d.member_id = m.member_id)
 	            WHERE m.member_type = 2
-	            ORDER BY designer_like DESC, d.member_id DESC
+	            ORDER BY d.member_id DESC -- 최신 가입순으로 정렬
 	        ) N
 	    )
-	    WHERE RNUM BETWEEN #{pi.start} AND #{pi.end}
+	    WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
-	
+		
 	<select id="selectOneDesigner" parameterType="string" resultType="designerDetailDTO">
 	    SELECT
 	        d.member_id, m.member_name, m.member_thumb, d.designer_career, d.designer_age,
@@ -113,7 +114,7 @@
     <select id="selectStatusDetail" parameterType="int" resultType="designerStatusDetail">
         SELECT
             i.interior_why, i.interior_payment_date, i.interior_price,
-            i.interior_living, i.interior_kitchen, i.interior_bed,
+            i.interior_living, i.interior_kitchen, i.interior_bed,i.interior_range,
 	        i.interior_oneroom, i.interior_kidroom, i.interior_study,
             d.interior_no, d.interior_memo, d.interior_status,
             m.member_name AS customer_name

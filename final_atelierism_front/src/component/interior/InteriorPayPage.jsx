@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { isInteriorState, loginIdState } from "../utils/RecoilData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Clear } from "@mui/icons-material";
 
 const InteriorPayPage = () => {
   const backServer = import.meta.env.VITE_BACK_SERVER;
@@ -273,7 +272,7 @@ const OrderInfo = (props) => {
         >
           <div className="orderI-group-box">
             <span className="material-symbols-outlined">bed</span>
-            <span>안방</span>
+            <span>침실</span>
           </div>
           <div className="orderI-group-box">
             <button name="interiorBed" value={1} onClick={spaceMinus}>
@@ -439,7 +438,7 @@ const OrderInfo = (props) => {
                 onChange={interiorInfoCheck}
                 style={{ display: "none" }}
               ></input>
-              <span>안방</span>
+              <span>침실</span>
             </div>
           </label>
         </div>
@@ -703,10 +702,58 @@ const DesignerInfo = (props) => {
     const value = e.target.value;
     setUpdateInterior((prev) => ({ ...prev, interiorDesigner: value }));
   };
+
+  const selectedDesigner = designerList.find(
+    (designer) => designer.memberId === updateInterior.interiorDesigner
+  );
+  const selectedMember = memberList.find(
+    (member) => member.memberId === updateInterior.interiorDesigner
+  );
+
+
+   const scrollRef = useRef();
+   useEffect(() => {
+        scrollToBottom();
+    }, [moreDesigner]);
+ 
+    const scrollToBottom = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }; //디자이너 더보기 버튼 누를 시 스크롤 밑으로 고정 기능
+
+  const handleMouseEnter = () => {
+    // 마우스가 요소 위로 진입했을 때 스크롤 방지
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleMouseLeave = () => {
+    // 마우스가 요소에서 벗어났을 때 스크롤 허용
+    document.body.style.overflow = 'unset'; // 또는 'scroll', 'auto'
+  };
+
   return (
     <div className="designerI-info-box">
       <div className="designerI-title">디자이너 선택</div>
-      <div className="designerI-items">
+        {selectedDesigner && selectedMember && (
+        <div className="selected-designer-box">
+          <img src="/image/default_image.png" />
+          <div className="designerI-info">
+            <div className="designerI-name-career">
+              <span>{selectedMember.memberName}</span>
+              <span>경력 | {selectedDesigner.designerCareer}년</span>
+            </div>
+            <span className="designerI-introduce">
+              {selectedDesigner.designerIntroduce}
+            </span>
+          </div>
+        </div>
+      )}
+      <div className="designerI-items" ref={scrollRef} 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
+
+
         {designerList.slice(0, moreDesigner).map((designer, index) => {
           const matchedMember = memberList.find(
             (member) => member.memberId === designer.memberId

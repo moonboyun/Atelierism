@@ -49,9 +49,13 @@ public interface AdminDao {
 
 	List topDesigner(String toMonth);
 
-	AdminMonthSalesStatus selectMonthList(Map<String, Object> month);
+	AdminMonthSalesStatus selectMonthList();
 
-	AdminMonthSalesStatus selectSiteSubscriber(Map<String, Object> month);
+	AdminMonthSalesStatus selectSiteSubscriber(String monthDate);
+
+	List chartSelect(int chartOrder);
+
+	List selectTotalOfSpace();
 	
 
 }

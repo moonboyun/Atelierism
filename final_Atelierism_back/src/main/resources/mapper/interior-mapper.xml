@@ -70,10 +70,10 @@
   WHERE i.INTERIOR_CUSTOMER = #{memberId}
     AND i.INTERIOR_PAYMENT_CHECK = 1
   <if test="sort == 'asc'">
-    ORDER BY i.INTERIOR_PAYMENT_DATE ASC
+    ORDER BY i.INTERIOR_NO ASC
   </if>
   <if test="sort == 'desc'">
-    ORDER BY i.INTERIOR_PAYMENT_DATE DESC
+    ORDER BY i.INTERIOR_NO DESC
   </if>
 </select>
 

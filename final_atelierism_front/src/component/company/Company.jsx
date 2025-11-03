@@ -31,8 +31,20 @@ const Company = () => {
         console.log(err);
       });
   }, []);
+
+  //페이지 이동 시 맨 위로 유지하는 기능
+  useEffect(() => window.scrollTo(0, 0), []);
+
+  // 클릭하면 스크롤이 위로 올라가는 함수
+  const handleTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <section className="section">
+    <section className="section" style={{ overflowX: "hidden" }}>
       <img src="/image/company-main.png" />
       <div className="main-content">
         <div className="company-main-title">
@@ -172,12 +184,12 @@ const Company = () => {
             {
               img: "/image/company-kitchen.png",
               title: "부엌",
-              desc: "기능과 동선, 감각이 공존하는 공간의 미학.",
+              desc: "기능과 동선, 감각이 공존하는 공간.",
               price: price.priceKitchen,
             },
             {
               img: "/image/company-bed.png",
-              title: "안방",
+              title: "침실",
               desc: "휴식과 안정감을 담은 프라이빗한 공간.",
               price: price.priceBed,
             },
@@ -217,6 +229,17 @@ const Company = () => {
             </div>
           ))}
         </div>
+        <div className="company-price-text">
+          모든 가격은 부가세 포함이며, 디자인 컨설팅·시공까지 일괄 제공됩니다.
+        </div>
+      </div>
+      <div className="top-btn-container">
+        <button
+          className="top-btn"
+          onClick={handleTop} // 버튼 클릭시 함수 호출
+        >
+          <span className="material-symbols-outlined">vertical_align_top</span>
+        </button>
       </div>
     </section>
   );

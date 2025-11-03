@@ -20,19 +20,30 @@
 
 .input-title {
   float: left;
-  margin-right: 30px;
+  margin-right: 10px;
   width: 90px;
-  text-align: right;
+  text-align: center;
   font-size: 20px;
   font-weight: bold;
   line-height: 60px;
 }
 .input-item > input {
+  padding-bottom: 5px;
   padding-top: 15px;
   border: none;
   border-bottom: 1px solid #9a9a9a;
   width: 300px;
   font-size: 18px;
+  padding-left: 10px;
+}
+.input-item > input:focus {
+  border-bottom: 2px solid var(--main1);
+}
+.valid {
+  color: var(--success);
+}
+.invalid {
+  color: var(--fail);
 }
 .login-button {
   display: flex;
@@ -41,20 +52,27 @@
   text-align: center;
 }
 .login-button > button {
-  width: 50%;
+  width: 360px;
   background-color: #8aa996;
   border: 1px solid #8aa996;
   border-radius: 15px;
   padding: 10px;
   font-size: 20px;
   color: #fff;
+  transition: 0.2s;
   cursor: pointer;
+}
+.login-button > button:hover {
+  background-color: var(--btnHover);
+  transition: 0.2s;
 }
 
 .member-link-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
   width: 100%;
   margin: 0 auto;
-  text-align: center;
   margin-top: 10px;
 }
 .member-link-box > a {
@@ -63,7 +81,7 @@
   cursor: pointer;
 }
 .member-link-box > a:first-child {
-  padding-right: 70px;
+  margin-right: 70px;
 }
 .member-link-box > a:last-child {
   padding-left: 10px;
@@ -112,7 +130,7 @@
 }
 .join-wrap .input-wrap > .input-item > input {
   width: 60%;
-  font-size: 15px;
+  font-size: 18px;
 }
 .join-wrap > .page-title {
   font-size: 24px;
@@ -152,6 +170,7 @@
 .join-button {
   text-align: center;
   margin: 0 auto;
+  margin-top: 20px;
 }
 .join-button > button {
   cursor: pointer;
@@ -163,6 +182,11 @@
   font-size: 24px;
   width: 20%;
   margin-bottom: 50px;
+  transition: 0.2s;
+}
+.join-button > button:hover {
+  background-color: var(--btnHover);
+  transition: 0.2s;
 }
 .join-button > button > a {
   color: #fff;
@@ -209,9 +233,19 @@
   display: flex;
   justify-content: right;
 }
-.check-box > div {
-  text-align: right;
-  float: left;
+.check-box label {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 체크박스와 텍스트 간격 */
+  font-size: 18px;
+  cursor: pointer;
+  color: #333;
+}
+
+.check-box input[type="checkbox"] {
+  transform: scale(1.5); /* 크기 키우기 */
+  accent-color: #333; /* 체크 색상 (지원 브라우저에서만) */
+  cursor: pointer;
 }
 .agree-content-wrap > .sb-button-zone {
   text-align: center;
@@ -244,13 +278,16 @@
   text-decoration: underline;
 }
 .mypage-wrap {
-  width: 1440px;
+  width: 1200px;
   margin: 0 auto;
   overflow: hidden;
   margin-top: 50px;
 }
 .side-menu {
   float: left;
+}
+.mypage-side-menu {
+  margin-left: 100px;
 }
 .mypage-tbl {
   width: 60%;
@@ -284,15 +321,20 @@
 .secession-btn > button {
   background-color: #c0c0c0;
   border: 1px solid #c0c0c0;
+  font-size: 16px;
   width: 150px;
   height: 40px;
-  border-radius: 15px;
+  border-radius: 8px;
   cursor: pointer;
   color: #fff;
+  transition: 0.2s;
 }
-
+.secession-btn > button:hover {
+  background-color: var(--gray4);
+  transition: 0.2s;
+}
 .update-wrap {
-  width: 1440px;
+  width: 1200px;
   margin: 0 auto;
   margin-top: 50px;
 }
@@ -305,7 +347,7 @@
   padding-bottom: 30px;
   border: 10px solid #fff;
   background-color: #f5f3f0;
-  width: 20%;
+  width: 150px;
   padding: 20px;
   margin-right: 30px;
 }
@@ -315,7 +357,7 @@
 .update-tbl input {
   border: none;
   outline: none;
-  width: 50%;
+  width: 300px;
   height: 55px;
   font-size: 22px;
   border-bottom: 1px solid #8aa996;
@@ -338,21 +380,33 @@
   border: 1px solid #c0c0c0;
   width: 150px;
   height: 40px;
-  border-radius: 15px;
+  border-radius: 8px;
   cursor: pointer;
 }
 .update-btn > button:first-child {
   background-color: #c0c0c0;
   margin-right: 30px;
+  transition: 0.3s;
+}
+.update-btn > button:first-child:hover {
+  background-color: var(--gray4);
+  transition: 0.3s;
 }
 .update-btn > button:last-child {
   background-color: #8aa996;
+  font-size: 18px;
+  transition: 0.3s;
+}
+.update-btn > button:last-child:hover {
+  background-color: var(--btnHover);
+  transition: 0.3s;
 }
 .update-btn > button {
   color: #fff;
 }
 .update-btn > button > a {
   color: #fff;
+  font-size: 18px;
 }
 .update-tbl > tr > .update-addr {
   margin: 0 auto;
@@ -399,7 +453,6 @@
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  height: 500px; /* 모든 카드 높이 동일 */
 }
 .sb-main-content {
   width: 1400px;
@@ -440,6 +493,11 @@
   text-align: center;
   font-weight: bold;
   font-size: 18px;
+}
+.payment-info > p #sb-designer-chat:hover {
+  text-decoration: underline;
+  color: #8aa996;
+  transition: 0.2s;
 }
 .load-more-wrap {
   display: flex;
@@ -559,6 +617,7 @@
 }
 .recovery-btn {
   text-align: center;
+  margin-bottom: 50px;
 }
 .recovery-btn > button {
   border: 1px solid #8aa996;
@@ -605,21 +664,25 @@
 .de-designerInfoFrm {
   display: inline-block;
   text-decoration: none;
-
   background-color: #c0c0c0;
   border: 1px solid #c0c0c0;
+  font-size: 16px;
   width: 150px;
   height: 40px;
   line-height: 40px;
   padding: 0;
-  border-radius: 15px;
+  border-radius: 8px;
   cursor: pointer;
   color: #fff;
-
   background-color: #8aa996;
   border-color: #8aa996;
   margin-left: 30px;
+  transition: 0.2s;
+}
+.de-designerInfoFrm:hover {
+  background-color: var(--btnHover);
+  transition: 0.2s;
 }
 .update-wrap > .side-menu {
-  margin-left: 50px;
+  margin-left: 100px;
 }

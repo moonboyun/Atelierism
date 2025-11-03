@@ -189,7 +189,9 @@ const DesignerApplyFrm = () => {
                     className="de-frm-btn-remove"
                     onClick={() => removeCareerRow(index)}
                   >
-                    삭제
+                    <span class="material-symbols-outlined">
+                      delete
+                    </span>
                   </button>
                 )}
               </div>
@@ -253,7 +255,9 @@ const DesignerApplyFrm = () => {
                     className="de-frm-btn-remove"
                     onClick={() => removeAwardRow(index)}
                   >
-                    삭제
+                    <span class="material-symbols-outlined">
+                      delete
+                    </span>
                   </button>
                 )}
               </div>
@@ -338,17 +342,17 @@ const DesignerApplyFrm = () => {
         <div className="de-frm-form-buttons">
           <button
             type="button"
-            className="de-frm-btn-submit"
-            onClick={handleSubmit}
-          >
-            신청
-          </button>
-          <button
-            type="button"
             className="de-frm-btn-cancel"
             onClick={() => navigate(-1)}
           >
             취소
+          </button>
+          <button
+            type="button"
+            className="de-frm-btn-submit"
+            onClick={handleSubmit}
+          >
+            신청
           </button>
         </div>
       </div>

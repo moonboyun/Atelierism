@@ -85,7 +85,7 @@ const MemberInfo = () => {
   return (
     <div className="mypage-wrap">
       <div className="page-title">마이페이지</div>
-      <section className="side-menu">
+      <section className="side-menu mypage-side-menu">
         <SideMenu menus={menus} />
       </section>
       {member !== null && (
