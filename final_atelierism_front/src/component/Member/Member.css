@@ -236,6 +236,7 @@
 .check-box > div {
   text-align: right;
   float: left;
+  margin-right: 10px;
 }
 .agree-content-wrap > .sb-button-zone {
   text-align: center;
