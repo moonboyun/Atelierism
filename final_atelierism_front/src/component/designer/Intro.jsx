@@ -1,7 +1,9 @@
+// Intro.jsx (좋아요 기능 완전 제거)
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./designer.css";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // useNavigate는 이제 필요 없습니다
 import { useRecoilValue } from "recoil";
 import { isLoginState } from "../utils/RecoilData";
 import PageNavigation from "../utils/PageNavigation";
@@ -14,7 +16,6 @@ const Intro = () => {
   const isLogin = useRecoilValue(isLoginState);
 
   useEffect(() => {
-    axios;
     axios
       .get(`${backServer}/designer/list?reqPage=${reqPage}`)
       .then((res) => {
@@ -45,13 +46,12 @@ const Intro = () => {
                   src={
                     designer.memberThumb
                       ? `${backServer}/designer/profile/${designer.memberThumb}`
-                      : `${
-                          import.meta.env.VITE_BACK_SERVER
-                        }/memberProfile/default_image.png`
+                      : "/image/default_img.png"
                   }
                   alt={`${designer.memberName} 디자이너 프로필`}
                 />
               </div>
+
               <div className="de-card-bottom">
                 <p className="de-designer-name">{designer.memberName}</p>
                 <h3 className="de-card-title">{designer.designerIntroduce}</h3>
@@ -66,14 +66,6 @@ const Intro = () => {
           <PageNavigation pi={pi} reqPage={reqPage} setReqPage={setReqPage} />
         )}
       </div>
-
-      {/* <div className="de-write-btn-wrap">
-        {isLogin && (
-          <Link to="/board/write" className="de-write-btn">
-            글쓰기
-          </Link>
-        )}
-      </div> */}
     </div>
   );
 };

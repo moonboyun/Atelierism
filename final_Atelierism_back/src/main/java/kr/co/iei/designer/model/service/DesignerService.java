@@ -31,7 +31,7 @@ public class DesignerService {
 		return list;
 	}
 	
-	public Map selectDesignerList(int reqPage) { // 1. loginMemberId 파라미터 제거
+	public Map selectDesignerList(int reqPage) {
         int numPerPage = 6;
 		int pageNaviSize = 5;
 		int totalCount = designerDao.totalCount();
