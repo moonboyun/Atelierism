@@ -43,7 +43,7 @@
 	            FROM designer_tbl d
 	            JOIN member_tbl m ON (d.member_id = m.member_id)
 	            WHERE m.member_type = 2
-	            ORDER BY d.member_id DESC
+	            ORDER BY d.member_id DESC -- 최신 가입순으로 정렬
 	        ) N
 	    )
 	    WHERE RNUM BETWEEN #{start} AND #{end}
