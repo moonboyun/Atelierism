@@ -152,7 +152,7 @@
     WHERE rnum BETWEEN #{start} AND #{end}
 </select>
 
-<select id="selectApplicantDetail" resultType="applicantDetail">
+<select id="selectApplicantDetail" resultType="designerDetailDTO">
 	select m.member_id, m.member_thumb, m.member_name, d.designer_career, d.designer_age, m.member_email, m.member_phone, m.member_addr, d.designer_graduation_date,
 	d.designer_graduation, d.designer_bank, d.designer_account, d.designer_portfolio, d.designer_chat from
 		MEMBER_TBL m left join DESIGNER_TBL d 
@@ -205,23 +205,29 @@ order by 2 desc
 </select>
 
 <select id="selectMonthList" resultType="monthList">
-	select nvl(sum(total_price),0) as total_of_month, nvl(sum(designer_charge),0) as designer_month, nvl(sum(company_charge),0) as site_revenue
-	from (
-		select sum(nvl(interior_price,0)) as total_price ,interior_designer as id, m.member_name as name, 
-    		sum(nvl(interior_price,0) * (1 - interior_payment_charge/100)) as designer_charge ,
-    		sum(nvl(interior_price,0) * interior_payment_charge/100) as company_charge, i.INTERIOR_PAYMENT_DATE    
-    	from interior_tbl i
-			left join member_tbl m on interior_designer = member_id
-		where i.INTERIOR_PAYMENT_DATE like #{toMonth2}
-			group by (interior_designer,m.member_name, i.INTERIOR_PAYMENT_DATE)
-			order by 2 desc
-	)
+	select sum(total_price) as total_of_month, sum(designer_charge) as designer_month, sum(company_charge) as site_revenue from (
+select sum(nvl(interior_price,0)) as total_price ,interior_designer as id, m.member_name as name, 
+    sum(nvl(interior_price,0) * (1 - interior_payment_charge/100)) as designer_charge ,
+    sum(nvl(interior_price,0) * interior_payment_charge/100) as company_charge, i.INTERIOR_PAYMENT_DATE    
+    from interior_tbl i
+left join member_tbl m on interior_designer = member_id
+where substr(i.INTERIOR_PAYMENT_DATE,1,7) = to_char(sysdate,'yyyy-mm')
+group by (interior_designer,m.member_name, i.INTERIOR_PAYMENT_DATE)
+order by 2 desc
+)
 </select>
 
 <select id="selectSiteSubscriber" resultType="monthList">
 	select count(enroll_date) as site_subscriber
 	from member_tbl
-	where enroll_date like #{toMonth2}
+	where enroll_date like #{monthDate}
+</select>
+
+<select id="selectTotalOfSpace" resultType="monthList">
+	select d.space_name, nvl(sum((space_count)* d.SPACE_PRICE), 0) as total_of_space from INTERIOR_DETAIL_TBL d
+		left join INTERIOR_TBL i on d.interior_no=i.interior_no
+	where substr(i.INTERIOR_PAYMENT_DATE,1,7) = to_char(sysdate,'yyyy-mm')
+		GROUP by (d.space_name, d.SPACE_PRICE, d.space_name)
 </select>
 
 <select id="chartSelect" resultType="chart">
