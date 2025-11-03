@@ -1,4 +1,3 @@
-// TextEditor.jsx
 import axios from "axios";
 import { useMemo, useRef } from "react";
 import ReactQuill, { Quill } from "react-quill";
@@ -6,7 +5,12 @@ import "react-quill/dist/quill.snow.css";
 import ImageResize from "quill-image-resize-module-react";
 Quill.register("modules/ImageResize", ImageResize);
 
-const TextEditor = ({ data, setData, base = "/board/review" }) => {
+const TextEditor = (props) => {
+  const { data, setData, base, uploadBase, contentBase } = props;
+
+  const finalUploadBase = uploadBase ?? base ?? "/board/review";
+  const finalContentBase = contentBase ?? base ?? "/board/review";
+
   const editorRef = useRef(null);
 
   const imageHandler = () => {
@@ -23,17 +27,17 @@ const TextEditor = ({ data, setData, base = "/board/review" }) => {
       form.append("image", files[0]);
 
       axios
-        .post(`${import.meta.env.VITE_BACK_SERVER}${base}/image`, form, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
+        .post(
+          `${import.meta.env.VITE_BACK_SERVER}${finalUploadBase}/image`,
+          form
+        )
         .then((res) => {
           const filename = res.data;
           const editor = editorRef.current.getEditor();
           const range = editor.getSelection();
           const url = `${
             import.meta.env.VITE_BACK_SERVER
-          }${base}/content/${encodeURIComponent(filename)}`;
-
+          }${finalContentBase}/content/${encodeURIComponent(filename)}`;
           editor.insertEmbed(range.index, "image", url);
           editor.setSelection(range.index + 1);
         })
@@ -63,8 +67,7 @@ const TextEditor = ({ data, setData, base = "/board/review" }) => {
         modules: ["Resize", "DisplaySize", "Toolbar"],
       },
     }),
-    []
-    // base가 바뀔 일 없으면 deps 비워도 OK
+    [] // base 분리해도 모듈은 고정 OK
   );
 
   return (
