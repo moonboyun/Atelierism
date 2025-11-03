@@ -21,7 +21,7 @@ const DesignerStatusDetail = () => {
       .then((res) => {
         setDetail(res.data);
         setInteriorStatus(res.data.interiorStatus);
-        setInteriorMemo(res.data.interiorMemo);
+        setInteriorMemo(res.data.interiorMemo || "");
       })
       .catch((err) => {
         console.error("작업 상세 정보 로딩 실패:", err);
