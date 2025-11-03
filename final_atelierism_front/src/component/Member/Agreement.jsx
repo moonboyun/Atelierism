@@ -121,8 +121,10 @@ const Agreement = () => {
             </p>
           </div>
           <div className="check-box">
-            <div>동의합니다</div>
-            <input type="checkbox" name="agree" onChange={checkBox1}></input>
+            <label>
+              동의합니다
+              <input type="checkbox" name="agree" onChange={checkBox1} />
+            </label>
           </div>
         </div>
 
@@ -236,8 +238,10 @@ const Agreement = () => {
             </p>
           </div>
           <div className="check-box">
-            <div>동의합니다</div>
-            <input type="checkbox" name="agree" onChange={checkBox2}></input>
+            <label>
+              동의합니다
+              <input type="checkbox" name="agree" onChange={checkBox2} />
+            </label>
           </div>
           <div className="sb-button-zone">
             <button type="button" onClick={prevPage} style={{ color: "#000" }}>
