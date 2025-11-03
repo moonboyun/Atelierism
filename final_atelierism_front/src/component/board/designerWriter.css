@@ -1,0 +1,207 @@
+/* ===========================
+   Designer Writer (white ver.)
+   구조만 피그마처럼, 배경은 전부 흰색
+   =========================== */
+
+/* 페이지 래퍼 */
+.section.designer-writer-wrap {
+  background: #fff; /* 요청: 흰색 배경 */
+  min-height: 100vh;
+  padding: 48px 16px 80px;
+  box-sizing: border-box;
+  color: #222;
+}
+
+/* 타이틀 */
+.designer-writer-wrap .page-title {
+  max-width: 1040px;
+  margin: 0 auto 16px;
+}
+.designer-writer-wrap .page-title h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #2b2b2b;
+}
+
+/* 카드 컨테이너(얇은 테두리 + 흰 배경) */
+.designer-writer-wrap .designer-card {
+  max-width: 1040px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e5e7eb; /* 얇은 선 */
+  border-radius: 8px;
+  padding: 24px;
+}
+
+/* 상단 그리드: 좌(폼) | 우(업로더 2칸) */
+.designer-writer-wrap .designer-top {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr; /* 좌측이 조금 더 넓게 */
+  gap: 24px;
+  align-items: start;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb; /* 피그마 상단 구분선 느낌 */
+}
+
+/* ---------- 좌측: 입력 폼(테이블) ---------- */
+.designer-writer-wrap .board-info-wrap {
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 6px;
+  padding: 14px 14px 6px;
+}
+
+.designer-writer-wrap .tbl.designer-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.designer-writer-wrap .tbl.designer-tbl th {
+  width: 140px;
+  text-align: left;
+  color: #666;
+  padding: 10px 10px 8px 4px;
+  vertical-align: top;
+  font-weight: 700;
+}
+
+.designer-writer-wrap .tbl.designer-tbl td {
+  padding: 8px 4px 12px;
+  vertical-align: middle;
+  border-bottom: 1px dashed #efefef; /* 피그마처럼 얇은 점선 느낌 */
+}
+
+.designer-writer-wrap .tbl.designer-tbl tr:last-child td {
+  border-bottom: 0;
+}
+
+.designer-writer-wrap .input-item input[type="text"] {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #e5e7eb; /* 한 줄 인풋 */
+  padding: 8px 6px 6px;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+}
+.designer-writer-wrap .input-item input[type="text"]:focus {
+  border-bottom-color: #8aa996; /* 포커스 색 */
+}
+
+/* 작은 캡슐 태그 */
+.designer-writer-wrap .dw-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.designer-writer-wrap .pill {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #f5f7f6;
+  border: 1px solid #e7ece9;
+  color: #2d4a41;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- 우측: 업로드(2칸) ---------- */
+.designer-writer-wrap .board-thumb-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* 업로드 박스: 고정 크기(피그마 비율), 흰 배경, 점선 테두리 */
+.designer-writer-wrap .thumb-box {
+  width: 100%;
+  height: 360px; /* 와이어프레임 비슷한 비율 */
+  background: #fff;
+  border: 1px dashed #d9d9d9;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+.designer-writer-wrap .thumb-placeholder {
+  color: #999;
+  font-size: 13px;
+}
+
+/* 선택 이미지 꽉 채우기 */
+.designer-writer-wrap .thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 박스 하단 라벨(“Before img Upload *”, “After img Upload *”) */
+.designer-writer-wrap .board-thumb-wrap .thumb-box:nth-of-type(1)::after,
+.designer-writer-wrap .board-thumb-wrap .thumb-box:nth-of-type(2)::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+}
+/* ---------- 에디터(본문) ---------- */
+.designer-writer-wrap .content-box {
+  margin-top: 18px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.designer-writer-wrap .content-box .ql-toolbar.ql-snow {
+  border-bottom: 1px solid #e5e7eb;
+}
+.designer-writer-wrap .content-box .ql-editor {
+  min-height: 280px; /* 피그마 높이감 */
+  padding: 12px 14px;
+}
+
+/* ---------- 버튼 영역 ---------- */
+.designer-writer-wrap .writer-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+.designer-writer-wrap .btn {
+  min-width: 110px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+.designer-writer-wrap .btn.ghost {
+  background: #fff;
+  border-color: #e5e7eb;
+  color: #666;
+}
+.designer-writer-wrap .btn.ghost:hover {
+  background: #f7f7f7;
+}
+.designer-writer-wrap .btn.solid {
+  background: #8aa996; /* 프로젝트 포인트색 */
+  border-color: #8aa996;
+  color: #fff;
+}
+.designer-writer-wrap .btn.solid:hover {
+  background: #7c9688;
+  border-color: #7c9688;
+}

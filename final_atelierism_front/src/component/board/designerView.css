@@ -1,0 +1,258 @@
+/* ================= DesignerView ================= */
+.designer-view-wrap {
+  width: 100%;
+  background: #fff;
+  color: var(--gray1);
+}
+
+/* ---------- Hero(상단 큰 이미지 + 오버레이 텍스트) ---------- */
+.designer-view-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #fff;
+}
+.designer-view-header .designer-view-imgbox {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  height: 450px;
+  overflow: hidden;
+}
+.designer-view-header .designer-view-title-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* 상/하 그라데이션 오버레이 */
+.designer-view-header .designer-view-imgbox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  pointer-events: none;
+}
+/* 가운데 텍스트 박스 */
+.designer-view-header .designer-view-textbox {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: 1200px;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 24px;
+  z-index: 1;
+}
+.designer-view-header .designer-view-textbox .designer-view-date {
+  display: inline-block;
+  padding: 6px 12px;
+  color: #333333;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+}
+.designer-view-header .designer-view-textbox .designer-view-title {
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  max-width: 840px;
+}
+
+/* ---------- 작성자/카테고리/견적 메타영역 ---------- */
+.designer-view-userinfo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #8aa996;
+}
+.designer-view-userinfo .designer-view-userdata {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 120px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 10px 18px;
+  padding: 20px 24px;
+}
+.designer-view-userdata .designer-view-usericon {
+  grid-row: 1 / 3;
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+.designer-view-userdata .designer-view-sponser {
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+}
+.designer-view-userdata .designer-view-oneline {
+  grid-column: 2 / 3;
+  font-size: 14px;
+  color: var(--gray3);
+  text-align: center;
+}
+.designer-view-userdata .designer-view-category {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.designer-view-userdata .designer-view-chip {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  background-color: var(--gray3);
+  color: #fff;
+}
+.designer-view-userdata .designer-view-price {
+  grid-column: 3 / 4;
+  justify-self: end;
+  font-family: number1, pr, sans-serif;
+  font-size: 18px;
+  color: #fff;
+  padding: 8px 14px;
+}
+
+/* ---------- 본문 컨텐츠 ---------- */
+.designer-view-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px 80px;
+  margin-top: 200px;
+  margin-bottom: 300px;
+  box-shadow: 0px 0px 10px 0 rgba(138, 169, 150, 0.6);
+}
+.designer-view-content .designer-view-mainbox {
+  width: 100%;
+  max-width: 800px; /* 스샷처럼 납작한 본문 폭 */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 작성자 썸네일 + 이름 */
+.designer-view-mainbox .designer-view-thumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.designer-view-mainbox .designer-view-thumb img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--gray6);
+  background: #fff;
+}
+.designer-view-mainbox .designer-view-writer {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* (옵션) Before/After 블록을 다시 쓰고 싶다면 이 네임으로 사용하세요 */
+.designer-view-mainbox .designer-view-before,
+.designer-view-mainbox .designer-view-after {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.designer-view-before .text,
+.designer-view-after .text-after {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--gray3);
+}
+.designer-view-before img,
+.designer-view-after img {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #fafafa;
+}
+
+/* 에디터(Quill) 콘텐츠 */
+.designer-view-mainbox .designer-view-body {
+  margin-top: 8px;
+  line-height: 1.85;
+  font-size: 16px;
+  color: var(--gray1);
+}
+.designer-view-mainbox .designer-view-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 14px auto;
+}
+.designer-view-mainbox .designer-view-body p {
+  margin: 10px 0;
+}
+.designer-view-mainbox .designer-view-body h1,
+.designer-view-mainbox .designer-view-body h2,
+.designer-view-mainbox .designer-view-body h3 {
+  margin: 18px 0 8px;
+  line-height: 1.35;
+}
+
+/* 기존 .img-box margin 리셋 → 새 클래스에 반영 */
+.designer-view-imgbox {
+  margin: 0;
+}
+/* 버튼 영역 */
+.btn-div {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  padding-right: 24px;
+}
+
+/* 삭제 버튼 */
+.btn-remove {
+  background-color: #8aa996; /* 브랜드 컬러 */
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* hover 시 */
+.btn-remove:hover {
+  background-color: #7f9b8a; /* 살짝 어두운 톤 */
+  transform: translateY(-2px);
+}
+
+/* 클릭 시 */
+.btn-remove:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}

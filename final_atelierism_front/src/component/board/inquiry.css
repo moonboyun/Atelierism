@@ -948,7 +948,6 @@
   color: #fff;
 }
 
-/* 관리자 답변 카드 */
 /* ===== 관리자 답변 카드 ===== */
 .admin-card {
   background: #fff;
@@ -958,7 +957,7 @@
 }
 
 /* 헤더: 타이틀 왼쪽, 배지 오른쪽 */
-.admin-card__head {
+.admin-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -969,7 +968,7 @@
 }
 
 /* 타이틀(아이콘 + 텍스트) */
-.admin-card__title {
+.admin-card-title {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -993,13 +992,13 @@
   white-space: nowrap;
 }
 .admin-badge.success {
-  background-color: #e7f3ec; /* 연한 그린 */
-  color: #2c6e55; /* 딥 그린 */
+  background-color: #e7f3ec;
+  color: #8aa996;
   border: 1px solid #cfe6d9;
 }
 
 /* 바디 */
-.admin-card__body {
+.admin-card-body {
   padding-top: 6px;
 }
 
@@ -1018,7 +1017,7 @@
   outline: none;
 }
 .admin-input:focus {
-  border-color: #8aa996; /* 사이트 톤에 맞춘 포커스 */
+  border-color: #8aa996;
   box-shadow: 0 0 0 3px rgba(138, 169, 150, 0.15);
 }
 
@@ -1059,4 +1058,79 @@
   height: auto;
   max-height: none;
   overflow: visible;
+}
+
+/* 관리자 카드 입력줄: 인풋/버튼 높이와 정렬을 통일 */
+.admin-reply-form {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+/* 입력창 고정 */
+.admin-reply-form .admin-input {
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 8px;
+}
+
+/* 버튼 고정 */
+.admin-reply-form .btn-primary.lg {
+  height: 40px !important;
+  min-width: 120px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  line-height: 1;
+  float: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===================== InquiryUpdate (수정 페이지) ===================== */
+/* 페이지 래퍼 */
+.section-update-page {
+  background: #fff; /* 상세/수정은 흰 배경으로 통일 */
+  padding: 48px 16px 80px;
+  box-sizing: border-box;
+  color: var(--ink, #2b2b2b);
+}
+
+/* 타이틀 */
+.section-update-page .page-title {
+  width: 980px;
+  max-width: 100%;
+  margin: 0 auto 16px;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--brand, #8aa996);
+}
+
+/* 카드 프레임(상단에 이미 정의된 .inquiry-card 재활용) */
+.inquiry-update-wrap {
+  width: 980px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* 입력 테이블 재사용(.inquiry-tbl) – 가독성만 살짝 보강 */
+.section-update-page .inquiry-tbl th {
+  width: 140px;
+}
+.section-update-page .inquiry-tbl input[type="text"] {
+  height: 42px;
+}
+.section-update-page .inquiry-tbl textarea {
+  min-height: 280px; /* 수정 페이지는 내용 공간 조금 넉넉히 */
+  resize: vertical;
+}
+
+/* 버튼 영역(오른쪽 정렬 공통 재활용) */
+.section-update-page .writer-btns .btn {
+  min-width: 120px; /* 수정/취소 버튼 폭 조금 넓게 */
+  height: 40px;
 }
