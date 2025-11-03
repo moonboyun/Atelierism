@@ -36,13 +36,13 @@
   font-size: 18px;
   padding-left: 10px;
 }
-.input-item > input:focus{
+.input-item > input:focus {
   border-bottom: 2px solid var(--main1);
 }
-.valid{
+.valid {
   color: var(--success);
 }
-.invalid{
+.invalid {
   color: var(--fail);
 }
 .login-button {
@@ -62,7 +62,7 @@
   transition: 0.2s;
   cursor: pointer;
 }
-.login-button > button:hover{
+.login-button > button:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
@@ -184,7 +184,7 @@
   margin-bottom: 50px;
   transition: 0.2s;
 }
-.join-button > button:hover{
+.join-button > button:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
@@ -316,7 +316,7 @@
   color: #fff;
   transition: 0.2s;
 }
-.secession-btn > button:hover{
+.secession-btn > button:hover {
   background-color: var(--gray4);
   transition: 0.2s;
 }
@@ -375,7 +375,7 @@
   margin-right: 30px;
   transition: 0.3s;
 }
-.update-btn > button:first-child:hover{
+.update-btn > button:first-child:hover {
   background-color: var(--gray4);
   transition: 0.3s;
 }
@@ -384,7 +384,7 @@
   font-size: 18px;
   transition: 0.3s;
 }
-.update-btn > button:last-child:hover{
+.update-btn > button:last-child:hover {
   background-color: var(--btnHover);
   transition: 0.3s;
 }
@@ -600,6 +600,7 @@
 }
 .recovery-btn {
   text-align: center;
+  margin-bottom: 50px;
 }
 .recovery-btn > button {
   border: 1px solid #8aa996;
@@ -661,7 +662,7 @@
   margin-left: 30px;
   transition: 0.2s;
 }
-.de-designerInfoFrm:hover{
+.de-designerInfoFrm:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
