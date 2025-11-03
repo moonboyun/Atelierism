@@ -1,9 +1,7 @@
-// Intro.jsx (좋아요 기능 완전 제거)
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./designer.css";
-import { Link } from "react-router-dom"; // useNavigate는 이제 필요 없습니다
+import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoginState } from "../utils/RecoilData";
 import PageNavigation from "../utils/PageNavigation";
