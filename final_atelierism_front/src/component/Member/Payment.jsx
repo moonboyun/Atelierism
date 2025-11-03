@@ -111,7 +111,11 @@ const Payment = () => {
                         <p>가격: {item.interiorPrice.toLocaleString()}원</p>
                         <p>
                           디자이너 채팅:{" "}
-                          <a href={`${item.designerChat}`} target="_blank">
+                          <a
+                            href={`${item.designerChat}`}
+                            target="_blank"
+                            id="sb-designer-chat"
+                          >
                             {item.designerChat}
                           </a>
                         </p>
