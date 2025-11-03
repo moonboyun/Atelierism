@@ -14,11 +14,11 @@ const Intro = () => {
   const isLogin = useRecoilValue(isLoginState);
 
   useEffect(() => {
+    axios;
     axios
       .get(`${backServer}/designer/list?reqPage=${reqPage}`)
       .then((res) => {
         setDesignerList(res.data.designerList);
-
         setPi(res.data.pi);
       })
       .catch((err) => {
