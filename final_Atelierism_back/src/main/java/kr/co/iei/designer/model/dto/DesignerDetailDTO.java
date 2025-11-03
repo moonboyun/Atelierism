@@ -25,6 +25,9 @@ public class DesignerDetailDTO {
     private String designerIntroduce;
     private String designerBank;
     private String designerAccount;
+    private String memberEmail;
+    private String memberPhone;
+    private String memberAddr;
 
     private List<CareerDetailDTO> careerList;
     private List<AwardsCareerDTO> awardList;
