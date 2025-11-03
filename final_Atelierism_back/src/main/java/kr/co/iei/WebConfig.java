@@ -42,9 +42,13 @@ public class WebConfig implements WebMvcConfigurer, WebSocketConfigurer{
 	    registry.addResourceHandler("/board/inquiry/content/**")
 	            .addResourceLocations("file:///" + root + "/inquiry/content/");
 	    
-	 // 회원 프로필 이미지 매핑
+	    // 회원 프로필 이미지 매핑
 	    registry.addResourceHandler("/memberProfile/**")
         .addResourceLocations("file:///" + root + "/memberProfile/");
+	    
+	    // 디자이너 프로필 이미지
+	    registry.addResourceHandler("/designer/profile/**")
+	            .addResourceLocations("file:///" + root + "/memberProfile/");
 	}
 	
 }// WebConfig
