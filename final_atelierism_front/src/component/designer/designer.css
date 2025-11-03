@@ -147,7 +147,7 @@
   background-color: #fbebeb;
   border-color: #f4cccc;
 }
-.de-frm-btn-remove > span{
+.de-frm-btn-remove > span {
   font-size: 20px;
   color: #c23b22;
 }
@@ -173,7 +173,7 @@
   color: white;
   transition: 0.2s;
 }
-.de-frm-btn-submit:hover{
+.de-frm-btn-submit:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
@@ -183,7 +183,7 @@
   color: #555;
   transition: 0.2s;
 }
-.de-frm-btn-cancel:hover{
+.de-frm-btn-cancel:hover {
   background-color: var(--gray5);
   transition: 0.2s;
 }
@@ -330,6 +330,9 @@
 .de-detail-profile-img {
   width: 100%;
   height: 100%;
+  display: flex;
+  gap: 40px;
+  align-items: center;
   object-fit: cover;
 }
 .de-detail-profile-img img {
@@ -809,7 +812,7 @@
   border-color: #8aa996;
   transition: 0.2s;
 }
-.btn-submit:hover{
+.btn-submit:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
@@ -819,7 +822,7 @@
   border-color: #e0e0e0;
   transition: 0.2s;
 }
-.btn-cancel:hover{
+.btn-cancel:hover {
   background-color: var(--gray5);
   transition: 0.2s;
 }
@@ -829,7 +832,7 @@
   border-color: #c2a68c;
   transition: 0.2s;
 }
-.btn-review:hover{
+.btn-review:hover {
   background-color: #a77f5a;
   transition: 0.2s;
 }
@@ -960,7 +963,7 @@
   font-weight: 500;
   transition: 0.2s;
 }
-.de-info-btn-update:hover{
+.de-info-btn-update:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
@@ -1113,7 +1116,7 @@
   background-color: #fbebeb;
   border-color: #f4cccc;
 }
-.de-info-update-btn-remove > span{
+.de-info-update-btn-remove > span {
   font-size: 20px;
   color: #c23b22;
 }
@@ -1140,7 +1143,7 @@
   color: white;
   transition: 0.2s;
 }
-.de-info-update-btn-submit:hover{
+.de-info-update-btn-submit:hover {
   background-color: var(--btnHover);
   transition: 0.2s;
 }
@@ -1150,7 +1153,7 @@
   color: #555;
   transition: 0.2s;
 }
-.de-info-update-btn-cancel:hover{
-background-color: var(--gray5);
-transition: 0.2s;
+.de-info-update-btn-cancel:hover {
+  background-color: var(--gray5);
+  transition: 0.2s;
 }

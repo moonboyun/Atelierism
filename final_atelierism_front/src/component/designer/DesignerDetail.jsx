@@ -42,13 +42,13 @@ const DesignerDetail = () => {
             }
             alt={`${designer.memberName} 디자이너 프로필`}
           />
-        </div>
-        <div className="de-detail-profile-info">
-          <h1 className="de-detail-name">{designer.memberName}</h1>
-          <p className="de-detail-introduce">{designer.designerIntroduce}</p>
-          <div className="de-detail-tags">
-            <span>#경력 {designer.designerCareer}년</span>
-            <span>#나이 {designer.designerAge}세</span>
+          <div className="de-detail-profile-info">
+            <h1 className="de-detail-name">{designer.memberName}</h1>
+            <p className="de-detail-introduce">{designer.designerIntroduce}</p>
+            <div className="de-detail-tags">
+              <span>#경력 {designer.designerCareer}년</span>
+              <span>#나이 {designer.designerAge}세</span>
+            </div>
           </div>
         </div>
       </div>
