@@ -95,7 +95,7 @@
                     i.interior_customer,
                     m.member_name AS customer_name,
                     i.interior_living, i.interior_kitchen, i.interior_bed,
-                    i.interior_oneroom, i.interior_kidroom, i.interior_study,
+                    i.interior_oneroom, i.interior_kidroom, i.interior_study, i.interior_range,
                     i.interior_why, i.interior_payment_date, i.interior_no,
                     NVL(d.interior_status, 0) AS interior_status
                 FROM interior_tbl i

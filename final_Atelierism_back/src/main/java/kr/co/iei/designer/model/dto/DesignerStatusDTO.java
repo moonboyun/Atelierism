@@ -21,6 +21,7 @@ public class DesignerStatusDTO {
     private int interiorStudy;
     private String interiorWhy; 
     private String interiorPaymentDate; 
+    private int interiorRange;
 
     private int interiorNo;
     private int interiorStatus; 

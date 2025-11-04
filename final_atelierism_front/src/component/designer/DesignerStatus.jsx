@@ -63,6 +63,19 @@ const DesignerStatus = () => {
     return spaces.join(", ");
   };
 
+  const getRangeString = (rangeValue) => {
+    if (rangeValue === 1) {
+      return "새롭게";
+    }
+    if (rangeValue === 2) {
+      return "일부 가구 유지";
+    }
+    if (rangeValue === 3) {
+      return "가구 유지, 배치 위주";
+    }
+    return "정보 없음";
+  };
+
   return (
     <div className="de-status-wrap">
       <div className="de-status-content">
@@ -128,7 +141,7 @@ const DesignerStatus = () => {
                   >
                     <td>{item.customerName}</td>
                     <td>{getSpaceString(item)}</td>
-                    <td>{getSpaceString(item)}</td>
+                    <td>{getRangeString(item.interiorRange)}</td>
                     <td>{item.interiorWhy}</td>
                     <td>{item.interiorPaymentDate}</td>
                     <td>{item.interiorStatus === 0 ? "작업중" : "완료"}</td>
