@@ -20,6 +20,7 @@ const DesignerStatusDetail = () => {
     axios
       .get(`${backServer}/designer/status/detail/${interiorNo}`)
       .then((res) => {
+        console.log(res);
         setDetail(res.data);
         setInteriorStatus(res.data.interiorStatus);
         setInteriorMemo(res.data.interiorMemo || "");
@@ -54,12 +55,12 @@ const DesignerStatusDetail = () => {
     if (!item) return "";
 
     const spaces = [];
-    if (item.interiorLiving === 1) spaces.push("거실");
-    if (item.interiorKitchen === 1) spaces.push("부엌");
-    if (item.interiorBed === 1) spaces.push("침실");
-    if (item.interiorOneroom === 1) spaces.push("원룸");
-    if (item.interiorKidroom === 1) spaces.push("아이방");
-    if (item.interiorStudy === 1) spaces.push("서재");
+    if (item.interiorLiving !== 0) spaces.push("거실");
+    if (item.interiorKitchen !== 0) spaces.push("부엌");
+    if (item.interiorBed !== 0) spaces.push("침실");
+    if (item.interiorOneroom !== 0) spaces.push("원룸");
+    if (item.interiorKidroom !== 0) spaces.push("아이방");
+    if (item.interiorStudy !== 0) spaces.push("서재");
 
     if (spaces.length === 0) {
       return "정보 없음";
