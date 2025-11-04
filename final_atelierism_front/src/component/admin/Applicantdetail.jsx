@@ -18,7 +18,6 @@ const Applicantdetail = () => {
         `${import.meta.env.VITE_BACK_SERVER}/admin/detail?memberId=${memberId}`
       )
       .then((res) => {
-        console.log("이거", res);
         setMemberAward(res.data.applicantAward);
         setMemberCareer(res.data.applicantCareer);
         setMemberPropfile(res.data.applicantDetail[0]);
