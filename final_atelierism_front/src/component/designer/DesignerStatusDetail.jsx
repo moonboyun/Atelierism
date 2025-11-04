@@ -20,7 +20,6 @@ const DesignerStatusDetail = () => {
     axios
       .get(`${backServer}/designer/status/detail/${interiorNo}`)
       .then((res) => {
-        console.log(res);
         setDetail(res.data);
         setInteriorStatus(res.data.interiorStatus);
         setInteriorMemo(res.data.interiorMemo || "");
@@ -95,7 +94,6 @@ const DesignerStatusDetail = () => {
             <tr>
               <th>고객명</th>
               <td>
-                {console.log(detail)}
                 <input type="text" value={detail.customerName} readOnly />
               </td>
             </tr>
