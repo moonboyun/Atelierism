@@ -24,6 +24,8 @@ const ReviewModalApp = ({ onClose, board, memberId }) => {
       showCancelButton: true,
       confirmButtonText: "삭제하기",
       cancelButtonText: "취소",
+      reverseButtons: true,
+      confirmButtonColor: " #8aa996",
     }).then((select) => {
       if (select.isConfirmed) {
         axios

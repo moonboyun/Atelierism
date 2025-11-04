@@ -23,7 +23,7 @@ const InteriorPaySuccess = () => {
         console.log(err);
       });
   }, []);
-
+  useEffect(() => window.scrollTo(0, 0), []);
   // 🎉 폭죽 효과 함수
   const handleConfetti = () => {
     const duration = 1500;
