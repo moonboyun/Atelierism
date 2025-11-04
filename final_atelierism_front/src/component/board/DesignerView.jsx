@@ -118,9 +118,7 @@ const DesignerView = () => {
             <img
               src={
                 designerBoardList.memberThumb !== null
-                  ? `${
-                      import.meta.env.VITE_BACK_SERVER
-                    }/board/designerReview/before/${
+                  ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
                       designerBoardList.memberThumb
                     }`
                   : "/image/default_image.png"
