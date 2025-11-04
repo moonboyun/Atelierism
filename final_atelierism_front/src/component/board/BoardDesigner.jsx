@@ -40,7 +40,7 @@ const BoardDesigner = () => {
           />
           <h3 className="img-text">Interior Idea</h3>
           <p className="img-text">
-            Atelierism은 인테리어를 고민중이지만 시공은 부담스러운 분들을 위한
+            Atelierism은 인테리어를 고민중이지만 대면은 부담스러운 분들을 위한
             비대면 홈스타일링 서비스입니다. 가장 쉬운 홈스타일링 서비스
             Atelierism
           </p>
@@ -66,16 +66,13 @@ const BoardDesigner = () => {
               <div className="center-box">
                 <span className="title">Same space, different feeling</span>
                 <span className="text">Before & After</span>
-                <span
-                  className="thumbnail"
-                  style={{ width: "30px", height: "30px" }}
-                >
+                <span className="thumbnail">
                   <img
                     src={
                       designer.memberThumb !== null
-                        ? `${
-                            import.meta.env.VITE_BACK_SERVER
-                          }/board/designerReview/before/${designer.memberThumb}`
+                        ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+                            designer.memberThumb
+                          }`
                         : "/image/default_image.png"
                     }
                   ></img>
