@@ -75,7 +75,7 @@ const BoardDesigner = () => {
                       designer.memberThumb !== null
                         ? `${
                             import.meta.env.VITE_BACK_SERVER
-                          }/board/designerReview/before/${designer.memberThumb}`
+                          }/board/memberProfile/${designer.memberThumb}`
                         : "/image/default_image.png"
                     }
                   ></img>
