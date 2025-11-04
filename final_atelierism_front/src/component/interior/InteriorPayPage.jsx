@@ -710,34 +710,41 @@ const DesignerInfo = (props) => {
     (member) => member.memberId === updateInterior.interiorDesigner
   );
 
+  const scrollRef = useRef();
+  useEffect(() => {
+    scrollToBottom();
+  }, [moreDesigner]);
 
-   const scrollRef = useRef();
-   useEffect(() => {
-        scrollToBottom();
-    }, [moreDesigner]);
- 
-    const scrollToBottom = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-        }
-    }; //디자이너 더보기 버튼 누를 시 스크롤 밑으로 고정 기능
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }; //디자이너 더보기 버튼 누를 시 스크롤 밑으로 고정 기능
 
   const handleMouseEnter = () => {
     // 마우스가 요소 위로 진입했을 때 스크롤 방지
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const handleMouseLeave = () => {
     // 마우스가 요소에서 벗어났을 때 스크롤 허용
-    document.body.style.overflow = 'unset'; // 또는 'scroll', 'auto'
+    document.body.style.overflow = "unset"; // 또는 'scroll', 'auto'
   };
+  console.log(selectedDesigner);
+  console.log(selectedMember);
 
   return (
     <div className="designerI-info-box">
       <div className="designerI-title">디자이너 선택</div>
-        {selectedDesigner && selectedMember && (
+      {selectedDesigner && selectedMember && (
         <div className="selected-designer-box">
-          <img src="/image/default_image.png" />
+          <img
+            src={
+              selectedMember.memberThumb
+                ? `/image/${selectedMember.memberThumb}`
+                : "/image/default_image.png"
+            }
+          />
           <div className="designerI-info">
             <div className="designerI-name-career">
               <span>{selectedMember.memberName}</span>
@@ -749,11 +756,12 @@ const DesignerInfo = (props) => {
           </div>
         </div>
       )}
-      <div className="designerI-items" ref={scrollRef} 
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}>
-
-
+      <div
+        className="designerI-items"
+        ref={scrollRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {designerList.slice(0, moreDesigner).map((designer, index) => {
           const matchedMember = memberList.find(
             (member) => member.memberId === designer.memberId
@@ -776,7 +784,11 @@ const DesignerInfo = (props) => {
                   onChange={designerCheck}
                   style={{ display: "none" }}
                 ></input>
-                <img src="/image/default_image.png" />
+                {matchedMember.memberThumb ? (
+                  <img src={`/image/${matchedMember.memberThumb}`} />
+                ) : (
+                  <img src="/image/default_image.png" />
+                )}
                 <div className="designerI-info">
                   <div className="designerI-name-career">
                     <span>{matchedMember.memberName}</span>
