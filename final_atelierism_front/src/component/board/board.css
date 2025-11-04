@@ -766,7 +766,7 @@ section .board-content-wrap {
 
 /* 컨텐츠 */
 .board-content-wrap p > img {
-  max-width: 700px;
+  max-width: 650px;
 }
 
 /* 삭제 버튼 */
