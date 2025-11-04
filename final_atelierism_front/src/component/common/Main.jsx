@@ -94,12 +94,9 @@ const Main = () => {
   }, []);
 
   //페이지 이동 시 맨 위로 유지하는 기능
-  useEffect(() =>
-	window.scrollTo(0, 0)
-   	, [])
+  useEffect(() => window.scrollTo(0, 0), []);
 
-
-    // 클릭하면 스크롤이 위로 올라가는 함수
+  // 클릭하면 스크롤이 위로 올라가는 함수
   const handleTop = () => {
     window.scrollTo({
       top: 0,
@@ -292,9 +289,7 @@ const Main = () => {
           className="top-btn"
           onClick={handleTop} // 버튼 클릭시 함수 호출
         >
-          <span className="material-symbols-outlined">
-            vertical_align_top
-          </span>
+          <span className="material-symbols-outlined">vertical_align_top</span>
         </button>
       </div>
     </section>

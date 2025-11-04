@@ -126,6 +126,7 @@ const MemberJoin = () => {
               text: "회원가입이 성공적으로 완료되었습니다!",
               icon: "success",
               confirmButtonText: "확인",
+              confirmButtonColor: "#40C79C",
             }).then(() => {
               navigate("/"); // 확인 누르면 메인으로 이동
             });

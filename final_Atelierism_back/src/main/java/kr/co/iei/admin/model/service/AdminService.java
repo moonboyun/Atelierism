@@ -35,7 +35,6 @@ public class AdminService {
 		salesStateList.put("subscriberMonth", subscriberMonth);
 		salesStateList.put("pl", pl);
 		salesStateList.put("spaceTotal", spaceTotal);
-		System.out.println(spaceTotal);
 		return salesStateList;
 	}
 	
@@ -140,7 +139,6 @@ public class AdminService {
 	}
 
 	public List chartSelect(int chartOrder) {
-		System.out.println(chartOrder);
 		List chartData = adminDao.chartSelect(chartOrder);
 		return chartData;
 	}

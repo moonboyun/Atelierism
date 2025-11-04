@@ -1,17 +1,37 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import SideMenu from "../utils/SideMenu";
 import AdminSalesStatus from "./AdminSalesStatus";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminMypage from "./AdminMypage";
 import AdminList from "./AdminList";
 import Applicantdetail from "./Applicantdetail";
+import { authReadyState, memberTypeState } from "../utils/RecoilData";
+import Swal from "sweetalert2";
+import { useRecoilState } from "recoil";
 const AdminMain = () => {
   const [menus, setMenus] = useState([
+    { url: "/admin/mypage", text: "마이페이지" },
     { url: "/admin/sales", text: "매출 현황" },
     { url: "/admin/applicantList", text: "신청자 리스트" },
     { url: "/admin/designerList", text: "디자이너 리스트" },
     { url: "/admin/memberList", text: "회원 리스트" },
   ]);
+  /*const navigate = useNavigate();
+  const memberType = useRecoilState(memberTypeState);
+  const authReady = useRecoilState(authReadyState);
+  //console.log(memberType);
+  console.log(authReady);
+  useEffect(() => {
+    if (authReady === false && memberType !== 1) {
+      Swal.fire({
+        title: "관리자 페이지 입니다.",
+        text: "관지자만 접근이 가능 합니다.",
+        icon: "warning",
+      }).then(() => {
+        navigate("/");
+      });
+    }
+  }, [authReady]);*/
   return (
     <div className="admin-main-all-wrap">
       <h1>마이페이지</h1>

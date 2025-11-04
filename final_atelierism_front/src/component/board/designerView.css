@@ -105,7 +105,7 @@
 .designer-view-userdata .designer-view-oneline {
   grid-column: 2 / 3;
   font-size: 14px;
-  color: var(--gray3);
+  color: #fff;
   text-align: center;
 }
 .designer-view-userdata .designer-view-category {

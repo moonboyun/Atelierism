@@ -334,7 +334,6 @@ const MemberUpdate = () => {
                     name="memberPw"
                     value={memberPw}
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setMemberPw(e.target.value);
                     }}
                   ></input>

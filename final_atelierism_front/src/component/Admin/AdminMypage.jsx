@@ -5,6 +5,9 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { useEffect, useState } from "react";
 import AdminChart from "./AdminChart";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { authReadyState, memberTypeState } from "../utils/RecoilData";
 
 const AdminMypage = () => {
   const [menus, setMenus] = useState([
@@ -21,6 +24,24 @@ const AdminMypage = () => {
   const [topDesignerList, setTopDesignerList] = useState(null);
   const [chartOrder, setChartOrder] = useState(2); //1: 3개월, 2: 6개월, 3: 년단위
   const [chartData, setChartData] = useState(null);
+  /*
+  const navigate = useNavigate();
+  const memberType = useRecoilState(memberTypeState);
+  const authReady = useRecoilState(authReadyState);
+  //console.log(memberType);
+  console.log(authReady);
+  useEffect(() => {
+    if (authReady === false && memberType !== 1) {
+      Swal.fire({
+        title: "관리자 페이지 입니다.",
+        text: "관지자만 접근이 가능 합니다.",
+        icon: "warning",
+      }).then(() => {
+        navigate("/");
+      });
+    }
+  }, [authReady]);
+  */
   useEffect(() => {
     axios
       .get(
@@ -142,6 +163,7 @@ const AdminMypage = () => {
                 )}
                 */}
                 {topDesignerList != null &&
+                topDesignerList[0].memberName != null ? (
                   topDesignerList.map((topDesigner, i) => {
                     return (
                       <tr>
@@ -151,7 +173,10 @@ const AdminMypage = () => {
                         <td>{i + 1}등</td>
                       </tr>
                     );
-                  })}
+                  })
+                ) : (
+                  <tr></tr>
+                )}
               </table>
             </div>
           </section>

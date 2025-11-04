@@ -22,7 +22,13 @@ const BoardReview = () => {
     setReviewModal(true);
     setSelectedBoard(board);
   };
-
+  const handleTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  useEffect(() => window.scrollTo(0, 0), []);
   useEffect(() => {
     axios
       .get(
@@ -130,6 +136,14 @@ const BoardReview = () => {
           )}
         </div>
       </section>
+      <div className="top-btn-container">
+        <button
+          className="top-btn"
+          onClick={handleTop} // 버튼 클릭시 함수 호출
+        >
+          <span className="material-symbols-outlined">vertical_align_top</span>
+        </button>
+      </div>
     </div>
   );
 };

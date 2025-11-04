@@ -23,24 +23,19 @@ const MemberInfo = () => {
     setMember(newMember);
   };
   const backServer = import.meta.env.VITE_BACK_SERVER;
-  console.log(authReady);
   useEffect(() => {
     if (!authReady) {
       return;
     }
-    console.log(member);
-    console.log(memberId);
     axios
       .get(`${backServer}/member/${memberId}`)
       .then((res) => {
-        console.log(res);
         setMember(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [authReady]);
-  console.log(member);
 
   const [menus, setMenus] = useState([
     { url: "/member/mypage", text: "마이페이지" },
