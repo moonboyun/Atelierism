@@ -90,7 +90,6 @@ public class AdminController {
 	@GetMapping(value = "/chart")
 	public ResponseEntity<List> chartSelect(@RequestParam int chartOrder){
 		List chartData = adminService.chartSelect(chartOrder);
-		System.out.println(chartData);
 		return ResponseEntity.ok(chartData);
 	}
 }
