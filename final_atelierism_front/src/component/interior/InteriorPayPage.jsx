@@ -741,7 +741,9 @@ const DesignerInfo = (props) => {
           <img
             src={
               selectedMember.memberThumb
-                ? `/image/${selectedMember.memberThumb}`
+                ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+                    selectedMember.memberThumb
+                  }`
                 : "/image/default_image.png"
             }
           />
@@ -785,7 +787,11 @@ const DesignerInfo = (props) => {
                   style={{ display: "none" }}
                 ></input>
                 {matchedMember.memberThumb ? (
-                  <img src={`/image/${matchedMember.memberThumb}`} />
+                  <img
+                    src={`${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+                      matchedMember.memberThumb
+                    }`}
+                  />
                 ) : (
                   <img src="/image/default_image.png" />
                 )}
