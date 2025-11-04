@@ -142,6 +142,7 @@ const AdminMypage = () => {
                 )}
                 */}
                 {topDesignerList != null &&
+                topDesignerList[0].memberName != null ? (
                   topDesignerList.map((topDesigner, i) => {
                     return (
                       <tr>
@@ -151,7 +152,10 @@ const AdminMypage = () => {
                         <td>{i + 1}등</td>
                       </tr>
                     );
-                  })}
+                  })
+                ) : (
+                  <tr></tr>
+                )}
               </table>
             </div>
           </section>

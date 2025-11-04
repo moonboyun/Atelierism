@@ -18,7 +18,6 @@ const Applicantdetail = () => {
         `${import.meta.env.VITE_BACK_SERVER}/admin/detail?memberId=${memberId}`
       )
       .then((res) => {
-        console.log("이거", res);
         setMemberAward(res.data.applicantAward);
         setMemberCareer(res.data.applicantCareer);
         setMemberPropfile(res.data.applicantDetail[0]);
@@ -113,7 +112,15 @@ const Applicantdetail = () => {
               <div className="default-profile-wrap">
                 <div className="default-img">
                   <img
-                    src="/image/default_image.png"
+                    src={
+                      memberProfile?.memberThumb &&
+                      memberProfile.memberThumb !== "null" &&
+                      memberProfile.memberThumb !== ""
+                        ? `${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+                            memberProfile.memberThumb
+                          }?t=${Date.now()}` //캐시 방지
+                        : `${import.meta.env.BASE_URL}image/default_image.png`
+                    }
                     width={230}
                     height={230}
                   />

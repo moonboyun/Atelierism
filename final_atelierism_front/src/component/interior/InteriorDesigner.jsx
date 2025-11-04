@@ -87,7 +87,11 @@ const SelectDesigner = (props) => {
               {checkedDesigner.memberThumb == null ? (
                 <img src="/image/default_image.png" />
               ) : (
-                <img src={`/image/${checkedDesigner.memberThumb}`} />
+                <img
+                  src={`${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+                    checkedDesigner.memberThumb
+                  }`}
+                />
               )}
             </div>
             <div className="interD-checked-Designer-info">
@@ -172,7 +176,11 @@ const DesignerItem = (props) => {
         {member.memberThumb == null ? (
           <img src="/image/default_image.png" />
         ) : (
-          <img src={`/image/${member.memberThumb}`} />
+          <img
+            src={`${import.meta.env.VITE_BACK_SERVER}/memberProfile/${
+              member.memberThumb
+            }`}
+          />
         )}
         <div className="interD-info-box">
           <div>{member.memberName}</div>
